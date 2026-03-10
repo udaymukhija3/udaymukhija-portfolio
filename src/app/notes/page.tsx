@@ -4,7 +4,7 @@ import { noteEntries, notesIntro, notesPlaceholder } from "../../data/notes";
 
 export const metadata: Metadata = {
   title: "Notes",
-  description: "Interests, reading notes, and current areas of focus for Uday Mukhija.",
+  description: "Notes page for Uday Mukhija.",
   alternates: {
     canonical: "/notes",
   },
@@ -25,8 +25,8 @@ export default function NotesPage() {
         <div className="container">
           <SectionHeading
             eyebrow="Notes"
-            title="Reserved for future writing"
-            note="Nothing is published here yet."
+            title="Recent writing"
+            note="Short technical notes and project writeups."
           />
           <div className="notes-grid">
             {noteEntries.length > 0 ? (

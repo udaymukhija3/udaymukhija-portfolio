@@ -18,19 +18,16 @@ export default function ExperiencePage() {
         <div className="container page-intro-shell">
           <p className="eyebrow">Experience</p>
           <h1>Work experience</h1>
-          <p>
-            This section is short right now, but I still want it on the site. It gives context
-            beyond the project work and shows the environments where I have actually operated.
-          </p>
+          <p>This is the short version of my work history.</p>
         </div>
       </section>
 
       <section className="section section-last">
         <div className="container">
           <SectionHeading
-            eyebrow="Background"
-            title="What is here so far"
-            note="A small amount of experience is still worth presenting clearly."
+            eyebrow="Experience"
+            title="Recent work"
+            note="More detail is on the resume page."
           />
           <div className="experience-grid-home">
             {experienceItems.map((item) => (

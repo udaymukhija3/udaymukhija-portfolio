@@ -1,8 +1,7 @@
 export const notesIntro = {
   eyebrow: "Notes",
-  title: "Interests, reading, and work in progress",
-  summary:
-    "This section is reserved for short notes, reading updates, and things I am exploring outside the main project case studies.",
+  title: "Notes",
+  summary: "Short writing on backend systems, ML work, and product decisions.",
 };
 
 export const noteEntries: Array<{
@@ -14,8 +13,7 @@ export const noteEntries: Array<{
 }> = [];
 
 export const notesPlaceholder = {
-  eyebrow: "Nothing published yet",
-  title: "This section is ready when you want it",
-  summary:
-    "Right now this is just a placeholder. When you have something worth sharing, this can hold short writing about interests, current reading, or work in progress.",
+  eyebrow: "Notes",
+  title: "Technical writing",
+  summary: "Short technical notes and project writeups on backend systems, ML work, and product design.",
 };

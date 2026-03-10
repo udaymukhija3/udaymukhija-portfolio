@@ -13,7 +13,7 @@ type ActiveCategory = ProjectCategory | "all";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Project library centered on core Java backend systems and ML systems engineering case studies.",
+  description: "Project list for backend, data, and ML work by Uday Mukhija.",
   alternates: {
     canonical: "/projects",
   },
@@ -41,11 +41,9 @@ export default async function ProjectsPage({
       <section className="section page-intro">
         <div className="container page-intro-shell">
           <p className="eyebrow">Projects</p>
-          <h1>Project library</h1>
+          <h1>Projects</h1>
           <p>
-            A proof-first library centered on two themes: Core Java backend systems and ML systems
-            engineering. Every project page includes role fit, ownership, tradeoffs, and evidence
-            notes.
+            These are the main projects on the site. Use the filters if you want a smaller list.
           </p>
         </div>
       </section>
@@ -53,9 +51,9 @@ export default async function ProjectsPage({
       <section className="section">
         <div className="container">
           <SectionHeading
-            eyebrow="Project Library"
-            title="Start with the projects that map best to target roles"
-            note="If you only read four, start with Event-Driven Inventory Analytics, Gathr, Kalshi Prediction Market Analytics Platform, and Enefit Forecasting."
+            eyebrow="Project List"
+            title="Start with these"
+            note="If you only read a few, start with Event-Driven Inventory, Gathr, Kalshi, and Enefit."
           />
 
           <div className="library-note">
@@ -87,7 +85,7 @@ export default async function ProjectsPage({
                 <SectionHeading
                   eyebrow="Flagship Work"
                   title="Start here"
-                  note="These are the clearest signals for core Java backend roles on one side and ML systems engineering roles on the other."
+                  note="These are the strongest projects on the site."
                 />
                 <div className="project-detail-grid">
                   {flagshipProjects.map((project) => (
@@ -98,9 +96,9 @@ export default async function ProjectsPage({
 
               <div className="library-section">
                 <SectionHeading
-                  eyebrow="Additional Systems"
-                  title="More ML and data-platform work"
-                  note="Useful supporting evidence for applied ML, data-intensive backend, and platform-heavy conversations."
+                  eyebrow="More Work"
+                  title="The rest of the project list"
+                  note="More ML and data projects."
                 />
                 <div className="project-detail-grid">
                   {additionalProjects.map((project) => (

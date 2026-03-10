@@ -115,8 +115,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="container project-story-shell">
           <div className="project-story-grid">
             <article className="story-card">
-              <p className="eyebrow">Project signal</p>
-              <h2>What this project proves</h2>
+              <p className="eyebrow">Overview</p>
+              <h2>What it does</h2>
               <p>{project.summary}</p>
               <ul className="story-list">
                 {project.highlights.map((highlight) => (
@@ -126,8 +126,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             </article>
 
             <aside className="story-card">
-              <p className="eyebrow">System map</p>
-              <h2>How the system is shaped</h2>
+              <p className="eyebrow">System</p>
+              <h2>Main parts</h2>
               <div className="system-grid">
                 {project.system.map((item) => (
                   <div key={item.label} className="system-card">
@@ -147,7 +147,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 ))}
               </div>
               {project.links.length === 0 ? (
-                <p className="card-proof-note">No public repo is linked for this case study.</p>
+                <p className="card-proof-note">No public repo is linked for this project.</p>
               ) : null}
             </aside>
           </div>

@@ -1,10 +1,9 @@
 export const resumeSummary = {
   eyebrow: "Resume",
-  title: "Core Java backend engineer with strong ML systems instincts",
+  title: "Software engineer focused on backend and ML systems",
   intro:
-    "I build Java backend systems and ML-heavy data workflows with a bias for clean contracts, sensible scope, and engineering decisions that survive scrutiny.",
-  note:
-    "Best fit for core Java backend, backend platform, and ML systems roles where implementation quality and system thinking both matter.",
+    "I build backend services, data pipelines, and ML projects. This page is the short version of the site.",
+  note: "Best fit for backend, platform, and ML engineering roles.",
 };
 
 export const skillGroups = [
@@ -13,7 +12,7 @@ export const skillGroups = [
     items: ["Java", "Python", "TypeScript", "SQL"],
   },
   {
-    label: "Core Java backend",
+    label: "Backend",
     items: ["Spring Boot", "PostgreSQL", "Redis", "Kafka", "WebSocket"],
   },
   {
@@ -28,25 +27,14 @@ export const skillGroups = [
 
 export const experienceItems = [
   {
-    company: "Gathr",
-    role: "Founder and lead engineer",
-    period: "2024 - present",
-    location: "Toronto / remote",
-    bullets: [
-      "Built and owned a Java-first product system spanning Spring Boot APIs, trust signals, realtime coordination, and ranking-aware product behavior.",
-      "Used the project to practice backend ownership end to end: service contracts, fallback paths, instrumentation, data flows, and rollout controls.",
-      "Strongest experience signal for startup environments where product ambiguity and backend execution have to coexist.",
-    ],
-  },
-  {
     company: "MyNotedApp",
     role: "Software development engineer",
     period: "2024",
     location: "Toronto",
     bullets: [
-      "Worked on backend delivery during a migration from a no-code stack to a normalized PostgreSQL-backed system with cleaner operational boundaries.",
-      "Built FastAPI-driven processing flows and product-facing UI while tightening the data model and the migration story.",
-      "Useful work-experience proof for application performance, migration safety, and pragmatic backend shipping.",
+      "Worked on a migration from a no-code stack to a PostgreSQL-backed system.",
+      "Built FastAPI flows and product-facing UI while cleaning up the data model.",
+      "Good experience in migration work, backend delivery, and pragmatic shipping.",
     ],
   },
 ];
@@ -55,28 +43,28 @@ export const resumeProjects = [
   {
     title: "Event-Driven Inventory Analytics",
     href: "/projects/inventory-analytics-platform",
-    summary: "Core Java backend and platform case study built around transactional writes, Kafka events, and analytical materialization.",
+    summary: "Inventory service with transactional writes, Kafka events, and analytics outputs.",
     bullets: [
-      "Best pure backend signal in the portfolio.",
-      "Shows event-driven architecture, service boundaries, and honest handling of an incomplete serving path.",
+      "Best backend project on the site.",
+      "Shows event-driven design and a clear note about what is still incomplete.",
     ],
   },
   {
     title: "Gathr",
     href: "/projects/gathr",
-    summary: "Java-backed product system centered on trust, commitments, recommendation events, and resilient realtime coordination.",
+    summary: "Social planning app with mobile flows, backend APIs, chat, and recommendation events.",
     bullets: [
-      "Useful startup signal because it combines product ambiguity with clear backend ownership.",
-      "Shows Java backend judgment without reading like a generic CRUD project.",
+      "Best example of product work plus backend ownership.",
+      "More useful than a generic CRUD project because it has real product constraints.",
     ],
   },
   {
     title: "Kalshi Prediction Market Analytics Platform",
     href: "/projects/kalshi-prediction-platform",
-    summary: "ML platform case study focused on calibration-aware evaluation, feature-serving boundaries, and stream-processing scale-up paths.",
+    summary: "ML platform case study with data modeling, evaluation, model serving, and a realtime path.",
     bullets: [
-      "Best signal for ML systems thinking and engineering maturity.",
-      "Useful if the reviewer cares about data modeling, evaluation discipline, and serving boundaries.",
+      "Best high-level ML systems case study on the site.",
+      "Useful if the role cares about evaluation and serving design.",
     ],
   },
 ];

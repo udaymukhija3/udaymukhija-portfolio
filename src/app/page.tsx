@@ -39,7 +39,7 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: siteConfig.name,
-    jobTitle: "Core Java Backend and ML Systems Engineer",
+    jobTitle: "Software Engineer",
     url: siteUrl,
     address: {
       "@type": "PostalAddress",
@@ -56,19 +56,18 @@ export default function HomePage() {
       <section className="hero section">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Core Java Backend and ML Systems Engineer</p>
-            <h1>I build Java backend systems and ML workflows that hold up under real constraints.</h1>
+            <p className="eyebrow">Software Engineer</p>
+            <h1>I build backend systems and ML projects.</h1>
             <p className="lead">
-              My work is centered on two areas: Core Java backend engineering and ML systems
-              engineering. Recent projects include Spring Boot services, event-driven inventory,
-              ranking systems, forecasting pipelines, and feature-serving boundaries.
+              Most of my work sits in three areas: Java backend services, data pipelines, and ML
+              systems. This site is a simple overview of the projects I think are worth showing.
             </p>
             <p className="availability-note">
-              Best fit: core Java backend, backend platform, and ML systems engineering roles.
+              Open to backend, platform, and ML engineering roles.
             </p>
             <div className="cta-row">
               <Link className="button button-solid" href="/projects">
-                View Selected Work
+                View Projects
               </Link>
               {isResumeExternal ? (
                 <a className="button button-ghost" {...resumeProps}>
@@ -92,8 +91,8 @@ export default function HomePage() {
               <Link className="inline-link" href="/projects/gathr">
                 Gathr
               </Link>
-              <Link className="inline-link" href="/projects/kalshi-prediction-platform">
-                Kalshi Platform
+              <Link className="inline-link" href="/projects/habit-tracker-social">
+                Habit Tracker
               </Link>
             </div>
           </div>
@@ -115,9 +114,9 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <SectionHeading
-            eyebrow="Two Pillars"
-            title="Core Java backend on one side, ML systems engineering on the other"
-            note="That is the structure of the portfolio."
+            eyebrow="Main Areas"
+            title="Backend work and ML work"
+            note="Those are the two main themes of the portfolio."
           />
           <div className="pillar-grid">
             {pillarCards.map((pillar) => (
@@ -142,7 +141,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Selected Work"
             title="Start with these projects"
-            note="They are the clearest representation of the two core areas."
+            note="These are the best places to start."
           />
           <div className="project-grid">
             {featuredProjects.map((project) => (
@@ -157,7 +156,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Work Experience"
             title="Work experience"
-            note="A short version lives here even if the resume is shared separately."
+            note="Short version here. Full details on the resume page."
           />
           <div className="experience-grid-home">
             {experienceItems.map((item) => (
@@ -191,8 +190,8 @@ export default function HomePage() {
       <section className="section">
         <div className="container about-shell">
           <div className="about-copy">
-            <p className="eyebrow">How I Work</p>
-            <h2>Clear backend boundaries, disciplined ML systems thinking.</h2>
+            <p className="eyebrow">Approach</p>
+            <h2>I like simple systems and clear boundaries.</h2>
             <p className="body-copy">{aboutBlurb}</p>
             <div className="inline-link-row">
               <Link className="inline-link" href="/projects">
@@ -227,8 +226,8 @@ export default function HomePage() {
         <div className="container">
           <SectionHeading
             eyebrow="Notes"
-            title="Interests, reading, and work in progress"
-            note="This is just a placeholder for now."
+            title="Notes"
+            note="Short writing on systems, ML work, and product decisions."
           />
           <div className="notes-grid">
             {noteEntries.length > 0 ? (
@@ -264,11 +263,10 @@ export default function HomePage() {
         <div className="container">
           <div className="contact-card">
             <p className="eyebrow">Contact</p>
-            <h2>Hiring for core Java backend or ML systems work?</h2>
+            <h2>Want to work together?</h2>
             <p className="contact-copy">
-              Email is best. If you want the fastest scan first, start with Event-Driven Inventory
-              Analytics, Gathr, Kalshi Prediction Market Analytics Platform, and Enefit Forecasting,
-              then jump to GitHub or the resume.
+              Email is the best way to reach me. If you want the quick version, start with
+              Event-Driven Inventory, Gathr, Kalshi, and Enefit, then check GitHub or the resume.
             </p>
             <div className="contact-links">
               {contactLinks.map((link) => {

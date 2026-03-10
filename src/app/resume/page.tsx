@@ -12,7 +12,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Resume",
-  description: "Resume view for Uday Mukhija covering role fit, experience, selected projects, and skills.",
+  description: "Resume page for Uday Mukhija.",
   alternates: {
     canonical: "/resume",
   },
@@ -31,7 +31,7 @@ export default function ResumePage() {
           <p>{resumeSummary.intro}</p>
           <p className="detail-note">{resumeSummary.note}</p>
           {isResumeExternal ? (
-            <p className="detail-note">A shareable resume document can live behind the Resume link while this page stays available as the structured website version.</p>
+            <p className="detail-note">The Resume link can also point to a separate document.</p>
           ) : null}
           <div className="cta-row">
             {profileLinks.map((link) => {
@@ -55,7 +55,7 @@ export default function ResumePage() {
 
       <section className="section">
         <div className="container resume-grid">
-          <section className="resume-card">
+          <section id="experience" className="resume-card">
             <p className="eyebrow">Experience</p>
             <h2>Recent work</h2>
             <div className="resume-stack">
@@ -100,8 +100,8 @@ export default function ResumePage() {
         <div className="container">
           <SectionHeading
             eyebrow="Selected Projects"
-            title="Projects that map cleanly to target roles"
-            note="These are the portfolio entries I would want a hiring manager to read first if the role leans Java backend or ML systems."
+            title="Projects to start with"
+            note="These are the best first reads on the site."
           />
           <div className="resume-project-grid">
             {resumeProjects.map((project) => (
@@ -145,11 +145,10 @@ export default function ResumePage() {
 
           <section className="resume-card">
             <p className="eyebrow">Contact</p>
-            <h2>Fastest way to evaluate fit</h2>
+            <h2>Start here</h2>
             <p>
-              Read the backend and ML flagship case studies, scan GitHub for implementation
-              quality, then reach out by email if the role leans Java backend, backend platform, or
-              ML systems.
+              Start with the strongest projects, then look at GitHub or the resume document if you
+              want more detail.
             </p>
             <div className="inline-link-row">
               <Link className="inline-link" href="/projects/inventory-analytics-platform">

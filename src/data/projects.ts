@@ -8,10 +8,8 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "product",
     year: "2025",
-    summary:
-      "Solo-built social planning product focused on a hard problem: getting users from lightweight interest to actual attendance.",
-    description:
-      "A full-stack product case study about trust, commitments, ranking inputs, and resilient realtime coordination.",
+    summary: "Social planning app built around the gap between interest and actual attendance.",
+    description: "Solo product build with mobile flows, Spring Boot APIs, chat, and simple recommendation logic.",
     metrics: [
       { label: "North star", value: "Attendance" },
       { label: "Realtime", value: "WS -> polling" },
@@ -20,59 +18,51 @@ export const projects: Project[] = [
     ],
     facts: [
       { label: "Scope", value: "Solo product prototype" },
-      { label: "Role", value: "Product, backend, mobile, ranking systems" },
-      { label: "Status", value: "Self-directed build with public repo" },
-      { label: "Proof", value: "End-to-end flows and documented architecture" },
-      { label: "What I owned", value: "Discovery, chat, trust systems, API contracts" },
-      { label: "Best fit", value: "Startup full-stack and product-minded backend roles" },
+      { label: "Role", value: "Product, backend, mobile" },
+      { label: "Status", value: "Public repo" },
+      { label: "Proof", value: "End-to-end flows and architecture notes" },
+      { label: "What I owned", value: "Discovery, chat, trust features, APIs" },
+      { label: "Best fit", value: "Startup product and backend roles" },
     ],
     system: [
-      { label: "Mobile surface", value: "Discovery, commitments, trust cues, and group chat" },
-      { label: "Core backend", value: "Spring Boot APIs, Postgres, Redis, flags, messaging" },
-      { label: "Decision layer", value: "Recommendation events, ranking inputs, notification gating" },
-      { label: "Reliability layer", value: "Fallback-first chat and rollout controls" },
+      { label: "Mobile app", value: "Discovery, commitments, trust cues, and chat" },
+      { label: "Backend", value: "Spring Boot APIs, Postgres, Redis, flags, messaging" },
+      { label: "Recommendations", value: "Shared event model and ranking inputs" },
+      { label: "Fallbacks", value: "Polling fallback and rollout controls" },
     ],
-    evidenceNote:
-      "This is a public solo build. The strongest signal here is product framing, system design, and end-to-end ownership, not proof of live production scale.",
+    evidenceNote: "Public repo. Good signal for product thinking and end-to-end implementation, not for scale.",
     highlights: [
-      "Framed the product around attendance rather than shallow engagement.",
-      "Combined discovery, micro-commitments, trust signals, and realtime chat into one coherent system.",
-      "Treated recommendation events and notification gating as product infrastructure, not side details.",
-      "Added fallbacks and rollout controls so degraded conditions stay visible and survivable.",
+      "Built the product around attendance instead of raw activity.",
+      "Connected discovery, commitments, trust cues, and chat in one app.",
+      "Used shared recommendation events across multiple surfaces.",
+      "Added fallbacks and feature flags to keep the app usable during changes.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "Gathr started from a product question that felt more interesting than a standard event app: why do people drop off between saying they are interested and actually showing up? That pushed the project toward trust, coordination, and behavior design rather than just feed mechanics.",
-          "I built it as a full-stack product prototype so I could work through the whole system: mobile flows, backend contracts, discovery logic, chat, and the instrumentation needed to reason about attendance as the real outcome.",
+          "Gathr started with a simple question: why do people say they are interested in an event but do not show up?",
+          "I built it as a full-stack product so I could work through the mobile UX, backend APIs, chat, and recommendation logic in one system.",
         ],
       },
       {
-        title: "Key decisions",
+        title: "Main choices",
         paragraphs: [
-          "The main product decision was to treat attendance as the north star. That led to features like micro-commitments, visible reliability, trust-aware discovery, and notification value gating rather than generic engagement loops.",
-          "The main engineering decision was to define a canonical recommendation event contract so feed, search, and related surfaces could share the same behavioral pipeline. That is the kind of contract work I want more of in real product teams.",
+          "The main product choice was to optimize for attendance, not just clicks or interest.",
+          "On the backend side, I used a shared recommendation event model so multiple screens could rely on the same logic.",
         ],
       },
       {
-        title: "Tradeoffs and cuts",
+        title: "Limits",
         paragraphs: [
-          "I deliberately optimized for coherence over breadth. Some of the branded product ideas are there because they helped clarify trust and follow-through, but I kept the strongest emphasis on a small set of system behaviors: decide, commit, coordinate, attend.",
-          "I also chose fallback-heavy shipping over polished realtime perfection. WebSocket chat falls back to polling, feature flags gate releases, and the product can keep functioning when ideal conditions are not available.",
+          "This is still a solo product build, so it is better as a design and implementation example than as proof of production scale.",
+          "I also chose practical fallbacks over perfect realtime behavior. Chat falls back to polling when needed.",
         ],
       },
       {
-        title: "Outcomes and verified properties",
+        title: "Next steps",
         paragraphs: [
-          "What is genuinely proven here is an end-to-end product architecture: discovery, commitments, trust signals, messaging, and rollout controls live in one coherent build with a public repo.",
-          "What is not proven is live consumer scale. I treat that honestly because I would rather be explicit about the evidence than imply production adoption that is not there.",
-        ],
-      },
-      {
-        title: "What I would do next",
-        paragraphs: [
-          "If I kept pushing this project, I would narrow the surface area around the strongest loop, add explicit onboarding experiments around first commitment, and tighten the recommendation evaluation around attendance-quality outcomes rather than feature breadth.",
+          "If I kept working on it, I would narrow the product around the strongest loop and measure how well it converts interest into attendance.",
         ],
       },
     ],
@@ -88,10 +78,8 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "product",
     year: "2024",
-    summary:
-      "Behavior-change platform with web and mobile clients, wearable-aware sync, and trust-preserving automation.",
-    description:
-      "A full-stack case study about reducing tracking friction without letting automation corrupt user state.",
+    summary: "Habit tracking app with web and mobile clients, social features, and wearable-aware updates.",
+    description: "Full-stack build focused on reducing manual tracking without making user data unreliable.",
     metrics: [
       { label: "Clients", value: "Web + mobile" },
       { label: "Sync", value: "Manual + wearable" },
@@ -101,64 +89,56 @@ export const projects: Project[] = [
     facts: [
       { label: "Scope", value: "Solo full-stack product build" },
       { label: "Role", value: "Backend, web, mobile, product logic" },
-      { label: "Status", value: "Self-directed build with public repo" },
-      { label: "Proof", value: "End-to-end flows, auth model, sync rules, tests" },
-      { label: "What I owned", value: "User state, automation rules, social layer, API contracts" },
+      { label: "Status", value: "Public repo" },
+      { label: "Proof", value: "End-to-end flows, auth, sync rules, tests" },
+      { label: "What I owned", value: "User state, automation rules, social features, APIs" },
       { label: "Best fit", value: "Backend and full-stack product roles" },
     ],
     system: [
-      { label: "Clients", value: "React web app and React Native mobile experience" },
+      { label: "Clients", value: "React web app and React Native mobile app" },
       { label: "Core backend", value: "Spring Boot APIs, Redis, relational state, notifications" },
       { label: "Automation", value: "Manual, wearable, and hybrid completion flows" },
       { label: "Social layer", value: "Activity feeds, accountability, competitions, realtime updates" },
     ],
-    evidenceNote:
-      "This is a public repo and a complete product build. The best proof is the coherence between sync rules, user-state trust, auth, and the surrounding social product design.",
+    evidenceNote: "Public repo. Best signal is the backend and state-management work behind the product.",
     highlights: [
-      "Built the product around week 2-3 dropoff rather than a generic habit checklist.",
-      "Used confidence-scored automation so external data does not silently corrupt user state.",
-      "Treated the social layer as a retention system, not a decorative add-on.",
-      "Added security and async boundaries that make the system read like real backend work, not a toy app.",
+      "Built both web and mobile clients around the same backend.",
+      "Used confirmation rules so automation does not silently overwrite user progress.",
+      "Added social features instead of keeping it as a solo tracker.",
+      "Included auth, async work, and notifications as part of the core system.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "Most habit products fail after the novelty period. I used this project to explore what happens when the system tries to reduce tracking friction while still keeping progress trustworthy.",
-          "That led to a full-stack build with web and mobile clients, social accountability features, automation rules, and a backend that has to decide when it is safe to update user state on the user's behalf.",
+          "This project looks at a common product problem: how do you reduce tracking friction without making progress feel fake?",
+          "The result is a full-stack app with web and mobile clients, social features, and backend rules for when automated updates are allowed.",
         ],
       },
       {
-        title: "Key decisions",
+        title: "Main choices",
         paragraphs: [
-          "The defining product decision was to treat trust as part of the habit loop. If auto-tracking makes progress feel fake, the product breaks. That is why the automation path is confidence-scored and can ask for confirmation instead of pretending certainty.",
-          "The defining backend decision was to separate auth, provider sync, notifications, and user-state logic cleanly enough that each one can evolve without turning the whole system into a single brittle request path.",
+          "The main product choice was to treat trust as part of the feature set. Automated updates can ask for confirmation instead of pretending they are always correct.",
+          "The backend is split into auth, sync, notifications, and user-state logic so the whole system does not collapse into one request path.",
         ],
       },
       {
-        title: "Tradeoffs and cuts",
+        title: "Limits",
         paragraphs: [
-          "I chose coherence over trying to prove every possible gamification feature. The project includes social and motivational mechanics, but the strongest throughline is reducing friction while preserving trust.",
-          "I also kept the intelligence grounded. The AI-related pieces are secondary; the more important engineering decisions live in sync rules, auth, reminders, and bounded user-state updates.",
+          "It is a broad product build, so the strongest part is the system design rather than deep polish in every feature.",
+          "The main value here is the backend and state-management work, not any AI layer.",
         ],
       },
       {
-        title: "Outcomes and verified properties",
+        title: "Next steps",
         paragraphs: [
-          "What this project proves well is that I can design and connect multiple product surfaces around a tricky state-management problem: automation, social features, and backend rules all have to agree about what happened.",
-          "What it does not prove is scale in a live consumer product. I would rather position it honestly as a strong systems build than oversell it as production experience.",
-        ],
-      },
-      {
-        title: "What I would do next",
-        paragraphs: [
-          "The next move would be sharper focus on one or two retention loops, plus better experiment scaffolding around activation, first-week consistency, and the tradeoff between manual control and automated convenience.",
+          "If I kept working on it, I would narrow the product around the strongest retention loop and measure activation and first-week consistency more directly.",
         ],
       },
     ],
     stack: ["Java", "Spring Boot", "React", "React Native", "MySQL", "Redis", "WebSocket"],
     links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/habit-tracker-social" }],
-    featured: false,
+    featured: true,
     flagship: false,
   },
   {
@@ -168,10 +148,8 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "data",
     year: "2024",
-    summary:
-      "Event-driven inventory platform that combines transactional writes, Kafka events, and multi-sink analytics materialization.",
-    description:
-      "A backend and data-platform case study around inventory mutations, typed events, ETL, and honest documentation of unfinished serving boundaries.",
+    summary: "Inventory service that records stock changes, emits Kafka events, and publishes analytics outputs.",
+    description: "Backend and data project focused on transactional writes, typed events, and analytics pipelines.",
     metrics: [
       { label: "Operational writes", value: "Postgres + audit" },
       { label: "Events", value: "Kafka mutations" },
@@ -179,66 +157,52 @@ export const projects: Project[] = [
       { label: "Known gap", value: "Serving path split" },
     ],
     facts: [
-      { label: "Scope", value: "Self-directed backend and analytics build" },
+      { label: "Scope", value: "Self-directed backend and data build" },
       { label: "Role", value: "Service design, events, ETL, API boundary" },
-      { label: "Status", value: "Public repo with verified local path" },
-      { label: "Proof", value: "Mutations can land in analytical outputs end to end" },
-      { label: "What I owned", value: "Operational service, event flow, ETL, quality checks" },
+      { label: "Status", value: "Public repo" },
+      { label: "Proof", value: "Inventory updates flow into analytics outputs" },
+      { label: "What I owned", value: "Service, events, ETL, quality checks" },
       { label: "Best fit", value: "Backend, platform, and event-driven roles" },
     ],
     system: [
       { label: "Operational service", value: "Transactional inventory writes, audit trail, typed mutations" },
       { label: "Event stream", value: "Kafka events emitted from stock changes and reservations" },
-      { label: "ETL and marts", value: "Python and Airflow path materializing Postgres, Redis, Parquet" },
-      { label: "Serving boundary", value: "Analytics API exists, but the read path is not fully unified yet" },
+      { label: "ETL and marts", value: "Python and Airflow path publishing Postgres, Redis, and Parquet outputs" },
+      { label: "Serving boundary", value: "Analytics API exists, but the read path is still split" },
     ],
-    evidenceNote:
-      "This project is strongest as backend and data-platform proof. The repo shows a real event-driven shape and also calls out the incomplete serving boundary instead of pretending the system is more polished than it is.",
+    evidenceNote: "Public repo. Strong backend signal. The analytics serving path is still split, and the project says so directly.",
     highlights: [
-      "Captured inventory writes transactionally, then emitted typed events rather than treating analytics as an afterthought.",
-      "Published analytical outputs to multiple sinks with rerun-safe logic.",
-      "Used explicit data quality checks instead of relying on informal assumptions.",
-      "Documented the gap between the ETL outputs and the separate analytics serving path.",
+      "Captures stock changes transactionally before publishing events.",
+      "Writes analytics outputs to multiple sinks.",
+      "Includes explicit data quality checks.",
+      "Calls out the current gap in the analytics read path.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "This project combines an operational inventory backend with an analytics publication path. The interesting part is not CRUD alone; it is the bridge between transactional correctness and downstream analytics consumption.",
-          "I used it as a way to practice event-driven thinking: write once transactionally, emit typed mutations, materialize analytical views, and keep replayability and data quality visible.",
+          "This project combines an inventory service with an analytics pipeline.",
+          "The core idea is simple: write stock changes transactionally, emit typed events, and publish analytics outputs from those events.",
         ],
       },
       {
-        title: "Key decisions",
+        title: "Main choices",
         paragraphs: [
-          "The strongest design choice was to treat the event stream as a first-class boundary. That makes the architecture more useful for backend and platform discussions than a single service with reporting bolted on.",
-          "The second useful decision was to publish to multiple sinks with business-key discipline and rerun-safe upserts. That moves the project closer to the kind of messy operational analytics work real teams deal with.",
+          "The main design choice was to treat the event stream as a real boundary, not a side effect.",
+          "I also published outputs to multiple sinks so the project shows more than one downstream use case.",
         ],
       },
       {
-        title: "Tradeoffs and known gap",
+        title: "Current gap",
         paragraphs: [
-          "The repo is more honest than polished in one important way: the analytics API is not yet reading from the exact same publication path as the ETL outputs. I kept that limitation explicit because that kind of boundary mismatch matters.",
-          "That means the project is excellent for showing design judgment and event-driven architecture, but it is not a finished platform with one perfectly unified serving story.",
-        ],
-      },
-      {
-        title: "Outcomes and verified properties",
-        paragraphs: [
-          "What is proven is the system shape: transactional writes, event emission, multi-sink materialization, and quality checks all exist in code with a verifiable local path.",
-          "What is not proven is full production hardening. I would rather have that honesty be part of the case study than smooth it over with confident language.",
-        ],
-      },
-      {
-        title: "What I would do next",
-        paragraphs: [
-          "The next step would be to collapse the serving split, tighten the publication contract, and expose a single trustworthy analytics path through one API surface with clearer operational dashboards.",
+          "The main gap is that the analytics API is not yet reading from the exact same path as the ETL outputs.",
+          "If I kept going, I would unify that read path and tighten the publication contract.",
         ],
       },
     ],
     stack: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Redis", "Airflow", "Python"],
     links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/inventory-management-sys" }],
-    featured: true,
+    featured: false,
     flagship: true,
   },
   {
@@ -248,10 +212,8 @@ export const projects: Project[] = [
     status: "Case study only",
     category: "ml",
     year: "2025",
-    summary:
-      "Prediction-market analytics stack spanning marts, calibrated modeling, feature serving boundaries, and streaming paths.",
-    description:
-      "An ML-platform case study focused on data modeling, evaluation discipline, and clean serving boundaries rather than model hype.",
+    summary: "Prediction market case study with marts, evaluation, model serving, and a realtime path.",
+    description: "ML systems project focused on data modeling, calibration, and a clean serving boundary.",
     metrics: [
       { label: "Validation", value: "Time-aware" },
       { label: "Invariant", value: "Zero-sum dbt test" },
@@ -261,9 +223,9 @@ export const projects: Project[] = [
     facts: [
       { label: "Scope", value: "Self-directed ML platform case study" },
       { label: "Role", value: "Data modeling, evaluation design, API boundaries" },
-      { label: "Status", value: "Case study with no public repo linked here" },
+      { label: "Status", value: "Case study only" },
       { label: "Proof", value: "Evaluation design and architecture documentation" },
-      { label: "What I owned", value: "Marts, model framing, serving split, stream path" },
+      { label: "What I owned", value: "Marts, evaluation design, serving split, stream path" },
       { label: "Best fit", value: "ML platform and data-intensive backend roles" },
     ],
     system: [
@@ -272,41 +234,33 @@ export const projects: Project[] = [
       { label: "Serving layer", value: "FastAPI inference behind a Spring Boot public contract" },
       { label: "Realtime path", value: "Python consumer today, Flink path for scale-up" },
     ],
-    evidenceNote:
-      "There is no public repo linked for this one. The strongest signal is evaluation and boundary design: the case study is useful if you care about platform judgment more than repo depth.",
+    evidenceNote: "No public repo linked. The strongest part is the system design and evaluation setup.",
     highlights: [
-      "Modeled maker and taker positions explicitly instead of flattening trade behavior.",
-      "Compared against market-aware baselines with time-aware validation and calibration metrics.",
-      "Separated inference from public API concerns with a clear FastAPI and Spring Boot boundary.",
-      "Included both a simple realtime path and a more scalable Flink direction.",
+      "Modeled market data into features and marts.",
+      "Used time-aware validation and calibration metrics.",
+      "Separated model serving from the public API layer.",
+      "Included a simple realtime path with a clearer scale-up option.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "I wanted a project that felt closer to an ML platform than a single notebook or training script. Prediction markets were useful because they force you to care about calibration, feature contracts, and temporal honesty.",
-          "The result is a case study that combines marts, model evaluation, serving boundaries, and a credible stream-processing scale-up path.",
+          "This project is meant to look like a small ML platform instead of a single training script.",
+          "It combines data modeling, evaluation, model serving, and a realtime update path in one case study.",
         ],
       },
       {
-        title: "Data and evaluation rigor",
+        title: "Main choices",
         paragraphs: [
-          "The most interesting choice was the maker and taker decomposition. It is a better analytical frame than collapsing matched trades into one flat record because it preserves who actually captured edge.",
-          "I also kept the evaluation grounded in baselines and calibration rather than trying to impress with model complexity alone.",
+          "The main choices were to keep the data model explicit, use time-aware evaluation, and separate inference from the public API.",
+          "That makes the project more about system design than about model hype.",
         ],
       },
       {
-        title: "Serving boundary",
+        title: "Limits",
         paragraphs: [
-          "FastAPI owns inference and feature alignment, while Spring Boot owns auth, caching, retries, and the public analytics contract. That is the kind of service split I like because it makes ownership clearer.",
-          "The realtime layer is also intentionally staged: simple first, scalable later, with the scale-up path visible in the case study instead of hand-waved away.",
-        ],
-      },
-      {
-        title: "What is proven and what is not",
-        paragraphs: [
-          "This project proves that I think carefully about data modeling, evaluation discipline, and public contract design in ML-heavy systems.",
-          "It is weaker as a proof artifact than the public-repo flagship projects because the evidence is mostly in the case study itself rather than a linked repository.",
+          "This is a case study, so the evidence is mostly in the design and write-up rather than a public repo.",
+          "It is useful for architecture discussion, but weaker as a proof artifact than the public projects.",
         ],
       },
     ],
@@ -322,10 +276,8 @@ export const projects: Project[] = [
     status: "Case study only",
     category: "ml",
     year: "2025",
-    summary:
-      "Leakage-resistant reorder recommender with deterministic splits, calibration, and serving contracts.",
-    description:
-      "A recommendation-system case study built around point-in-time preprocessing, honest evaluation, and training-serving parity.",
+    summary: "Reordering system with point-in-time features, calibration, and a versioned serving contract.",
+    description: "Recommendation system case study focused on preprocessing, evaluation, and training-serving parity.",
     metrics: [
       { label: "Candidate F1", value: "0.5665" },
       { label: "Basket F1", value: "0.4159" },
@@ -335,7 +287,7 @@ export const projects: Project[] = [
     facts: [
       { label: "Scope", value: "Self-directed ML systems project" },
       { label: "Role", value: "Pipeline design, evaluation, inference contract" },
-      { label: "Status", value: "Case study with no public repo linked here" },
+      { label: "Status", value: "Case study only" },
       { label: "Proof", value: "Offline metrics plus explicit feature contract" },
       { label: "What I owned", value: "Preprocessing, evaluation, calibration, API serving" },
       { label: "Best fit", value: "Applied ML and backend-adjacent ML roles" },
@@ -346,34 +298,33 @@ export const projects: Project[] = [
       { label: "Calibration", value: "Thresholding on a dedicated held-out split" },
       { label: "Serving", value: "FastAPI inference with saved schema contract" },
     ],
-    evidenceNote:
-      "The strongest proof here is engineering discipline around leakage, evaluation, and inference contracts. It is less useful as a product signal than the flagship full-stack projects.",
+    evidenceNote: "Strongest part is the work on leakage, evaluation, and inference contracts.",
     highlights: [
-      "Built point-in-time preprocessing and leakage tests rather than trusting feature intuition.",
-      "Separated candidate quality from full-basket quality so offline evaluation stays honest.",
-      "Tuned thresholds on a dedicated calibration slice instead of shipping raw probabilities.",
-      "Used the same versioned feature contract in training and inference.",
+      "Used point-in-time preprocessing and leakage checks.",
+      "Separated candidate quality from full-basket quality.",
+      "Calibrated thresholds on a dedicated holdout split.",
+      "Used the same feature contract in training and inference.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "This project is intentionally about the parts of recommendation systems that usually get skipped in portfolios: leakage control, evaluation design, and serving parity.",
-          "I built it to show that I care about the data path and the online contract as much as the model itself.",
+          "This project focuses on the parts of recommendation systems that are easy to skip in portfolios: leakage control, evaluation, and serving parity.",
+          "The main goal was to show care for the data path and the online contract, not just the model.",
         ],
       },
       {
-        title: "Key decisions",
+        title: "Main choices",
         paragraphs: [
-          "The most important decision was to make the preprocessing point-in-time and deterministic. That keeps the offline numbers more believable.",
-          "The second was to separate candidate ranking from full-basket quality, which makes the evaluation story more honest and easier to defend.",
+          "The main decisions were to keep preprocessing point-in-time and deterministic, and to separate candidate ranking from basket-level quality.",
+          "Those choices make the offline results easier to trust.",
         ],
       },
       {
-        title: "What is proven",
+        title: "Limits",
         paragraphs: [
-          "The offline metrics are useful, but the bigger signal is the feature contract and evaluation rigor. That is what makes the project relevant for ML systems conversations.",
-          "The project is a better signal for engineering judgment than for flashy model innovation.",
+          "This is better as an engineering example than as a broad product case study.",
+          "The useful signal is the evaluation setup and feature contract.",
         ],
       },
     ],
@@ -387,10 +338,8 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "ml",
     year: "2025",
-    summary:
-      "Dual-model energy forecasting system with causal joins, temporal features, and contract-validated serving.",
-    description:
-      "A forecasting case study focused on leakage-resistant joins, target-specific modeling, and reusable training-serving contracts.",
+    summary: "Energy forecasting system with causal joins, separate models, and a shared serving contract.",
+    description: "Forecasting project focused on time-aware joins, target-specific models, and reusable serving code.",
     metrics: [
       { label: "Rows", value: "2.0M" },
       { label: "Features", value: "106" },
@@ -400,8 +349,8 @@ export const projects: Project[] = [
     facts: [
       { label: "Scope", value: "Self-directed ML systems build" },
       { label: "Role", value: "Data pipeline, feature design, serving contract" },
-      { label: "Status", value: "Public repo with reproducible artifacts" },
-      { label: "Proof", value: "Walk-forward evaluation and versioned artifacts" },
+      { label: "Status", value: "Public repo" },
+      { label: "Proof", value: "Walk-forward evaluation and saved artifacts" },
       { label: "What I owned", value: "Data joins, features, dual models, serving path" },
       { label: "Best fit", value: "Forecasting, ML systems, and backend-adjacent ML roles" },
     ],
@@ -411,34 +360,33 @@ export const projects: Project[] = [
       { label: "Model layer", value: "Separate consumption and production models" },
       { label: "Serving path", value: "Shared feature contract with fallback defaults" },
     ],
-    evidenceNote:
-      "This is a public repo with good proof of ML systems discipline. The strongest signal is careful temporal handling and contract reuse, not a claim about operating a production energy platform.",
+    evidenceNote: "Public repo. Strongest part is the time-aware data work and the shared serving contract.",
     highlights: [
-      "Used causal joins and time-aware aggregates so the data path stays believable.",
-      "Trained separate models for different targets instead of forcing one generic approach.",
+      "Used causal joins and time-aware features.",
+      "Trained separate models for different targets.",
       "Shared a feature contract across training and serving.",
       "Included walk-forward backtesting and reusable artifacts.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "This project is about making a forecasting pipeline believable. Energy data is a good fit for that because leakage can hide in joins and temporal features very easily.",
-          "I used the build to practice causal data work, target-specific modeling, and a serving path that stays aligned with training.",
+          "This project is about building a forecasting pipeline that stays believable when time matters.",
+          "I used it to practice causal joins, target-specific models, and a serving path that stays aligned with training.",
         ],
       },
       {
-        title: "Key decisions",
+        title: "Main choices",
         paragraphs: [
-          "The biggest decision was to keep the joins explicitly causal and the artifacts split by target. That avoids a lot of hidden confusion and makes the system easier to explain.",
-          "The second was to preserve the feature contract into serving instead of letting the online path collapse into a toy version of the model.",
+          "The main decisions were to keep joins explicitly causal and to split artifacts by target.",
+          "I also kept the same feature contract in serving instead of rewriting the online path as a toy version.",
         ],
       },
       {
-        title: "What is proven",
+        title: "Limits",
         paragraphs: [
-          "The repo proves a disciplined ML systems path: causal joins, walk-forward thinking, shared contracts, and reproducible outputs.",
-          "It is a solid technical proof artifact even though it is still a self-directed build rather than an operated business system.",
+          "This is a strong technical project, but it is still a self-directed build rather than a live business system.",
+          "The main proof is in the data handling, evaluation, and shared contract.",
         ],
       },
     ],
@@ -454,10 +402,8 @@ export const projects: Project[] = [
     status: "Case study only",
     category: "ml",
     year: "2025",
-    summary:
-      "Chronology-safe fraud system with calibrated decisioning, challenger benchmarking, and contract-aware serving.",
-    description:
-      "A fraud case study focused on temporal leakage, thresholding, calibration, and deployable inference boundaries.",
+    summary: "Fraud system with chronology-safe evaluation, calibration, and a serving contract.",
+    description: "Fraud case study focused on leakage, thresholds, calibration, and deployable inference.",
     metrics: [
       { label: "AUC-ROC", value: "0.8360" },
       { label: "AUC-PR", value: "0.4198" },
@@ -467,7 +413,7 @@ export const projects: Project[] = [
     facts: [
       { label: "Scope", value: "Self-directed ML systems project" },
       { label: "Role", value: "Evaluation design, decisioning, inference service" },
-      { label: "Status", value: "Case study with no public repo linked here" },
+      { label: "Status", value: "Case study only" },
       { label: "Proof", value: "Offline metrics plus deployment-aware framing" },
       { label: "What I owned", value: "Feature path, model tuning, serving, challenger logic" },
       { label: "Best fit", value: "Applied ML and risk-oriented backend roles" },
@@ -478,34 +424,33 @@ export const projects: Project[] = [
       { label: "Decisioning", value: "Calibration and thresholding for deployable outputs" },
       { label: "Serving", value: "FastAPI contract with monitoring hooks" },
     ],
-    evidenceNote:
-      "This project is strongest as an ML systems artifact: it shows decisioning maturity and deployment awareness more than product depth.",
+    evidenceNote: "Strongest part is the decisioning and deployment-aware evaluation, not the product surface.",
     highlights: [
       "Treated chronology and leakage as first-class concerns.",
-      "Focused on calibration and thresholding rather than leaderboard thinking alone.",
-      "Included a challenger framing instead of assuming one model is final.",
-      "Wrapped the model in a serving contract instead of stopping at offline results.",
+      "Focused on calibration and thresholding, not just ranking metrics.",
+      "Included challenger benchmarking.",
+      "Wrapped the model in a serving contract.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "I wanted one project in the portfolio that was clearly about decision quality under class imbalance and deployment constraints. Fraud data is useful because evaluation shortcuts show up fast.",
-          "The project therefore emphasizes leakage control, calibration, and deployable inference more than raw feature volume.",
+          "This project is about decision quality under class imbalance and deployment constraints.",
+          "It emphasizes leakage control, calibration, and deployable inference more than feature volume.",
         ],
       },
       {
-        title: "Key decisions",
+        title: "Main choices",
         paragraphs: [
-          "The biggest choice was to make the chronology and thresholding story explicit. That produces a more credible system discussion than quoting AUC alone.",
-          "The second was to keep challenger benchmarking in the frame so the project reads like a system that could evolve rather than a one-shot training run.",
+          "The main choices were to make chronology explicit, tune thresholds, and keep challenger benchmarking in the loop.",
+          "That makes the project read like a system that can evolve instead of a one-off training run.",
         ],
       },
       {
-        title: "What is proven",
+        title: "Limits",
         paragraphs: [
-          "The strongest signal is engineering maturity around deployable decisioning. That is why the serving and calibration story matters as much as the offline scores.",
-          "As with the other private or case-study-only entries, it is weaker as a trust artifact than the public flagship projects.",
+          "This is strongest as an ML systems example, not as a public proof artifact.",
+          "Without a public repo, the evidence is weaker than the flagship projects.",
         ],
       },
     ],
@@ -519,10 +464,8 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "ml",
     year: "2024",
-    summary:
-      "Smaller ML service build with a clean train-to-serving path and a stricter v2 validation track.",
-    description:
-      "A compact clustering service that is more useful for artifact discipline and API design than for raw model complexity.",
+    summary: "Small ML service with a clean train-to-serving path and a stricter v2 validation flow.",
+    description: "Compact clustering service that is mostly useful for artifact discipline and API design.",
     metrics: [
       { label: "Model", value: "K-Means" },
       { label: "Serving", value: "FastAPI" },
@@ -533,7 +476,7 @@ export const projects: Project[] = [
       { label: "Scope", value: "Compact self-directed ML service" },
       { label: "Role", value: "Artifacts, API design, validation path" },
       { label: "Status", value: "Public repo with baseline and v2 tracks" },
-      { label: "Proof", value: "Runnable baseline plus stricter validation pipeline" },
+      { label: "Proof", value: "Runnable baseline plus stricter validation flow" },
       { label: "What I owned", value: "Training path, metadata, API contract, packaging" },
       { label: "Best fit", value: "Smaller ML service and backend-adjacent roles" },
     ],
@@ -543,34 +486,33 @@ export const projects: Project[] = [
       { label: "v2 path", value: "Schema checks and richer engineered features" },
       { label: "Packaging", value: "Docker, CI, and API tests" },
     ],
-    evidenceNote:
-      "This is one of the smaller projects in the portfolio. I keep it because it shows discipline around artifacts and API boundaries, not because it is the strongest standalone proof piece.",
+    evidenceNote: "Small project. Useful mainly because it shows clean artifacts, validation, and API boundaries.",
     highlights: [
-      "Kept a runnable baseline path instead of letting the project become a dead-end experimentation folder.",
-      "Persisted model metadata so the output stays inspectable.",
-      "Built a stricter v2 path with stronger validation expectations.",
-      "Wrapped the project in tests and packaging so it reads like a service, not just training code.",
+      "Kept a runnable baseline path.",
+      "Saved model metadata with the artifacts.",
+      "Added a stricter v2 validation path.",
+      "Included tests and packaging around the API.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "This is a compact ML service build. I keep it in the portfolio because smaller systems can still show useful engineering habits if the train-to-serving path is clean.",
-          "The point here is not model novelty. The point is stable artifacts, explicit metadata, and a service contract that can be inspected and tested.",
+          "This is a compact ML service project.",
+          "The value is not model complexity. The value is the clean artifact flow, explicit metadata, and testable API contract.",
         ],
       },
       {
-        title: "Key decisions",
+        title: "Main choices",
         paragraphs: [
-          "The best decision was to keep both a stable baseline and a more ambitious v2 path. That preserves a working demo while letting the validation and feature path get stricter over time.",
-          "The second was to make the API contract and model metadata explicit so the project is explainable without opening the training code first.",
+          "The main choice was to keep both a stable baseline and a stricter v2 path.",
+          "I also made the API contract and model metadata explicit so the system is easy to inspect.",
         ],
       },
       {
-        title: "What is proven",
+        title: "Limits",
         paragraphs: [
-          "This project proves smaller-scale service discipline: artifacts, metadata, tests, packaging, and predictable APIs.",
-          "It is intentionally not a flagship project. It works better as supporting evidence that the bigger systems are not the only place I think about contracts and maintainability.",
+          "This is a supporting project, not a flagship one.",
+          "It is useful as a small example of clean service design.",
         ],
       },
     ],
@@ -584,10 +526,8 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "data",
     year: "2025",
-    summary:
-      "Streaming plus batch logistics platform with Bronze/Silver layers, quality checks, and a verified local demo path.",
-    description:
-      "A data-platform case study combining event ingestion, transforms, warehouse-style marts, orchestration, and explicit proof of the local happy path.",
+    summary: "Logistics data platform with layered processing, quality checks, and a verified local demo path.",
+    description: "Data engineering project with ingestion, transforms, marts, orchestration, and explicit local proof.",
     metrics: [
       { label: "Tests", value: "77 passed" },
       { label: "Quality", value: "31 / 31 checks" },
@@ -597,52 +537,44 @@ export const projects: Project[] = [
     facts: [
       { label: "Scope", value: "Self-directed data engineering build" },
       { label: "Role", value: "Pipeline shape, quality framework, demo path" },
-      { label: "Status", value: "Public repo with verified local run" },
-      { label: "Proof", value: "Sample-mode path with passing tests and checks" },
+      { label: "Status", value: "Public repo" },
+      { label: "Proof", value: "Sample-mode run with passing tests and checks" },
       { label: "What I owned", value: "Data layers, validation, orchestration story" },
       { label: "Best fit", value: "Data platform and backend-adjacent pipeline roles" },
     ],
     system: [
       { label: "Operational domains", value: "Fleet, shipment, and last-mile event streams" },
       { label: "Data layers", value: "Bronze landing, Silver reconstruction, warehouse marts" },
-      { label: "Quality", value: "Reusable framework across Spark and DuckDB-style checks" },
+      { label: "Quality", value: "Reusable framework across pipeline checks" },
       { label: "Demo path", value: "Verified local sample run with reproducible outputs" },
     ],
-    evidenceNote:
-      "This repo is strong because it is explicit about the proof boundary: the local sample path is verified, and the full live stack is presented as architecture rather than falsely claimed as a polished demo.",
+    evidenceNote: "Public repo. Strong because it clearly separates the verified local path from the larger target architecture.",
     highlights: [
-      "Modeled three operational domains instead of a single synthetic data stream.",
-      "Built layered processing and validation rather than stopping at ingestion.",
-      "Added a reusable quality framework with timestamped reports.",
-      "Separated the verified local path from the broader target architecture.",
+      "Modeled three operational domains instead of one synthetic stream.",
+      "Built layered processing and validation.",
+      "Added a reusable quality framework.",
+      "Separated the verified local path from the larger architecture.",
     ],
     sections: [
       {
-        title: "What this is",
+        title: "What it is",
         paragraphs: [
-          "I wanted one project that looked like a real data platform rather than a single ETL script. Logistics was useful because it naturally spans multiple event-heavy domains and both streaming and batch thinking.",
-          "The project therefore combines ingestion, layered transforms, quality checks, orchestration, and a dashboard-facing mart story.",
+          "This project is meant to look like a small data platform instead of a single ETL script.",
+          "It combines ingestion, layered transforms, quality checks, orchestration, and marts.",
         ],
       },
       {
-        title: "Key decisions",
+        title: "Main choices",
         paragraphs: [
-          "The best decision was to encode correctness directly in the platform through reusable checks instead of treating validation as documentation or tribal knowledge.",
-          "The second was to keep a verified sample-mode path so the portfolio proves something concrete rather than only describing a target architecture.",
+          "The main decisions were to build reusable checks into the pipeline and to keep a verified sample-mode path.",
+          "That gives the project something concrete to prove instead of only describing a target architecture.",
         ],
       },
       {
-        title: "Tradeoffs",
+        title: "Limits",
         paragraphs: [
-          "The architecture is broader than the fully verified runtime path. I think that is acceptable as long as the distinction stays explicit, which is why the case study separates the local proof path from the larger intended stack.",
-          "That tradeoff keeps the project honest while still making the scale-up design visible.",
-        ],
-      },
-      {
-        title: "What is proven",
-        paragraphs: [
-          "The strongest evidence is the verified local run, the passing tests, and the quality framework. Those give the project a concrete proof base.",
-          "It remains a portfolio build, but it is a useful one because the proof boundary is explicit.",
+          "The architecture is broader than the fully verified runtime path.",
+          "That tradeoff is acceptable here because the project is clear about what is proven locally and what is still just architecture.",
         ],
       },
     ],

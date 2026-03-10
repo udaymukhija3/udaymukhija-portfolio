@@ -1,8 +1,7 @@
 export const siteConfig = {
   name: "Uday Mukhija",
-  title: "Uday Mukhija | Core Java Backend and ML Systems Engineer",
-  description:
-    "Core Java backend engineer with strong ML systems thinking and engineering range.",
+  title: "Uday Mukhija | Software Engineer",
+  description: "Portfolio of backend, data, and ML projects by Uday Mukhija.",
   location: "India",
 };
 

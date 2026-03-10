@@ -1,32 +1,32 @@
 export const resumeHref = process.env.NEXT_PUBLIC_RESUME_URL || "/resume";
 
 export const skills = [
-  "Core Java Backend Engineering",
-  "ML Systems Thinking",
-  "Spring Boot and API Design",
-  "Feature Contracts and Serving Boundaries",
-  "Streaming and Event Pipelines",
-  "Evaluation and Calibration Discipline",
-  "FastAPI, SQL, and Python Tooling",
-  "Observability, Reliability, and CI/CD",
+  "Java backend",
+  "APIs",
+  "Data pipelines",
+  "ML systems",
+  "Spring Boot",
+  "Python",
+  "SQL",
+  "FastAPI",
 ];
 
 export const snapshotItems = [
-  { label: "Pillar one", value: "Core Java backend systems" },
-  { label: "Pillar two", value: "ML systems engineering" },
-  { label: "Core stack", value: "Java, Spring Boot, Python, SQL" },
-  { label: "Strengths", value: "APIs, event-driven flows, contracts, evaluation rigor" },
+  { label: "Focus", value: "Backend and ML systems" },
+  { label: "Main stack", value: "Java, Spring Boot, Python, SQL" },
+  { label: "Strengths", value: "APIs, events, pipelines, evaluation" },
+  { label: "Looking for", value: "Backend, platform, and ML roles" },
   { label: "Based in", value: "India" },
 ];
 
 export const aboutBlurb =
-  "I am a software engineer focused on two things: Core Java backend systems and ML systems engineering. I like work where service boundaries, event flows, data contracts, evaluation rigor, and operational clarity matter more than trendy abstractions. The shape of the portfolio is intentional: strong backend ownership on one side, disciplined ML system design on the other.";
+  "I build backend services, data pipelines, and ML projects. I care most about clear APIs, simple system boundaries, and work that can be explained without inflated language.";
 
 export const pillarCards = [
   {
-    title: "Core Java backend",
+    title: "Backend",
     body:
-      "Spring Boot services, transactional data paths, event-driven flows, API contracts, operational boundaries, and systems that stay legible when failure modes show up.",
+      "Java and Spring Boot services, APIs, database work, and event-driven systems.",
     links: [
       { label: "Event-Driven Inventory", href: "/projects/inventory-analytics-platform" },
       { label: "Gathr", href: "/projects/gathr" },
@@ -34,9 +34,9 @@ export const pillarCards = [
     ],
   },
   {
-    title: "ML systems engineering",
+    title: "ML systems",
     body:
-      "Temporal validation, feature contracts, calibration, serving parity, realtime feature boundaries, and model systems that can be defended beyond offline scores.",
+      "Forecasting, recommenders, model serving, evaluation, and data pipelines that support them.",
     links: [
       { label: "Kalshi Platform", href: "/projects/kalshi-prediction-platform" },
       { label: "Enefit Forecasting", href: "/projects/enefit-forecasting" },
@@ -47,19 +47,13 @@ export const pillarCards = [
 
 export const workPrinciples = [
   {
-    title: "Java backend clarity",
-    body:
-      "I care about service boundaries, transactional correctness, event contracts, and APIs that remain legible under change.",
+    title: "Keep it clear",
+    body: "I prefer simple interfaces, direct code paths, and systems that are easy to debug.",
   },
   {
-    title: "ML systems rigor",
+    title: "End To End ML rigor",
     body:
-      "I pay attention to leakage control, temporal evaluation, calibration, and training-serving parity because those usually matter more than model novelty.",
-  },
-  {
-    title: "Operational honesty",
-    body:
-      "Fallbacks, proof boundaries, and clear notes about what is unfinished are part of the system, not something to hide after the demo.",
+      "For ML work, I care about the full path from data quality and evaluation to serving behavior in production.",
   },
 ];
 
