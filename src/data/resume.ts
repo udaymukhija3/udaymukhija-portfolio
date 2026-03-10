@@ -30,7 +30,7 @@ export const experienceItems = [
     company: "MyNotedApp",
     role: "Software development engineer",
     period: "2024",
-    location: "Toronto",
+    location: "Remote, India",
     bullets: [
       "Worked on a migration from a no-code stack to a PostgreSQL-backed system.",
       "Built FastAPI flows and product-facing UI while cleaning up the data model.",
@@ -41,7 +41,7 @@ export const experienceItems = [
 
 export const resumeProjects = [
   {
-    title: "Event-Driven Inventory Analytics",
+    title: "Inventory Analytics and Management System",
     href: "/projects/inventory-analytics-platform",
     summary: "Inventory service with transactional writes, Kafka events, and analytics outputs.",
     bullets: [
