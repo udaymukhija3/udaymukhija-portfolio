@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <footer className="site-footer">
           <div className="container footer-shell">
             <p>© {new Date().getFullYear()} Uday Mukhija</p>
-            <p>Backend and full-stack engineering portfolio.</p>
+            <p>Created by a human</p>
           </div>
         </footer>
       </body>

@@ -457,6 +457,11 @@ ul {
   backdrop-filter: blur(18px);
 }
 
+.note-card-placeholder {
+  min-height: 16rem;
+  justify-content: center;
+}
+
 .note-card h2,
 .note-card h3 {
   font-size: 1.4rem;

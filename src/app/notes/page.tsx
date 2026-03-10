@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "../../components/SectionHeading";
-import { noteEntries, notesIntro } from "../../data/notes";
+import { noteEntries, notesIntro, notesPlaceholder } from "../../data/notes";
 
 export const metadata: Metadata = {
   title: "Notes",
@@ -24,23 +24,31 @@ export default function NotesPage() {
       <section className="section section-last">
         <div className="container">
           <SectionHeading
-            eyebrow="Working Notebook"
-            title="Not case studies, not polished essays"
-            note="This page is for the things that influence how I think: backend architecture, ML systems discipline, current reading, and what I am exploring right now."
+            eyebrow="Notes"
+            title="Reserved for future writing"
+            note="Nothing is published here yet."
           />
           <div className="notes-grid">
-            {noteEntries.map((entry) => (
-              <article key={entry.slug} className="note-card">
-                <p className="eyebrow">{entry.eyebrow}</p>
-                <h2>{entry.title}</h2>
-                <p>{entry.summary}</p>
-                <ul className="resume-list">
-                  {entry.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+            {noteEntries.length > 0 ? (
+              noteEntries.map((entry) => (
+                <article key={entry.slug} className="note-card">
+                  <p className="eyebrow">{entry.eyebrow}</p>
+                  <h2>{entry.title}</h2>
+                  <p>{entry.summary}</p>
+                  <ul className="resume-list">
+                    {entry.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))
+            ) : (
+              <article className="note-card note-card-placeholder">
+                <p className="eyebrow">{notesPlaceholder.eyebrow}</p>
+                <h2>{notesPlaceholder.title}</h2>
+                <p>{notesPlaceholder.summary}</p>
               </article>
-            ))}
+            )}
           </div>
         </div>
       </section>

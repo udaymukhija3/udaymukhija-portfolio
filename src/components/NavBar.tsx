@@ -14,6 +14,9 @@ export function NavBar() {
           <Link className="nav-link" href="/projects">
             Projects
           </Link>
+          <Link className="nav-link" href="/experience">
+            Experience
+          </Link>
           <Link className="nav-link" href="/notes">
             Notes
           </Link>
