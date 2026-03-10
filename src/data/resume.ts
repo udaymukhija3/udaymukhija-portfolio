@@ -1,10 +1,10 @@
 export const resumeSummary = {
   eyebrow: "Resume",
-  title: "Backend and full-stack engineer with product sense and systems range",
+  title: "Core Java backend engineer with strong ML systems instincts",
   intro:
-    "I build product systems, APIs, and data-heavy workflows with a bias for clear contracts, sensible scope, and shipping work that stays understandable under pressure.",
+    "I build Java backend systems and ML-heavy data workflows with a bias for clean contracts, sensible scope, and engineering decisions that survive scrutiny.",
   note:
-    "Best fit for backend, full-stack, and startup roles where ownership, product judgment, and execution matter more than narrow specialization.",
+    "Best fit for core Java backend, backend platform, and ML systems roles where implementation quality and system thinking both matter.",
 };
 
 export const skillGroups = [
@@ -13,16 +13,16 @@ export const skillGroups = [
     items: ["Java", "Python", "TypeScript", "SQL"],
   },
   {
-    label: "Backend",
-    items: ["Spring Boot", "FastAPI", "PostgreSQL", "Redis", "WebSocket"],
+    label: "Core Java backend",
+    items: ["Spring Boot", "PostgreSQL", "Redis", "Kafka", "WebSocket"],
   },
   {
-    label: "Product and frontend",
-    items: ["React", "React Native", "API design", "feature flags", "operational tooling"],
+    label: "ML systems",
+    items: ["FastAPI", "LightGBM", "MLflow", "dbt", "Airflow", "Flink"],
   },
   {
-    label: "Data and ML",
-    items: ["Kafka", "Airflow", "dbt", "LightGBM", "MLflow", "Flink"],
+    label: "Supporting stack",
+    items: ["TypeScript", "React", "React Native", "Docker", "feature contracts", "observability"],
   },
 ];
 
@@ -33,9 +33,9 @@ export const experienceItems = [
     period: "2024 - present",
     location: "Toronto / remote",
     bullets: [
-      "Built a social planning product around a hard product problem: moving users from lightweight interest to real attendance.",
-      "Owned product framing, backend APIs, ranking and trust signals, realtime coordination, and the mobile client.",
-      "Used the project to practice end-to-end ownership: product decisions, API contracts, fallbacks, instrumentation, and rollout controls.",
+      "Built and owned a Java-first product system spanning Spring Boot APIs, trust signals, realtime coordination, and ranking-aware product behavior.",
+      "Used the project to practice backend ownership end to end: service contracts, fallback paths, instrumentation, data flows, and rollout controls.",
+      "Strongest experience signal for startup environments where product ambiguity and backend execution have to coexist.",
     ],
   },
   {
@@ -44,39 +44,39 @@ export const experienceItems = [
     period: "2024",
     location: "Toronto",
     bullets: [
-      "Worked on backend and product delivery during a migration from a no-code stack to a normalized PostgreSQL-backed system.",
-      "Built FastAPI-driven content processing flows and React UI for a learning product with a stronger data model and clearer operational boundaries.",
-      "Focused on pragmatic shipping: data migration safety, application performance, and user-facing product clarity.",
+      "Worked on backend delivery during a migration from a no-code stack to a normalized PostgreSQL-backed system with cleaner operational boundaries.",
+      "Built FastAPI-driven processing flows and product-facing UI while tightening the data model and the migration story.",
+      "Useful work-experience proof for application performance, migration safety, and pragmatic backend shipping.",
     ],
   },
 ];
 
 export const resumeProjects = [
   {
-    title: "Gathr",
-    href: "/projects/gathr",
-    summary: "Full-stack product build centered on trust, discovery, commitments, and resilient realtime coordination.",
-    bullets: [
-      "Strongest signal for startup and product-minded full-stack roles.",
-      "Public repo with the clearest end-to-end proof path in the portfolio.",
-    ],
-  },
-  {
-    title: "Habit Tracker Social",
-    href: "/projects/habit-tracker-social",
-    summary: "Behavior-change platform with web and mobile clients, wearable-aware sync, and trust-preserving automation rules.",
-    bullets: [
-      "Best example of backend, mobile, and product systems living in one coherent build.",
-      "Good proof for auth, realtime flows, data contracts, and user-state automation.",
-    ],
-  },
-  {
     title: "Event-Driven Inventory Analytics",
     href: "/projects/inventory-analytics-platform",
-    summary: "Backend and data-platform case study built around transactional writes, Kafka events, and multi-sink analytics materialization.",
+    summary: "Core Java backend and platform case study built around transactional writes, Kafka events, and analytical materialization.",
     bullets: [
-      "Best backend-heavy case study in the portfolio.",
-      "Includes honest documentation of what is solid and what is still incomplete.",
+      "Best pure backend signal in the portfolio.",
+      "Shows event-driven architecture, service boundaries, and honest handling of an incomplete serving path.",
+    ],
+  },
+  {
+    title: "Gathr",
+    href: "/projects/gathr",
+    summary: "Java-backed product system centered on trust, commitments, recommendation events, and resilient realtime coordination.",
+    bullets: [
+      "Useful startup signal because it combines product ambiguity with clear backend ownership.",
+      "Shows Java backend judgment without reading like a generic CRUD project.",
+    ],
+  },
+  {
+    title: "Kalshi Prediction Market Analytics Platform",
+    href: "/projects/kalshi-prediction-platform",
+    summary: "ML platform case study focused on calibration-aware evaluation, feature-serving boundaries, and stream-processing scale-up paths.",
+    bullets: [
+      "Best signal for ML systems thinking and engineering maturity.",
+      "Useful if the reviewer cares about data modeling, evaluation discipline, and serving boundaries.",
     ],
   },
 ];

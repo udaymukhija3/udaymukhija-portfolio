@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionHeading } from "../../components/SectionHeading";
-import { contactLinks } from "../../data/siteContent";
+import { contactLinks, resumeHref } from "../../data/siteContent";
 import {
   educationItems,
   experienceItems,
@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 
 export default function ResumePage() {
   const profileLinks = contactLinks.filter((link) => link.label !== "Resume");
+  const isResumeExternal = resumeHref.startsWith("http");
 
   return (
     <>
@@ -29,6 +30,9 @@ export default function ResumePage() {
           <h1>{resumeSummary.title}</h1>
           <p>{resumeSummary.intro}</p>
           <p className="detail-note">{resumeSummary.note}</p>
+          {isResumeExternal ? (
+            <p className="detail-note">A shareable resume document can live behind the Resume link while this page stays available as the structured website version.</p>
+          ) : null}
           <div className="cta-row">
             {profileLinks.map((link) => {
               const isExternal = link.href.startsWith("http");
@@ -97,7 +101,7 @@ export default function ResumePage() {
           <SectionHeading
             eyebrow="Selected Projects"
             title="Projects that map cleanly to target roles"
-            note="These are the portfolio entries I would want a hiring manager or founder to read first."
+            note="These are the portfolio entries I would want a hiring manager to read first if the role leans Java backend or ML systems."
           />
           <div className="resume-project-grid">
             {resumeProjects.map((project) => (
@@ -143,18 +147,19 @@ export default function ResumePage() {
             <p className="eyebrow">Contact</p>
             <h2>Fastest way to evaluate fit</h2>
             <p>
-              Read the three flagship case studies, scan GitHub for implementation quality, then
-              reach out by email if the role leans backend, full-stack, or product-minded.
+              Read the backend and ML flagship case studies, scan GitHub for implementation
+              quality, then reach out by email if the role leans Java backend, backend platform, or
+              ML systems.
             </p>
             <div className="inline-link-row">
+              <Link className="inline-link" href="/projects/inventory-analytics-platform">
+                Event-Driven Inventory
+              </Link>
               <Link className="inline-link" href="/projects/gathr">
                 Gathr
               </Link>
-              <Link className="inline-link" href="/projects/habit-tracker-social">
-                Habit Tracker Social
-              </Link>
-              <Link className="inline-link" href="/projects/inventory-analytics-platform">
-                Event-Driven Inventory
+              <Link className="inline-link" href="/projects/kalshi-prediction-platform">
+                Kalshi Platform
               </Link>
             </div>
             <div className="contact-links">

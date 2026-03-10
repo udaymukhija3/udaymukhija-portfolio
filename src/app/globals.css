@@ -391,22 +391,31 @@ ul {
 .project-grid,
 .project-detail-grid,
 .resume-project-grid,
-.principles-grid {
+.principles-grid,
+.pillar-grid,
+.experience-grid-home,
+.notes-grid {
   display: grid;
   gap: 1.25rem;
 }
 
 .project-grid,
 .resume-project-grid,
-.principles-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.principles-grid,
+.pillar-grid,
+.experience-grid-home,
+.notes-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .project-card,
 .project-detail-card,
 .story-card,
 .principle-card,
-.resume-card {
+.resume-card,
+.pillar-card,
+.experience-card,
+.note-card {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -421,13 +430,37 @@ ul {
 .project-card:hover,
 .project-detail-card:hover,
 .story-card:hover,
-.principle-card:hover {
+.principle-card:hover,
+.pillar-card:hover,
+.experience-card:hover,
+.note-card:hover {
   border-color: rgba(240, 179, 106, 0.42);
   background: var(--panel-strong);
 }
 
 .principle-card {
   justify-content: space-between;
+}
+
+.pillar-card,
+.experience-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.note-card {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(20, 30, 27, 0.88) 0%, rgba(17, 25, 22, 0.72) 100%);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.note-card h2,
+.note-card h3 {
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
 }
 
 .project-topline {
@@ -606,6 +639,7 @@ ul {
 }
 
 .resume-card h3,
+.experience-card h3,
 .skill-group h3 {
   font-size: 1.15rem;
   letter-spacing: -0.02em;
@@ -676,7 +710,10 @@ ul {
   .project-section-grid,
   .resume-grid,
   .resume-project-grid,
-  .principles-grid {
+  .principles-grid,
+  .pillar-grid,
+  .experience-grid-home,
+  .notes-grid {
     grid-template-columns: 1fr;
   }
 

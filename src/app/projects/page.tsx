@@ -13,7 +13,7 @@ type ActiveCategory = ProjectCategory | "all";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Project library covering product systems, ML platforms, and data engineering case studies.",
+  description: "Project library centered on core Java backend systems and ML systems engineering case studies.",
   alternates: {
     canonical: "/projects",
   },
@@ -43,8 +43,9 @@ export default async function ProjectsPage({
           <p className="eyebrow">Projects</p>
           <h1>Project library</h1>
           <p>
-            A proof-first library of backend, full-stack, product, ML, and data-platform work.
-            Every project has its own page with role fit, ownership, tradeoffs, and evidence notes.
+            A proof-first library centered on two themes: Core Java backend systems and ML systems
+            engineering. Every project page includes role fit, ownership, tradeoffs, and evidence
+            notes.
           </p>
         </div>
       </section>
@@ -54,7 +55,7 @@ export default async function ProjectsPage({
           <SectionHeading
             eyebrow="Project Library"
             title="Start with the projects that map best to target roles"
-            note="If you only read three, start with Gathr, Habit Tracker Social, and Event-Driven Inventory Analytics."
+            note="If you only read four, start with Event-Driven Inventory Analytics, Gathr, Kalshi Prediction Market Analytics Platform, and Enefit Forecasting."
           />
 
           <div className="library-note">
@@ -86,7 +87,7 @@ export default async function ProjectsPage({
                 <SectionHeading
                   eyebrow="Flagship Work"
                   title="Start here"
-                  note="These are the clearest signals for backend, full-stack, and product-minded startup roles."
+                  note="These are the clearest signals for core Java backend roles on one side and ML systems engineering roles on the other."
                 />
                 <div className="project-detail-grid">
                   {flagshipProjects.map((project) => (

@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { resumeHref } from "../data/siteContent";
 
 export function NavBar() {
+  const isExternalResume = resumeHref.startsWith("http");
+
   return (
     <header className="site-header">
       <div className="container nav-shell">
@@ -11,9 +14,18 @@ export function NavBar() {
           <Link className="nav-link" href="/projects">
             Projects
           </Link>
-          <Link className="nav-link" href="/resume">
-            Resume
+          <Link className="nav-link" href="/notes">
+            Notes
           </Link>
+          {isExternalResume ? (
+            <a className="nav-link" href={resumeHref} target="_blank" rel="noreferrer">
+              Resume
+            </a>
+          ) : (
+            <Link className="nav-link" href={resumeHref}>
+              Resume
+            </Link>
+          )}
           <Link className="nav-link" href="/#contact">
             Contact
           </Link>

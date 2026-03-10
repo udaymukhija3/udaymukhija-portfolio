@@ -158,8 +158,8 @@ export const projects: Project[] = [
     ],
     stack: ["Java", "Spring Boot", "React", "React Native", "MySQL", "Redis", "WebSocket"],
     links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/habit-tracker-social" }],
-    featured: true,
-    flagship: true,
+    featured: false,
+    flagship: false,
   },
   {
     slug: "inventory-analytics-platform",
@@ -312,6 +312,8 @@ export const projects: Project[] = [
     ],
     stack: ["DuckDB", "dbt", "LightGBM", "FastAPI", "Spring Boot", "Kafka", "Flink", "Redis"],
     links: [],
+    featured: true,
+    flagship: true,
   },
   {
     slug: "instacart-reordering-system",
@@ -442,6 +444,8 @@ export const projects: Project[] = [
     ],
     stack: ["Python", "Pandas", "Pandera", "LightGBM", "FastAPI", "MLflow", "Docker"],
     links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/enefit" }],
+    featured: true,
+    flagship: true,
   },
   {
     slug: "fraud-detection-system",
