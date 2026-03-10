@@ -4,7 +4,7 @@ import { ProjectCard } from "../components/ProjectCard";
 import { SectionHeading } from "../components/SectionHeading";
 import { StructuredData } from "../components/StructuredData";
 import { projects } from "../data/projects";
-import { skills, snapshotItems } from "../data/siteContent";
+import { aboutBlurb, contactLinks, skills, snapshotItems, workPrinciples } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 
 const siteUrl = getSiteUrl();
@@ -18,18 +18,21 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const featuredProjects = projects.filter((project) => project.featured);
+  const socialLinks = contactLinks.filter((link) => link.href.startsWith("http"));
+  const githubLink = contactLinks.find((link) => link.label === "GitHub");
 
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: siteConfig.name,
-    jobTitle: "Software Engineer",
+    jobTitle: "Backend and Full-Stack Engineer",
     url: siteUrl,
     address: {
       "@type": "PostalAddress",
       addressCountry: siteConfig.location,
     },
     knowsAbout: skills,
+    sameAs: socialLinks.map((link) => link.href),
   };
 
   return (
@@ -39,25 +42,44 @@ export default function HomePage() {
       <section className="hero section">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Software Engineer</p>
-            <h1>I build thoughtful software systems that survive contact with reality.</h1>
+            <p className="eyebrow">Backend and Full-Stack Engineer</p>
+            <h1>I build product systems that are clear, reliable, and worth shipping.</h1>
             <p className="lead">
-              I work across backend, product-facing engineering, and ML systems. I like clean
-              architecture, practical tradeoffs, and shipping things that are technically solid
-              and actually useful.
+              I work across Java, Python, and TypeScript, with recent projects in social
+              coordination, habit tracking, event-driven inventory, logistics data platforms, and
+              ML-backed product systems.
+            </p>
+            <p className="availability-note">
+              Best fit: backend, full-stack, and startup product engineering roles.
             </p>
             <div className="cta-row">
               <Link className="button button-solid" href="/projects">
-                View Projects
+                View Selected Work
               </Link>
-              <Link className="button button-ghost" href="/#contact">
-                Get in Touch
+              <Link className="button button-ghost" href="/resume">
+                Resume
+              </Link>
+              {githubLink ? (
+                <a className="button button-ghost" href={githubLink.href} target="_blank" rel="noreferrer">
+                  GitHub
+                </a>
+              ) : null}
+            </div>
+            <div className="inline-link-row">
+              <Link className="inline-link" href="/projects/gathr">
+                Start with Gathr
+              </Link>
+              <Link className="inline-link" href="/projects/habit-tracker-social">
+                Habit Tracker Social
+              </Link>
+              <Link className="inline-link" href="/projects/inventory-analytics-platform">
+                Event-Driven Inventory
               </Link>
             </div>
           </div>
 
           <aside className="snapshot-card">
-            <p className="eyebrow">Snapshot</p>
+            <p className="eyebrow">Role Fit</p>
             <dl className="snapshot-list">
               {snapshotItems.map((item) => (
                 <div key={item.label}>
@@ -71,32 +93,11 @@ export default function HomePage() {
       </section>
 
       <section className="section">
-        <div className="container teaser-shell">
-          <div>
-            <p className="eyebrow">Architecture</p>
-            <h2>Rendered as HTML for humans, crawlers, and search engines</h2>
-          </div>
-          <div className="body-copy">
-            <p>
-              This site now uses the Next.js App Router so your content can be rendered on the
-              server and delivered as real HTML instead of depending on client-side JavaScript to
-              assemble the page.
-            </p>
-            <div className="cta-row">
-              <Link className="button button-solid" href="/projects">
-                Browse Project Library
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
         <div className="container">
           <SectionHeading
-            eyebrow="Featured Work"
-            title="Selected projects"
-            note="The cards below link to dedicated project pages, which gives each project its own crawlable URL."
+            eyebrow="Selected Work"
+            title="Start with the projects that best show ownership"
+            note="These three projects are the fastest path to understanding how I think about product systems, backend boundaries, and shipping discipline."
           />
           <div className="project-grid">
             {featuredProjects.map((project) => (
@@ -106,16 +107,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="skills" className="section">
-        <div className="container skills-layout">
-          <div>
-            <p className="eyebrow">Skills</p>
-            <h2>Technical strengths</h2>
+      <section className="section">
+        <div className="container about-shell">
+          <div className="about-copy">
+            <p className="eyebrow">How I Work</p>
+            <h2>Product-minded engineering with clear contracts and visible tradeoffs.</h2>
+            <p className="body-copy">{aboutBlurb}</p>
+            <div className="inline-link-row">
+              <Link className="inline-link" href="/projects">
+                Browse all case studies
+              </Link>
+              <Link className="inline-link" href="/resume">
+                Read the resume view
+              </Link>
+              <Link className="inline-link" href="/#contact">
+                Contact
+              </Link>
+            </div>
           </div>
-          <div className="skills-grid">
-            {skills.map((skill) => (
-              <div key={skill} className="skill-card">
-                {skill}
+          <div className="principles-grid">
+            {workPrinciples.map((principle) => (
+              <div key={principle.title} className="principle-card">
+                <p className="eyebrow">{principle.title}</p>
+                <p>{principle.body}</p>
               </div>
             ))}
           </div>
@@ -126,23 +140,27 @@ export default function HomePage() {
         <div className="container">
           <div className="contact-card">
             <p className="eyebrow">Contact</p>
-            <h2>Let's build something good</h2>
+            <h2>Hiring for backend, full-stack, or product-minded engineering?</h2>
             <p className="contact-copy">
-              Replace the placeholders below with your real email, GitHub, LinkedIn, and resume.
+              Email is best. If you want the fastest scan first, start with Gathr, Habit Tracker
+              Social, and Event-Driven Inventory Analytics, then jump to the resume page or GitHub.
             </p>
             <div className="contact-links">
-              <a className="contact-link" href="mailto:you@example.com">
-                Email
-              </a>
-              <a className="contact-link" href="https://github.com" target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-              <a className="contact-link" href="https://linkedin.com" target="_blank" rel="noreferrer">
-                LinkedIn
-              </a>
-              <a className="contact-link" href="#">
-                Resume
-              </a>
+              {contactLinks.map((link) => {
+                const isExternal = link.href.startsWith("http");
+
+                return (
+                  <a
+                    key={link.label}
+                    className="contact-link"
+                    href={link.href}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noreferrer" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>

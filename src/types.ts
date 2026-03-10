@@ -1,4 +1,24 @@
-export type ProjectCategory = "backend" | "ml" | "frontend";
+export type ProjectCategory = "product" | "ml" | "data";
+
+export type ProjectMetric = {
+  label: string;
+  value: string;
+};
+
+export type ProjectFact = {
+  label: string;
+  value: string;
+};
+
+export type ProjectSection = {
+  title: string;
+  paragraphs: string[];
+};
+
+export type ProjectLink = {
+  label: string;
+  href: string;
+};
 
 export type Project = {
   slug: string;
@@ -9,11 +29,14 @@ export type Project = {
   year: string;
   summary: string;
   description: string;
-  content: string[];
+  metrics: ProjectMetric[];
+  facts: ProjectFact[];
+  system: ProjectFact[];
+  highlights: string[];
+  sections: ProjectSection[];
   stack: string[];
-  links: {
-    label: string;
-    href: string;
-  }[];
+  links: ProjectLink[];
+  evidenceNote: string;
   featured?: boolean;
+  flagship?: boolean;
 };

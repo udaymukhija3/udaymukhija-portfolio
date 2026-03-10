@@ -13,7 +13,7 @@ type ActiveCategory = ProjectCategory | "all";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Project library covering backend, ML systems, and product-focused engineering work.",
+  description: "Project library covering product systems, ML platforms, and data engineering case studies.",
   alternates: {
     canonical: "/projects",
   },
@@ -33,16 +33,18 @@ export default async function ProjectsPage({
     activeCategory === "all"
       ? projects
       : projects.filter((project) => project.category === activeCategory);
+  const flagshipProjects = projects.filter((project) => project.flagship);
+  const additionalProjects = projects.filter((project) => !project.flagship);
 
   return (
     <>
       <section className="section page-intro">
         <div className="container page-intro-shell">
           <p className="eyebrow">Projects</p>
-          <h1>What I am building</h1>
+          <h1>Project library</h1>
           <p>
-            This page is server-rendered and query-driven, so each category view can be linked,
-            shared, and crawled as HTML instead of relying on a client-only filter.
+            A proof-first library of backend, full-stack, product, ML, and data-platform work.
+            Every project has its own page with role fit, ownership, tradeoffs, and evidence notes.
           </p>
         </div>
       </section>
@@ -51,9 +53,19 @@ export default async function ProjectsPage({
         <div className="container">
           <SectionHeading
             eyebrow="Project Library"
-            title="Start populating this page"
-            note="Each project has its own detail page, so add substance here and let search engines index the individual entries."
+            title="Start with the projects that map best to target roles"
+            note="If you only read three, start with Gathr, Habit Tracker Social, and Event-Driven Inventory Analytics."
           />
+
+          <div className="library-note">
+            <div className="inline-link-row">
+              {flagshipProjects.map((project) => (
+                <Link key={project.slug} className="inline-link" href={`/projects/${project.slug}`}>
+                  {project.title}
+                </Link>
+              ))}
+            </div>
+          </div>
 
           <div className="filter-row" role="navigation" aria-label="Project categories">
             {projectCategories.map((item) => {
@@ -68,11 +80,41 @@ export default async function ProjectsPage({
             })}
           </div>
 
-          <div className="project-detail-grid">
-            {visibleProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} detailed />
-            ))}
-          </div>
+          {activeCategory === "all" ? (
+            <>
+              <div className="library-section">
+                <SectionHeading
+                  eyebrow="Flagship Work"
+                  title="Start here"
+                  note="These are the clearest signals for backend, full-stack, and product-minded startup roles."
+                />
+                <div className="project-detail-grid">
+                  {flagshipProjects.map((project) => (
+                    <ProjectCard key={project.slug} project={project} detailed />
+                  ))}
+                </div>
+              </div>
+
+              <div className="library-section">
+                <SectionHeading
+                  eyebrow="Additional Systems"
+                  title="More ML and data-platform work"
+                  note="Useful supporting evidence for applied ML, data-intensive backend, and platform-heavy conversations."
+                />
+                <div className="project-detail-grid">
+                  {additionalProjects.map((project) => (
+                    <ProjectCard key={project.slug} project={project} detailed />
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="project-detail-grid">
+              {visibleProjects.map((project) => (
+                <ProjectCard key={project.slug} project={project} detailed />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>

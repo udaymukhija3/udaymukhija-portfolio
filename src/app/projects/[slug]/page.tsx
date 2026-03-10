@@ -39,6 +39,11 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
       url: `${getSiteUrl()}/projects/${project.slug}`,
       type: "article",
     },
+    twitter: {
+      card: "summary",
+      title: `${project.title} | ${siteConfig.name}`,
+      description: project.description,
+    },
   };
 }
 
@@ -74,6 +79,15 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </p>
           <h1>{project.title}</h1>
           <p>{project.description}</p>
+          <p className="detail-note">{project.evidenceNote}</p>
+          <div className="project-stat-grid project-stat-grid-hero" aria-label={`${project.title} key metrics`}>
+            {project.metrics.map((metric) => (
+              <div key={metric.label} className="project-stat">
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+              </div>
+            ))}
+          </div>
           <div className="project-detail-meta">
             {project.stack.map((item) => (
               <span key={item} className="tag-chip">
@@ -84,28 +98,70 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container project-story-grid">
-          <article className="story-card">
-            <h2>Project overview</h2>
-            {project.content.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+      <section className="section section-compact-top">
+        <div className="container">
+          <div className="project-fact-grid">
+            {project.facts.map((fact) => (
+              <div key={fact.label} className="project-fact">
+                <span>{fact.label}</span>
+                <strong>{fact.value}</strong>
+              </div>
             ))}
-          </article>
+          </div>
+        </div>
+      </section>
 
-          <aside className="story-card">
-            <h2>Links</h2>
-            <div className="project-links">
-              <Link className="project-link project-link-primary" href="/projects">
-                Back to projects
-              </Link>
-              {project.links.map((link) => (
-                <a key={link.label} className="project-link" href={link.href} target="_blank" rel="noreferrer">
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </aside>
+      <section className="section">
+        <div className="container project-story-shell">
+          <div className="project-story-grid">
+            <article className="story-card">
+              <p className="eyebrow">Project signal</p>
+              <h2>What this project proves</h2>
+              <p>{project.summary}</p>
+              <ul className="story-list">
+                {project.highlights.map((highlight) => (
+                  <li key={highlight}>{highlight}</li>
+                ))}
+              </ul>
+            </article>
+
+            <aside className="story-card">
+              <p className="eyebrow">System map</p>
+              <h2>How the system is shaped</h2>
+              <div className="system-grid">
+                {project.system.map((item) => (
+                  <div key={item.label} className="system-card">
+                    <span>{item.label}</span>
+                    <strong>{item.value}</strong>
+                  </div>
+                ))}
+              </div>
+              <div className="project-links">
+                <Link className="project-link project-link-primary" href="/projects">
+                  Back to projects
+                </Link>
+                {project.links.map((link) => (
+                  <a key={link.label} className="project-link" href={link.href} target="_blank" rel="noreferrer">
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+              {project.links.length === 0 ? (
+                <p className="card-proof-note">No public repo is linked for this case study.</p>
+              ) : null}
+            </aside>
+          </div>
+
+          <div className="project-section-grid">
+            {project.sections.map((section) => (
+              <article key={section.title} className="story-card">
+                <h2>{section.title}</h2>
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </>

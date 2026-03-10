@@ -11,8 +11,8 @@ export function NavBar() {
           <Link className="nav-link" href="/projects">
             Projects
           </Link>
-          <Link className="nav-link" href="/#skills">
-            Skills
+          <Link className="nav-link" href="/resume">
+            Resume
           </Link>
           <Link className="nav-link" href="/#contact">
             Contact

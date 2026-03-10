@@ -1,14 +1,16 @@
 export const siteConfig = {
   name: "Uday Mukhija",
-  title: "Uday Mukhija | Software Engineer",
+  title: "Uday Mukhija | Backend and Full-Stack Engineer",
   description:
-    "Portfolio of Uday Mukhija, focused on backend systems, product engineering, and ML systems.",
+    "Backend and full-stack engineer building product systems, APIs, and data-heavy ML workflows.",
   location: "India",
 };
 
 export function getSiteUrl() {
   const configuredUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? process.env.PUBLIC_VERCEL_PROJECT_PRODUCTION_URL;
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ??
+    process.env.VERCEL_URL;
 
   if (!configuredUrl) {
     return "http://localhost:3000";
