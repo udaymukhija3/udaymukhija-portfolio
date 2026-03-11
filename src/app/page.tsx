@@ -33,11 +33,6 @@ export default function HomePage() {
   const resumeProps = isResumeExternal
     ? { href: resumeHref, target: "_blank", rel: "noreferrer" as const }
     : { href: resumeHref };
-  const heroMeta = [
-    { label: "Based in", value: siteConfig.location },
-    { label: "Focus", value: "Backend and ML systems" },
-    { label: "Open to", value: "Backend, platform, and ML roles" },
-  ];
 
   const personJsonLd = {
     "@context": "https://schema.org",
@@ -63,18 +58,9 @@ export default function HomePage() {
             <p className="eyebrow">Software Engineer</p>
             <h1>I build backend systems and ML projects.</h1>
             <p className="lead">
-              Most of my work sits in Java backend services, data pipelines, and ML systems. This
-              site is the quickest way to see how I think about APIs, system boundaries, and
-              product tradeoffs.
+              I work mostly on Java services, event-driven systems, and ML-heavy products. Start
+              with the projects if you want the clearest picture of how I build and make tradeoffs.
             </p>
-            <div className="hero-meta" aria-label="Profile summary">
-              {heroMeta.map((item) => (
-                <p key={item.label} className="hero-meta-item">
-                  <span className="hero-meta-label">{item.label}</span>
-                  <span className="hero-meta-value">{item.value}</span>
-                </p>
-              ))}
-            </div>
             <div className="hero-actions">
               <div className="cta-row">
                 <Link className="button button-solid" href="/projects">
@@ -86,15 +72,15 @@ export default function HomePage() {
                   </a>
                 ) : (
                   <Link className="button button-ghost" href={resumeHref}>
-                    Resume
-                  </Link>
-                )}
+                  Resume
+                </Link>
+              )}
               </div>
-              <div className="inline-link-row hero-links">
+              <div className="hero-links" aria-label="Profile links">
                 {profileLinks.map((link) => (
                   <a
                     key={link.label}
-                    className="inline-link"
+                    className="hero-link"
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"

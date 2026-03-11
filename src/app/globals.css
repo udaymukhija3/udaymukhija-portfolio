@@ -83,7 +83,6 @@ ul {
 .brand,
 .eyebrow,
 .project-kicker,
-.hero-meta-label,
 .project-stack span:first-child,
 .meta-list dt,
 .system-list dt,
@@ -194,7 +193,7 @@ ul {
 }
 
 .lead {
-  max-width: 44rem;
+  max-width: 42rem;
 }
 
 .eyebrow {
@@ -211,40 +210,12 @@ ul {
   line-height: 1.7;
 }
 
-.hero-meta {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem 1.5rem;
-  margin-top: 0.2rem;
-  padding-top: 1.35rem;
-  border-top: 1px solid var(--line);
-}
-
-.hero-meta-item {
-  display: grid;
-  gap: 0.35rem;
-  color: var(--muted-strong);
-  font-size: 0.96rem;
-  line-height: 1.5;
-}
-
-.hero-meta-label {
-  color: var(--muted);
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.hero-meta-value {
-  color: var(--muted-strong);
-  font-size: 1rem;
-  line-height: 1.55;
-}
-
 .hero-actions {
-  display: grid;
-  gap: 1rem;
-  padding-top: 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.4rem;
+  padding-top: 0.25rem;
 }
 
 .cta-row,
@@ -259,6 +230,26 @@ ul {
 
 .cta-row {
   margin-top: 0;
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+}
+
+.hero-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: color 160ms ease;
+}
+
+.hero-link:hover,
+.hero-link:focus-visible {
+  color: var(--text);
 }
 
 .button {
@@ -625,10 +616,6 @@ ul {
   margin-top: 0.9rem;
 }
 
-.hero-links {
-  gap: 0.6rem 1.2rem;
-}
-
 .empty-state {
   max-width: 38rem;
   padding-top: 1.25rem;
@@ -655,10 +642,6 @@ ul {
   .project-hero,
   .project-overview-grid {
     grid-template-columns: 1fr;
-  }
-
-  .hero-meta {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .project-hero {
@@ -700,9 +683,10 @@ ul {
     font-size: clamp(2.35rem, 12vw, 3.6rem);
   }
 
-  .hero-meta {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.9rem;
   }
 
   .project-card-meta,
