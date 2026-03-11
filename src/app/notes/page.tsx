@@ -40,7 +40,7 @@ export default function NotesPage() {
             </div>
           ) : (
             <div className="empty-state">
-              <p>There is no published writing here yet.</p>
+              <p>I haven't published any notes here yet.</p>
               <div className="inline-link-row">
                 <Link className="inline-link" href="/projects">
                   Projects

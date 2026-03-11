@@ -1,7 +1,7 @@
 export const notesIntro = {
   eyebrow: "Notes",
   title: "Notes",
-  summary: "Short writing on backend systems, ML work, and product decisions.",
+  summary: "I use this section for short writing on backend systems, ML work, and product decisions.",
 };
 
 export const noteEntries: Array<{

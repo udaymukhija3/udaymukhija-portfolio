@@ -97,7 +97,7 @@ export default function ResumePage() {
           <SectionHeading
             eyebrow="Selected Projects"
             title="Projects to start with"
-            note="These are the best first reads on the site."
+            note="If you're short on time, these are the projects I'd start with."
           />
           <div className="resume-project-grid">
             {resumeProjects.map((project) => (
@@ -141,10 +141,10 @@ export default function ResumePage() {
 
           <section className="resume-card">
             <p className="eyebrow">Contact</p>
-            <h2>Start here</h2>
+            <h2>Quickest way to evaluate fit</h2>
             <p>
-              Start with the strongest projects, then look at GitHub or the resume document if you
-              want more detail.
+              If you want the fastest read on my work, start with these projects, then check GitHub
+              or the resume document for more detail.
             </p>
             <div className="inline-link-row">
               <Link className="inline-link" href="/projects/inventory-analytics-platform">
@@ -152,6 +152,9 @@ export default function ResumePage() {
               </Link>
               <Link className="inline-link" href="/projects/gathr">
                 Gathr
+              </Link>
+              <Link className="inline-link" href="/projects/habit-tracker-social">
+                Habit Tracker
               </Link>
               <Link className="inline-link" href="/projects/kalshi-prediction-platform">
                 Kalshi Platform

@@ -8,8 +8,9 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "product",
     year: "2025",
-    summary: "Social planning app built around the gap between interest and actual attendance.",
-    description: "Solo product build with mobile flows, Spring Boot APIs, chat, and simple recommendation logic.",
+    summary: "I built this social planning app around the gap between interest and actual attendance.",
+    description:
+      "I built Gathr as a solo product project spanning mobile flows, Spring Boot APIs, chat, and lightweight recommendation logic.",
     metrics: [
       { label: "North star", value: "Attendance" },
       { label: "Realtime", value: "WS -> polling" },
@@ -30,7 +31,8 @@ export const projects: Project[] = [
       { label: "Recommendations", value: "Shared event model and ranking inputs" },
       { label: "Fallbacks", value: "Polling fallback and rollout controls" },
     ],
-    evidenceNote: "Public repo. Good signal for product thinking and end-to-end implementation, not for scale.",
+    evidenceNote:
+      "The repo is public, so you can inspect the product decisions and the end-to-end implementation directly.",
     highlights: [
       "Built the product around attendance instead of raw activity.",
       "Connected discovery, commitments, trust cues, and chat in one app.",
@@ -39,28 +41,28 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
           "Gathr started with a simple question: why do people say they are interested in an event but do not show up?",
           "I built it as a full-stack product so I could work through the mobile UX, backend APIs, chat, and recommendation logic in one system.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main product choice was to optimize for attendance, not just clicks or interest.",
+          "I optimized for attendance instead of raw interest or clicks.",
           "On the backend side, I used a shared recommendation event model so multiple screens could rely on the same logic.",
         ],
       },
       {
         title: "Limits",
         paragraphs: [
-          "This is still a solo product build, so it is better as a design and implementation example than as proof of production scale.",
+          "Because I built this solo, I treat it as a product and implementation sample, not proof of production scale.",
           "I also chose practical fallbacks over perfect realtime behavior. Chat falls back to polling when needed.",
         ],
       },
       {
-        title: "Next steps",
+        title: "What I'd do next",
         paragraphs: [
           "If I kept working on it, I would narrow the product around the strongest loop and measure how well it converts interest into attendance.",
         ],
@@ -78,8 +80,10 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "product",
     year: "2024",
-    summary: "Habit tracking app with web and mobile clients, social features, and wearable-aware updates.",
-    description: "Full-stack build focused on reducing manual tracking without making user data unreliable.",
+    summary:
+      "I built this habit tracking product with web and mobile clients, social features, and wearable-aware updates.",
+    description:
+      "I built this across web, mobile, and backend with a focus on reducing manual tracking without making user data feel fake.",
     metrics: [
       { label: "Clients", value: "Web + mobile" },
       { label: "Sync", value: "Manual + wearable" },
@@ -100,7 +104,8 @@ export const projects: Project[] = [
       { label: "Automation", value: "Manual, wearable, and hybrid completion flows" },
       { label: "Social layer", value: "Activity feeds, accountability, competitions, realtime updates" },
     ],
-    evidenceNote: "Public repo. Best signal is the backend and state-management work behind the product.",
+    evidenceNote:
+      "The repo is public, and the part I'm happiest with is the backend and state-management work behind the product.",
     highlights: [
       "Built both web and mobile clients around the same backend.",
       "Used confirmation rules so automation does not silently overwrite user progress.",
@@ -109,16 +114,16 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
-          "This project looks at a common product problem: how do you reduce tracking friction without making progress feel fake?",
+          "I built this around a product question I care about: how do you reduce tracking friction without making progress feel fake?",
           "The result is a full-stack app with web and mobile clients, social features, and backend rules for when automated updates are allowed.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main product choice was to treat trust as part of the feature set. Automated updates can ask for confirmation instead of pretending they are always correct.",
+          "I treated trust as part of the feature set. Automated updates can ask for confirmation instead of pretending they are always correct.",
           "The backend is split into auth, sync, notifications, and user-state logic so the whole system does not collapse into one request path.",
         ],
       },
@@ -126,11 +131,11 @@ export const projects: Project[] = [
         title: "Limits",
         paragraphs: [
           "It is a broad product build, so the strongest part is the system design rather than deep polish in every feature.",
-          "The main value here is the backend and state-management work, not any AI layer.",
+          "I focused more on backend and state management here than on adding any AI layer.",
         ],
       },
       {
-        title: "Next steps",
+        title: "What I'd do next",
         paragraphs: [
           "If I kept working on it, I would narrow the product around the strongest retention loop and measure activation and first-week consistency more directly.",
         ],
@@ -148,8 +153,10 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "data",
     year: "2024",
-    summary: "Inventory service that records stock changes, emits Kafka events, and publishes analytics outputs.",
-    description: "Backend and data project focused on transactional writes, typed events, and analytics pipelines.",
+    summary:
+      "I built this inventory service to record stock changes, emit Kafka events, and publish analytics outputs.",
+    description:
+      "I built this around transactional writes, typed events, and analytics pipelines that stay close to the operational system.",
     metrics: [
       { label: "Operational writes", value: "Postgres + audit" },
       { label: "Events", value: "Kafka mutations" },
@@ -170,7 +177,8 @@ export const projects: Project[] = [
       { label: "ETL and marts", value: "Python and Airflow path publishing Postgres, Redis, and Parquet outputs" },
       { label: "Serving boundary", value: "Analytics API exists, but the read path is still split" },
     ],
-    evidenceNote: "Public repo. Strong backend signal. The analytics serving path is still split, and the project says so directly.",
+    evidenceNote:
+      "The repo is public. I like this one because it shows the backend path clearly, including the part I still need to unify in the analytics read path.",
     highlights: [
       "Captures stock changes transactionally before publishing events.",
       "Writes analytics outputs to multiple sinks.",
@@ -179,21 +187,21 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
-          "This project combines an inventory service with an analytics pipeline.",
+          "I built this as an inventory service connected to an analytics pipeline.",
           "The core idea is simple: write stock changes transactionally, emit typed events, and publish analytics outputs from those events.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main design choice was to treat the event stream as a real boundary, not a side effect.",
+          "I treated the event stream as a real boundary, not a side effect.",
           "I also published outputs to multiple sinks so the project shows more than one downstream use case.",
         ],
       },
       {
-        title: "Current gap",
+        title: "What I'd fix next",
         paragraphs: [
           "The main gap is that the analytics API is not yet reading from the exact same path as the ETL outputs.",
           "If I kept going, I would unify that read path and tighten the publication contract.",
@@ -212,8 +220,10 @@ export const projects: Project[] = [
     status: "Case study only",
     category: "ml",
     year: "2025",
-    summary: "Prediction market case study with marts, evaluation, model serving, and a realtime path.",
-    description: "ML systems project focused on data modeling, calibration, and a clean serving boundary.",
+    summary:
+      "I designed this prediction market case study around marts, evaluation, model serving, and a realtime path.",
+    description:
+      "I used this case study to work through data modeling, evaluation, model serving, and a cleaner public API boundary.",
     metrics: [
       { label: "Validation", value: "Time-aware" },
       { label: "Invariant", value: "Zero-sum dbt test" },
@@ -234,7 +244,8 @@ export const projects: Project[] = [
       { label: "Serving layer", value: "FastAPI inference behind a Spring Boot public contract" },
       { label: "Realtime path", value: "Python consumer today, Flink path for scale-up" },
     ],
-    evidenceNote: "No public repo linked. The strongest part is the system design and evaluation setup.",
+    evidenceNote:
+      "This one is a case study rather than a public repo, so the value is in the system design and evaluation choices.",
     highlights: [
       "Modeled market data into features and marts.",
       "Used time-aware validation and calibration metrics.",
@@ -243,24 +254,24 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
-          "This project is meant to look like a small ML platform instead of a single training script.",
+          "I approached this like a small ML platform instead of a single training script.",
           "It combines data modeling, evaluation, model serving, and a realtime update path in one case study.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main choices were to keep the data model explicit, use time-aware evaluation, and separate inference from the public API.",
+          "I kept the data model explicit, used time-aware evaluation, and separated inference from the public API.",
           "That makes the project more about system design than about model hype.",
         ],
       },
       {
         title: "Limits",
         paragraphs: [
-          "This is a case study, so the evidence is mostly in the design and write-up rather than a public repo.",
-          "It is useful for architecture discussion, but weaker as a proof artifact than the public projects.",
+          "Because this is a case study, most of the evidence lives in the design and write-up rather than a public repo.",
+          "It works well for architecture discussion, but it is not as inspectable as the public projects.",
         ],
       },
     ],
@@ -276,8 +287,10 @@ export const projects: Project[] = [
     status: "Case study only",
     category: "ml",
     year: "2025",
-    summary: "Reordering system with point-in-time features, calibration, and a versioned serving contract.",
-    description: "Recommendation system case study focused on preprocessing, evaluation, and training-serving parity.",
+    summary:
+      "I built this reordering case study with point-in-time features, calibration, and a versioned serving contract.",
+    description:
+      "I built this case study around preprocessing, evaluation, and training-serving parity rather than only chasing model metrics.",
     metrics: [
       { label: "Candidate F1", value: "0.5665" },
       { label: "Basket F1", value: "0.4159" },
@@ -298,7 +311,8 @@ export const projects: Project[] = [
       { label: "Calibration", value: "Thresholding on a dedicated held-out split" },
       { label: "Serving", value: "FastAPI inference with saved schema contract" },
     ],
-    evidenceNote: "Strongest part is the work on leakage, evaluation, and inference contracts.",
+    evidenceNote:
+      "I use this case study to show how I think about leakage, evaluation, and inference contracts.",
     highlights: [
       "Used point-in-time preprocessing and leakage checks.",
       "Separated candidate quality from full-basket quality.",
@@ -307,24 +321,24 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
-          "This project focuses on the parts of recommendation systems that are easy to skip in portfolios: leakage control, evaluation, and serving parity.",
+          "I built this to focus on the parts of recommendation systems that are easy to skip in portfolios: leakage control, evaluation, and serving parity.",
           "The main goal was to show care for the data path and the online contract, not just the model.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main decisions were to keep preprocessing point-in-time and deterministic, and to separate candidate ranking from basket-level quality.",
+          "I kept preprocessing point-in-time and deterministic, and I separated candidate ranking from basket-level quality.",
           "Those choices make the offline results easier to trust.",
         ],
       },
       {
         title: "Limits",
         paragraphs: [
-          "This is better as an engineering example than as a broad product case study.",
-          "The useful signal is the evaluation setup and feature contract.",
+          "I treat this as an engineering case study more than a broad product example.",
+          "The part I would point to is the evaluation setup and feature contract.",
         ],
       },
     ],
@@ -338,8 +352,10 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "ml",
     year: "2025",
-    summary: "Energy forecasting system with causal joins, separate models, and a shared serving contract.",
-    description: "Forecasting project focused on time-aware joins, target-specific models, and reusable serving code.",
+    summary:
+      "I built this energy forecasting system with causal joins, separate models, and a shared serving contract.",
+    description:
+      "I built this forecasting pipeline to practice time-aware joins, target-specific models, and reusable serving code.",
     metrics: [
       { label: "Rows", value: "2.0M" },
       { label: "Features", value: "106" },
@@ -360,7 +376,8 @@ export const projects: Project[] = [
       { label: "Model layer", value: "Separate consumption and production models" },
       { label: "Serving path", value: "Shared feature contract with fallback defaults" },
     ],
-    evidenceNote: "Public repo. Strongest part is the time-aware data work and the shared serving contract.",
+    evidenceNote:
+      "The repo is public, and the part I'd point you to first is the time-aware data work plus the shared serving contract.",
     highlights: [
       "Used causal joins and time-aware features.",
       "Trained separate models for different targets.",
@@ -369,24 +386,24 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
-          "This project is about building a forecasting pipeline that stays believable when time matters.",
+          "I built this forecasting pipeline to stay believable when time matters.",
           "I used it to practice causal joins, target-specific models, and a serving path that stays aligned with training.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main decisions were to keep joins explicitly causal and to split artifacts by target.",
+          "I kept joins explicitly causal and split artifacts by target.",
           "I also kept the same feature contract in serving instead of rewriting the online path as a toy version.",
         ],
       },
       {
         title: "Limits",
         paragraphs: [
-          "This is a strong technical project, but it is still a self-directed build rather than a live business system.",
-          "The main proof is in the data handling, evaluation, and shared contract.",
+          "It is still a self-directed build rather than a live business system.",
+          "The strongest part is the data handling, evaluation, and shared contract.",
         ],
       },
     ],
@@ -402,8 +419,10 @@ export const projects: Project[] = [
     status: "Case study only",
     category: "ml",
     year: "2025",
-    summary: "Fraud system with chronology-safe evaluation, calibration, and a serving contract.",
-    description: "Fraud case study focused on leakage, thresholds, calibration, and deployable inference.",
+    summary:
+      "I built this fraud system around chronology-safe evaluation, calibration, and a serving contract.",
+    description:
+      "I used this case study to focus on leakage, thresholds, calibration, and deployable inference.",
     metrics: [
       { label: "AUC-ROC", value: "0.8360" },
       { label: "AUC-PR", value: "0.4198" },
@@ -424,7 +443,8 @@ export const projects: Project[] = [
       { label: "Decisioning", value: "Calibration and thresholding for deployable outputs" },
       { label: "Serving", value: "FastAPI contract with monitoring hooks" },
     ],
-    evidenceNote: "Strongest part is the decisioning and deployment-aware evaluation, not the product surface.",
+    evidenceNote:
+      "I use this case study to show how I think about decisioning, thresholds, and deployment-aware evaluation.",
     highlights: [
       "Treated chronology and leakage as first-class concerns.",
       "Focused on calibration and thresholding, not just ranking metrics.",
@@ -433,24 +453,24 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
-          "This project is about decision quality under class imbalance and deployment constraints.",
+          "I built this around decision quality under class imbalance and deployment constraints.",
           "It emphasizes leakage control, calibration, and deployable inference more than feature volume.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main choices were to make chronology explicit, tune thresholds, and keep challenger benchmarking in the loop.",
+          "I made chronology explicit, tuned thresholds, and kept challenger benchmarking in the loop.",
           "That makes the project read like a system that can evolve instead of a one-off training run.",
         ],
       },
       {
         title: "Limits",
         paragraphs: [
-          "This is strongest as an ML systems example, not as a public proof artifact.",
-          "Without a public repo, the evidence is weaker than the flagship projects.",
+          "I treat this as an ML systems example more than something you can verify line by line.",
+          "Without a public repo, it lands better in discussion than as an inspectable artifact.",
         ],
       },
     ],
@@ -464,8 +484,10 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "ml",
     year: "2024",
-    summary: "Small ML service with a clean train-to-serving path and a stricter v2 validation flow.",
-    description: "Compact clustering service that is mostly useful for artifact discipline and API design.",
+    summary:
+      "I built this small ML service with a clean train-to-serving path and a stricter v2 validation flow.",
+    description:
+      "I built this compact clustering service to keep the artifact flow, validation, and API contract explicit.",
     metrics: [
       { label: "Model", value: "K-Means" },
       { label: "Serving", value: "FastAPI" },
@@ -486,7 +508,8 @@ export const projects: Project[] = [
       { label: "v2 path", value: "Schema checks and richer engineered features" },
       { label: "Packaging", value: "Docker, CI, and API tests" },
     ],
-    evidenceNote: "Small project. Useful mainly because it shows clean artifacts, validation, and API boundaries.",
+    evidenceNote:
+      "This is a small public repo, but it does show how I handle artifacts, validation, and API boundaries in a compact service.",
     highlights: [
       "Kept a runnable baseline path.",
       "Saved model metadata with the artifacts.",
@@ -495,24 +518,24 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
-          "This is a compact ML service project.",
+          "I built this as a compact ML service project.",
           "The value is not model complexity. The value is the clean artifact flow, explicit metadata, and testable API contract.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main choice was to keep both a stable baseline and a stricter v2 path.",
+          "I kept both a stable baseline and a stricter v2 path.",
           "I also made the API contract and model metadata explicit so the system is easy to inspect.",
         ],
       },
       {
         title: "Limits",
         paragraphs: [
-          "This is a supporting project, not a flagship one.",
-          "It is useful as a small example of clean service design.",
+          "This is a supporting project, not the one I'd start with.",
+          "I keep it here because it shows clean service design in a small surface area.",
         ],
       },
     ],
@@ -526,8 +549,10 @@ export const projects: Project[] = [
     status: "Public repo",
     category: "data",
     year: "2025",
-    summary: "Logistics data platform with layered processing, quality checks, and a verified local demo path.",
-    description: "Data engineering project with ingestion, transforms, marts, orchestration, and explicit local proof.",
+    summary:
+      "I built this logistics data platform with layered processing, quality checks, and a verified local demo path.",
+    description:
+      "I built this as a data engineering project with ingestion, transforms, marts, orchestration, and a verified local demo path.",
     metrics: [
       { label: "Tests", value: "77 passed" },
       { label: "Quality", value: "31 / 31 checks" },
@@ -548,7 +573,8 @@ export const projects: Project[] = [
       { label: "Quality", value: "Reusable framework across pipeline checks" },
       { label: "Demo path", value: "Verified local sample run with reproducible outputs" },
     ],
-    evidenceNote: "Public repo. Strong because it clearly separates the verified local path from the larger target architecture.",
+    evidenceNote:
+      "The repo is public, and I was deliberate about separating the verified local path from the larger target architecture.",
     highlights: [
       "Modeled three operational domains instead of one synthetic stream.",
       "Built layered processing and validation.",
@@ -557,16 +583,16 @@ export const projects: Project[] = [
     ],
     sections: [
       {
-        title: "What it is",
+        title: "What I built",
         paragraphs: [
-          "This project is meant to look like a small data platform instead of a single ETL script.",
+          "I built this to look like a small data platform instead of a single ETL script.",
           "It combines ingestion, layered transforms, quality checks, orchestration, and marts.",
         ],
       },
       {
-        title: "Main choices",
+        title: "Choices I made",
         paragraphs: [
-          "The main decisions were to build reusable checks into the pipeline and to keep a verified sample-mode path.",
+          "I built reusable checks into the pipeline and kept a verified sample-mode path.",
           "That gives the project something concrete to prove instead of only describing a target architecture.",
         ],
       },
@@ -574,7 +600,7 @@ export const projects: Project[] = [
         title: "Limits",
         paragraphs: [
           "The architecture is broader than the fully verified runtime path.",
-          "That tradeoff is acceptable here because the project is clear about what is proven locally and what is still just architecture.",
+          "I am comfortable with that tradeoff because the project is clear about what is proven locally and what is still just architecture.",
         ],
       },
     ],

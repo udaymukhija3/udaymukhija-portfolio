@@ -18,7 +18,13 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const featuredProjects = projects.filter((project) => project.flagship).slice(0, 3);
+  const featuredProjectSlugs = new Set([
+    "gathr",
+    "habit-tracker-social",
+    "inventory-analytics-platform",
+    "kalshi-prediction-platform",
+  ]);
+  const featuredProjects = projects.filter((project) => featuredProjectSlugs.has(project.slug));
   const socialLinks = contactLinks.filter((link) => link.href.startsWith("http"));
   const profileLinks = socialLinks.filter(
     (link) => link.label === "GitHub" || link.label === "LinkedIn",
@@ -57,37 +63,46 @@ export default function HomePage() {
             <p className="eyebrow">Software Engineer</p>
             <h1>I build backend systems and ML projects.</h1>
             <p className="lead">
-              Most of my work sits in three areas: Java backend services, data pipelines, and ML
-              systems. This site is a simple overview of the projects I think are worth showing.
+              Most of my work sits in Java backend services, data pipelines, and ML systems. This
+              site is the quickest way to see how I think about APIs, system boundaries, and
+              product tradeoffs.
             </p>
             <div className="hero-meta" aria-label="Profile summary">
               {heroMeta.map((item) => (
                 <p key={item.label} className="hero-meta-item">
-                  <span>{item.label}</span>
-                  <span>{item.value}</span>
+                  <span className="hero-meta-label">{item.label}</span>
+                  <span className="hero-meta-value">{item.value}</span>
                 </p>
               ))}
             </div>
-            <div className="cta-row">
-              <Link className="button button-solid" href="/projects">
-                View Projects
-              </Link>
-              {isResumeExternal ? (
-                <a className="button button-ghost" {...resumeProps}>
-                  Resume
-                </a>
-              ) : (
-                <Link className="button button-ghost" href={resumeHref}>
-                  Resume
+            <div className="hero-actions">
+              <div className="cta-row">
+                <Link className="button button-solid" href="/projects">
+                  View Projects
                 </Link>
-              )}
-            </div>
-            <div className="inline-link-row">
-              {profileLinks.map((link) => (
-                <a key={link.label} className="inline-link" href={link.href} target="_blank" rel="noreferrer">
-                  {link.label}
-                </a>
-              ))}
+                {isResumeExternal ? (
+                  <a className="button button-ghost" {...resumeProps}>
+                    Resume
+                  </a>
+                ) : (
+                  <Link className="button button-ghost" href={resumeHref}>
+                    Resume
+                  </Link>
+                )}
+              </div>
+              <div className="inline-link-row hero-links">
+                {profileLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    className="inline-link"
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -97,7 +112,7 @@ export default function HomePage() {
         <div className="container">
           <SectionHeading
             eyebrow="Selected Work"
-            title="Projects worth starting with"
+            title="Projects I'd start with"
             note={aboutBlurb}
           />
           <div className="project-grid">
@@ -118,7 +133,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Experience"
             title="Recent work"
-            note="Short version here. The resume has the full details."
+            note="This is the short version. The resume has the fuller timeline."
           />
           <div className="experience-list">
             {experienceItems.map((item) => (
@@ -153,10 +168,10 @@ export default function HomePage() {
         <div className="container">
           <div className="contact-block">
             <p className="eyebrow">Contact</p>
-            <h2>If the work looks relevant, reach out.</h2>
+            <h2>If this lines up with what you're hiring for, reach out.</h2>
             <p className="contact-copy">
-              Email is the fastest route. If you want the short version first, start with the
-              projects page or the resume, then reach out if there is a good fit.
+              Email is the fastest way to reach me. If you want a quick read first, start with the
+              projects page or the resume.
             </p>
             <div className="contact-links">
               {contactLinks.map((link) => {

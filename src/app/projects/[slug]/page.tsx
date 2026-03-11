@@ -134,7 +134,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="container project-overview-grid">
           <article className="content-block">
             <p className="eyebrow">Overview</p>
-            <h2>Why it matters</h2>
+            <h2>Why I built it</h2>
             <p>{project.summary}</p>
             <ul className="story-list">
               {project.highlights.map((highlight) => (
@@ -145,7 +145,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
           <aside className="content-block">
             <p className="eyebrow">Architecture</p>
-            <h2>Main parts</h2>
+            <h2>How it's put together</h2>
             <dl className="system-list">
               {project.system.map((item) => (
                 <div key={item.label} className="system-list-item">

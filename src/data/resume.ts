@@ -2,8 +2,8 @@ export const resumeSummary = {
   eyebrow: "Resume",
   title: "Software engineer focused on backend and ML systems",
   intro:
-    "I build backend services, data pipelines, and ML projects. This page is the short version of the site.",
-  note: "Best fit for backend, platform, and ML engineering roles.",
+    "This is the quick read on my experience, strongest projects, and core stack.",
+  note: "I'm targeting backend, platform, and ML engineering roles.",
 };
 
 export const skillGroups = [
@@ -32,9 +32,9 @@ export const experienceItems = [
     period: "2024",
     location: "Remote, India",
     bullets: [
-      "Worked on a migration from a no-code stack to a PostgreSQL-backed system.",
-      "Built FastAPI flows and product-facing UI while cleaning up the data model.",
-      "Good experience in migration work, backend delivery, and pragmatic shipping.",
+      "Helped migrate a no-code product onto a PostgreSQL-backed system.",
+      "Built FastAPI flows and product-facing UI while tightening the data model.",
+      "That work gave me hands-on experience with migration-heavy backend delivery and pragmatic shipping.",
     ],
   },
 ];
@@ -45,8 +45,8 @@ export const resumeProjects = [
     href: "/projects/inventory-analytics-platform",
     summary: "Inventory service with transactional writes, Kafka events, and analytics outputs.",
     bullets: [
-      "Best backend project on the site.",
-      "Shows event-driven design and a clear note about what is still incomplete.",
+      "If you want my clearest backend example, start here.",
+      "It shows event-driven design and is direct about what I would still tighten up.",
     ],
   },
   {
@@ -54,8 +54,17 @@ export const resumeProjects = [
     href: "/projects/gathr",
     summary: "Social planning app with mobile flows, backend APIs, chat, and recommendation events.",
     bullets: [
-      "Best example of product work plus backend ownership.",
-      "More useful than a generic CRUD project because it has real product constraints.",
+      "This is the best read on how I think about product and backend together.",
+      "It has real product constraints instead of feeling like a generic CRUD build.",
+    ],
+  },
+  {
+    title: "Habit Tracker Social",
+    href: "/projects/habit-tracker-social",
+    summary: "Habit tracking product with web and mobile clients, automation rules, and social features.",
+    bullets: [
+      "Useful if you want to see one backend supporting multiple client experiences.",
+      "I spent most of my time here on state management, sync rules, and user trust.",
     ],
   },
   {
@@ -63,8 +72,8 @@ export const resumeProjects = [
     href: "/projects/kalshi-prediction-platform",
     summary: "ML platform case study with data modeling, evaluation, model serving, and a realtime path.",
     bullets: [
-      "Best high-level ML systems case study on the site.",
-      "Useful if the role cares about evaluation and serving design.",
+      "This is the ML systems case study I'd use for architecture conversations.",
+      "It focuses on evaluation, serving boundaries, and realtime tradeoffs.",
     ],
   },
 ];

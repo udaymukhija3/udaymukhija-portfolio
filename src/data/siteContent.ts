@@ -20,7 +20,7 @@ export const snapshotItems = [
 ];
 
 export const aboutBlurb =
-  "I build backend services, data pipelines, and ML projects. I care most about clear APIs, simple system boundaries, and work that can be explained without inflated language.";
+  "If you're skimming, start with these. They show how I think about product choices, backend boundaries, and ML/data systems.";
 
 export const pillarCards = [
   {

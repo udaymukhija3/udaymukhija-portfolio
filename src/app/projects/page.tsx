@@ -50,10 +50,10 @@ export default async function ProjectsPage({
       <section className="section page-intro">
         <div className="container page-intro-shell page-intro-narrow">
           <p className="eyebrow">Projects</p>
-          <h1>Selected backend, data, and ML work.</h1>
+          <h1>Projects I've built across backend, data, and ML.</h1>
           <p>
-            Each entry is intentionally short. Open the case study if you want the architecture,
-            tradeoffs, and limits.
+            I keep each entry short here. Open a case study if you want the architecture,
+            tradeoffs, and what I would improve next.
           </p>
         </div>
       </section>
