@@ -1,9 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ProjectCard } from "../../components/ProjectCard";
-import { SectionHeading } from "../../components/SectionHeading";
 import { projectCategories, projects } from "../../data/projects";
-import type { ProjectCategory } from "../../types";
+import type { Project, ProjectCategory } from "../../types";
 
 type SearchParams = Promise<{
   category?: string;
@@ -19,6 +18,18 @@ export const metadata: Metadata = {
   },
 };
 
+function sortProjects(items: Project[]) {
+  return [...items].sort((left, right) => {
+    const flagshipDelta = Number(Boolean(right.flagship)) - Number(Boolean(left.flagship));
+
+    if (flagshipDelta !== 0) {
+      return flagshipDelta;
+    }
+
+    return Number(right.year) - Number(left.year);
+  });
+}
+
 export default async function ProjectsPage({
   searchParams,
 }: {
@@ -31,89 +42,44 @@ export default async function ProjectsPage({
 
   const visibleProjects =
     activeCategory === "all"
-      ? projects
-      : projects.filter((project) => project.category === activeCategory);
-  const flagshipProjects = projects.filter((project) => project.flagship);
-  const additionalProjects = projects.filter((project) => !project.flagship);
+      ? sortProjects(projects)
+      : sortProjects(projects.filter((project) => project.category === activeCategory));
 
   return (
     <>
       <section className="section page-intro">
-        <div className="container page-intro-shell">
+        <div className="container page-intro-shell page-intro-narrow">
           <p className="eyebrow">Projects</p>
-          <h1>Projects</h1>
+          <h1>Selected backend, data, and ML work.</h1>
           <p>
-            These are the main projects on the site. Use the filters if you want a smaller list.
+            Each entry is intentionally short. Open the case study if you want the architecture,
+            tradeoffs, and limits.
           </p>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-compact-top section-last">
         <div className="container">
-          <SectionHeading
-            eyebrow="Project List"
-            title="Start with these"
-            note="If you only read a few, start with Event-Driven Inventory, Gathr, Kalshi, and Enefit."
-          />
+          <div className="projects-toolbar">
+            <div className="filter-row" role="navigation" aria-label="Project categories">
+              {projectCategories.map((item) => {
+                const href = item.id === "all" ? "/projects" : `/projects?category=${item.id}`;
+                const className = item.id === activeCategory ? "filter-chip is-active" : "filter-chip";
 
-          <div className="library-note">
-            <div className="inline-link-row">
-              {flagshipProjects.map((project) => (
-                <Link key={project.slug} className="inline-link" href={`/projects/${project.slug}`}>
-                  {project.title}
-                </Link>
-              ))}
+                return (
+                  <Link key={item.id} className={className} href={href}>
+                    {item.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
-          <div className="filter-row" role="navigation" aria-label="Project categories">
-            {projectCategories.map((item) => {
-              const href = item.id === "all" ? "/projects" : `/projects?category=${item.id}`;
-              const className = item.id === activeCategory ? "filter-chip is-active" : "filter-chip";
-
-              return (
-                <Link key={item.id} className={className} href={href}>
-                  {item.label}
-                </Link>
-              );
-            })}
+          <div className="project-detail-grid">
+            {visibleProjects.map((project) => (
+              <ProjectCard key={project.slug} project={project} detailed />
+            ))}
           </div>
-
-          {activeCategory === "all" ? (
-            <>
-              <div className="library-section">
-                <SectionHeading
-                  eyebrow="Flagship Work"
-                  title="Start here"
-                  note="These are the strongest projects on the site."
-                />
-                <div className="project-detail-grid">
-                  {flagshipProjects.map((project) => (
-                    <ProjectCard key={project.slug} project={project} detailed />
-                  ))}
-                </div>
-              </div>
-
-              <div className="library-section">
-                <SectionHeading
-                  eyebrow="More Work"
-                  title="The rest of the project list"
-                  note="More ML and data projects."
-                />
-                <div className="project-detail-grid">
-                  {additionalProjects.map((project) => (
-                    <ProjectCard key={project.slug} project={project} detailed />
-                  ))}
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="project-detail-grid">
-              {visibleProjects.map((project) => (
-                <ProjectCard key={project.slug} project={project} detailed />
-              ))}
-            </div>
-          )}
         </div>
       </section>
     </>

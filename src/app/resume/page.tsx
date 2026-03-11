@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionHeading } from "../../components/SectionHeading";
-import { contactLinks, resumeHref } from "../../data/siteContent";
+import { contactLinks } from "../../data/siteContent";
 import {
   educationItems,
   experienceItems,
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 
 export default function ResumePage() {
   const profileLinks = contactLinks.filter((link) => link.label !== "Resume");
-  const isResumeExternal = resumeHref.startsWith("http");
 
   return (
     <>
@@ -30,17 +29,14 @@ export default function ResumePage() {
           <h1>{resumeSummary.title}</h1>
           <p>{resumeSummary.intro}</p>
           <p className="detail-note">{resumeSummary.note}</p>
-          {isResumeExternal ? (
-            <p className="detail-note">The Resume link can also point to a separate document.</p>
-          ) : null}
-          <div className="cta-row">
+          <div className="inline-link-row">
             {profileLinks.map((link) => {
               const isExternal = link.href.startsWith("http");
 
               return (
                 <a
                   key={link.label}
-                  className="button button-ghost"
+                  className="inline-link"
                   href={link.href}
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noreferrer" : undefined}
@@ -161,14 +157,14 @@ export default function ResumePage() {
                 Kalshi Platform
               </Link>
             </div>
-            <div className="contact-links">
+            <div className="inline-link-row">
               {profileLinks.map((link) => {
                 const isExternal = link.href.startsWith("http");
 
                 return (
                   <a
                     key={link.label}
-                    className="contact-link"
+                    className="inline-link"
                     href={link.href}
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noreferrer" : undefined}

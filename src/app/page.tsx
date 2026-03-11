@@ -3,18 +3,9 @@ import type { Metadata } from "next";
 import { ProjectCard } from "../components/ProjectCard";
 import { SectionHeading } from "../components/SectionHeading";
 import { StructuredData } from "../components/StructuredData";
-import { noteEntries, notesPlaceholder } from "../data/notes";
 import { projects } from "../data/projects";
 import { experienceItems } from "../data/resume";
-import {
-  aboutBlurb,
-  contactLinks,
-  pillarCards,
-  resumeHref,
-  skills,
-  snapshotItems,
-  workPrinciples,
-} from "../data/siteContent";
+import { aboutBlurb, contactLinks, resumeHref, skills } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 
 const siteUrl = getSiteUrl();
@@ -27,13 +18,20 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const featuredProjects = projects.filter((project) => project.featured);
+  const featuredProjects = projects.filter((project) => project.flagship).slice(0, 3);
   const socialLinks = contactLinks.filter((link) => link.href.startsWith("http"));
-  const githubLink = contactLinks.find((link) => link.label === "GitHub");
+  const profileLinks = socialLinks.filter(
+    (link) => link.label === "GitHub" || link.label === "LinkedIn",
+  );
   const isResumeExternal = resumeHref.startsWith("http");
   const resumeProps = isResumeExternal
     ? { href: resumeHref, target: "_blank", rel: "noreferrer" as const }
     : { href: resumeHref };
+  const heroMeta = [
+    { label: "Based in", value: siteConfig.location },
+    { label: "Focus", value: "Backend and ML systems" },
+    { label: "Open to", value: "Backend, platform, and ML roles" },
+  ];
 
   const personJsonLd = {
     "@context": "https://schema.org",
@@ -54,7 +52,7 @@ export default function HomePage() {
       <StructuredData data={personJsonLd} />
 
       <section className="hero section">
-        <div className="container hero-grid">
+        <div className="container hero-shell">
           <div className="hero-copy">
             <p className="eyebrow">Software Engineer</p>
             <h1>I build backend systems and ML projects.</h1>
@@ -62,9 +60,14 @@ export default function HomePage() {
               Most of my work sits in three areas: Java backend services, data pipelines, and ML
               systems. This site is a simple overview of the projects I think are worth showing.
             </p>
-            <p className="availability-note">
-              Open to backend, platform, and ML engineering roles.
-            </p>
+            <div className="hero-meta" aria-label="Profile summary">
+              {heroMeta.map((item) => (
+                <p key={item.label} className="hero-meta-item">
+                  <span>{item.label}</span>
+                  <span>{item.value}</span>
+                </p>
+              ))}
+            </div>
             <div className="cta-row">
               <Link className="button button-solid" href="/projects">
                 View Projects
@@ -78,60 +81,14 @@ export default function HomePage() {
                   Resume
                 </Link>
               )}
-              {githubLink ? (
-                <a className="button button-ghost" href={githubLink.href} target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-              ) : null}
             </div>
             <div className="inline-link-row">
-              <Link className="inline-link" href="/projects/inventory-analytics-platform">
-                Event-Driven Inventory
-              </Link>
-              <Link className="inline-link" href="/projects/gathr">
-                Gathr
-              </Link>
-              <Link className="inline-link" href="/projects/habit-tracker-social">
-                Habit Tracker
-              </Link>
-            </div>
-          </div>
-
-          <aside className="snapshot-card">
-            <p className="eyebrow">Role Fit</p>
-            <dl className="snapshot-list">
-              {snapshotItems.map((item) => (
-                <div key={item.label}>
-                  <dt>{item.label}</dt>
-                  <dd>{item.value}</dd>
-                </div>
+              {profileLinks.map((link) => (
+                <a key={link.label} className="inline-link" href={link.href} target="_blank" rel="noreferrer">
+                  {link.label}
+                </a>
               ))}
-            </dl>
-          </aside>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Main Areas"
-            title="Backend work and ML work"
-            note="Those are the two main themes of the portfolio."
-          />
-          <div className="pillar-grid">
-            {pillarCards.map((pillar) => (
-              <article key={pillar.title} className="pillar-card">
-                <p className="eyebrow">{pillar.title}</p>
-                <p>{pillar.body}</p>
-                <div className="inline-link-row">
-                  {pillar.links.map((link) => (
-                    <Link key={link.href} className="inline-link" href={link.href}>
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </article>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -140,13 +97,18 @@ export default function HomePage() {
         <div className="container">
           <SectionHeading
             eyebrow="Selected Work"
-            title="Start with these projects"
-            note="These are the best places to start."
+            title="Projects worth starting with"
+            note={aboutBlurb}
           />
           <div className="project-grid">
             {featuredProjects.map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}
+          </div>
+          <div className="section-actions">
+            <Link className="inline-link" href="/projects">
+              View all projects
+            </Link>
           </div>
         </div>
       </section>
@@ -154,14 +116,14 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <SectionHeading
-            eyebrow="Work Experience"
-            title="Work experience"
-            note="Short version here. Full details on the resume page."
+            eyebrow="Experience"
+            title="Recent work"
+            note="Short version here. The resume has the full details."
           />
-          <div className="experience-grid-home">
+          <div className="experience-list">
             {experienceItems.map((item) => (
-              <article key={item.company} className="experience-card">
-                <div className="resume-item-header">
+              <article key={item.company} className="experience-row">
+                <div className="experience-header">
                   <div>
                     <h3>{item.role}</h3>
                     <p className="resume-company">{item.company}</p>
@@ -179,81 +141,9 @@ export default function HomePage() {
               </article>
             ))}
           </div>
-          <div className="inline-link-row">
-            <Link className="inline-link" href="/experience">
-              Experience page
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container about-shell">
-          <div className="about-copy">
-            <p className="eyebrow">Approach</p>
-            <h2>I like simple systems and clear boundaries.</h2>
-            <p className="body-copy">{aboutBlurb}</p>
-            <div className="inline-link-row">
-              <Link className="inline-link" href="/projects">
-                Browse all case studies
-              </Link>
-              {isResumeExternal ? (
-                <a className="inline-link" {...resumeProps}>
-                  Open resume doc
-                </a>
-              ) : (
-                <Link className="inline-link" href={resumeHref}>
-                  Read the resume view
-                </Link>
-              )}
-              <Link className="inline-link" href="/#contact">
-                Contact
-              </Link>
-            </div>
-          </div>
-          <div className="principles-grid">
-            {workPrinciples.map((principle) => (
-              <div key={principle.title} className="principle-card">
-                <p className="eyebrow">{principle.title}</p>
-                <p>{principle.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Notes"
-            title="Notes"
-            note="Short writing on systems, ML work, and product decisions."
-          />
-          <div className="notes-grid">
-            {noteEntries.length > 0 ? (
-              noteEntries.map((entry) => (
-                <article key={entry.slug} className="note-card">
-                  <p className="eyebrow">{entry.eyebrow}</p>
-                  <h3>{entry.title}</h3>
-                  <p>{entry.summary}</p>
-                  <ul className="resume-list">
-                    {entry.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))
-            ) : (
-              <article className="note-card note-card-placeholder">
-                <p className="eyebrow">{notesPlaceholder.eyebrow}</p>
-                <h3>{notesPlaceholder.title}</h3>
-                <p>{notesPlaceholder.summary}</p>
-              </article>
-            )}
-          </div>
-          <div className="inline-link-row">
-            <Link className="inline-link" href="/notes">
-              Notes page
+          <div className="section-actions">
+            <Link className="inline-link" href="/resume">
+              Read the resume
             </Link>
           </div>
         </div>
@@ -261,12 +151,12 @@ export default function HomePage() {
 
       <section id="contact" className="section section-last">
         <div className="container">
-          <div className="contact-card">
+          <div className="contact-block">
             <p className="eyebrow">Contact</p>
-            <h2>Want to work together?</h2>
+            <h2>If the work looks relevant, reach out.</h2>
             <p className="contact-copy">
-              Email is the best way to reach me. If you want the quick version, start with
-              Event-Driven Inventory, Gathr, Kalshi, and Enefit, then check GitHub or the resume.
+              Email is the fastest route. If you want the short version first, start with the
+              projects page or the resume, then reach out if there is a good fit.
             </p>
             <div className="contact-links">
               {contactLinks.map((link) => {
@@ -275,7 +165,7 @@ export default function HomePage() {
                 return (
                   <a
                     key={link.label}
-                    className="contact-link"
+                    className="inline-link"
                     href={link.href}
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noreferrer" : undefined}

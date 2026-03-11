@@ -14,12 +14,6 @@ export function NavBar() {
           <Link className="nav-link" href="/projects">
             Projects
           </Link>
-          <Link className="nav-link" href="/experience">
-            Experience
-          </Link>
-          <Link className="nav-link" href="/notes">
-            Notes
-          </Link>
           {isExternalResume ? (
             <a className="nav-link" href={resumeHref} target="_blank" rel="noreferrer">
               Resume
@@ -29,6 +23,9 @@ export function NavBar() {
               Resume
             </Link>
           )}
+          <Link className="nav-link" href="/experience">
+            Experience
+          </Link>
           <Link className="nav-link" href="/#contact">
             Contact
           </Link>

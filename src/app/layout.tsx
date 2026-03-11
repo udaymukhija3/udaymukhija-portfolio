@@ -42,14 +42,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <div className="page-glow page-glow-left" aria-hidden="true" />
-        <div className="page-glow page-glow-right" aria-hidden="true" />
         <NavBar />
         <main>{children}</main>
         <footer className="site-footer">
           <div className="container footer-shell">
             <p>© {new Date().getFullYear()} Uday Mukhija</p>
-            <p>Created by a human</p>
           </div>
         </footer>
       </body>

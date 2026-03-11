@@ -55,6 +55,22 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const getFact = (label: string) => project.facts.find((fact) => fact.label === label)?.value;
+  const primaryLink = project.links[0];
+  const stackSummary = project.stack.join(", ");
+  const metaItems = [
+    { label: "Year", value: project.year },
+    { label: "Role", value: getFact("Role") ?? "Software engineering" },
+    { label: "Status", value: project.status },
+    { label: "Scope", value: getFact("Scope") ?? "Self-directed project" },
+    { label: "Stack", value: stackSummary },
+    {
+      label: "Proof",
+      value: primaryLink ? primaryLink.label : "Case study only",
+    },
+  ];
+  const metricItems = project.metrics.slice(0, 3);
+
   const projectJsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -73,95 +89,85 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       <StructuredData data={projectJsonLd} />
 
       <section className="section page-intro">
-        <div className="container page-intro-shell">
-          <p className="eyebrow">
-            {project.label} · {project.year}
-          </p>
-          <h1>{project.title}</h1>
-          <p>{project.description}</p>
-          <p className="detail-note">{project.evidenceNote}</p>
-          <div className="project-stat-grid project-stat-grid-hero" aria-label={`${project.title} key metrics`}>
-            {project.metrics.map((metric) => (
-              <div key={metric.label} className="project-stat">
-                <strong>{metric.value}</strong>
-                <span>{metric.label}</span>
-              </div>
-            ))}
+        <div className="container project-hero">
+          <div className="project-hero-copy">
+            <p className="eyebrow">
+              {project.label} · {project.year}
+            </p>
+            <h1>{project.title}</h1>
+            <p className="lead">{project.description}</p>
+            <p className="detail-note">{project.evidenceNote}</p>
+            <div className="project-links">
+              <Link className="project-link project-link-primary" href="/projects">
+                Back to projects
+              </Link>
+              {project.links.map((link) => (
+                <a key={link.label} className="project-link" href={link.href} target="_blank" rel="noreferrer">
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
-          <div className="project-detail-meta">
-            {project.stack.map((item) => (
-              <span key={item} className="tag-chip">
-                {item}
-              </span>
-            ))}
-          </div>
+
+          <aside className="detail-panel" aria-label="Project metadata">
+            <dl className="meta-list">
+              {metaItems.map((item) => (
+                <div key={item.label}>
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="metric-list" aria-label={`${project.title} highlights`}>
+              {metricItems.map((metric) => (
+                <div key={metric.label} className="metric-list-item">
+                  <span>{metric.label}</span>
+                  <strong>{metric.value}</strong>
+                </div>
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 
       <section className="section section-compact-top">
-        <div className="container">
-          <div className="project-fact-grid">
-            {project.facts.map((fact) => (
-              <div key={fact.label} className="project-fact">
-                <span>{fact.label}</span>
-                <strong>{fact.value}</strong>
-              </div>
-            ))}
-          </div>
+        <div className="container project-overview-grid">
+          <article className="content-block">
+            <p className="eyebrow">Overview</p>
+            <h2>Why it matters</h2>
+            <p>{project.summary}</p>
+            <ul className="story-list">
+              {project.highlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
+          </article>
+
+          <aside className="content-block">
+            <p className="eyebrow">Architecture</p>
+            <h2>Main parts</h2>
+            <dl className="system-list">
+              {project.system.map((item) => (
+                <div key={item.label} className="system-list-item">
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container project-story-shell">
-          <div className="project-story-grid">
-            <article className="story-card">
-              <p className="eyebrow">Overview</p>
-              <h2>What it does</h2>
-              <p>{project.summary}</p>
-              <ul className="story-list">
-                {project.highlights.map((highlight) => (
-                  <li key={highlight}>{highlight}</li>
-                ))}
-              </ul>
+      <section className="section section-last">
+        <div className="container project-sections">
+          {project.sections.map((section) => (
+            <article key={section.title} className="prose-section">
+              <h2>{section.title}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </article>
-
-            <aside className="story-card">
-              <p className="eyebrow">System</p>
-              <h2>Main parts</h2>
-              <div className="system-grid">
-                {project.system.map((item) => (
-                  <div key={item.label} className="system-card">
-                    <span>{item.label}</span>
-                    <strong>{item.value}</strong>
-                  </div>
-                ))}
-              </div>
-              <div className="project-links">
-                <Link className="project-link project-link-primary" href="/projects">
-                  Back to projects
-                </Link>
-                {project.links.map((link) => (
-                  <a key={link.label} className="project-link" href={link.href} target="_blank" rel="noreferrer">
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-              {project.links.length === 0 ? (
-                <p className="card-proof-note">No public repo is linked for this project.</p>
-              ) : null}
-            </aside>
-          </div>
-
-          <div className="project-section-grid">
-            {project.sections.map((section) => (
-              <article key={section.title} className="story-card">
-                <h2>{section.title}</h2>
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </article>
-            ))}
-          </div>
+          ))}
         </div>
       </section>
     </>

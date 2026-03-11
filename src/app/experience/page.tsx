@@ -29,10 +29,10 @@ export default function ExperiencePage() {
             title="Recent work"
             note="More detail is on the resume page."
           />
-          <div className="experience-grid-home">
+          <div className="experience-list">
             {experienceItems.map((item) => (
-              <article key={item.company} className="experience-card">
-                <div className="resume-item-header">
+              <article key={item.company} className="experience-row">
+                <div className="experience-header">
                   <div>
                     <h3>{item.role}</h3>
                     <p className="resume-company">{item.company}</p>
@@ -50,7 +50,7 @@ export default function ExperiencePage() {
               </article>
             ))}
           </div>
-          <div className="inline-link-row">
+          <div className="section-actions">
             <Link className="inline-link" href="/projects">
               Projects
             </Link>

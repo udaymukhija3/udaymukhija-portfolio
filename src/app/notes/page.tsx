@@ -1,6 +1,6 @@
+import Link from "next/link";
 import type { Metadata } from "next";
-import { SectionHeading } from "../../components/SectionHeading";
-import { noteEntries, notesIntro, notesPlaceholder } from "../../data/notes";
+import { noteEntries, notesIntro } from "../../data/notes";
 
 export const metadata: Metadata = {
   title: "Notes",
@@ -14,24 +14,19 @@ export default function NotesPage() {
   return (
     <>
       <section className="section page-intro">
-        <div className="container page-intro-shell">
+        <div className="container page-intro-shell page-intro-narrow">
           <p className="eyebrow">{notesIntro.eyebrow}</p>
           <h1>{notesIntro.title}</h1>
           <p>{notesIntro.summary}</p>
         </div>
       </section>
 
-      <section className="section section-last">
+      <section className="section section-compact-top section-last">
         <div className="container">
-          <SectionHeading
-            eyebrow="Notes"
-            title="Recent writing"
-            note="Short technical notes and project writeups."
-          />
-          <div className="notes-grid">
-            {noteEntries.length > 0 ? (
-              noteEntries.map((entry) => (
-                <article key={entry.slug} className="note-card">
+          {noteEntries.length > 0 ? (
+            <div className="note-list">
+              {noteEntries.map((entry) => (
+                <article key={entry.slug} className="note-row">
                   <p className="eyebrow">{entry.eyebrow}</p>
                   <h2>{entry.title}</h2>
                   <p>{entry.summary}</p>
@@ -41,15 +36,21 @@ export default function NotesPage() {
                     ))}
                   </ul>
                 </article>
-              ))
-            ) : (
-              <article className="note-card note-card-placeholder">
-                <p className="eyebrow">{notesPlaceholder.eyebrow}</p>
-                <h2>{notesPlaceholder.title}</h2>
-                <p>{notesPlaceholder.summary}</p>
-              </article>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <p>There is no published writing here yet.</p>
+              <div className="inline-link-row">
+                <Link className="inline-link" href="/projects">
+                  Projects
+                </Link>
+                <Link className="inline-link" href="/resume">
+                  Resume
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </>
