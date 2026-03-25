@@ -5,7 +5,15 @@ import { SectionHeading } from "../components/SectionHeading";
 import { StructuredData } from "../components/StructuredData";
 import { projects } from "../data/projects";
 import { experienceItems } from "../data/resume";
-import { aboutBlurb, contactLinks, resumeHref, skills } from "../data/siteContent";
+import {
+  aboutBlurb,
+  contactLinks,
+  pillarCards,
+  resumeHref,
+  skills,
+  snapshotItems,
+  workPrinciples,
+} from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 
 const siteUrl = getSiteUrl();
@@ -72,9 +80,9 @@ export default function HomePage() {
                   </a>
                 ) : (
                   <Link className="button button-ghost" href={resumeHref}>
-                  Resume
-                </Link>
-              )}
+                    Resume
+                  </Link>
+                )}
               </div>
               <div className="hero-links" aria-label="Profile links">
                 {profileLinks.map((link) => (
@@ -90,6 +98,19 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-compact-top">
+        <div className="container">
+          <div className="snapshot-grid" aria-label="Portfolio snapshot">
+            {snapshotItems.map((item) => (
+              <article key={item.label} className="snapshot-card">
+                <p className="eyebrow">{item.label}</p>
+                <p>{item.value}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -110,6 +131,41 @@ export default function HomePage() {
             <Link className="inline-link" href="/projects">
               View all projects
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Strengths"
+            title="The work tends to cluster into backend and ML systems"
+            note="If you're evaluating fit quickly, these lanes and principles are the clearest way to understand how I like to build."
+          />
+          <div className="pillar-grid">
+            {pillarCards.map((card) => (
+              <article key={card.title} className="pillar-card">
+                <div className="card-copy">
+                  <p className="eyebrow">{card.title}</p>
+                  <p>{card.body}</p>
+                </div>
+                <div className="inline-link-row">
+                  {card.links.map((link) => (
+                    <Link key={link.href} className="inline-link" href={link.href}>
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="principles-grid">
+            {workPrinciples.map((principle) => (
+              <article key={principle.title} className="principle-card">
+                <p className="eyebrow">{principle.title}</p>
+                <p>{principle.body}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>

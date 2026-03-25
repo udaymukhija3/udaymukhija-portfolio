@@ -42,8 +42,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
         <NavBar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <footer className="site-footer">
           <div className="container footer-shell">
             <p>© {new Date().getFullYear()} Uday Mukhija</p>

@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { resumeHref } from "../data/siteContent";
 
 export function NavBar() {
+  const pathname = usePathname();
+  const currentPathname = pathname ?? "";
   const isExternalResume = resumeHref.startsWith("http");
+  const navLinkClassName = (isActive: boolean) => (isActive ? "nav-link is-active" : "nav-link");
 
   return (
     <header className="site-header">
@@ -11,7 +17,11 @@ export function NavBar() {
           Uday Mukhija
         </Link>
         <nav className="nav" aria-label="Primary">
-          <Link className="nav-link" href="/projects">
+          <Link
+            className={navLinkClassName(currentPathname.startsWith("/projects"))}
+            href="/projects"
+            aria-current={currentPathname.startsWith("/projects") ? "page" : undefined}
+          >
             Projects
           </Link>
           {isExternalResume ? (
@@ -19,12 +29,27 @@ export function NavBar() {
               Resume
             </a>
           ) : (
-            <Link className="nav-link" href={resumeHref}>
+            <Link
+              className={navLinkClassName(currentPathname === resumeHref)}
+              href={resumeHref}
+              aria-current={currentPathname === resumeHref ? "page" : undefined}
+            >
               Resume
             </Link>
           )}
-          <Link className="nav-link" href="/experience">
+          <Link
+            className={navLinkClassName(currentPathname === "/experience")}
+            href="/experience"
+            aria-current={currentPathname === "/experience" ? "page" : undefined}
+          >
             Experience
+          </Link>
+          <Link
+            className={navLinkClassName(currentPathname === "/notes")}
+            href="/notes"
+            aria-current={currentPathname === "/notes" ? "page" : undefined}
+          >
+            Notes
           </Link>
           <Link className="nav-link" href="/#contact">
             Contact

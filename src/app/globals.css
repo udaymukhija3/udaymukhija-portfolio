@@ -9,12 +9,14 @@
   --line-strong: rgba(244, 239, 231, 0.16);
   --accent: #d1a16c;
   --accent-soft: rgba(209, 161, 108, 0.14);
+  --focus-ring: rgba(209, 161, 108, 0.6);
   --radius-lg: 20px;
   --radius-md: 14px;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 6.5rem;
 }
 
 *,
@@ -31,6 +33,7 @@ body {
     linear-gradient(180deg, #11100e 0%, #151310 100%);
   color: var(--text);
   font-family: "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.5;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -43,6 +46,29 @@ button {
 
 button {
   cursor: pointer;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+  z-index: 20;
+  padding: 0.7rem 0.95rem;
+  border-radius: 999px;
+  background: #f4efe7;
+  color: #17110c;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
 }
 
 h1,
@@ -70,6 +96,7 @@ ul {
   z-index: 10;
   background: rgba(18, 17, 15, 0.94);
   border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
 }
 
 .nav-shell {
@@ -104,10 +131,21 @@ ul {
 }
 
 .nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
   color: var(--muted);
   text-decoration: none;
   font-size: 0.97rem;
   transition: color 160ms ease;
+}
+
+.nav-link.is-active {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgba(209, 161, 108, 0.45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
 }
 
 .nav-link:hover,
@@ -329,10 +367,68 @@ ul {
   margin-top: 1.7rem;
 }
 
-.project-grid {
+.snapshot-grid,
+.pillar-grid,
+.principles-grid {
   display: grid;
+}
+
+.snapshot-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.snapshot-card,
+.pillar-card,
+.principle-card {
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015)),
+    var(--surface);
+}
+
+.snapshot-card {
+  display: grid;
+  gap: 0.5rem;
+  min-height: 100%;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: var(--radius-md);
+}
+
+.snapshot-card p:last-child,
+.pillar-card p:last-child,
+.principle-card p:last-child {
+  color: var(--muted-strong);
+  line-height: 1.7;
+}
+
+.pillar-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.35rem;
+}
+
+.pillar-card,
+.principle-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.35rem;
+  border-radius: var(--radius-lg);
+}
+
+.card-copy {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.principles-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-grid {
+  display: grid;
+  gap: 0;
 }
 
 .project-detail-grid,
@@ -350,13 +446,8 @@ ul {
 }
 
 .project-card {
-  min-height: 100%;
-  gap: 0.95rem;
-  grid-template-rows: auto auto auto auto 1fr auto;
-  padding: 1.65rem;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--line);
 }
 
 .project-detail-card {
@@ -364,6 +455,7 @@ ul {
   border-top: 1px solid var(--line);
 }
 
+.project-grid > .project-card:last-child,
 .project-detail-grid > .project-detail-card:last-child,
 .experience-list > .experience-row:last-child,
 .note-list > .note-row:last-child,
@@ -551,6 +643,11 @@ ul {
   gap: 1.75rem 2rem;
 }
 
+.resume-project-grid > .resume-card:last-child {
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
 .projects-toolbar {
   margin-bottom: 2.25rem;
 }
@@ -629,13 +726,19 @@ ul {
 .footer-shell {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 1.3rem 0 2rem;
   color: var(--muted);
   font-size: 0.86rem;
 }
 
 @media (max-width: 900px) {
+  .snapshot-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pillar-grid,
+  .principles-grid,
   .project-grid,
   .resume-project-grid,
   .resume-grid,
@@ -667,8 +770,10 @@ ul {
 
   .nav {
     width: 100%;
-    overflow-x: auto;
-    padding-bottom: 0.2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    overflow-x: visible;
+    padding-bottom: 0;
   }
 
   .section,
@@ -687,6 +792,10 @@ ul {
     align-items: flex-start;
     flex-direction: column;
     gap: 0.9rem;
+  }
+
+  .snapshot-grid {
+    grid-template-columns: 1fr;
   }
 
   .project-card-meta,

@@ -67,7 +67,12 @@ export default async function ProjectsPage({
                 const className = item.id === activeCategory ? "filter-chip is-active" : "filter-chip";
 
                 return (
-                  <Link key={item.id} className={className} href={href}>
+                  <Link
+                    key={item.id}
+                    className={className}
+                    href={href}
+                    aria-current={item.id === activeCategory ? "page" : undefined}
+                  >
                     {item.label}
                   </Link>
                 );

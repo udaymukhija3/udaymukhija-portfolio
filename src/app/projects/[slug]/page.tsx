@@ -57,7 +57,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   const getFact = (label: string) => project.facts.find((fact) => fact.label === label)?.value;
   const primaryLink = project.links[0];
-  const stackSummary = project.stack.join(", ");
+  const stackPreview = project.stack.slice(0, 5);
+  const stackSummary =
+    project.stack.length > stackPreview.length
+      ? `${stackPreview.join(", ")} +${project.stack.length - stackPreview.length}`
+      : stackPreview.join(", ");
   const metaItems = [
     { label: "Year", value: project.year },
     { label: "Role", value: getFact("Role") ?? "Software engineering" },
