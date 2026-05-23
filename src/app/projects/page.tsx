@@ -10,9 +10,21 @@ type SearchParams = Promise<{
 
 type ActiveCategory = ProjectCategory | "all";
 
+const projectPriority = new Map(
+  [
+    "inventory-analytics-platform",
+    "gathr",
+    "logistics-data-platform",
+    "habit-tracker-social",
+    "enefit-forecasting",
+    "fraud-detection-system",
+    "instacart-reordering-system",
+  ].map((slug, index) => [slug, index]),
+);
+
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Project list for backend, data, and ML work by Uday Mukhija.",
+  description: "Project list for backend, data platform, and ML systems work by Uday Mukhija.",
   alternates: {
     canonical: "/projects",
   },
@@ -20,6 +32,14 @@ export const metadata: Metadata = {
 
 function sortProjects(items: Project[]) {
   return [...items].sort((left, right) => {
+    const priorityDelta =
+      (projectPriority.get(left.slug) ?? Number.MAX_SAFE_INTEGER) -
+      (projectPriority.get(right.slug) ?? Number.MAX_SAFE_INTEGER);
+
+    if (priorityDelta !== 0) {
+      return priorityDelta;
+    }
+
     const flagshipDelta = Number(Boolean(right.flagship)) - Number(Boolean(left.flagship));
 
     if (flagshipDelta !== 0) {
@@ -50,10 +70,10 @@ export default async function ProjectsPage({
       <section className="section page-intro">
         <div className="container page-intro-shell page-intro-narrow">
           <p className="eyebrow">Projects</p>
-          <h1>Projects I've built across backend, data, and ML.</h1>
+          <h1>Projects I've built across backend, data platforms, and ML systems.</h1>
           <p>
             I keep each entry short here. Open a case study if you want the architecture,
-            tradeoffs, and what I would improve next.
+            local evidence, tradeoffs, and what I would improve next.
           </p>
         </div>
       </section>

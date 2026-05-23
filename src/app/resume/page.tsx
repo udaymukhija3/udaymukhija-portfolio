@@ -148,16 +148,27 @@ export default function ResumePage() {
             </p>
             <div className="inline-link-row">
               <Link className="inline-link" href="/projects/inventory-analytics-platform">
-                Event-Driven Inventory
+                Inventory
               </Link>
               <Link className="inline-link" href="/projects/gathr">
                 Gathr
               </Link>
+              <Link className="inline-link" href="/projects/logistics-data-platform">
+                Logistics
+              </Link>
               <Link className="inline-link" href="/projects/habit-tracker-social">
                 Habit Tracker
               </Link>
-              <Link className="inline-link" href="/projects/kalshi-prediction-platform">
-                Kalshi Platform
+            </div>
+            <div className="inline-link-row">
+              <Link className="inline-link" href="/projects/enefit-forecasting">
+                Enefit
+              </Link>
+              <Link className="inline-link" href="/projects/fraud-detection-system">
+                Fraud
+              </Link>
+              <Link className="inline-link" href="/projects/instacart-reordering-system">
+                Instacart
               </Link>
             </div>
             <div className="inline-link-row">

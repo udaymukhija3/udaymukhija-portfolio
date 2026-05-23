@@ -1,19 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ProjectCard } from "../components/ProjectCard";
-import { SectionHeading } from "../components/SectionHeading";
+import type { ReactNode } from "react";
 import { StructuredData } from "../components/StructuredData";
 import { projects } from "../data/projects";
-import { experienceItems } from "../data/resume";
-import {
-  aboutBlurb,
-  contactLinks,
-  pillarCards,
-  resumeHref,
-  skills,
-  snapshotItems,
-  workPrinciples,
-} from "../data/siteContent";
+import { educationItems, experienceItems } from "../data/resume";
+import { contactLinks, resumeHref, skills, snapshotItems } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 
 const siteUrl = getSiteUrl();
@@ -25,14 +16,81 @@ export const metadata: Metadata = {
   },
 };
 
+const domainItems = [
+  "Backend",
+  "Data platforms",
+  "ML systems",
+  "Recommendations",
+  "Forecasting",
+  "Product engineering",
+  "APIs",
+];
+
+const expertiseRows = [
+  {
+    input: "JAVA",
+    action: "services / APIs / product state",
+    outputs: [
+      { label: "Gathr", href: "/projects/gathr" },
+      { label: "Habit", href: "/projects/habit-tracker-social" },
+      { label: "Inventory", href: "/projects/inventory-analytics-platform" },
+    ],
+  },
+  {
+    input: "PYTHON",
+    action: "ML pipelines / evaluation / serving",
+    outputs: [
+      { label: "Enefit", href: "/projects/enefit-forecasting" },
+      { label: "Fraud", href: "/projects/fraud-detection-system" },
+      { label: "Instacart", href: "/projects/instacart-reordering-system" },
+    ],
+  },
+  {
+    input: "SQL / DBT",
+    action: "marts / contracts / quality checks",
+    outputs: [
+      { label: "Logistics", href: "/projects/logistics-data-platform" },
+      { label: "Inventory", href: "/projects/inventory-analytics-platform" },
+    ],
+  },
+];
+
+function SheetSection({
+  id,
+  title,
+  children,
+  className = "",
+}: {
+  id?: string;
+  title: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <section id={id} className={`sheet-section ${className}`}>
+      <div className="sheet-heading">
+        <h2>{title}</h2>
+      </div>
+      {children}
+    </section>
+  );
+}
+
 export default function HomePage() {
-  const featuredProjectSlugs = new Set([
-    "gathr",
-    "habit-tracker-social",
+  const featuredProjectSlugs = [
     "inventory-analytics-platform",
-    "kalshi-prediction-platform",
-  ]);
-  const featuredProjects = projects.filter((project) => featuredProjectSlugs.has(project.slug));
+    "gathr",
+    "logistics-data-platform",
+    "habit-tracker-social",
+    "enefit-forecasting",
+    "fraud-detection-system",
+    "instacart-reordering-system",
+  ];
+  const featuredProjects = featuredProjectSlugs.flatMap((slug) => {
+    const project = projects.find((item) => item.slug === slug);
+
+    return project ? [project] : [];
+  });
   const socialLinks = contactLinks.filter((link) => link.href.startsWith("http"));
   const profileLinks = socialLinks.filter(
     (link) => link.label === "GitHub" || link.label === "LinkedIn",
@@ -60,169 +118,168 @@ export default function HomePage() {
     <>
       <StructuredData data={personJsonLd} />
 
-      <section className="hero section">
-        <div className="container hero-shell">
-          <div className="hero-copy">
-            <p className="eyebrow">Software Engineer</p>
-            <h1>I build backend systems and ML projects.</h1>
-            <p className="lead">
-              I work mostly on Java services, event-driven systems, and ML-heavy products. Start
-              with the projects if you want the clearest picture of how I build and make tradeoffs.
+      <section className="section section-last datasheet-page" aria-labelledby="datasheet-title">
+        <div className="container datasheet-shell">
+          <div className="sheet-titlebar">
+            <p>DATASHEET</p>
+            <h1 id="datasheet-title">{siteConfig.name}</h1>
+          </div>
+
+          <div className="sheet-intro">
+            <p>
+              Software engineer focused on backend systems, ML-heavy products, data pipelines, and
+              practical platform work.
             </p>
-            <div className="hero-actions">
-              <div className="cta-row">
-                <Link className="button button-solid" href="/projects">
-                  View Projects
-                </Link>
-                {isResumeExternal ? (
-                  <a className="button button-ghost" {...resumeProps}>
-                    Resume
-                  </a>
-                ) : (
-                  <Link className="button button-ghost" href={resumeHref}>
-                    Resume
-                  </Link>
-                )}
+            <p>
+              I build mostly with Java, Spring Boot, Python, SQL, and TypeScript. The projects here
+              are written as evidence: local repos, demo paths, evaluation artifacts, architecture
+              choices, tradeoffs, and the next fixes I would make.
+            </p>
+            <p>
+              Best current fit: backend, platform, data-intensive product, and ML systems roles
+              where clear interfaces and debuggable behavior matter.
+            </p>
+          </div>
+
+          <div className="quick-actions" aria-label="Primary links">
+            <Link className="box-link" href="/projects">
+              PROJECTS
+            </Link>
+            {isResumeExternal ? (
+              <a className="box-link" {...resumeProps}>
+                RESUME
+              </a>
+            ) : (
+              <Link className="box-link" href={resumeHref}>
+                RESUME
+              </Link>
+            )}
+            {profileLinks.map((link) => (
+              <a
+                key={link.label}
+                className="box-link"
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link.label.toUpperCase()}
+              </a>
+            ))}
+          </div>
+
+          <SheetSection title="Snapshot">
+            <dl className="fact-grid">
+              {snapshotItems.map((item) => (
+                <div key={item.label} className="fact-item">
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </SheetSection>
+
+          <SheetSection title="Domains">
+            <div className="domain-line" aria-label="Domains">
+              {domainItems.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </SheetSection>
+
+          <SheetSection title="Expertise" className="expertise-section">
+            <div className="expertise-diagram" aria-label="Expertise map">
+              <div className="expertise-inputs">
+                {expertiseRows.map((row) => (
+                  <span key={row.input}>{row.input}</span>
+                ))}
               </div>
-              <div className="hero-links" aria-label="Profile links">
-                {profileLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    className="hero-link"
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {link.label}
-                  </a>
+              <div className="expertise-core">BUILD / DEBUG / SHIP</div>
+              <div className="expertise-flows">
+                {expertiseRows.map((row) => (
+                  <div key={row.input} className="flow-row">
+                    <span>{row.action}</span>
+                    <span aria-hidden="true">-&gt;</span>
+                    <div className="flow-links">
+                      {row.outputs.map((output) => (
+                        <Link key={output.href} href={output.href}>
+                          {output.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </SheetSection>
 
-      <section className="section section-compact-top">
-        <div className="container">
-          <div className="snapshot-grid" aria-label="Portfolio snapshot">
-            {snapshotItems.map((item) => (
-              <article key={item.label} className="snapshot-card">
-                <p className="eyebrow">{item.label}</p>
-                <p>{item.value}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Selected Work"
-            title="Projects I'd start with"
-            note={aboutBlurb}
-          />
-          <div className="project-grid">
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </div>
-          <div className="section-actions">
-            <Link className="inline-link" href="/projects">
-              View all projects
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Strengths"
-            title="The work tends to cluster into backend and ML systems"
-            note="If you're evaluating fit quickly, these lanes and principles are the clearest way to understand how I like to build."
-          />
-          <div className="pillar-grid">
-            {pillarCards.map((card) => (
-              <article key={card.title} className="pillar-card">
-                <div className="card-copy">
-                  <p className="eyebrow">{card.title}</p>
-                  <p>{card.body}</p>
-                </div>
-                <div className="inline-link-row">
-                  {card.links.map((link) => (
-                    <Link key={link.href} className="inline-link" href={link.href}>
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="principles-grid">
-            {workPrinciples.map((principle) => (
-              <article key={principle.title} className="principle-card">
-                <p className="eyebrow">{principle.title}</p>
-                <p>{principle.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Experience"
-            title="Recent work"
-            note="This is the short version. The resume has the fuller timeline."
-          />
-          <div className="experience-list">
-            {experienceItems.map((item) => (
-              <article key={item.company} className="experience-row">
-                <div className="experience-header">
-                  <div>
-                    <h3>{item.role}</h3>
-                    <p className="resume-company">{item.company}</p>
+          <SheetSection title="Selected Work">
+            <div className="sheet-table">
+              {featuredProjects.map((project) => (
+                <article key={project.slug} className="sheet-row project-sheet-row">
+                  <div className="sheet-row-meta">
+                    <span>{project.year}</span>
+                    <span>{project.label}</span>
                   </div>
-                  <p className="resume-meta">
-                    {item.period}
-                    <span>{item.location}</span>
-                  </p>
-                </div>
-                <ul className="resume-list">
-                  {item.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-          <div className="section-actions">
-            <Link className="inline-link" href="/resume">
-              Read the resume
-            </Link>
-          </div>
-        </div>
-      </section>
+                  <div className="sheet-row-main">
+                    <h3>
+                      <Link href={`/projects/${project.slug}`}>{project.title}</Link>
+                    </h3>
+                    <p>{project.summary}</p>
+                  </div>
+                  <div className="sheet-row-tail">
+                    <span>{project.stack.slice(0, 3).join(" / ")}</span>
+                    <Link href={`/projects/${project.slug}`}>case study</Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="sheet-after">
+              <Link className="inline-link" href="/projects">
+                all projects
+              </Link>
+            </div>
+          </SheetSection>
 
-      <section id="contact" className="section section-last">
-        <div className="container">
-          <div className="contact-block">
-            <p className="eyebrow">Contact</p>
-            <h2>If this lines up with what you're hiring for, reach out.</h2>
-            <p className="contact-copy">
-              Email is the fastest way to reach me. If you want a quick read first, start with the
-              projects page or the resume.
-            </p>
-            <div className="contact-links">
+          <SheetSection title="Experience">
+            <div className="sheet-table">
+              {experienceItems.map((item) => (
+                <article key={item.company} className="sheet-row">
+                  <div className="sheet-row-meta">
+                    <span>{item.period}</span>
+                    <span>{item.location}</span>
+                  </div>
+                  <div className="sheet-row-main">
+                    <h3>{item.role}</h3>
+                    <p>{item.company}</p>
+                  </div>
+                  <div className="sheet-row-tail">
+                    <span>{item.bullets[0]}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </SheetSection>
+
+          <SheetSection title="Foundation">
+            <div className="compact-list">
+              {educationItems.map((item) => (
+                <p key={item.school}>
+                  <span>{item.period}</span>
+                  <strong>{item.school}</strong>
+                  <span>{item.detail}</span>
+                </p>
+              ))}
+            </div>
+          </SheetSection>
+
+          <SheetSection id="contact" title="Contact">
+            <div className="contact-strip">
               {contactLinks.map((link) => {
                 const isExternal = link.href.startsWith("http");
 
                 return (
                   <a
                     key={link.label}
-                    className="inline-link"
                     href={link.href}
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noreferrer" : undefined}
@@ -232,7 +289,7 @@ export default function HomePage() {
                 );
               })}
             </div>
-          </div>
+          </SheetSection>
         </div>
       </section>
     </>

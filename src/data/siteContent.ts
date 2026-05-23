@@ -9,13 +9,16 @@ export const skills = [
   "Python",
   "SQL",
   "FastAPI",
+  "LightGBM",
+  "dbt",
+  "Kafka",
 ];
 
 export const snapshotItems = [
-  { label: "Focus", value: "Backend and ML systems" },
-  { label: "Main stack", value: "Java, Spring Boot, Python, SQL" },
-  { label: "Strengths", value: "APIs, events, pipelines, evaluation" },
-  { label: "Looking for", value: "Backend, platform, and ML roles" },
+  { label: "Focus", value: "Backend, data, and ML systems" },
+  { label: "Main stack", value: "Java, Spring Boot, Python, SQL, TypeScript" },
+  { label: "Strengths", value: "APIs, events, contracts, pipelines, evaluation" },
+  { label: "Best proof", value: "Inventory, Gathr, Logistics, Enefit, Fraud, Instacart" },
   { label: "Based in", value: "India" },
 ];
 
@@ -26,7 +29,7 @@ export const pillarCards = [
   {
     title: "Backend",
     body:
-      "Java and Spring Boot services, APIs, database work, and event-driven systems.",
+      "Java and Spring Boot services, APIs, transactional state, realtime flows, and event-driven systems.",
     links: [
       { label: "Event-Driven Inventory", href: "/projects/inventory-analytics-platform" },
       { label: "Gathr", href: "/projects/gathr" },
@@ -36,10 +39,10 @@ export const pillarCards = [
   {
     title: "ML systems",
     body:
-      "Forecasting, recommenders, model serving, evaluation, and data pipelines that support them.",
+      "Forecasting, risk, recommenders, model serving, evaluation, and the data pipelines that support them.",
     links: [
-      { label: "Kalshi Platform", href: "/projects/kalshi-prediction-platform" },
       { label: "Enefit Forecasting", href: "/projects/enefit-forecasting" },
+      { label: "Fraud Detection", href: "/projects/fraud-detection-system" },
       { label: "Instacart Reordering", href: "/projects/instacart-reordering-system" },
     ],
   },

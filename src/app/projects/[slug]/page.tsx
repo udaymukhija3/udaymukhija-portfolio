@@ -70,7 +70,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     { label: "Stack", value: stackSummary },
     {
       label: "Proof",
-      value: primaryLink ? primaryLink.label : "Case study only",
+      value: primaryLink ? primaryLink.label : getFact("Proof") ?? "Case study only",
     },
   ];
   const metricItems = project.metrics.slice(0, 3);

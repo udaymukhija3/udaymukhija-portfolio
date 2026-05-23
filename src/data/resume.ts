@@ -1,9 +1,9 @@
 export const resumeSummary = {
   eyebrow: "Resume",
-  title: "Software engineer focused on backend and ML systems",
+  title: "Software engineer focused on backend, data, and ML systems",
   intro:
     "This is the quick read on my experience, strongest projects, and core stack.",
-  note: "I'm targeting backend, platform, and ML engineering roles.",
+  note: "I'm targeting backend, platform, data engineering, and ML systems roles.",
 };
 
 export const skillGroups = [
@@ -17,10 +17,14 @@ export const skillGroups = [
   },
   {
     label: "ML systems",
-    items: ["FastAPI", "LightGBM", "MLflow", "dbt", "Airflow", "Flink"],
+    items: ["FastAPI", "LightGBM", "XGBoost", "MLflow", "Optuna", "Prometheus"],
   },
   {
-    label: "Supporting stack",
+    label: "Data systems",
+    items: ["Kafka", "dbt", "Airflow", "DuckDB", "PostgreSQL", "quality checks"],
+  },
+  {
+    label: "Frontend and mobile",
     items: ["TypeScript", "React", "React Native", "Docker", "feature contracts", "observability"],
   },
 ];
@@ -43,37 +47,64 @@ export const resumeProjects = [
   {
     title: "Inventory Analytics and Management System",
     href: "/projects/inventory-analytics-platform",
-    summary: "Inventory service with transactional writes, Kafka events, and analytics outputs.",
+    summary: "Inventory operations system with a transactional outbox, Kafka, ETL, analytics outputs, and stockout backtesting.",
     bullets: [
-      "If you want my clearest backend example, start here.",
-      "It shows event-driven design and is direct about what I would still tighten up.",
+      "The clearest backend/data example: Spring Boot write path, outbox relay, idempotent pipeline, DQ, and demo artifacts.",
+      "Good evidence for event-driven design, reliability, and business-metric thinking.",
     ],
   },
   {
     title: "Gathr",
     href: "/projects/gathr",
-    summary: "Social planning app with mobile flows, backend APIs, chat, and recommendation events.",
+    summary: "Private-beta neighborhood activity app with mobile flows, backend APIs, chat, reliability scoring, and ML contracts.",
     bullets: [
-      "This is the best read on how I think about product and backend together.",
-      "It has real product constraints instead of feeling like a generic CRUD build.",
+      "Best read on product and backend together: core loop, launch manifest, feature flags, smoke checks, and trust/safety systems.",
+      "Strong fit for teams that care about product constraints instead of generic CRUD examples.",
+    ],
+  },
+  {
+    title: "Unified Logistics Data Platform",
+    href: "/projects/logistics-data-platform",
+    summary: "Fleet, shipment, and last-mile data platform with sample-mode verification, dbt marts, quality checks, and Streamlit.",
+    bullets: [
+      "Shows how I turn event data into warehouse outputs and operator-facing proof.",
+      "The project is explicit about the verified local path versus the deeper Kafka/Spark/Airflow path.",
     ],
   },
   {
     title: "Habit Tracker Social",
     href: "/projects/habit-tracker-social",
-    summary: "Habit tracking product with web and mobile clients, automation rules, and social features.",
+    summary: "Broad habit platform with Spring Boot, React, React Native, social loops, and wearable-aware completion logic.",
     bullets: [
-      "Useful if you want to see one backend supporting multiple client experiences.",
-      "I spent most of my time here on state management, sync rules, and user trust.",
+      "Useful if you want one backend supporting web and mobile clients with auth, social state, and realtime updates.",
+      "I am direct that it needs product narrowing before a public launch claim.",
     ],
   },
   {
-    title: "Kalshi Prediction Market Analytics Platform",
-    href: "/projects/kalshi-prediction-platform",
-    summary: "ML platform case study with data modeling, evaluation, model serving, and a realtime path.",
+    title: "Enefit Prosumer Energy Forecasting",
+    href: "/projects/enefit-forecasting",
+    summary: "Forecasting system with causal joins, dual LightGBM models, feature contracts, backtests, and API/CLI serving.",
     bullets: [
-      "This is the ML systems case study I'd use for architecture conversations.",
-      "It focuses on evaluation, serving boundaries, and realtime tradeoffs.",
+      "Strongest forecasting example: 2.0M rows, 106 features, leakage-resistant joins, and target-specific artifacts.",
+      "Good evidence for train/serve parity and evaluation beyond a static holdout.",
+    ],
+  },
+  {
+    title: "Fraud Detection System",
+    href: "/projects/fraud-detection-system",
+    summary: "Fraud ML system with chronological splits, calibration, cost-based thresholding, deploy bundles, and FastAPI.",
+    bullets: [
+      "Strong risk-ML example: AUC-ROC/AUC-PR, calibration improvement, challenger benchmarking, and proof artifacts.",
+      "The project shows decisioning discipline, not just model training.",
+    ],
+  },
+  {
+    title: "Instacart Reordering System",
+    href: "/projects/instacart-reordering-system",
+    summary: "Grocery reorder recommender with point-in-time features, candidate/basket evaluation, baseline lift, and serving contracts.",
+    bullets: [
+      "Strong recommender example: leakage tests, feature schema contract, F1 metrics, and lift over heuristics.",
+      "The page is careful about offline evaluation versus online production claims.",
     ],
   },
 ];
