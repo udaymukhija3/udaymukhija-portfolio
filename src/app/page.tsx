@@ -16,6 +16,33 @@ export const metadata: Metadata = {
   },
 };
 
+const focusAreas = [
+  {
+    title: "Backend systems",
+    body: "Java and Spring Boot services, APIs, persistence, product state, and event-driven boundaries.",
+    links: [
+      { label: "Gathr", href: "/projects/gathr" },
+      { label: "Inventory", href: "/projects/inventory-analytics-platform" },
+    ],
+  },
+  {
+    title: "ML products",
+    body: "Forecasting, recommendations, evaluation, serving paths, and model behavior that can be explained.",
+    links: [
+      { label: "Enefit", href: "/projects/enefit-forecasting" },
+      { label: "Fraud detection", href: "/projects/fraud-detection-system" },
+    ],
+  },
+  {
+    title: "Data platforms",
+    body: "Marts, contracts, SQL quality checks, pipelines, and analytics paths close to operational systems.",
+    links: [
+      { label: "Logistics", href: "/projects/logistics-data-platform" },
+      { label: "Instacart", href: "/projects/instacart-reordering-system" },
+    ],
+  },
+];
+
 const domainItems = [
   "Backend",
   "Data platforms",
@@ -26,52 +53,31 @@ const domainItems = [
   "APIs",
 ];
 
-const expertiseRows = [
-  {
-    input: "JAVA",
-    action: "services / APIs / product state",
-    outputs: [
-      { label: "Gathr", href: "/projects/gathr" },
-      { label: "Habit", href: "/projects/habit-tracker-social" },
-      { label: "Inventory", href: "/projects/inventory-analytics-platform" },
-    ],
-  },
-  {
-    input: "PYTHON",
-    action: "ML pipelines / evaluation / serving",
-    outputs: [
-      { label: "Enefit", href: "/projects/enefit-forecasting" },
-      { label: "Fraud", href: "/projects/fraud-detection-system" },
-      { label: "Instacart", href: "/projects/instacart-reordering-system" },
-    ],
-  },
-  {
-    input: "SQL / DBT",
-    action: "marts / contracts / quality checks",
-    outputs: [
-      { label: "Logistics", href: "/projects/logistics-data-platform" },
-      { label: "Inventory", href: "/projects/inventory-analytics-platform" },
-    ],
-  },
-];
-
-function SheetSection({
+function HomeSection({
   id,
+  eyebrow,
   title,
+  note,
   children,
   className = "",
 }: {
   id?: string;
+  eyebrow: string;
   title: string;
+  note?: ReactNode;
   children: ReactNode;
   className?: string;
 }) {
   return (
-    <section id={id} className={`sheet-section ${className}`}>
-      <div className="sheet-heading">
-        <h2>{title}</h2>
+    <section id={id} className={`section home-section ${className}`}>
+      <div className="container">
+        <div className="home-section-header">
+          <p className="eyebrow">{eyebrow}</p>
+          <h2>{title}</h2>
+          {note ? <p>{note}</p> : null}
+        </div>
+        {children}
       </div>
-      {children}
     </section>
   );
 }
@@ -118,180 +124,195 @@ export default function HomePage() {
     <>
       <StructuredData data={personJsonLd} />
 
-      <section className="section section-last datasheet-page" aria-labelledby="datasheet-title">
-        <div className="container datasheet-shell">
-          <div className="sheet-titlebar">
-            <p>DATASHEET</p>
-            <h1 id="datasheet-title">{siteConfig.name}</h1>
+      <section className="home-hero" aria-labelledby="home-title">
+        <div className="container">
+          <div className="home-kicker">
+            <span>Software Engineer</span>
+            <span>{siteConfig.location}</span>
           </div>
 
-          <div className="sheet-intro">
+          <div className="home-hero-copy">
+            <h1 id="home-title">Backend and ML systems with a calm product sense.</h1>
             <p>
-              Software engineer focused on backend systems, ML-heavy products, data pipelines, and
-              practical platform work.
-            </p>
-            <p>
-              I build mostly with Java, Spring Boot, Python, SQL, and TypeScript. The projects here
-              are written as evidence: local repos, demo paths, evaluation artifacts, architecture
-              choices, tradeoffs, and the next fixes I would make.
-            </p>
-            <p>
-              Best current fit: backend, platform, data-intensive product, and ML systems roles
-              where clear interfaces and debuggable behavior matter.
+              I build Java services, data pipelines, ML projects, and product prototypes with clear
+              interfaces and a bias toward systems you can inspect, debug, and improve.
             </p>
           </div>
 
-          <div className="quick-actions" aria-label="Primary links">
-            <Link className="box-link" href="/projects">
-              PROJECTS
+          <div className="home-actions" aria-label="Primary links">
+            <Link className="button button-solid" href="/projects">
+              View projects
             </Link>
             {isResumeExternal ? (
-              <a className="box-link" {...resumeProps}>
-                RESUME
+              <a className="button button-ghost" {...resumeProps}>
+                Resume
               </a>
             ) : (
-              <Link className="box-link" href={resumeHref}>
-                RESUME
+              <Link className="button button-ghost" href={resumeHref}>
+                Resume
               </Link>
             )}
             {profileLinks.map((link) => (
               <a
                 key={link.label}
-                className="box-link"
+                className="quiet-link"
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
               >
-                {link.label.toUpperCase()}
+                {link.label}
               </a>
             ))}
           </div>
 
-          <SheetSection title="Snapshot">
-            <dl className="fact-grid">
-              {snapshotItems.map((item) => (
-                <div key={item.label} className="fact-item">
-                  <dt>{item.label}</dt>
-                  <dd>{item.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </SheetSection>
+          <div className="material-strip" aria-hidden="true">
+            <img src="/icon.svg" alt="" />
+            <span className="material-swatch material-sage" />
+            <span className="material-swatch material-ash" />
+            <span className="material-swatch material-clay" />
+            <span className="material-line" />
+          </div>
 
-          <SheetSection title="Domains">
-            <div className="domain-line" aria-label="Domains">
-              {domainItems.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
-          </SheetSection>
+          <dl className="snapshot-strip" aria-label="Portfolio snapshot">
+            {snapshotItems.map((item) => (
+              <div key={item.label}>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
-          <SheetSection title="Expertise" className="expertise-section">
-            <div className="expertise-diagram" aria-label="Expertise map">
-              <div className="expertise-inputs">
-                {expertiseRows.map((row) => (
-                  <span key={row.input}>{row.input}</span>
+      <HomeSection
+        eyebrow="Focus"
+        title="The work sits in three quiet lanes."
+        note="Each lane points to projects where the choices, tradeoffs, and next fixes are visible."
+      >
+        <div className="focus-grid">
+          {focusAreas.map((area) => (
+            <article key={area.title} className="focus-card">
+              <h3>{area.title}</h3>
+              <p>{area.body}</p>
+              <div className="inline-link-row">
+                {area.links.map((link) => (
+                  <Link key={link.href} className="inline-link" href={link.href}>
+                    {link.label}
+                  </Link>
                 ))}
               </div>
-              <div className="expertise-core">BUILD / DEBUG / SHIP</div>
-              <div className="expertise-flows">
-                {expertiseRows.map((row) => (
-                  <div key={row.input} className="flow-row">
-                    <span>{row.action}</span>
-                    <span aria-hidden="true">-&gt;</span>
-                    <div className="flow-links">
-                      {row.outputs.map((output) => (
-                        <Link key={output.href} href={output.href}>
-                          {output.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+            </article>
+          ))}
+        </div>
+      </HomeSection>
+
+      <HomeSection
+        eyebrow="Domains"
+        title="A narrow surface area, intentionally."
+        className="section-muted"
+      >
+        <div className="domain-cloud" aria-label="Domains">
+          {domainItems.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </HomeSection>
+
+      <HomeSection
+        eyebrow="Selected Work"
+        title="Projects I would start with."
+        note="The strongest reads are the ones where backend boundaries and product consequences meet."
+      >
+        <div className="work-list">
+          {featuredProjects.map((project) => (
+            <article key={project.slug} className="work-row">
+              <div className="work-meta">
+                <span>{project.year}</span>
+                <span>{project.label}</span>
               </div>
-            </div>
-          </SheetSection>
+              <div className="work-main">
+                <h3>
+                  <Link href={`/projects/${project.slug}`}>{project.title}</Link>
+                </h3>
+                <p>{project.summary}</p>
+              </div>
+              <div className="work-side">
+                <span>{project.stack.slice(0, 3).join(" / ")}</span>
+                <Link className="inline-link" href={`/projects/${project.slug}`}>
+                  Case study
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="section-actions">
+          <Link className="inline-link" href="/projects">
+            View all projects
+          </Link>
+        </div>
+      </HomeSection>
 
-          <SheetSection title="Selected Work">
-            <div className="sheet-table">
-              {featuredProjects.map((project) => (
-                <article key={project.slug} className="sheet-row project-sheet-row">
-                  <div className="sheet-row-meta">
-                    <span>{project.year}</span>
-                    <span>{project.label}</span>
-                  </div>
-                  <div className="sheet-row-main">
-                    <h3>
-                      <Link href={`/projects/${project.slug}`}>{project.title}</Link>
-                    </h3>
-                    <p>{project.summary}</p>
-                  </div>
-                  <div className="sheet-row-tail">
-                    <span>{project.stack.slice(0, 3).join(" / ")}</span>
-                    <Link href={`/projects/${project.slug}`}>case study</Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="sheet-after">
-              <Link className="inline-link" href="/projects">
-                all projects
-              </Link>
-            </div>
-          </SheetSection>
-
-          <SheetSection title="Experience">
-            <div className="sheet-table">
+      <HomeSection
+        eyebrow="Experience"
+        title="Recent work and foundation."
+        className="section-tight"
+      >
+        <div className="two-column">
+          <div className="quiet-panel">
+            <h3>Experience</h3>
+            <div className="timeline-list">
               {experienceItems.map((item) => (
-                <article key={item.company} className="sheet-row">
-                  <div className="sheet-row-meta">
+                <article key={item.company}>
+                  <div>
                     <span>{item.period}</span>
                     <span>{item.location}</span>
                   </div>
-                  <div className="sheet-row-main">
-                    <h3>{item.role}</h3>
-                    <p>{item.company}</p>
-                  </div>
-                  <div className="sheet-row-tail">
-                    <span>{item.bullets[0]}</span>
-                  </div>
+                  <h4>{item.role}</h4>
+                  <p>{item.company}</p>
+                  <p>{item.bullets[0]}</p>
                 </article>
               ))}
             </div>
-          </SheetSection>
+          </div>
 
-          <SheetSection title="Foundation">
-            <div className="compact-list">
+          <div className="quiet-panel">
+            <h3>Foundation</h3>
+            <div className="education-list">
               {educationItems.map((item) => (
-                <p key={item.school}>
+                <article key={item.school}>
                   <span>{item.period}</span>
-                  <strong>{item.school}</strong>
-                  <span>{item.detail}</span>
-                </p>
+                  <h4>{item.school}</h4>
+                  <p>{item.detail}</p>
+                </article>
               ))}
             </div>
-          </SheetSection>
-
-          <SheetSection id="contact" title="Contact">
-            <div className="contact-strip">
-              {contactLinks.map((link) => {
-                const isExternal = link.href.startsWith("http");
-
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target={isExternal ? "_blank" : undefined}
-                    rel={isExternal ? "noreferrer" : undefined}
-                  >
-                    {link.label}
-                  </a>
-                );
-              })}
-            </div>
-          </SheetSection>
+          </div>
         </div>
-      </section>
+      </HomeSection>
+
+      <HomeSection
+        id="contact"
+        eyebrow="Contact"
+        title="If the work lines up, reach out."
+        className="section-last contact-section"
+      >
+        <div className="contact-strip">
+          {contactLinks.map((link) => {
+            const isExternal = link.href.startsWith("http");
+
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noreferrer" : undefined}
+              >
+                {link.label}
+              </a>
+            );
+          })}
+        </div>
+      </HomeSection>
     </>
   );
 }
