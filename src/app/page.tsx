@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { ProjectEvidenceLens } from "../components/ProjectEvidenceLens";
 import { StructuredData } from "../components/StructuredData";
 import { projects } from "../data/projects";
 import { educationItems, experienceItems } from "../data/resume";
@@ -132,10 +133,10 @@ export default function HomePage() {
           </div>
 
           <div className="home-hero-copy">
-            <h1 id="home-title">Backend and ML systems with a calm product sense.</h1>
+            <h1 id="home-title">Backend, data, and ML systems with product restraint.</h1>
             <p>
               I build Java services, data pipelines, ML projects, and product prototypes with clear
-              interfaces and a bias toward systems you can inspect, debug, and improve.
+              interfaces and a bias toward systems you can inspect, debug, and defend.
             </p>
           </div>
 
@@ -220,31 +221,10 @@ export default function HomePage() {
 
       <HomeSection
         eyebrow="Selected Work"
-        title="Projects I would start with."
-        note="The strongest reads are the ones where backend boundaries and product consequences meet."
+        title="A filtered view of the evidence."
+        note="Use the lens if you care about a specific role fit. The strongest projects pair implementation detail with proof paths, metrics, and honest limits."
       >
-        <div className="work-list">
-          {featuredProjects.map((project) => (
-            <article key={project.slug} className="work-row">
-              <div className="work-meta">
-                <span>{project.year}</span>
-                <span>{project.label}</span>
-              </div>
-              <div className="work-main">
-                <h3>
-                  <Link href={`/projects/${project.slug}`}>{project.title}</Link>
-                </h3>
-                <p>{project.summary}</p>
-              </div>
-              <div className="work-side">
-                <span>{project.stack.slice(0, 3).join(" / ")}</span>
-                <Link className="inline-link" href={`/projects/${project.slug}`}>
-                  Case study
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+        <ProjectEvidenceLens projects={featuredProjects} />
         <div className="section-actions">
           <Link className="inline-link" href="/projects">
             View all projects
