@@ -54,7 +54,7 @@ export const workPrinciples = [
     body: "I prefer simple interfaces, direct code paths, and systems that are easy to debug.",
   },
   {
-    title: "End To End ML rigor",
+    title: "End-to-end ML rigor",
     body:
       "For ML work, I care about the full path from data quality and evaluation to serving behavior in production.",
   },

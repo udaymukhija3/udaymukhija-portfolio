@@ -4,7 +4,8 @@ import { noteEntries, notesIntro } from "../../data/notes";
 
 export const metadata: Metadata = {
   title: "Notes",
-  description: "Notes page for Uday Mukhija.",
+  description:
+    "Short technical notes on backend systems, ML evaluation and serving, and product decisions, by Uday Mukhija.",
   alternates: {
     canonical: "/notes",
   },

@@ -8,6 +8,9 @@ import { educationItems, experienceItems } from "../data/resume";
 import { contactLinks, resumeHref, skills, snapshotItems } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 
+const emailLink = contactLinks.find((link) => link.label === "Email");
+const personEmail = emailLink ? emailLink.href.replace(/^mailto:/, "") : undefined;
+
 const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
@@ -112,12 +115,18 @@ export default function HomePage() {
     "@type": "Person",
     name: siteConfig.name,
     jobTitle: "Software Engineer",
+    description: siteConfig.description,
     url: siteUrl,
+    ...(personEmail ? { email: personEmail } : {}),
     address: {
       "@type": "PostalAddress",
       addressCountry: siteConfig.location,
     },
     knowsAbout: skills,
+    alumniOf: educationItems.map((item) => ({
+      "@type": "EducationalOrganization",
+      name: item.school,
+    })),
     sameAs: socialLinks.map((link) => link.href),
   };
 
@@ -135,8 +144,9 @@ export default function HomePage() {
           <div className="home-hero-copy">
             <h1 id="home-title">Backend, data, and ML systems with product restraint.</h1>
             <p>
-              I build Java services, data pipelines, ML projects, and product prototypes with clear
-              interfaces and a bias toward systems you can inspect, debug, and defend.
+              I'm Uday, a software engineer. I build Java services, data pipelines, ML projects,
+              and product prototypes with clear interfaces and a bias toward systems you can
+              inspect, debug, and defend.
             </p>
           </div>
 
@@ -156,7 +166,7 @@ export default function HomePage() {
             {profileLinks.map((link) => (
               <a
                 key={link.label}
-                className="quiet-link"
+                className="button button-ghost"
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
@@ -164,14 +174,6 @@ export default function HomePage() {
                 {link.label}
               </a>
             ))}
-          </div>
-
-          <div className="material-strip" aria-hidden="true">
-            <img src="/icon.svg" alt="" />
-            <span className="material-swatch material-sage" />
-            <span className="material-swatch material-ash" />
-            <span className="material-swatch material-clay" />
-            <span className="material-line" />
           </div>
 
           <dl className="snapshot-strip" aria-label="Portfolio snapshot">
@@ -220,9 +222,9 @@ export default function HomePage() {
       </HomeSection>
 
       <HomeSection
-        eyebrow="Selected Work"
+        eyebrow="Selected work"
         title="A filtered view of the evidence."
-        note="Use the lens if you care about a specific role fit. The strongest projects pair implementation detail with proof paths, metrics, and honest limits."
+        note="Use the lens if you're scoping for a specific role. The strongest projects pair implementation detail with proof paths, metrics, and honest limits."
       >
         <ProjectEvidenceLens projects={featuredProjects} />
         <div className="section-actions">

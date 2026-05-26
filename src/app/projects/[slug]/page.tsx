@@ -75,17 +75,26 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   ];
   const metricItems = project.metrics.slice(0, 3);
 
+  const repoLink = project.links.find((link) => link.href.includes("github.com"));
   const projectJsonLd = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    "@type": repoLink ? "SoftwareSourceCode" : "CreativeWork",
     name: project.title,
     description: project.description,
     url: `${getSiteUrl()}/projects/${project.slug}`,
+    ...(repoLink ? { codeRepository: repoLink.href } : {}),
+    author: {
+      "@type": "Person",
+      name: siteConfig.name,
+      url: getSiteUrl(),
+    },
     creator: {
       "@type": "Person",
       name: siteConfig.name,
     },
-    keywords: project.stack,
+    programmingLanguage: project.stack,
+    keywords: [...project.stack, project.category, project.label].join(", "),
+    datePublished: project.year,
   };
 
   return (

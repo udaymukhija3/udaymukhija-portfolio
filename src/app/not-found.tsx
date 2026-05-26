@@ -6,13 +6,13 @@ export default function NotFound() {
       <div className="container page-intro-shell">
         <p className="eyebrow">404</p>
         <h1>Page not found</h1>
-        <p>The page does not exist.</p>
+        <p>That page doesn't exist. The links below cover the rest of the site.</p>
         <div className="cta-row">
           <Link className="button button-solid" href="/">
-            Back Home
+            Back home
           </Link>
           <Link className="button button-ghost" href="/projects">
-            View Projects
+            View projects
           </Link>
         </div>
       </div>

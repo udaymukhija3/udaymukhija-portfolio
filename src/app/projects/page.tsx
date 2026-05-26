@@ -72,8 +72,8 @@ export default async function ProjectsPage({
           <p className="eyebrow">Projects</p>
           <h1>Projects I've built across backend, data platforms, and ML systems.</h1>
           <p>
-            I keep each entry short here. Open a case study if you want the architecture,
-            local evidence, tradeoffs, and what I would improve next.
+            Each card is the short version. Open a case study for the architecture, the
+            tradeoffs I made, the evidence I'd point to, and what I'd improve next.
           </p>
         </div>
       </section>

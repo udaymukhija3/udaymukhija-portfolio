@@ -1,7 +1,8 @@
 export const siteConfig = {
   name: "Uday Mukhija",
   title: "Uday Mukhija | Software Engineer",
-  description: "Portfolio of backend, data, and ML projects by Uday Mukhija.",
+  description:
+    "Software engineer working on backend services (Java, Spring Boot), data platforms (Kafka, dbt, Airflow), and ML systems (LightGBM, FastAPI). Portfolio with case studies, proof artifacts, and source code.",
   location: "India",
 };
 

@@ -5,7 +5,8 @@ import { experienceItems } from "../../data/resume";
 
 export const metadata: Metadata = {
   title: "Experience",
-  description: "Work experience for Uday Mukhija.",
+  description:
+    "Work history for Uday Mukhija: backend and product engineering roles, with the problems and migrations I've shipped.",
   alternates: {
     canonical: "/experience",
   },
@@ -18,7 +19,10 @@ export default function ExperiencePage() {
         <div className="container page-intro-shell">
           <p className="eyebrow">Experience</p>
           <h1>Where I've worked</h1>
-          <p>Short version of my work history and the problems I've worked on.</p>
+          <p>
+            Short version of my work history and the problems I've shipped. The resume page has
+            the fuller skill breakdown.
+          </p>
         </div>
       </section>
 

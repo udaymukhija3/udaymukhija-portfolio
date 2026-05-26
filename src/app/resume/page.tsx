@@ -12,7 +12,8 @@ import {
 
 export const metadata: Metadata = {
   title: "Resume",
-  description: "Resume page for Uday Mukhija.",
+  description:
+    "Resume for Uday Mukhija — software engineer targeting backend, platform, data engineering, and ML systems roles. Skills, experience, and the projects to read first.",
   alternates: {
     canonical: "/resume",
   },
@@ -95,9 +96,9 @@ export default function ResumePage() {
       <section className="section">
         <div className="container">
           <SectionHeading
-            eyebrow="Selected Projects"
+            eyebrow="Selected projects"
             title="Projects to start with"
-            note="If you're short on time, these are the projects I'd start with."
+            note="If you're short on time, these are the ones I'd open first."
           />
           <div className="resume-project-grid">
             {resumeProjects.map((project) => (

@@ -2,8 +2,8 @@ export const resumeSummary = {
   eyebrow: "Resume",
   title: "Software engineer focused on backend, data, and ML systems",
   intro:
-    "This is the quick read on my experience, strongest projects, and core stack.",
-  note: "I'm targeting backend, platform, data engineering, and ML systems roles.",
+    "Quick read on my experience, strongest projects, and core stack. The projects page has the deeper case studies.",
+  note: "Open to backend, platform, data engineering, and ML systems roles.",
 };
 
 export const skillGroups = [
@@ -17,15 +17,19 @@ export const skillGroups = [
   },
   {
     label: "ML systems",
-    items: ["FastAPI", "LightGBM", "XGBoost", "MLflow", "Optuna", "Prometheus"],
+    items: ["FastAPI", "LightGBM", "XGBoost", "MLflow", "Optuna", "Feature contracts"],
   },
   {
     label: "Data systems",
-    items: ["Kafka", "dbt", "Airflow", "DuckDB", "PostgreSQL", "quality checks"],
+    items: ["dbt", "Airflow", "DuckDB", "Pandas", "Quality checks"],
   },
   {
     label: "Frontend and mobile",
-    items: ["TypeScript", "React", "React Native", "Docker", "feature contracts", "observability"],
+    items: ["React", "React Native", "Next.js"],
+  },
+  {
+    label: "Platform",
+    items: ["Docker", "Prometheus", "Grafana", "GitHub Actions", "Observability"],
   },
 ];
 
