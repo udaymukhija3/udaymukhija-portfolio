@@ -4,72 +4,73 @@ export const projects: Project[] = [
   {
     slug: "gathr",
     title: "Gathr",
-    label: "Full-Stack Social",
-    status: "Public repo",
+    label: "Backend Social Platform",
+    status: "Present",
     category: "product",
-    year: "2026",
+    year: "2025",
     summary:
-      "I built this neighborhood activity app around a tight loop: find a small group, commit, chat, and show up.",
+      "I architected a Spring Boot backend across 16 subsystems for auth, feed ranking, matching, messaging, rewards, reliability scoring, and behavioral logging.",
     description:
-      "I built Gathr as a private-beta social planning product with a Spring Boot backend, React Native client, activity chat, reliability scoring, micro-commitments, and ML-backed recommendation contracts.",
+      "Gathr is a backend-heavy social activity system with PostgreSQL, Redis, WebSocket chat, algorithmic feed ranking, multi-dimensional matching, commitment mechanics, reliability scoring, and behavioral event capture for future recommendation pipelines.",
     metrics: [
-      { label: "North star", value: "Attendance" },
-      { label: "Backend", value: "39 controllers" },
-      { label: "Codebase", value: "333 Java files" },
-      { label: "Rollouts", value: "14 feature flags" },
+      { label: "Subsystems", value: "16" },
+      { label: "Core backend", value: "Spring Boot" },
+      { label: "Realtime", value: "WebSocket" },
+      { label: "Trust loop", value: "Reliability" },
     ],
     facts: [
-      { label: "Scope", value: "Private-beta product build" },
-      { label: "Role", value: "Product, backend, mobile" },
+      { label: "Scope", value: "Backend-first social activity platform" },
+      { label: "Role", value: "Backend architecture, product logic, realtime flows" },
       { label: "Status", value: "Public repo" },
-      { label: "Proof", value: "Launch manifest, subsystem report, smoke checklist" },
-      { label: "What I owned", value: "Activity loop, chat, reliability, recommendations, APIs" },
-      { label: "Best fit", value: "Startup product and backend roles" },
+      { label: "Proof", value: "Subsystem inventory, launch manifest, smoke checklist" },
+      { label: "What I owned", value: "Auth, ranking, matching, chat, reliability, rewards, APIs" },
+      { label: "Best fit", value: "Backend and product-systems roles" },
     ],
     system: [
       { label: "Mobile loop", value: "Hub selection, feed browse, create, join, chat, confirm, check in" },
-      { label: "Backend", value: "OTP/JWT auth, activity lifecycle, reliability, notifications, safety" },
-      { label: "Intelligence", value: "Feed ranking, matching, graph embeddings, semantic search, fallbacks" },
-      { label: "Release shape", value: "One-hub private beta with launch flags and staging smoke checks" },
+      { label: "Backend", value: "Auth, activity lifecycle, reliability scoring, matching, messaging, rewards" },
+      { label: "Ranking", value: "Freshness, scarcity, host reliability, social proof, and fallback paths" },
+      { label: "Trust", value: "Identity masking, 2-hour confirmations, cancellation penalties, trust scoring" },
     ],
     evidenceNote:
-      "The local gathr-slice2-complete repo is the source of truth here: launch manifest, subsystem inventory, ML runtime contract, and staging smoke docs.",
+      "The repo is strongest as a backend architecture sample: subsystem boundaries, trust mechanics, realtime chat, ranking contracts, and launch smoke docs.",
     highlights: [
-      "Narrowed the product to a private-beta launch in one hub instead of pretending it was ready for every city.",
-      "Connected discovery, join, chat, reminders, confirmation, check-in, and reliability into one attendance loop.",
-      "Defined runtime contracts and fallbacks for feed ranking, matching, search, churn, notification value, and safety paths.",
-      "Added feature flags and staging smoke checks around the core launch path.",
+      "Architected a Spring Boot backend with PostgreSQL across 16 subsystems including auth, feed ranking, reliability scoring, matching, messaging, rewards, and behavioral logging.",
+      "Designed feed ranking using freshness, scarcity, host reliability, and social proof.",
+      "Built multi-dimensional matching based on interests, preferences, network proximity, and co-attendance history.",
+      "Implemented realtime group chat with WebSocket delivery confirmation, typing indicators, and behavioral event capture.",
+      "Built commitment and reliability mechanics including identity masking, 2-hour confirmation windows, tiered cancellation penalties, and transparent trust scoring.",
     ],
     sections: [
       {
         title: "What I built",
         paragraphs: [
-          "Gathr started with a product question: how do you help people turn casual interest into actual attendance for small neighborhood activities?",
-          "The app lets a user choose a hub, browse activities happening soon, join one, chat with the group, confirm, check in, and build reliability through attendance behavior.",
+          "Gathr is a social activity backend built around the path from discovery to attendance.",
+          "The system covers auth, feed ranking, matching, activity lifecycle, messaging, reliability scoring, rewards, behavioral logging, and notification-ready event capture.",
         ],
       },
       {
         title: "Choices I made",
         paragraphs: [
-          "I kept the launch shape narrow. The local launch manifest freezes the beta to one hub and disables broad surfaces like Discover, Crews, contacts sync, enhanced search, and map view.",
-          "On the backend side, I treated trust and attendance as part of the domain model: activity lifecycle, participation state, micro-commitments, reliability history, safety reporting, and reminders are all explicit systems.",
+          "I treated trust and attendance as backend domain concepts instead of UI-only behavior.",
+          "The result is explicit logic for confirmations, cancellation penalties, identity masking, host reliability, scarcity, social proof, and co-attendance history.",
         ],
       },
       {
-        title: "Limits",
+        title: "Backend depth",
         paragraphs: [
-          "I do not present this as a public app-store launch. It is a private-beta product build with a strong core loop and a lot of system depth.",
-          "Some ML paths are contract-backed and fallback-aware rather than proof of production traffic. The honest value is the architecture and launch discipline, not a claim of large-scale usage.",
+          "The strongest interview path is the backend: subsystem boundaries, lifecycle state, ranking signals, realtime chat, and reliability mechanics.",
+          "I would present recommendation and behavioral logging as pipeline-ready system design rather than claiming production-scale ML traffic.",
         ],
       },
       {
         title: "What I'd do next",
         paragraphs: [
-          "I would keep the one-hub beta constraint, seed recurring host supply, and measure the conversion from feed impression to join, confirmation, check-in, and attended activity.",
+          "I would add deeper integration testing around activity lifecycle transitions, WebSocket delivery semantics, feed-ranking fallbacks, and reliability-score updates.",
         ],
       },
     ],
-    stack: ["Java", "Spring Boot", "PostgreSQL", "Redis", "React Native", "TypeScript", "WebSocket", "LightGBM"],
+    stack: ["Java", "Spring Boot", "PostgreSQL", "Redis", "WebSocket", "React Native", "TypeScript"],
     links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/gathrly" }],
     featured: true,
     flagship: true,
@@ -77,149 +78,506 @@ export const projects: Project[] = [
   {
     slug: "habit-tracker-social",
     title: "Habit Tracker Social",
-    label: "Full-Stack Health",
+    label: "Backend Social Platform",
     status: "Public repo",
     category: "product",
-    year: "2026",
+    year: "2024",
     summary:
-      "I built this habit platform across Spring Boot, React, and React Native, with social accountability and wearable-aware completion logic.",
+      "I built a social habit backend with 14 subsystems, 26 REST controllers, WebSocket notifications, JWT refresh rotation, and multi-database storage.",
     description:
-      "This is strongest as a backend and product-systems sample: 30 controllers, 64 entities, 41 Flyway migrations, JWT and refresh-token auth, WebSocket updates, provider adapters, and an honest launch audit that says the product still needs a sharper v1 cut.",
+      "Habit Tracker Social is a Spring Boot and React Native platform with PostgreSQL, Redis, MongoDB, WebSocket notifications, JWT refresh token rotation, timezone-aware streak logic, optimistic locking, and tiered API rate limiting.",
     metrics: [
-      { label: "Controllers", value: "30" },
-      { label: "Entities", value: "64" },
-      { label: "Migrations", value: "41" },
-      { label: "Auth", value: "JWT + OAuth" },
+      { label: "Subsystems", value: "14" },
+      { label: "Controllers", value: "26" },
+      { label: "Storage", value: "Postgres/Redis/Mongo" },
+      { label: "Auth", value: "JWT refresh" },
     ],
     facts: [
-      { label: "Scope", value: "Broad full-stack product build" },
-      { label: "Role", value: "Backend, web, mobile, product logic" },
+      { label: "Scope", value: "Full-stack social habit platform" },
+      { label: "Role", value: "Backend, mobile, product logic" },
       { label: "Status", value: "Public repo" },
-      { label: "Proof", value: "State-of-app audit, OpenAPI docs, backend inventory" },
-      { label: "What I owned", value: "Habit state, auth, social flows, wearable/fusion scaffolding" },
-      { label: "Best fit", value: "Backend and full-stack product roles" },
+      { label: "Proof", value: "Controllers, auth flows, WebSocket paths, locking and rate-limit code" },
+      { label: "What I owned", value: "Habit state, auth, streaks, social flows, notifications" },
+      { label: "Best fit", value: "Backend and product-systems roles" },
     ],
     system: [
-      { label: "Backend", value: "Spring Boot APIs, MySQL, Redis, WebSocket, OpenAPI, Actuator" },
-      { label: "Clients", value: "React web client and React Native mobile client over the same API" },
-      { label: "Health data", value: "Provider adapter pattern, Fitbit path, dedup keys, fusion confidence" },
-      { label: "Product loops", value: "Habits, streaks, friends, feed, reactions, challenges, notifications" },
+      { label: "Backend", value: "Spring Boot APIs, PostgreSQL, Redis, MongoDB, WebSocket" },
+      { label: "Auth", value: "JWT refresh token rotation and session caching" },
+      { label: "Streaks", value: "Timezone-aware daily, weekly, monthly, and skip-preservation logic" },
+      { label: "Reliability", value: "Optimistic locking, Redis caching, Bucket4j and Caffeine rate limits" },
     ],
     evidenceNote:
-      "The local repo has useful ambition and an equally useful audit: backend depth is real, while the product should be narrowed before any public launch claim.",
+      "The repo is useful as a backend sample because it combines auth, realtime notifications, streak calculations, locking, caching, and route-specific rate limits.",
     highlights: [
-      "Built a Spring Boot backend with versioned routes, DTO mapping, domain events, JWT auth, rate limiting, and WebSocket updates.",
-      "Supported React web and React Native clients from the same backend contract.",
-      "Designed a health-data path with OAuth adapters, webhook security, deduplication, fusion methods, and confidence-gated auto-completion.",
-      "Kept the site copy honest by calling out that the product is broad and needs a focused v1 before launch.",
+      "Built a full-stack social habit platform with 14 subsystems, 26 REST controllers, WebSocket notifications, JWT refresh token rotation, and multi-database storage using PostgreSQL, Redis, and MongoDB.",
+      "Architected a timezone-aware streak engine with daily, weekly, and monthly frequency calculations plus skip-preservation logic.",
+      "Implemented race-condition-safe points updates using JPA optimistic locking with @Version.",
+      "Integrated Redis for session caching and low-latency data access.",
+      "Engineered tiered API rate limiting using Bucket4j token buckets and Caffeine cache.",
     ],
     sections: [
       {
         title: "What I built",
         paragraphs: [
-          "I built a full-stack habit product with a Spring Boot API, React web app, and React Native mobile app.",
-          "The backend covers the parts that matter for a serious habit system: auth, habit CRUD, completions, streaks, social feeds, friends, notifications, provider connections, sync logs, and automation rules.",
+          "I built a social habit platform with Spring Boot APIs, React Native screens, WebSocket notifications, and multi-database persistence.",
+          "The backend covers auth, habit state, completions, streak calculations, social flows, notifications, points, sessions, and rate-limited API traffic.",
         ],
       },
       {
         title: "Choices I made",
         paragraphs: [
-          "I treated trust in automated progress as a domain problem. Health data can be deduplicated, fused, assigned confidence, and either silently applied or held for confirmation.",
-          "The service design uses explicit controllers, DTOs, mappers, repositories, domain events, schedulers, and provider adapters so the system does not collapse into one oversized habit controller.",
+          "I made streak integrity a backend concern. Daily, weekly, and monthly frequencies account for user timezones, and skip-preservation logic keeps missed-day handling explicit.",
+          "For write safety, points updates use JPA optimistic locking, while Redis and route-specific rate limits protect hot paths and auth surfaces.",
         ],
       },
       {
-        title: "Current truth",
+        title: "Backend depth",
         paragraphs: [
-          "The local state-of-app audit is blunt: this repo contains infrastructure for several product directions, but it is not a polished production habit app yet.",
-          "That honesty makes the project better to discuss. I would present the backend architecture, data fusion, and cross-client contract as the strongest evidence, while being clear that mobile/web product scope needs pruning.",
+          "The strongest parts are the API surface, auth lifecycle, streak engine, realtime notification path, concurrency control, cache usage, and rate-limiting policy.",
+          "I would discuss it as a backend systems project first, with the mobile app proving that the API contract supports a real product loop.",
         ],
       },
       {
         title: "What I'd do next",
         paragraphs: [
-          "I would cut the product to a solo-first v1: Today, fast logging, streaks, optional friends, and a small number of notifications. The repo already contains enough backend machinery; the next win is focus.",
+          "I would deepen integration tests around streak boundaries, token rotation, concurrent points writes, and rate-limit tiers.",
         ],
       },
     ],
-    stack: ["Java", "Spring Boot", "React", "React Native", "MySQL", "Redis", "WebSocket"],
+    stack: ["Java", "Spring Boot", "React Native", "PostgreSQL", "Redis", "MongoDB", "WebSocket"],
     links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/habit-tracker-social" }],
     featured: true,
     flagship: true,
   },
   {
     slug: "inventory-analytics-platform",
-    title: "Event-Driven Inventory Analytics",
-    label: "Backend and Data Platform",
+    title: "Inventory Management System",
+    label: "Distributed Backend",
     status: "Public repo",
     category: "data",
-    year: "2026",
+    year: "2023",
     summary:
-      "I built an inventory operations system where stock writes flow through a transactional outbox, Kafka, ETL, marts, and stockout-prevention backtests.",
+      "I architected a distributed inventory platform with 4 microservices, 40+ REST endpoints, Kafka event streaming, and transactional PostgreSQL workflows.",
     description:
-      "I built this as an inventory operations and analytics platform: Spring Boot source-of-truth APIs, transactional outbox publishing, an idempotent Python pipeline, Postgres and Redis serving outputs, Parquet artifacts, quality checks, Prometheus/Grafana, and a CI-gated stockout backtest.",
+      "Inventory Management System is a backend and data platform with Spring Boot microservices, Kafka event streaming, Flink processing, Redis cache-aside reads, PostgreSQL transactional inventory workflows, pessimistic locking, retry handling, and Airflow anomaly detection.",
     metrics: [
-      { label: "Recall gate", value: "60%" },
-      { label: "Core services", value: "4" },
-      { label: "API surface", value: "50+ endpoints" },
-      { label: "Outputs", value: "Postgres / Redis / Parquet" },
+      { label: "Microservices", value: "4" },
+      { label: "API surface", value: "40+ endpoints" },
+      { label: "Streaming", value: "Kafka" },
+      { label: "Read path", value: "Sub-10ms cache" },
     ],
     facts: [
-      { label: "Scope", value: "Self-directed backend and data platform" },
-      { label: "Role", value: "Service design, outbox, ETL, backtesting, demo path" },
+      { label: "Scope", value: "Distributed inventory backend" },
+      { label: "Role", value: "Microservices, transactions, streaming, caching, anomaly detection" },
       { label: "Status", value: "Public repo" },
-      { label: "Proof", value: "make demo artifacts, DQ results, backtest metadata" },
-      { label: "What I owned", value: "Inventory service, event contract, pipeline, quality checks" },
-      { label: "Best fit", value: "Backend, platform, and event-driven roles" },
+      { label: "Proof", value: "Service boundaries, REST endpoints, lock handling, cache invalidation, DAGs" },
+      { label: "What I owned", value: "Inventory workflows, event streaming, Redis read paths, anomaly jobs" },
+      { label: "Best fit", value: "Backend, platform, and distributed-systems roles" },
     ],
     system: [
-      { label: "Operational write path", value: "Spring Boot inventory APIs, Postgres transactions, audit rows" },
-      { label: "Event stream", value: "Transactional outbox relay to Kafka with retries and give-up handling" },
-      { label: "Analytics pipeline", value: "Idempotent Python ETL into metrics, history, Redis, and Parquet" },
-      { label: "Reliability", value: "DQ checks, run manifests, stockout backtest, Prometheus, Grafana" },
+      { label: "Service layer", value: "4 Spring Boot microservices with 40+ REST endpoints" },
+      { label: "Write path", value: "PostgreSQL transactions, pessimistic locking, retry handling, stock conflict prevention" },
+      { label: "Event path", value: "Kafka event streaming with Flink processing for inventory signals" },
+      { label: "Read path", value: "Redis cache-aside strategy with targeted invalidation and velocity scoring" },
     ],
     evidenceNote:
-      "The local inventory_management_sys repo has the clearest proof path: run the supported demo, inspect artifacts, and see stock changes materialized into analytics outputs.",
+      "The repo is strongest for distributed backend discussion: transactional inventory workflows, lock choices, Kafka events, Redis caching, and Airflow anomaly DAGs.",
     highlights: [
-      "Used a transactional outbox so inventory mutations and publish intent are committed together.",
-      "Built the ETL to deduplicate events, support replay, reject invalid events, and persist run metadata.",
-      "Materialized analytics into Postgres current/history tables, Redis hot keys, and partitioned Parquet files.",
-      "Scored stockout-prevention logic in CI against a synthetic 90-day history with recall, precision, and dollars-saved outputs.",
+      "Architected a distributed inventory platform with 4 microservices, 40+ REST endpoints, Kafka event streaming, and PostgreSQL-backed transactional inventory workflows.",
+      "Implemented concurrency-safe inventory updates using pessimistic locking, retry handling, and transaction boundaries to prevent stock conflicts across distributed services.",
+      "Designed Redis cache-aside strategy with targeted invalidation and velocity scoring, achieving sub-10ms read paths for high-demand inventory data.",
+      "Built 5 Airflow DAGs to detect 7 categories of data anomalies and support reliable automated reporting for inventory operations.",
     ],
     sections: [
       {
         title: "What I built",
         paragraphs: [
-          "I built this as an inventory operations system with a data-engineering spine.",
-          "The operational side manages products, warehouses, adjustments, reservations, sales, receipts, and audit rows. The analytics side consumes inventory events and produces current metrics, history, cache entries, Parquet artifacts, quality results, and stockout recommendations.",
+          "I built this as a distributed inventory management backend with separate services, REST APIs, event streaming, and transactional inventory workflows.",
+          "The system covers stock updates, inventory reads, Kafka event flow, Redis cache-aside access, Flink processing, and Airflow-backed operational anomaly detection.",
         ],
       },
       {
         title: "Choices I made",
         paragraphs: [
-          "I treated the outbox as the boundary between correctness and delivery. Inventory writes stay transactional, and the relay handles Kafka publication separately.",
-          "I also made the demo path supported and explicit: inventory-service, data-pipeline-service, analytics-service, frontend, Postgres, Redis, Kafka, Prometheus, and Grafana. Other sandbox pieces are quarantined instead of oversold.",
+          "I treated stock correctness as the core backend problem. Inventory updates use transaction boundaries, pessimistic locking, and retry handling to prevent stock conflicts.",
+          "For reads, I used Redis cache-aside behavior with targeted invalidation so hot inventory data stays fast without hiding consistency rules.",
         ],
       },
       {
-        title: "Verification",
+        title: "Event and data paths",
         paragraphs: [
-          "The local proof path triggers a live sale for a seeded SKU, waits for ETL, then captures before/after inventory, analytics responses, current metrics, pipeline runs, DQ runs, Redis output, Parquet files, and the latest manifest.",
-          "That gives the project a concrete evaluation story instead of only an architecture diagram.",
+          "Kafka carries inventory events across services, while Flink and Airflow support downstream processing and reporting.",
+          "The Airflow layer detects 7 categories of data anomalies across 5 DAGs, which gives the project an operations story beyond CRUD endpoints.",
         ],
       },
       {
-        title: "Limits",
+        title: "What I'd do next",
         paragraphs: [
-          "I would present the supported path first and avoid claiming the optional gateway, reorder service, Airflow, and stream processor as equally verified.",
-          "The strongest interview story is the outbox, idempotent ETL, run metadata, and CI-backed backtest.",
+          "I would add stronger contract tests between services, replay tests for Kafka events, and dashboards around cache hit rates, lock retries, and stock-conflict prevention.",
         ],
       },
     ],
-    stack: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Redis", "FastAPI", "Python", "dbt"],
+    stack: ["Java", "Spring Boot", "Kafka", "Flink", "Redis", "PostgreSQL", "Airflow"],
     links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/inventory-management-sys" }],
     featured: true,
     flagship: true,
+  },
+  {
+    slug: "vibegrid",
+    title: "VibeGrid",
+    label: "Go Product Backend",
+    status: "Local MVP",
+    category: "product",
+    year: "2026",
+    summary:
+      "I built a daily semantic grouping puzzle with server-authoritative rules, anonymous sessions, idempotent guesses, Postgres-backed attempts, and puzzle authoring flows.",
+    description:
+      "VibeGrid is a daily word-grouping puzzle product built with a Go API and Next.js client. The backend owns game rules, sessions, attempts, idempotency, puzzle authoring, and completion stats, with Postgres for durable attempts and an in-memory path for local development.",
+    metrics: [
+      { label: "Game rules", value: "Go API" },
+      { label: "Attempt safety", value: "Idempotent" },
+      { label: "Storage", value: "Postgres/in-memory" },
+      { label: "Authoring", value: "Editor + builder" },
+    ],
+    facts: [
+      { label: "Scope", value: "Daily puzzle product with Go backend and Next.js client" },
+      { label: "Role", value: "Backend rules, data model, product UI, authoring flow" },
+      { label: "Status", value: "Local MVP repo" },
+      { label: "Proof", value: "README, Go tests, Postgres migrations, editor and builder routes" },
+      { label: "What I owned", value: "Game state, sessions, attempt locking, idempotency, stats" },
+      { label: "Best fit", value: "Backend/product roles with correctness-heavy state" },
+    ],
+    system: [
+      { label: "Client", value: "Next.js App Router UI with daily, archive, builder, and play-by-link routes" },
+      { label: "Rules", value: "Go service validates guesses without sending answer metadata to the browser" },
+      { label: "Persistence", value: "Postgres attempts, migrations, anonymous session cookies, in-memory fallback" },
+      { label: "Reliability", value: "Row locking and client guess IDs make retries and double-clicks safe" },
+    ],
+    evidenceNote:
+      "This is the strongest of the new local projects: the answer key stays server-side, guesses are idempotent, attempts can be transaction-safe in Postgres, and the repo includes backend tests.",
+    highlights: [
+      "Kept the answer key off the client by having the Go API validate guesses and reveal groups only after a correct submission.",
+      "Made guess submission idempotent with client guess IDs and transaction-safe attempt updates for the Postgres path.",
+      "Used storage interfaces so the product runs locally with an in-memory store while preserving a durable Postgres implementation.",
+      "Added authoring surfaces for an editor desk and public puzzle builder instead of stopping at a static daily puzzle.",
+    ],
+    sections: [
+      {
+        title: "What I built",
+        paragraphs: [
+          "I built VibeGrid as a small but complete puzzle product: 16 tiles, four hidden semantic groups, limited mistakes, a spoiler-safe share result, and routes for daily play, archives, custom puzzles, and admin authoring.",
+          "The important part is that the game state is not decorative client state. The Go service owns attempts, sessions, guess validation, reveal state, and puzzle publishing boundaries.",
+        ],
+      },
+      {
+        title: "Choices I made",
+        paragraphs: [
+          "I treated answer leakage and double submission as the real backend problems. The browser gets tile text and IDs, not group membership, while guess attempts are designed around idempotency and row-level safety.",
+          "I also kept storage pluggable so local development stays easy without weakening the Postgres path I would discuss in an interview.",
+        ],
+      },
+      {
+        title: "Evidence",
+        paragraphs: [
+          "The repo documents the Go API, Postgres migrations, anonymous sessions, editor desk, public builder, and concurrency-oriented tests.",
+          "The supported local path runs without a database, while the durable path uses Postgres with startup migrations and attempt locking.",
+        ],
+      },
+      {
+        title: "What I'd do next",
+        paragraphs: [
+          "I would add Playwright coverage for the core daily puzzle and builder flows, plus basic observability around failed submissions, duplicate guesses, and admin publishing conflicts.",
+        ],
+      },
+    ],
+    stack: ["Go", "Next.js", "React", "TypeScript", "PostgreSQL", "Tailwind CSS", "Vitest"],
+    links: [],
+    featured: true,
+  },
+  {
+    slug: "murmur",
+    title: "Murmur",
+    label: "Private Voice Product",
+    status: "Local MVP",
+    category: "product",
+    year: "2026",
+    summary:
+      "I built a private short-voice MVP with a Next.js client, Go API, magic-link sessions, rooms, invites, murmurs, reactions, and membership access control.",
+    description:
+      "Murmur is a private voice-note product for close relationships. The local MVP slice includes a Next.js web client, Go API, Postgres migrations, magic-link auth with hashed session tokens, room and invite flows, local audio storage, murmur creation, reactions, and ownership-aware deletion.",
+    metrics: [
+      { label: "Voice loop", value: "15 seconds" },
+      { label: "Auth", value: "Magic link" },
+      { label: "Backend", value: "Go API" },
+      { label: "Data", value: "Postgres" },
+    ],
+    facts: [
+      { label: "Scope", value: "Private room-based voice MVP" },
+      { label: "Role", value: "Backend API, auth, product loop, web client" },
+      { label: "Status", value: "Local MVP repo" },
+      { label: "Proof", value: "README, API contract, migrations, Go service tests" },
+      { label: "What I owned", value: "Auth, room membership, invites, audio upload, reactions" },
+      { label: "Best fit", value: "Backend/product roles around access control and private media" },
+    ],
+    system: [
+      { label: "Client", value: "Next.js App Router screens for login, rooms, invites, settings, and playback" },
+      { label: "Auth", value: "Magic-link login, hashed tokens, database-backed sessions, httpOnly cookie" },
+      { label: "Product graph", value: "Rooms, memberships, invite tokens, murmurs, reactions, soft deletion" },
+      { label: "Media", value: "Browser MediaRecorder upload to Go-served local audio storage for MVP" },
+    ],
+    evidenceNote:
+      "The local repo is useful because it already has real auth, membership checks, invite handling, media endpoints, migrations, and Go service tests around the risky parts.",
+    highlights: [
+      "Built the core loop from sign-in to private room creation, invite acceptance, recording, playback, and reaction.",
+      "Made the Go API the authority for session identity and membership access on room and murmur endpoints.",
+      "Added service tests covering access control, invites, duration rules, reactions, deletion, and latest-murmur repair.",
+      "Kept the product intentionally small: close-person voice moments before push notifications, widgets, or AI captions.",
+    ],
+    sections: [
+      {
+        title: "What I built",
+        paragraphs: [
+          "I built Murmur as a private voice MVP rather than a general social audio app.",
+          "The core flow is narrow: sign in, create a private room, invite one person, record a short murmur, send it, play it back, and react.",
+        ],
+      },
+      {
+        title: "Choices I made",
+        paragraphs: [
+          "I treated privacy as a backend contract. Room membership checks sit on the service path instead of relying on UI hiding.",
+          "The MVP uses local audio storage and magic-link auth so the product loop can be validated before introducing production media storage, push notifications, or mobile shells.",
+        ],
+      },
+      {
+        title: "Evidence",
+        paragraphs: [
+          "The README and engineering plan document the Go API, Postgres migrations, magic-link auth, membership guards, invite acceptance, reactions, and service test suite.",
+          "CI is planned around Go vet, Go race tests with Postgres, frontend linting, typecheck, and build.",
+        ],
+      },
+      {
+        title: "What I'd do next",
+        paragraphs: [
+          "I would add server-side duration verification, object storage, expiry cleanup, rate limiting, and browser tests for the create-room to send-and-react flow.",
+        ],
+      },
+    ],
+    stack: ["Go", "Next.js", "React", "TypeScript", "PostgreSQL", "pgx", "Tailwind CSS"],
+    links: [],
+    featured: true,
+  },
+  {
+    slug: "ramble",
+    title: "Ramble",
+    label: "Voice Notes Product",
+    status: "Local scaffold",
+    category: "product",
+    year: "2026",
+    summary:
+      "I scaffolded a voice-to-card product with a Next.js recorder, Go API, Postgres persistence, idempotent uploads, mock transcription, structured card output, and search.",
+    description:
+      "Ramble turns short spoken notes into titles, summaries, key points, tasks, tags, and saved cards. The repo is an honest scaffold: the frontend and Go backend boundaries are present, mock providers make the flow runnable, and provider seams leave room for real transcription and structured-output adapters.",
+    metrics: [
+      { label: "V1 modes", value: "3" },
+      { label: "Backend", value: "Go API" },
+      { label: "Providers", value: "Mock + Sarvam path" },
+      { label: "Storage", value: "Postgres + disk" },
+    ],
+    facts: [
+      { label: "Scope", value: "Voice-note product scaffold with real backend boundaries" },
+      { label: "Role", value: "Product scope, Go API, data model, provider seams" },
+      { label: "Status", value: "Local scaffold repo" },
+      { label: "Proof", value: "README, engineering plan, Go build/test scripts, provider seams" },
+      { label: "What I owned", value: "Recording API, cards, tasks, search, mock processing flow" },
+      { label: "Best fit", value: "Backend/product roles involving async media and AI providers" },
+    ],
+    system: [
+      { label: "Capture", value: "Record or upload short audio from a Next.js frontend" },
+      { label: "Backend", value: "Go API for recordings, cards, status, search, edit, and delete" },
+      { label: "Processing", value: "Mock transcription and structuring today, provider adapters next" },
+      { label: "Persistence", value: "Postgres schema for users, recordings, cards, and extracted tasks" },
+    ],
+    evidenceNote:
+      "This one is explicitly a scaffold, but the boundaries are good: Go owns recordings and cards, uploads are idempotent, providers are swappable, and the product loop runs locally with mocks.",
+    highlights: [
+      "Locked the v1 promise to 30-90 seconds of speech turning into a note, task, or message card.",
+      "Designed the Go backend around recording creation, idempotent upload IDs, local storage, processing status, cards, tasks, and search.",
+      "Kept transcription and structuring behind provider interfaces so OpenAI or Sarvam can replace mock providers without rewriting the product loop.",
+      "Documented the follow-up path for queues, retries, object storage, auth, rate limits, and privacy controls.",
+    ],
+    sections: [
+      {
+        title: "What I built",
+        paragraphs: [
+          "I built Ramble as a scaffold for a voice-to-structured-note product.",
+          "The first local loop records or uploads audio, sends it to a Go API, creates a recording, runs mock processing, saves a card, and supports list, detail, search, copy, edit, and delete surfaces.",
+        ],
+      },
+      {
+        title: "Choices I made",
+        paragraphs: [
+          "I kept the product promise narrow: NOTE, TASK, and MESSAGE modes instead of a broad AI assistant.",
+          "I also put the backend in Go from day one so future queues, provider calls, storage, retries, and authorization do not have to be extracted later.",
+        ],
+      },
+      {
+        title: "Evidence",
+        paragraphs: [
+          "The README is direct that this is not a finished MVP yet, which makes the project easier to discuss honestly.",
+          "The useful evidence is in the architecture: idempotent recording creation, local processing, Postgres models, provider seams, and backend build/test scripts.",
+        ],
+      },
+      {
+        title: "What I'd do next",
+        paragraphs: [
+          "I would wire real transcription and structured-output providers, add a queue/worker path, introduce auth, and build provider-quality eval fixtures before any beta claim.",
+        ],
+      },
+    ],
+    stack: ["Go", "Next.js", "React", "TypeScript", "PostgreSQL", "pgx", "Tailwind CSS"],
+    links: [],
+  },
+  {
+    slug: "mini-market",
+    title: "Mini Market",
+    label: "Puzzle Product",
+    status: "Local scaffold",
+    category: "product",
+    year: "2026",
+    summary:
+      "I built a daily market-making puzzle scaffold with typed puzzle seeds, confidence scoring, session attempts, Prisma/Postgres storage, and Vitest coverage for the domain engine.",
+    description:
+      "Mini Market is a daily market-making puzzle where players infer hidden value from partial information. The current Mode C MVP asks players to infer the goal suit from private card counts and a public trade tape, submit confidence, and receive a score plus explanation.",
+    metrics: [
+      { label: "MVP mode", value: "Infer the Suit" },
+      { label: "Seeds", value: "5 puzzles" },
+      { label: "Attempts", value: "Session-scoped" },
+      { label: "Tests", value: "Vitest domain" },
+    ],
+    facts: [
+      { label: "Scope", value: "Daily market-making puzzle scaffold" },
+      { label: "Role", value: "Domain model, scoring engine, API routes, persistence boundary" },
+      { label: "Status", value: "Local scaffold repo" },
+      { label: "Proof", value: "README, engineering plan, tests, seed validation script" },
+      { label: "What I owned", value: "Puzzle model, scoring, attempts, archive, stats APIs" },
+      { label: "Best fit", value: "Product engineering roles with domain modeling" },
+    ],
+    system: [
+      { label: "Puzzle loop", value: "Daily route, archive, private info, trade tape, confidence answer" },
+      { label: "Domain layer", value: "Typed puzzle model, scoring, explanations, validation" },
+      { label: "Persistence", value: "Prisma/Postgres repository with in-memory fallback for local dev" },
+      { label: "APIs", value: "Today, archive, attempt submission, stats, and puzzle hydration" },
+    ],
+    evidenceNote:
+      "Mini Market is a smaller product scaffold, but it has a clean domain boundary: typed puzzle data, confidence scoring, validation, attempt persistence, and tests.",
+    highlights: [
+      "Started with one concrete game mode instead of building a vague prediction-market sandbox.",
+      "Modeled the puzzle around private evidence, public trade tape signals, confidence, payoff, and explanation.",
+      "Added Prisma/Postgres for durable puzzle and attempt storage with an in-memory fallback for local development.",
+      "Included Vitest coverage for scoring, puzzle loading, validation, market service behavior, and engine paths.",
+    ],
+    sections: [
+      {
+        title: "What I built",
+        paragraphs: [
+          "I built Mini Market as a daily puzzle about probabilistic market reasoning.",
+          "The player sees partial information, interprets a public trade tape, chooses an answer with confidence, and gets an explainable score.",
+        ],
+      },
+      {
+        title: "Choices I made",
+        paragraphs: [
+          "I chose one MVP mode, Infer the Suit, so the domain engine could be tested without carrying several half-finished game types.",
+          "The persistence layer can use Prisma/Postgres when configured or an in-memory repository locally, which keeps the product easy to run while preserving the database shape.",
+        ],
+      },
+      {
+        title: "Evidence",
+        paragraphs: [
+          "The scaffold includes routes for the current puzzle, archive, attempts, and stats; five sample puzzle seeds; a validation script; and tests around the scoring and engine code.",
+          "It is best presented as a product/domain-modeling sample, not as a large backend platform.",
+        ],
+      },
+      {
+        title: "What I'd do next",
+        paragraphs: [
+          "I would add completion state to the archive, sharing, E2E tests for the daily loop, analytics events, rate limiting, and an admin publish workflow.",
+        ],
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS", "Vitest"],
+    links: [],
+  },
+  {
+    slug: "closetdelta",
+    title: "ClosetDelta / Outfit Unlock",
+    label: "Decision Engine",
+    status: "Local scaffold",
+    category: "product",
+    year: "2026",
+    summary:
+      "I built a wardrobe decision-engine scaffold that scores whether a candidate clothing item unlocks useful outfits against an existing closet, with explainable Buy/Wait/Skip verdicts.",
+    description:
+      "ClosetDelta is a shopping decision engine, not a generic stylist. The MVP uses manual wardrobe metadata, rule-based compatibility, redundancy scoring, outfit-unlock logic, saved purchase analyses, and focused tests around the explainable scoring layer.",
+    metrics: [
+      { label: "Verdicts", value: "Buy/Wait/Skip" },
+      { label: "Scoring", value: "Rule-based" },
+      { label: "Idempotency", value: "Snapshot hash" },
+      { label: "Tests", value: "Scoring rules" },
+    ],
+    facts: [
+      { label: "Scope", value: "Wardrobe purchase decision scaffold" },
+      { label: "Role", value: "Product scope, scoring model, UI surfaces, API shape" },
+      { label: "Status", value: "Local scaffold repo" },
+      { label: "Proof", value: "README, product docs, engineering roadmap, scoring tests" },
+      { label: "What I owned", value: "Compatibility rules, redundancy logic, verdicts, analysis history" },
+      { label: "Best fit", value: "Product engineering roles with explainable decision logic" },
+    ],
+    system: [
+      { label: "Inputs", value: "Wardrobe item metadata and candidate item metadata or URL" },
+      { label: "Scoring", value: "Category pairing, color compatibility, season overlap, formality, redundancy" },
+      { label: "Output", value: "Buy, Wait, or Skip verdict with score breakdown and outfit unlocks" },
+      { label: "Persistence", value: "Prisma schema planned around wardrobe, candidates, analyses, and snapshot hashes" },
+    ],
+    evidenceNote:
+      "ClosetDelta is an early scaffold, but the product boundary is crisp: explainable outfit-unlock scoring, saved analyses, idempotency by wardrobe snapshot, and focused tests.",
+    highlights: [
+      "Scoped the MVP to one shopping question: does this item add useful outfits to what I already own?",
+      "Built rule-based scoring for compatibility, redundancy, seasonality, formality, and outfit unlocks before adding computer vision.",
+      "Separated wardrobe, candidate, verdict, score breakdown, and analysis-history UI components.",
+      "Documented the path from local dev storage to Prisma persistence, upload validation, private images, and Playwright coverage.",
+    ],
+    sections: [
+      {
+        title: "What I built",
+        paragraphs: [
+          "I built ClosetDelta as a focused decision engine for clothing purchases.",
+          "Instead of trying to be a full closet manager, the MVP asks whether a new item unlocks enough useful outfits against the wardrobe someone already has.",
+        ],
+      },
+      {
+        title: "Choices I made",
+        paragraphs: [
+          "I started with manual metadata and explainable rules because trust matters more than a flashy black-box styling answer at this stage.",
+          "The scoring layer can explain compatibility, redundancy, color fit, season overlap, formality distance, and verdict thresholds.",
+        ],
+      },
+      {
+        title: "Evidence",
+        paragraphs: [
+          "The repo includes product docs, a Prisma data model, UI components for wardrobe and candidate analysis, and tests for scoring and color compatibility.",
+          "It is still a scaffold, so I would present the decision logic and product boundary rather than claim finished production readiness.",
+        ],
+      },
+      {
+        title: "What I'd do next",
+        paragraphs: [
+          "I would finish Prisma-backed persistence, add API validation with Zod, save real analyses, add duplicate-analysis tests, and validate the main flow with Playwright.",
+        ],
+      },
+    ],
+    stack: ["Next.js", "React", "TypeScript", "Prisma", "Zod", "Tailwind CSS", "Vitest"],
+    links: [],
   },
   {
     slug: "kalshi-prediction-platform",

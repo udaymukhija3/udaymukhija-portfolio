@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "Resume",
   description:
-    "Resume for Uday Mukhija — software engineer targeting backend, platform, data engineering, and ML systems roles. Skills, experience, and the projects to read first.",
+    "Resume for Uday Mukhija, a backend-focused software engineer working with Spring Boot, Go, FastAPI, PostgreSQL, Redis, Kafka, and WebSocket.",
   alternates: {
     canonical: "/resume",
   },
@@ -98,7 +98,7 @@ export default function ResumePage() {
           <SectionHeading
             eyebrow="Selected projects"
             title="Projects to start with"
-            note="If you're short on time, these are the ones I'd open first."
+            note="If you're short on time, these are the backend-focused projects I'd open first."
           />
           <div className="resume-project-grid">
             {resumeProjects.map((project) => (
@@ -144,32 +144,18 @@ export default function ResumePage() {
             <p className="eyebrow">Contact</p>
             <h2>Quickest way to evaluate fit</h2>
             <p>
-              If you want the fastest read on my work, start with these projects, then check GitHub
-              or the resume document for more detail.
+              If you want the fastest read on my backend work, start with these projects, then
+              check GitHub or the resume document for more detail.
             </p>
             <div className="inline-link-row">
-              <Link className="inline-link" href="/projects/inventory-analytics-platform">
-                Inventory
-              </Link>
               <Link className="inline-link" href="/projects/gathr">
                 Gathr
-              </Link>
-              <Link className="inline-link" href="/projects/logistics-data-platform">
-                Logistics
               </Link>
               <Link className="inline-link" href="/projects/habit-tracker-social">
                 Habit Tracker
               </Link>
-            </div>
-            <div className="inline-link-row">
-              <Link className="inline-link" href="/projects/enefit-forecasting">
-                Enefit
-              </Link>
-              <Link className="inline-link" href="/projects/fraud-detection-system">
-                Fraud
-              </Link>
-              <Link className="inline-link" href="/projects/instacart-reordering-system">
-                Instacart
+              <Link className="inline-link" href="/projects/inventory-analytics-platform">
+                Inventory
               </Link>
             </div>
             <div className="inline-link-row">

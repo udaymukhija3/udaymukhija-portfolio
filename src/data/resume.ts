@@ -1,132 +1,115 @@
 export const resumeSummary = {
   eyebrow: "Resume",
-  title: "Software engineer focused on backend, data, and ML systems",
+  title: "Backend-focused software engineer building distributed systems",
   intro:
-    "Quick read on my experience, strongest projects, and core stack. The projects page has the deeper case studies.",
-  note: "Open to backend, platform, data engineering, and ML systems roles.",
+    "I work with Spring Boot, Go, FastAPI, PostgreSQL, Redis, Kafka, and WebSocket. The strongest signal is backend architecture: scalable API design, transactional consistency, caching, event-driven flows, and production-shaped infrastructure.",
+  note: "Open to backend, platform, and data-intensive software engineering roles.",
 };
 
 export const skillGroups = [
   {
     label: "Languages",
-    items: ["Java", "Python", "TypeScript", "SQL"],
+    items: ["Java", "Python", "JavaScript", "TypeScript", "SQL", "Scala", "Go", "C++"],
   },
   {
-    label: "Backend",
-    items: ["Spring Boot", "PostgreSQL", "Redis", "Kafka", "WebSocket"],
+    label: "Backend engineering",
+    items: [
+      "Spring Boot",
+      "Go",
+      "FastAPI",
+      "REST APIs",
+      "JPA/Hibernate",
+      "JWT Auth",
+      "WebSocket",
+      "PostgreSQL",
+      "Redis",
+      "Kafka",
+      "Docker",
+      "AWS",
+    ],
   },
   {
-    label: "ML systems",
-    items: ["FastAPI", "LightGBM", "XGBoost", "MLflow", "Optuna", "Feature contracts"],
+    label: "Backend concepts",
+    items: [
+      "ACID transactions",
+      "Database normalization",
+      "API design",
+      "Rate limiting",
+      "Caching strategies",
+      "Optimistic locking",
+      "Pessimistic locking",
+      "Event-driven architecture",
+    ],
   },
   {
-    label: "Data systems",
-    items: ["dbt", "Airflow", "DuckDB", "Pandas", "Quality checks"],
+    label: "Currently learning",
+    items: [
+      "CI/CD",
+      "Observability",
+      "Integration testing",
+      "Cloud deployment",
+      "Message-driven services",
+      "System design",
+    ],
   },
   {
-    label: "Frontend and mobile",
-    items: ["React", "React Native", "Next.js"],
-  },
-  {
-    label: "Platform",
-    items: ["Docker", "Prometheus", "Grafana", "GitHub Actions", "Observability"],
+    label: "Data and ML",
+    items: ["Airflow", "Flink", "Spark", "MLflow", "PyTorch", "XGBoost", "Pandas", "NumPy"],
   },
 ];
 
 export const experienceItems = [
   {
     company: "MyNotedApp",
-    role: "Software development engineer",
-    period: "2024",
-    location: "Remote, India",
+    role: "Software Development Engineer (Contract)",
+    period: "Jan. 2025 - Jun. 2025",
+    location: "Gurugram, IN",
     bullets: [
-      "Helped migrate a no-code product onto a PostgreSQL-backed system.",
-      "Built FastAPI flows and product-facing UI while tightening the data model.",
-      "That work gave me hands-on experience with migration-heavy backend delivery and pragmatic shipping.",
+      "Migrated a legacy no-code data model to normalized PostgreSQL, enforcing relational structure and ACID-compliant storage for 50,000+ course records while eliminating redundant data.",
+      "Built a YouTube-to-Course engine using Python and FastAPI to transform unstructured video metadata into sequential curriculum modules, reducing course generation time by 85%.",
     ],
   },
 ];
 
 export const resumeProjects = [
   {
-    title: "Inventory Analytics and Management System",
-    href: "/projects/inventory-analytics-platform",
-    summary: "Inventory operations system with a transactional outbox, Kafka, ETL, analytics outputs, and stockout backtesting.",
-    bullets: [
-      "The clearest backend/data example: Spring Boot write path, outbox relay, idempotent pipeline, DQ, and demo artifacts.",
-      "Good evidence for event-driven design, reliability, and business-metric thinking.",
-    ],
-  },
-  {
     title: "Gathr",
     href: "/projects/gathr",
-    summary: "Private-beta neighborhood activity app with mobile flows, backend APIs, chat, reliability scoring, and ML contracts.",
+    summary: "Spring Boot social activity backend with PostgreSQL, Redis, WebSocket chat, feed ranking, matching, rewards, and reliability scoring.",
     bullets: [
-      "Best read on product and backend together: core loop, launch manifest, feature flags, smoke checks, and trust/safety systems.",
-      "Strong fit for teams that care about product constraints instead of generic CRUD examples.",
-    ],
-  },
-  {
-    title: "Unified Logistics Data Platform",
-    href: "/projects/logistics-data-platform",
-    summary: "Fleet, shipment, and last-mile data platform with sample-mode verification, dbt marts, quality checks, and Streamlit.",
-    bullets: [
-      "Shows how I turn event data into warehouse outputs and operator-facing proof.",
-      "The project is explicit about the verified local path versus the deeper Kafka/Spark/Airflow path.",
+      "Architected 16 backend subsystems including auth, feed ranking, reliability scoring, matching, messaging, rewards, and behavioral logging.",
+      "Built realtime group chat, commitment mechanics, identity masking, confirmation windows, cancellation penalties, and transparent trust scoring.",
     ],
   },
   {
     title: "Habit Tracker Social",
     href: "/projects/habit-tracker-social",
-    summary: "Broad habit platform with Spring Boot, React, React Native, social loops, and wearable-aware completion logic.",
+    summary: "Spring Boot and React Native habit platform with JWT auth, WebSocket notifications, streak logic, Redis, PostgreSQL, and MongoDB.",
     bullets: [
-      "Useful if you want one backend supporting web and mobile clients with auth, social state, and realtime updates.",
-      "I am direct that it needs product narrowing before a public launch claim.",
+      "Built 14 subsystems, 26 REST controllers, JWT refresh token rotation, and multi-database storage across PostgreSQL, Redis, and MongoDB.",
+      "Implemented timezone-aware streak calculations, optimistic locking with @Version, and tiered Bucket4j/Caffeine rate limiting.",
     ],
   },
   {
-    title: "Enefit Prosumer Energy Forecasting",
-    href: "/projects/enefit-forecasting",
-    summary: "Forecasting system with causal joins, dual LightGBM models, feature contracts, backtests, and API/CLI serving.",
+    title: "Inventory Management System",
+    href: "/projects/inventory-analytics-platform",
+    summary: "Distributed inventory platform with Spring Boot, Kafka, Flink, Redis, PostgreSQL, transactional workflows, and anomaly DAGs.",
     bullets: [
-      "Strongest forecasting example: 2.0M rows, 106 features, leakage-resistant joins, and target-specific artifacts.",
-      "Good evidence for train/serve parity and evaluation beyond a static holdout.",
-    ],
-  },
-  {
-    title: "Fraud Detection System",
-    href: "/projects/fraud-detection-system",
-    summary: "Fraud ML system with chronological splits, calibration, cost-based thresholding, deploy bundles, and FastAPI.",
-    bullets: [
-      "Strong risk-ML example: AUC-ROC/AUC-PR, calibration improvement, challenger benchmarking, and proof artifacts.",
-      "The project shows decisioning discipline, not just model training.",
-    ],
-  },
-  {
-    title: "Instacart Reordering System",
-    href: "/projects/instacart-reordering-system",
-    summary: "Grocery reorder recommender with point-in-time features, candidate/basket evaluation, baseline lift, and serving contracts.",
-    bullets: [
-      "Strong recommender example: leakage tests, feature schema contract, F1 metrics, and lift over heuristics.",
-      "The page is careful about offline evaluation versus online production claims.",
+      "Architected 4 microservices, 40+ REST endpoints, Kafka event streaming, and PostgreSQL-backed transactional inventory workflows.",
+      "Implemented pessimistic locking, retry handling, cache-aside Redis reads, targeted invalidation, velocity scoring, and Airflow anomaly detection.",
     ],
   },
 ];
 
 export const educationItems = [
   {
-    school: "Scaler Institute of Technology",
-    detail: "Software engineering program",
-    period: "Expected 2026",
-  },
-  {
     school: "Columbia University",
-    detail: "M.S. in Electrical Engineering",
-    period: "2022",
+    detail: "Master of Science in Electrical Engineering",
+    period: "May 2022",
   },
   {
     school: "VIT, Vellore",
-    detail: "B.Tech. in Electronics and Communication",
-    period: "2020",
+    detail: "Bachelor of Technology in Electronics and Communications",
+    period: "May 2020",
   },
 ];

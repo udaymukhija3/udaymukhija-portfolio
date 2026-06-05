@@ -1,62 +1,70 @@
 export const resumeHref = process.env.NEXT_PUBLIC_RESUME_URL || "/resume";
 
 export const skills = [
-  "Java backend",
-  "APIs",
-  "Data pipelines",
-  "ML systems",
+  "Java",
   "Spring Boot",
-  "Python",
-  "SQL",
+  "Go",
   "FastAPI",
-  "LightGBM",
-  "dbt",
+  "Next.js",
+  "TypeScript",
+  "PostgreSQL",
+  "Redis",
   "Kafka",
+  "WebSocket",
+  "REST APIs",
+  "JPA/Hibernate",
+  "JWT Auth",
+  "ACID transactions",
+  "Caching",
+  "Rate limiting",
+  "Docker",
+  "AWS",
+  "Python",
 ];
 
 export const snapshotItems = [
-  { label: "Focus", value: "Backend, data, and ML systems" },
-  { label: "Main stack", value: "Java, Spring Boot, Python, SQL, TypeScript" },
-  { label: "Strengths", value: "APIs, events, contracts, pipelines, evaluation" },
-  { label: "Best proof", value: "Inventory, Gathr, Logistics, Enefit, Fraud, Instacart" },
+  { label: "Focus", value: "Backend and distributed systems" },
+  { label: "Main stack", value: "Java, Spring Boot, Go, FastAPI, PostgreSQL, Redis" },
+  { label: "Strengths", value: "APIs, transactions, caching, event-driven flows" },
+  { label: "Learning now", value: "CI/CD, observability, integration testing, cloud deployment" },
+  { label: "Best proof", value: "Gathr, Habit Tracker Social, Inventory Management" },
   { label: "Based in", value: "India" },
 ];
 
 export const aboutBlurb =
-  "If you're skimming, start with these. They show how I think about product choices, backend boundaries, and ML/data systems.";
+  "If you're skimming, start with these. They show how I think about backend boundaries, transactional consistency, realtime behavior, and product systems.";
 
 export const pillarCards = [
   {
     title: "Backend",
     body:
-      "Java and Spring Boot services, APIs, transactional state, realtime flows, and event-driven systems.",
+      "Java and Spring Boot services, API boundaries, transactional state, realtime flows, caching, and event-driven systems.",
     links: [
-      { label: "Event-Driven Inventory", href: "/projects/inventory-analytics-platform" },
       { label: "Gathr", href: "/projects/gathr" },
       { label: "Habit Tracker Social", href: "/projects/habit-tracker-social" },
+      { label: "Inventory Management", href: "/projects/inventory-analytics-platform" },
     ],
   },
   {
-    title: "ML systems",
+    title: "Currently sharpening",
     body:
-      "Forecasting, risk, recommenders, model serving, evaluation, and the data pipelines that support them.",
+      "CI/CD, observability, integration testing, cloud deployment, message-driven services, and system design.",
     links: [
-      { label: "Enefit Forecasting", href: "/projects/enefit-forecasting" },
-      { label: "Fraud Detection", href: "/projects/fraud-detection-system" },
-      { label: "Instacart Reordering", href: "/projects/instacart-reordering-system" },
+      { label: "Inventory Management", href: "/projects/inventory-analytics-platform" },
+      { label: "Gathr", href: "/projects/gathr" },
     ],
   },
 ];
 
 export const workPrinciples = [
   {
-    title: "Keep it clear",
-    body: "I prefer simple interfaces, direct code paths, and systems that are easy to debug.",
+    title: "Keep the contract clear",
+    body: "I prefer explicit APIs, simple state transitions, and systems that are easy to reason about under failure.",
   },
   {
-    title: "End-to-end ML rigor",
+    title: "Make correctness visible",
     body:
-      "For ML work, I care about the full path from data quality and evaluation to serving behavior in production.",
+      "For backend work, I care about transaction boundaries, cache behavior, retries, rate limits, and observability hooks.",
   },
 ];
 

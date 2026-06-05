@@ -12,10 +12,15 @@ type ActiveCategory = ProjectCategory | "all";
 
 const projectPriority = new Map(
   [
-    "inventory-analytics-platform",
     "gathr",
-    "logistics-data-platform",
     "habit-tracker-social",
+    "inventory-analytics-platform",
+    "vibegrid",
+    "murmur",
+    "ramble",
+    "mini-market",
+    "closetdelta",
+    "logistics-data-platform",
     "enefit-forecasting",
     "fraud-detection-system",
     "instacart-reordering-system",
@@ -24,7 +29,7 @@ const projectPriority = new Map(
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Project list for backend, data platform, and ML systems work by Uday Mukhija.",
+  description: "Project list for backend-focused Spring Boot, Go, FastAPI, Next.js, PostgreSQL, Redis, Kafka, WebSocket, data platform, and ML systems work by Uday Mukhija.",
   alternates: {
     canonical: "/projects",
   },
@@ -70,10 +75,11 @@ export default async function ProjectsPage({
       <section className="section page-intro">
         <div className="container page-intro-shell page-intro-narrow">
           <p className="eyebrow">Projects</p>
-          <h1>Projects I've built across backend, data platforms, and ML systems.</h1>
+          <h1>Backend-focused projects, with data and ML systems as supporting depth.</h1>
           <p>
-            Each card is the short version. Open a case study for the architecture, the
-            tradeoffs I made, the evidence I'd point to, and what I'd improve next.
+            Start with Gathr, Habit Tracker Social, and Inventory Management for the clearest
+            backend signal: APIs, transactional workflows, caching, realtime behavior, event
+            boundaries, and concurrency choices.
           </p>
         </div>
       </section>

@@ -23,38 +23,47 @@ export const metadata: Metadata = {
 const focusAreas = [
   {
     title: "Backend systems",
-    body: "Java and Spring Boot services, APIs, persistence, product state, and event-driven boundaries.",
+    body: "Spring Boot, Go, and FastAPI services with REST APIs, transactional state, Redis caching, Kafka events, and realtime paths.",
     links: [
       { label: "Gathr", href: "/projects/gathr" },
+      { label: "Habit Tracker", href: "/projects/habit-tracker-social" },
       { label: "Inventory", href: "/projects/inventory-analytics-platform" },
+      { label: "VibeGrid", href: "/projects/vibegrid" },
     ],
   },
   {
-    title: "ML products",
-    body: "Forecasting, recommendations, evaluation, serving paths, and model behavior that can be explained.",
+    title: "Backend concepts",
+    body: "ACID transactions, database normalization, API design, rate limiting, optimistic and pessimistic locking, and event-driven architecture.",
     links: [
-      { label: "Enefit", href: "/projects/enefit-forecasting" },
-      { label: "Fraud detection", href: "/projects/fraud-detection-system" },
+      { label: "Habit locking", href: "/projects/habit-tracker-social" },
+      { label: "Inventory locks", href: "/projects/inventory-analytics-platform" },
     ],
   },
   {
-    title: "Data platforms",
-    body: "Marts, contracts, SQL quality checks, pipelines, and analytics paths close to operational systems.",
+    title: "Currently learning",
+    body: "CI/CD, observability, integration testing, cloud deployment, message-driven services, and sharper system design.",
     links: [
-      { label: "Logistics", href: "/projects/logistics-data-platform" },
-      { label: "Instacart", href: "/projects/instacart-reordering-system" },
+      { label: "Inventory events", href: "/projects/inventory-analytics-platform" },
+      { label: "Gathr events", href: "/projects/gathr" },
     ],
   },
 ];
 
 const domainItems = [
-  "Backend",
-  "Data platforms",
-  "ML systems",
-  "Recommendations",
-  "Forecasting",
-  "Product engineering",
-  "APIs",
+  "Spring Boot",
+  "Go",
+  "FastAPI",
+  "Next.js",
+  "PostgreSQL",
+  "Redis",
+  "Kafka",
+  "WebSocket",
+  "REST APIs",
+  "JPA/Hibernate",
+  "JWT Auth",
+  "ACID transactions",
+  "Rate limiting",
+  "Caching",
 ];
 
 function HomeSection({
@@ -88,10 +97,12 @@ function HomeSection({
 
 export default function HomePage() {
   const featuredProjectSlugs = [
-    "inventory-analytics-platform",
     "gathr",
-    "logistics-data-platform",
     "habit-tracker-social",
+    "inventory-analytics-platform",
+    "vibegrid",
+    "murmur",
+    "logistics-data-platform",
     "enefit-forecasting",
     "fraud-detection-system",
     "instacart-reordering-system",
@@ -142,11 +153,12 @@ export default function HomePage() {
           </div>
 
           <div className="home-hero-copy">
-            <h1 id="home-title">Backend, data, and ML systems with product restraint.</h1>
+            <h1 id="home-title">Backend-focused software engineer building distributed systems.</h1>
             <p>
-              I'm Uday, a software engineer. I build Java services, data pipelines, ML projects,
-              and product prototypes with clear interfaces and a bias toward systems you can
-              inspect, debug, and defend.
+              I'm Uday. I build Spring Boot, Go, and FastAPI systems with PostgreSQL, Redis,
+              Kafka, and WebSocket, with a strong interest in scalable API design, transactional
+              consistency, caching, event-driven architecture, and production-grade backend
+              infrastructure.
             </p>
           </div>
 
@@ -189,8 +201,8 @@ export default function HomePage() {
 
       <HomeSection
         eyebrow="Focus"
-        title="The work sits in three quiet lanes."
-        note="Each lane points to projects where the choices, tradeoffs, and next fixes are visible."
+        title="The work is backend-first."
+        note="Start with the projects where transactions, realtime behavior, caching, and event boundaries are visible."
       >
         <div className="focus-grid">
           {focusAreas.map((area) => (
@@ -211,7 +223,7 @@ export default function HomePage() {
 
       <HomeSection
         eyebrow="Domains"
-        title="A narrow surface area, intentionally."
+        title="The backend surface area I want to be judged on."
         className="section-muted"
       >
         <div className="domain-cloud" aria-label="Domains">
@@ -223,7 +235,7 @@ export default function HomePage() {
 
       <HomeSection
         eyebrow="Selected work"
-        title="A filtered view of the evidence."
+        title="Backend projects first, with data and ML as supporting depth."
         note="Use the lens if you're scoping for a specific role. The strongest projects pair implementation detail with proof paths, metrics, and honest limits."
       >
         <ProjectEvidenceLens projects={featuredProjects} />
@@ -236,7 +248,7 @@ export default function HomePage() {
 
       <HomeSection
         eyebrow="Experience"
-        title="Recent work and foundation."
+        title="Recent backend work and foundation."
         className="section-tight"
       >
         <div className="two-column">
