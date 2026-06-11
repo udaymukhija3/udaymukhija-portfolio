@@ -1,9 +1,9 @@
 export const resumeSummary = {
   eyebrow: "Resume",
-  title: "Backend-focused software engineer building distributed systems",
+  title: "Software engineer building backend-heavy products and data systems",
   intro:
-    "I work with Spring Boot, Go, FastAPI, PostgreSQL, Redis, Kafka, and WebSocket. The strongest signal is backend architecture: scalable API design, transactional consistency, caching, event-driven flows, and production-shaped infrastructure.",
-  note: "Open to backend, platform, and data-intensive software engineering roles.",
+    "I work with Spring Boot, Go, FastAPI, Next.js, PostgreSQL, Redis, Kafka, DuckDB/dbt, and ML serving artifacts. The strongest signal is product engineering with clear backend contracts, transactional state, realtime behavior, data pipelines, and evidence-backed evaluation.",
+  note: "Open to backend, platform, data-intensive, and backend-adjacent ML engineering roles.",
 };
 
 export const skillGroups = [
@@ -73,30 +73,30 @@ export const experienceItems = [
 
 export const resumeProjects = [
   {
-    title: "Gathr",
-    href: "/projects/gathr",
-    summary: "Spring Boot social activity backend with PostgreSQL, Redis, WebSocket chat, feed ranking, matching, rewards, and reliability scoring.",
+    title: "Gathrly",
+    href: "/projects/gathrly",
+    summary: "Spring Boot and Expo social activity product with feed ranking, realtime chat, reliability scoring, privacy flows, and a static public demo.",
     bullets: [
-      "Architected 16 backend subsystems including auth, feed ranking, reliability scoring, matching, messaging, rewards, and behavioral logging.",
-      "Built realtime group chat, commitment mechanics, identity masking, confirmation windows, cancellation penalties, and transparent trust scoring.",
+      "Modeled the discovery-to-attendance loop across hubs, activities, join/leave, confirmation, check-in, chat, Drops, safety, and privacy.",
+      "Built backend-owned reliability and trust mechanics, including no-show penalties, report flows, blocked users, and data export/delete paths.",
     ],
   },
   {
-    title: "Habit Tracker Social",
-    href: "/projects/habit-tracker-social",
-    summary: "Spring Boot and React Native habit platform with JWT auth, WebSocket notifications, streak logic, Redis, PostgreSQL, and MongoDB.",
+    title: "VibeGrid",
+    href: "/projects/vibegrid",
+    summary: "Go-backed daily word puzzle with server-authoritative rules, idempotent guesses, Postgres attempt locking, admin publishing, moderation, and metrics.",
     bullets: [
-      "Built 14 subsystems, 26 REST controllers, JWT refresh token rotation, and multi-database storage across PostgreSQL, Redis, and MongoDB.",
-      "Implemented timezone-aware streak calculations, optimistic locking with @Version, and tiered Bucket4j/Caffeine rate limiting.",
+      "Kept answer keys off the client by validating guesses in Go and revealing group data only after correct submissions.",
+      "Designed guest attempts around Postgres row locking and client guess IDs so retries and double-clicks are safe.",
     ],
   },
   {
     title: "Inventory Management System",
-    href: "/projects/inventory-analytics-platform",
-    summary: "Distributed inventory platform with Spring Boot, Kafka, Flink, Redis, PostgreSQL, transactional workflows, and anomaly DAGs.",
+    href: "/projects/inventory-management-sys",
+    summary: "Inventory operations service plus data platform with transactional outbox, Kafka, idempotent ETL, Redis/FastAPI analytics, and a stockout backtest gate.",
     bullets: [
-      "Architected 4 microservices, 40+ REST endpoints, Kafka event streaming, and PostgreSQL-backed transactional inventory workflows.",
-      "Implemented pessimistic locking, retry handling, cache-aside Redis reads, targeted invalidation, velocity scoring, and Airflow anomaly detection.",
+      "Connected Spring Boot inventory writes to analytics through a transactional outbox, Kafka relay, Python ETL, Postgres marts, Redis cache, and Parquet artifacts.",
+      "Added a stockout-prevention backtest that records recall, precision, and estimated dollars saved, with a CI gate on recall.",
     ],
   },
 ];

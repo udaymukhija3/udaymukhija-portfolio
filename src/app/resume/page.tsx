@@ -144,17 +144,17 @@ export default function ResumePage() {
             <p className="eyebrow">Contact</p>
             <h2>Quickest way to evaluate fit</h2>
             <p>
-              If you want the fastest read on my backend work, start with these projects, then
-              check GitHub or the resume document for more detail.
+              If you want the fastest read on my product and backend work, start with these
+              projects, then check GitHub or the resume document for more detail.
             </p>
             <div className="inline-link-row">
-              <Link className="inline-link" href="/projects/gathr">
-                Gathr
+              <Link className="inline-link" href="/projects/gathrly">
+                Gathrly
               </Link>
-              <Link className="inline-link" href="/projects/habit-tracker-social">
-                Habit Tracker
+              <Link className="inline-link" href="/projects/vibegrid">
+                VibeGrid
               </Link>
-              <Link className="inline-link" href="/projects/inventory-analytics-platform">
+              <Link className="inline-link" href="/projects/inventory-management-sys">
                 Inventory
               </Link>
             </div>

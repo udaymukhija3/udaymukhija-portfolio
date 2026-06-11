@@ -10,6 +10,8 @@ export const skills = [
   "PostgreSQL",
   "Redis",
   "Kafka",
+  "DuckDB",
+  "dbt",
   "WebSocket",
   "REST APIs",
   "JPA/Hibernate",
@@ -18,40 +20,41 @@ export const skills = [
   "Caching",
   "Rate limiting",
   "Docker",
-  "AWS",
   "Python",
+  "LightGBM",
 ];
 
 export const snapshotItems = [
-  { label: "Focus", value: "Backend and distributed systems" },
-  { label: "Main stack", value: "Java, Spring Boot, Go, FastAPI, PostgreSQL, Redis" },
-  { label: "Strengths", value: "APIs, transactions, caching, event-driven flows" },
-  { label: "Learning now", value: "CI/CD, observability, integration testing, cloud deployment" },
-  { label: "Best proof", value: "Gathr, Habit Tracker Social, Inventory Management" },
+  { label: "Focus", value: "Backend-heavy product systems" },
+  { label: "Main stack", value: "Java, Spring Boot, Go, FastAPI, Next.js, PostgreSQL" },
+  { label: "Strengths", value: "APIs, workflows, transactions, realtime state, data pipelines" },
+  { label: "ML/data", value: "Artifact-backed evaluation, serving contracts, dbt/quality proof paths" },
+  { label: "Best proof", value: "Gathrly, VibeGrid, ResolveOps, Inventory, Fraud" },
   { label: "Based in", value: "India" },
 ];
 
 export const aboutBlurb =
-  "If you're skimming, start with these. They show how I think about backend boundaries, transactional consistency, realtime behavior, and product systems.";
+  "If you're skimming, start with these. They show how I think about backend boundaries, product workflows, transactional state, realtime behavior, data pipelines, and honest ML artifacts.";
 
 export const pillarCards = [
   {
-    title: "Backend",
+    title: "Product systems",
     body:
-      "Java and Spring Boot services, API boundaries, transactional state, realtime flows, caching, and event-driven systems.",
+      "Go, Spring Boot, and Next.js products with real domain rules: rooms, attempts, tickets, activities, media, moderation, and approvals.",
     links: [
-      { label: "Gathr", href: "/projects/gathr" },
-      { label: "Habit Tracker Social", href: "/projects/habit-tracker-social" },
-      { label: "Inventory Management", href: "/projects/inventory-analytics-platform" },
+      { label: "Gathrly", href: "/projects/gathrly" },
+      { label: "VibeGrid", href: "/projects/vibegrid" },
+      { label: "ResolveOps", href: "/projects/resolveops" },
     ],
   },
   {
-    title: "Currently sharpening",
+    title: "Data and ML systems",
     body:
-      "CI/CD, observability, integration testing, cloud deployment, message-driven services, and system design.",
+      "Data contracts, dbt marts, backtests, calibration, feature contracts, deploy bundles, serving APIs, and proof artifacts.",
     links: [
-      { label: "Inventory Management", href: "/projects/inventory-analytics-platform" },
-      { label: "Gathr", href: "/projects/gathr" },
+      { label: "Inventory", href: "/projects/inventory-management-sys" },
+      { label: "Fraud", href: "/projects/fraud-detection-platform" },
+      { label: "Instacart", href: "/projects/instacart-reorder-recommender" },
     ],
   },
 ];

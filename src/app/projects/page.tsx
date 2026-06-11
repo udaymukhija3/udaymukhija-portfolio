@@ -12,24 +12,27 @@ type ActiveCategory = ProjectCategory | "all";
 
 const projectPriority = new Map(
   [
-    "gathr",
-    "habit-tracker-social",
-    "inventory-analytics-platform",
+    "gathrly",
     "vibegrid",
     "murmur",
-    "ramble",
+    "resolveops",
+    "punchline",
     "mini-market",
+    "ramble",
     "closetdelta",
-    "logistics-data-platform",
+    "receipt-scanner",
+    "inventory-management-sys",
+    "logistics-data-engineering",
     "enefit-forecasting",
-    "fraud-detection-system",
-    "instacart-reordering-system",
+    "fraud-detection-platform",
+    "instacart-reorder-recommender",
   ].map((slug, index) => [slug, index]),
 );
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Project list for backend-focused Spring Boot, Go, FastAPI, Next.js, PostgreSQL, Redis, Kafka, WebSocket, data platform, and ML systems work by Uday Mukhija.",
+  description:
+    "Project list for backend-heavy product systems, data platforms, and ML systems work by Uday Mukhija, grounded in local repos and proof artifacts.",
   alternates: {
     canonical: "/projects",
   },
@@ -75,11 +78,11 @@ export default async function ProjectsPage({
       <section className="section page-intro">
         <div className="container page-intro-shell page-intro-narrow">
           <p className="eyebrow">Projects</p>
-          <h1>Backend-focused projects, with data and ML systems as supporting depth.</h1>
+          <h1>Local projects that show product thinking and technical depth together.</h1>
           <p>
-            Start with Gathr, Habit Tracker Social, and Inventory Management for the clearest
-            backend signal: APIs, transactional workflows, caching, realtime behavior, event
-            boundaries, and concurrency choices.
+            Start with Gathrly, VibeGrid, Murmur, ResolveOps, Inventory, Logistics,
+            Fraud, Instacart, and Enefit. The point is not just the stack; it is what each
+            project demonstrates as a product and as an engineering system.
           </p>
         </div>
       </section>

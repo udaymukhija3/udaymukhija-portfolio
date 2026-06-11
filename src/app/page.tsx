@@ -22,29 +22,30 @@ export const metadata: Metadata = {
 
 const focusAreas = [
   {
-    title: "Backend systems",
-    body: "Spring Boot, Go, and FastAPI services with REST APIs, transactional state, Redis caching, Kafka events, and realtime paths.",
+    title: "Product systems",
+    body: "Go, Spring Boot, and Next.js products where backend state owns the real rules: rooms, tickets, attempts, activities, media, and approvals.",
     links: [
-      { label: "Gathr", href: "/projects/gathr" },
-      { label: "Habit Tracker", href: "/projects/habit-tracker-social" },
-      { label: "Inventory", href: "/projects/inventory-analytics-platform" },
+      { label: "Gathrly", href: "/projects/gathrly" },
       { label: "VibeGrid", href: "/projects/vibegrid" },
+      { label: "ResolveOps", href: "/projects/resolveops" },
+      { label: "Murmur", href: "/projects/murmur" },
     ],
   },
   {
-    title: "Backend concepts",
-    body: "ACID transactions, database normalization, API design, rate limiting, optimistic and pessimistic locking, and event-driven architecture.",
+    title: "Data platforms",
+    body: "Operational writes, event streams, dbt/DuckDB marts, quality checks, pipeline artifacts, dashboards, and business-facing metrics.",
     links: [
-      { label: "Habit locking", href: "/projects/habit-tracker-social" },
-      { label: "Inventory locks", href: "/projects/inventory-analytics-platform" },
+      { label: "Inventory", href: "/projects/inventory-management-sys" },
+      { label: "Logistics", href: "/projects/logistics-data-engineering" },
     ],
   },
   {
-    title: "Currently learning",
-    body: "CI/CD, observability, integration testing, cloud deployment, message-driven services, and sharper system design.",
+    title: "ML systems",
+    body: "Feature contracts, leakage-safe evaluation, calibration, deploy bundles, proof packs, monitoring endpoints, and honest limits.",
     links: [
-      { label: "Inventory events", href: "/projects/inventory-analytics-platform" },
-      { label: "Gathr events", href: "/projects/gathr" },
+      { label: "Fraud", href: "/projects/fraud-detection-platform" },
+      { label: "Instacart", href: "/projects/instacart-reorder-recommender" },
+      { label: "Enefit", href: "/projects/enefit-forecasting" },
     ],
   },
 ];
@@ -57,6 +58,8 @@ const domainItems = [
   "PostgreSQL",
   "Redis",
   "Kafka",
+  "DuckDB",
+  "dbt",
   "WebSocket",
   "REST APIs",
   "JPA/Hibernate",
@@ -64,6 +67,7 @@ const domainItems = [
   "ACID transactions",
   "Rate limiting",
   "Caching",
+  "LightGBM",
 ];
 
 function HomeSection({
@@ -97,15 +101,20 @@ function HomeSection({
 
 export default function HomePage() {
   const featuredProjectSlugs = [
-    "gathr",
-    "habit-tracker-social",
-    "inventory-analytics-platform",
+    "gathrly",
     "vibegrid",
     "murmur",
-    "logistics-data-platform",
+    "resolveops",
+    "punchline",
+    "mini-market",
+    "ramble",
+    "closetdelta",
+    "receipt-scanner",
+    "inventory-management-sys",
+    "logistics-data-engineering",
     "enefit-forecasting",
-    "fraud-detection-system",
-    "instacart-reordering-system",
+    "fraud-detection-platform",
+    "instacart-reorder-recommender",
   ];
   const featuredProjects = featuredProjectSlugs.flatMap((slug) => {
     const project = projects.find((item) => item.slug === slug);
@@ -153,12 +162,11 @@ export default function HomePage() {
           </div>
 
           <div className="home-hero-copy">
-            <h1 id="home-title">Backend-focused software engineer building distributed systems.</h1>
+            <h1 id="home-title">Software engineer building backend-heavy products and data systems.</h1>
             <p>
-              I'm Uday. I build Spring Boot, Go, and FastAPI systems with PostgreSQL, Redis,
-              Kafka, and WebSocket, with a strong interest in scalable API design, transactional
-              consistency, caching, event-driven architecture, and production-grade backend
-              infrastructure.
+              I'm Uday. I build Spring Boot, Go, FastAPI, and Next.js systems where the interesting
+              work lives in backend contracts, product workflows, transactional state, realtime
+              behavior, data pipelines, ML artifacts, and honest proof paths.
             </p>
           </div>
 
@@ -201,8 +209,8 @@ export default function HomePage() {
 
       <HomeSection
         eyebrow="Focus"
-        title="The work is backend-first."
-        note="Start with the projects where transactions, realtime behavior, caching, and event boundaries are visible."
+        title="The work is product-first, with serious backend and data depth."
+        note="Start with the projects where domain rules, transactions, realtime behavior, queues, evaluation artifacts, and proof paths are visible."
       >
         <div className="focus-grid">
           {focusAreas.map((area) => (
@@ -223,7 +231,7 @@ export default function HomePage() {
 
       <HomeSection
         eyebrow="Domains"
-        title="The backend surface area I want to be judged on."
+        title="The technical surface area I want to be judged on."
         className="section-muted"
       >
         <div className="domain-cloud" aria-label="Domains">
@@ -235,8 +243,8 @@ export default function HomePage() {
 
       <HomeSection
         eyebrow="Selected work"
-        title="Backend projects first, with data and ML as supporting depth."
-        note="Use the lens if you're scoping for a specific role. The strongest projects pair implementation detail with proof paths, metrics, and honest limits."
+        title="Fourteen local projects, grouped by what they demonstrate."
+        note="Use the lens if you're scoping for a specific role. The strongest entries pair product intent with implementation detail, metrics, proof paths, and honest limits."
       >
         <ProjectEvidenceLens projects={featuredProjects} />
         <div className="section-actions">
