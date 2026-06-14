@@ -73,9 +73,9 @@ export const experienceItems = [
 
 export const resumeProjects = [
   {
-    title: "Gathrly",
+    title: "Gathr",
     href: "/projects/gathrly",
-    summary: "Spring Boot and Expo social activity product with feed ranking, realtime chat, reliability scoring, privacy flows, and a static public demo.",
+    summary: "Spring Boot and Expo private-alpha local planning product with heuristic feed ranking, realtime chat, reliability scoring, privacy flows, and a static demo.",
     bullets: [
       "Modeled the discovery-to-attendance loop across hubs, activities, join/leave, confirmation, check-in, chat, Drops, safety, and privacy.",
       "Built backend-owned reliability and trust mechanics, including no-show penalties, report flows, blocked users, and data export/delete paths.",
@@ -91,9 +91,9 @@ export const resumeProjects = [
     ],
   },
   {
-    title: "Inventory Management System",
+    title: "Stockout Prevention Data Pipeline",
     href: "/projects/inventory-management-sys",
-    summary: "Inventory operations service plus data platform with transactional outbox, Kafka, idempotent ETL, Redis/FastAPI analytics, and a stockout backtest gate.",
+    summary: "Inventory analytics pipeline with transactional outbox, Kafka, idempotent ETL, Redis/FastAPI serving, dbt marts, and a CI-gated stockout backtest.",
     bullets: [
       "Connected Spring Boot inventory writes to analytics through a transactional outbox, Kafka relay, Python ETL, Postgres marts, Redis cache, and Parquet artifacts.",
       "Added a stockout-prevention backtest that records recall, precision, and estimated dollars saved, with a CI gate on recall.",

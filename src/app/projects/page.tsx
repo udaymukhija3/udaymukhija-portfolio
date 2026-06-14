@@ -80,9 +80,9 @@ export default async function ProjectsPage({
           <p className="eyebrow">Projects</p>
           <h1>Local projects that show product thinking and technical depth together.</h1>
           <p>
-            Start with Gathrly, VibeGrid, Murmur, ResolveOps, Inventory, Logistics,
-            Fraud, Instacart, and Enefit. The point is not just the stack; it is what each
-            project demonstrates as a product and as an engineering system.
+            Start with Gathr, VibeGrid, Murmur, Punchline, Stockout Prevention,
+            Logistics, Fraud, Instacart, and Enefit. The point is not just the stack;
+            it is what each project demonstrates as a product and as an engineering system.
           </p>
         </div>
       </section>

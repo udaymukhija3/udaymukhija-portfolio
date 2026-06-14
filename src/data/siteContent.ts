@@ -29,7 +29,7 @@ export const snapshotItems = [
   { label: "Main stack", value: "Java, Spring Boot, Go, FastAPI, Next.js, PostgreSQL" },
   { label: "Strengths", value: "APIs, workflows, transactions, realtime state, data pipelines" },
   { label: "ML/data", value: "Artifact-backed evaluation, serving contracts, dbt/quality proof paths" },
-  { label: "Best proof", value: "Gathrly, VibeGrid, ResolveOps, Inventory, Fraud" },
+  { label: "Best proof", value: "Gathr, VibeGrid, Murmur, Stockout Pipeline, Fraud" },
   { label: "Based in", value: "India" },
 ];
 
@@ -42,7 +42,7 @@ export const pillarCards = [
     body:
       "Go, Spring Boot, and Next.js products with real domain rules: rooms, attempts, tickets, activities, media, moderation, and approvals.",
     links: [
-      { label: "Gathrly", href: "/projects/gathrly" },
+      { label: "Gathr", href: "/projects/gathrly" },
       { label: "VibeGrid", href: "/projects/vibegrid" },
       { label: "ResolveOps", href: "/projects/resolveops" },
     ],
@@ -52,7 +52,7 @@ export const pillarCards = [
     body:
       "Data contracts, dbt marts, backtests, calibration, feature contracts, deploy bundles, serving APIs, and proof artifacts.",
     links: [
-      { label: "Inventory", href: "/projects/inventory-management-sys" },
+      { label: "Stockout Pipeline", href: "/projects/inventory-management-sys" },
       { label: "Fraud", href: "/projects/fraud-detection-platform" },
       { label: "Instacart", href: "/projects/instacart-reorder-recommender" },
     ],

@@ -25,7 +25,7 @@ const focusAreas = [
     title: "Product systems",
     body: "Go, Spring Boot, and Next.js products where backend state owns the real rules: rooms, tickets, attempts, activities, media, and approvals.",
     links: [
-      { label: "Gathrly", href: "/projects/gathrly" },
+      { label: "Gathr", href: "/projects/gathrly" },
       { label: "VibeGrid", href: "/projects/vibegrid" },
       { label: "ResolveOps", href: "/projects/resolveops" },
       { label: "Murmur", href: "/projects/murmur" },
@@ -33,9 +33,9 @@ const focusAreas = [
   },
   {
     title: "Data platforms",
-    body: "Operational writes, event streams, dbt/DuckDB marts, quality checks, pipeline artifacts, dashboards, and business-facing metrics.",
+    body: "Operational writes, event streams, customer CSV ingestion, dbt/DuckDB marts, quality checks, pipeline artifacts, dashboards, and business-facing metrics.",
     links: [
-      { label: "Inventory", href: "/projects/inventory-management-sys" },
+      { label: "Stockout Pipeline", href: "/projects/inventory-management-sys" },
       { label: "Logistics", href: "/projects/logistics-data-engineering" },
     ],
   },

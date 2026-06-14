@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "Resume",
   description:
-    "Resume for Uday Mukhija, a backend-focused software engineer working with Spring Boot, Go, FastAPI, PostgreSQL, Redis, Kafka, and WebSocket.",
+    "Resume for Uday Mukhija, a software engineer building backend-heavy products, data platforms, and ML systems with Spring Boot, Go, FastAPI, Next.js, PostgreSQL, Redis, Kafka, and artifact-backed proof paths.",
   alternates: {
     canonical: "/resume",
   },
@@ -98,7 +98,7 @@ export default function ResumePage() {
           <SectionHeading
             eyebrow="Selected projects"
             title="Projects to start with"
-            note="If you're short on time, these are the backend-focused projects I'd open first."
+            note="If you're short on time, these are the product, backend, and data-system projects I'd open first."
           />
           <div className="resume-project-grid">
             {resumeProjects.map((project) => (
@@ -149,13 +149,13 @@ export default function ResumePage() {
             </p>
             <div className="inline-link-row">
               <Link className="inline-link" href="/projects/gathrly">
-                Gathrly
+                Gathr
               </Link>
               <Link className="inline-link" href="/projects/vibegrid">
                 VibeGrid
               </Link>
               <Link className="inline-link" href="/projects/inventory-management-sys">
-                Inventory
+                Stockout Pipeline
               </Link>
             </div>
             <div className="inline-link-row">

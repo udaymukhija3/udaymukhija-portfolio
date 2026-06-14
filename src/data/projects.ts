@@ -3,48 +3,48 @@ import type { Project } from "../types";
 export const projects: Project[] = [
   {
     slug: "gathrly",
-    title: "Gathrly",
-    label: "Social Activity Platform",
+    title: "Gathr",
+    label: "Private-Alpha Social Planning",
     status: "Public repo",
     category: "product",
     year: "2026",
     summary:
-      "A neighborhood activity app with a Spring Boot backend, Expo mobile app, static web demo, feed ranking, realtime chat, reliability scoring, and privacy/safety flows.",
+      "A private-alpha local social planning app for reliable 2-6 person activities, with a Spring Boot backend, Expo mobile app, static web demo, group chat, reliability scoring, safety, privacy, and recommender infrastructure.",
     description:
-      "Gathrly helps people find small-group activities nearby: pick a hub, browse what is happening, join, chat, confirm, check in, and leave a Drop afterward. Technically it demonstrates a backend-heavy social product: Spring Boot, Postgres, Redis, Flyway, WebSocket chat, OTP auth, feed ranking, reliability mechanics, privacy export/delete, and launch-mode feature gates.",
+      "Gathr turns local intent into small plans: pick a neighborhood hub, see what is happening soon, join a 2-6 person activity, chat with the group, show up, and save places worth remembering. The current repo is a private-alpha/recruiter-demo codebase, not a public consumer network. It demonstrates backend-heavy product systems: Spring Boot, Postgres, Redis, Flyway, phone OTP auth, WebSocket/STOMP chat, reliability mechanics, safety/report flows, privacy export/delete, launch flags, and recommender-system substrate while the alpha feed remains heuristic/fallback-first.",
     metrics: [
       { label: "Backend", value: "Spring Boot" },
       { label: "Mobile", value: "Expo RN" },
-      { label: "Realtime", value: "STOMP WS" },
-      { label: "Proof path", value: "Demo + API" },
+      { label: "Launch hub", value: "Koramangala" },
+      { label: "Channel", value: "Private beta" },
     ],
     facts: [
-      { label: "Scope", value: "Neighborhood activity product with mobile, backend, and static demo" },
+      { label: "Scope", value: "Private-alpha local social planning product with mobile, backend, and static demo" },
       { label: "Role", value: "Backend architecture, product logic, trust/safety, mobile integration" },
-      { label: "Status", value: "Public repo with local and cloud-friendly demo paths" },
-      { label: "Proof", value: "Local repo README, LaunchManifest, web demo, backend API docs" },
+      { label: "Status", value: "Public repo with a private-beta/TestFlight-style launch boundary" },
+      { label: "Proof", value: "README, LaunchManifest, static web demo, backend/mobile verification docs" },
       { label: "Local source", value: "/Users/udaymukhija/gathr-slice2-complete" },
       { label: "Best fit", value: "Backend product systems and social-platform roles" },
     ],
     system: [
       { label: "Product loop", value: "Hub selection, feed browse, activity join, group chat, confirmation, check-in, post-meet Drop" },
-      { label: "Backend", value: "Spring Boot 3.2, Java 17, PostgreSQL, Flyway, Redis, Caffeine, JWT refresh rotation" },
+      { label: "Backend", value: "Spring Boot, PostgreSQL, Flyway, Redis, Caffeine, JWT refresh rotation, Docker/Render demo path" },
       { label: "Realtime", value: "Activity-scoped STOMP/SockJS chat with fallback, typing, presence, rate limits, idempotent client message IDs" },
-      { label: "Trust", value: "Reliability score, confirmation windows, no-show penalties, safety reports, privacy export and deletion" },
+      { label: "Launch boundary", value: "Private beta channel, one coded hub, Expo push provider, account deletion, non-core surfaces frozen off" },
     ],
     evidenceNote:
-      "The local repo is strongest as a backend product-systems sample: domain lifecycle, reliability logic, realtime chat, privacy flows, and a shareable static web demo.",
+      "The strongest framing is backend-heavy local social planning with trust, safety, reliability, privacy, and recommender infrastructure, not a launched public social network.",
     highlights: [
       "Built the activity lifecycle from discovery to attendance, including feed sections, join/leave, confirmation, check-in, completion, feedback, and Drops.",
       "Modeled reliability as backend state with human-readable blocking reasons rather than simple UI messaging.",
       "Implemented realtime activity chat with WebSocket delivery paths, typing/presence, rate limiting, and blocked-user filtering.",
-      "Kept the alpha honest with a static web demo, demo-mode backend deploy, and feature flags separating v1 surfaces from staged roadmap work.",
+      "Kept the alpha honest with a static sample-data web preview, demo-mode backend deploy, launch flags, and a clear boundary between heuristic ranking and future model-backed ranking.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
-          "Gathrly is about getting people from intent to actually showing up. The product loop is deliberately concrete: choose a neighborhood hub, find an activity, join a small group, chat, confirm, check in, and keep a lightweight memory afterward.",
+          "Gathr is about getting people from intent to actually showing up. The product loop is deliberately concrete: choose a neighborhood hub, find an activity, join a small group, chat, confirm, check in, and keep a lightweight memory afterward.",
           "The interesting product work is trust. Reliability, cancellation penalties, safety reports, blocked users, and privacy export/delete are treated as part of the core experience, not as future admin polish.",
         ],
       },
@@ -52,7 +52,7 @@ export const projects: Project[] = [
         title: "Technical perspective",
         paragraphs: [
           "The backend demonstrates API boundaries, lifecycle state, transactional persistence, Flyway migrations, Redis-backed operational paths, Caffeine caching, JWT refresh rotation, and WebSocket chat.",
-          "The repo also contains ML/recommendation substrate behind feature flags, but the honest alpha story is heuristic ranking plus event capture, not a trained production recommendation model.",
+          "The repo also contains recommender substrate: event tracking, feature-store concepts, ONNX/model-serving hooks, promotion gates, semantic search, and graph ideas. The honest alpha story is still heuristic/fallback-first ranking, not a trained production recommendation model.",
         ],
       },
       {
@@ -63,7 +63,7 @@ export const projects: Project[] = [
         ],
       },
     ],
-    stack: ["Java", "Spring Boot", "PostgreSQL", "Redis", "Flyway", "WebSocket", "React Native"],
+    stack: ["Java", "Spring Boot", "PostgreSQL", "Redis", "Flyway", "WebSocket/STOMP", "Expo"],
     links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/gathrly" }],
     featured: true,
     flagship: true,
@@ -76,42 +76,42 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A daily word-grouping game where a Go backend owns the answer key, attempt state, idempotent guesses, puzzle publishing, moderation, analytics, and observability.",
+      "A daily semantic grouping puzzle where one Go binary serves the exported Next.js frontend and owns answer secrecy, guest attempts, community puzzles, admin publishing, moderation, analytics, and observability.",
     description:
-      "VibeGrid is a daily semantic grouping puzzle: 16 tiles, 4 hidden categories, 4 mistakes, and spoiler-safe sharing. It demonstrates product-grade game state in Go: server-authoritative guesses, guest sessions, Postgres row locking, embedded migrations, public puzzle creation, admin publishing, moderation, analytics, health checks, metrics, and a static Next.js frontend served by the Go binary.",
+      "VibeGrid is a daily semantic grouping puzzle: 16 tiles, 4 hidden vibe-based categories, 4 mistakes, and spoiler-safe sharing. It is not a static mockup: the local repo includes the core game loop, durable Postgres path, community puzzle links, password-backed admin desk, moderation queue, reports and appeals, migrations, CI, Docker, Fly/Render deploy config, structured logs, health/readiness probes, metrics, and monitoring templates. A quick demo runs without a database; Postgres unlocks the full product surface.",
     metrics: [
       { label: "Runtime", value: "One Go binary" },
       { label: "Guess safety", value: "Idempotent" },
-      { label: "Storage", value: "Postgres/memory" },
+      { label: "Full path", value: "Postgres" },
       { label: "Ops", value: "Health + metrics" },
     ],
     facts: [
       { label: "Scope", value: "Daily puzzle product with backend-owned rules and publishing tools" },
       { label: "Role", value: "Go API, game rules, data model, Next.js UI, moderation/admin flow" },
-      { label: "Status", value: "Public repo; demo-ready locally, permanent hosting not claimed" },
+      { label: "Status", value: "Public repo; deploy-ready locally, permanent production URL not claimed" },
       { label: "Proof", value: "README, Go tests, migrations, smoke script, deployment docs" },
       { label: "Local source", value: "/Users/udaymukhija/Vibegrid" },
       { label: "Best fit", value: "Backend/product roles with correctness-heavy state" },
     ],
     system: [
-      { label: "Game loop", value: "Daily puzzle, archive, user-created puzzle links, share payload, admin editor desk" },
+      { label: "Game loop", value: "Daily puzzle, archive, create/share links, profile stats, share images, admin editor desk" },
       { label: "Rules", value: "Go API validates guesses and reveals only solved groups; group membership never ships to the browser" },
-      { label: "Persistence", value: "Guest sessions, Postgres attempts and guesses, row locks, unique client guess IDs, in-memory fallback" },
-      { label: "Operations", value: "Embedded static frontend, goose migrations, /healthz, /readyz, /metrics, structured logs, alert/dashboard starters" },
+      { label: "Persistence", value: "Guest session cookie, Postgres attempts/streaks/stats with idempotent guess handling, in-memory quick-demo fallback" },
+      { label: "Operations", value: "Embedded frontend, SQL migrations, /healthz, /readyz, /metrics, structured logs, security headers, rate limits, smoke tests" },
     ],
     evidenceNote:
-      "This is a strong small-product backend sample because answer secrecy, idempotency, concurrency, admin publishing, moderation, and ops are all visible in the local repo.",
+      "The repo proves more than gameplay: answer secrecy, idempotency, community creation, admin publishing, moderation, analytics, and same-origin deploy scaffolding are visible.",
     highlights: [
       "Kept answer metadata server-side and made every guess pass through the Go rules engine.",
       "Used row locking plus client guess IDs so double clicks and retries do not corrupt attempt state.",
-      "Built public puzzle creation and admin publishing instead of stopping at one static daily puzzle.",
-      "Added moderation reports, SQL-derived game analytics, health/readiness endpoints, metrics, and deployment scaffolding.",
+      "Built public puzzle creation, archive/share links, admin publishing, reports, appeals, moderation audit logs, and policy pages instead of stopping at one static daily puzzle.",
+      "Added SQL-derived game analytics, health/readiness endpoints, Prometheus-style metrics, route-aware security headers, rate limits, and Fly/Render deployment scaffolding.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
-          "VibeGrid is a compact daily game, but it has the product surfaces that make it feel real: daily play, archive, share results, creator links, admin publishing, community reports, and policy pages.",
+          "VibeGrid is a compact daily game, but it has the product surfaces that make it feel real: daily play, archive, share results, creator links, admin publishing, reports, appeals, moderation, and policy pages.",
           "The product value is not just a puzzle screen. It is a repeatable puzzle operation with guest-first play and a path for community-created content.",
         ],
       },
@@ -119,7 +119,7 @@ export const projects: Project[] = [
         title: "Technical perspective",
         paragraphs: [
           "The Go backend owns the important invariants: answer secrecy, attempts, guesses, completion, mistakes, sessions, publishing, moderation, and dynamic OG images.",
-          "The durable path uses Postgres with migrations and transactional attempt updates, while the in-memory store keeps local demos frictionless.",
+          "The durable path uses Postgres with migrations and idempotent transactional attempt updates. The in-memory path keeps the no-database demo playable, but create/admin/moderation depth needs Postgres.",
         ],
       },
       {
@@ -143,56 +143,56 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A private short-voice app with a Next.js client, Go API, magic-link auth, rooms, invites, media upload/playback, reactions, nudges, metrics, and deployment scaffolding.",
+      "A private short-voice app with a Next.js client, Go API, magic-link auth, invite-only rooms, authenticated media, heard receipts, reactions, saved murmurs, Web Push nudges, PWA wiring, and metrics.",
     description:
-      "Murmur is a private voice-note product for close people. The MVP demonstrates a Go-backed product loop: sign in, create a room, invite someone, record up to 90 seconds, upload audio, play it back, react, mark heard state, and inspect loop-health metrics. It includes membership checks, server-side media duration validation, local and S3/R2 media paths, Web Push settings, and production startup guardrails.",
+      "Murmur is a private voice-note product for close people. The Go-backed web MVP demonstrates the core loop: sign in, create a private room, invite someone, record up to 90 seconds, upload audio, play it back, update heard state, react, save, and export/delete account data. It includes membership checks on room, murmur, and media access; server-side audio-duration validation; SSE room updates; quiet hours and nudge plumbing; Web Push subscription management; PWA installability wiring; loop-health metrics; and a production deployment plan for Vercel, Render, managed Postgres, Resend, and private S3/R2 media.",
     metrics: [
       { label: "Voice cap", value: "90 seconds" },
       { label: "Auth", value: "Magic link" },
       { label: "Backend", value: "Go API" },
-      { label: "Media", value: "Local + S3/R2" },
+      { label: "Retention", value: "Saved murmurs" },
     ],
     facts: [
       { label: "Scope", value: "Private room-based voice MVP" },
       { label: "Role", value: "Go API, auth, access control, media flow, product UI" },
-      { label: "Status", value: "Public repo with beta-quality local slice" },
+      { label: "Status", value: "Public repo; local MVP and production-capable scaffold, permanent URL not claimed" },
       { label: "Proof", value: "README, VERIFY.md, Go service tests, deployment docs" },
       { label: "Local source", value: "/Users/udaymukhija/Murmur" },
       { label: "Best fit", value: "Backend/product roles around private media and access control" },
     ],
     system: [
-      { label: "Product loop", value: "Magic-link sign-in, private room, invite, record, upload, play, react, nudge" },
+      { label: "Product loop", value: "Magic-link sign-in, private room, invite, record, upload, play, heard state, react, save, nudge" },
       { label: "Backend", value: "Go net/http API with pgx, SQL migrations, sessions, events, notifications, metrics" },
-      { label: "Privacy", value: "Room membership gates every room and murmur endpoint; production media redirects to short-lived signed URLs" },
+      { label: "Privacy", value: "Room membership gates room, murmur, and media endpoints; saved murmurs remain visible to the saver after normal expiry" },
       { label: "Deployment", value: "Next.js on Vercel, Go API on Render, managed Postgres, Resend, private S3/R2 media" },
     ],
     evidenceNote:
-      "The local repo shows real product constraints: auth, private membership, media validation, playback state, reactions, metrics, and production guardrails.",
+      "The local repo now shows the private voice loop plus saved-note retention and PWA installability; it still does not claim a permanent production URL or offline-first PWA.",
     highlights: [
       "Built the narrow private voice loop instead of a broad public audio feed.",
       "Made the Go API authoritative for sessions, room membership, invite acceptance, murmur creation, playback, and reactions.",
       "Verified media duration server-side so clients cannot bypass the length cap by lying about metadata.",
-      "Added Web Push settings, nudge policy plumbing, loop-health metrics, and Prometheus-style operational metrics.",
+      "Added saved murmurs, account export/delete, Web Push settings, nudge policy plumbing, PWA installability, loop-health metrics, and Prometheus-style operational metrics.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
           "Murmur is intentionally small: it is for private voice moments between close people, not podcasts, public feeds, or long recordings.",
-          "That clarity shapes the product decisions. Rooms are invite-only, the latest murmur matters, and the experience optimizes for a quick private ritual rather than endless chat.",
+          "That clarity shapes the product decisions. Rooms are invite-only, the latest murmur matters, saved murmurs can outlive normal expiry for the saver, and the experience optimizes for a quick private ritual rather than endless chat.",
         ],
       },
       {
         title: "Technical perspective",
         paragraphs: [
           "The Go API owns auth, access control, media ingestion, room state, events, notifications, and metrics. The Next app is the UI shell and public origin.",
-          "The repo includes local file-backed media for development and a production media path using private object storage plus presigned URLs.",
+          "The repo includes local file-backed media for development and a production media path using private object storage plus presigned URLs. PWA wiring covers installability and push handling, not full offline-first behavior.",
         ],
       },
       {
         title: "How I would present it",
         paragraphs: [
-          "I would demo the two-person flow, then discuss the backend decisions: magic-link sessions, membership checks, invite tokens, duration validation, media serving, and deployment constraints.",
+          "I would demo the two-person flow, then discuss the backend decisions: magic-link sessions, membership checks, invite tokens, duration validation, media serving, saved murmur retention, PWA wiring, and deployment constraints.",
           "The strongest signal is that the hard parts of a private media product are already treated as backend contracts.",
         ],
       },
@@ -277,20 +277,20 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A web-first multiplayer fill-in-the-blank party game with a Go WebSocket engine, server-authoritative rooms, rotating judges, timers, redacted hands, reconnects, and single-container deploy support.",
+      "A playable web-first multiplayer party game with a Go WebSocket engine, server-authoritative rooms, rotating judges, timers, redacted per-viewer snapshots, guest-token reconnects, one-container deploy support, and optional Postgres room ownership routing.",
     description:
-      "Punchline is a live party game: host a room, share a four-letter code, join from phones, answer a prompt, let a rotating judge pick the funniest submission, and play to a score limit. Technically it demonstrates a server-authoritative realtime game loop in Go, a mobile-first Vite/React client, WebSocket snapshots redacted per viewer, auto-reconnect, AFK-safe timers, backend tests, Docker packaging, and a Fly.io single-instance deployment plan.",
+      "Punchline is a live party game: host a room, share a 4-character code or invite link, join from phones, answer a prompt, let a rotating judge pick the funniest submission, and play to a score limit. It demonstrates a production-leaning realtime backend: server-authoritative Go room engine, custom WebSocket transport, redacted room snapshots per viewer, guest-token reconnects, host-only controls, timers, bounded socket queues, origin checks, health/readiness probes, smoke tests, a Vite/React client, one-container API/WS/UI runtime, and optional Postgres room ownership leases for Fly.io replay routing. Active gameplay state is still in memory on the owning process.",
     metrics: [
       { label: "Room code", value: "4 letters" },
       { label: "Transport", value: "WebSocket" },
-      { label: "Runtime", value: "Single binary" },
-      { label: "Scale note", value: "1 instance" },
+      { label: "Routing", value: "Fly-Replay" },
+      { label: "State", value: "In memory" },
     ],
     facts: [
       { label: "Scope", value: "Live multiplayer party game engine" },
       { label: "Role", value: "Go game engine, WebSocket protocol, React client, deployment shape" },
-      { label: "Status", value: "Local v0 project; room state in memory" },
-      { label: "Proof", value: "README, Go tests, Dockerfile, Fly config, seed cards" },
+      { label: "Status", value: "Playable local v0; optional Postgres ownership registry, no durable game recovery yet" },
+      { label: "Proof", value: "README, Go tests, frontend build, Dockerfile, Fly config, realtime smoke script" },
       { label: "Local source", value: "/Users/udaymukhija/punchline_codebase" },
       { label: "Best fit", value: "Realtime backend and product engineering roles" },
     ],
@@ -298,15 +298,15 @@ export const projects: Project[] = [
       { label: "Gameplay", value: "Host room, guest join, judge rotates, answer cards submit blind, reveal, pick winner, score to limit" },
       { label: "Backend", value: "Go API plus WebSocket engine; server pushes room_state snapshots to connected players" },
       { label: "Fairness", value: "Viewer-specific redaction: only your own hand is visible, submissions stay hidden until reveal, authors hidden during judging" },
-      { label: "Deployment", value: "Multi-stage Docker image serves API, WebSocket, and UI; must run single instance until state moves to Redis/Postgres" },
+      { label: "Routing", value: "Optional Postgres room code leases let wrong-machine API/WS requests return 421 plus Fly-Replay before upgrade" },
     ],
     evidenceNote:
-      "Punchline is a clean realtime systems sample: authoritative state, WebSocket fanout, redacted snapshots, reconnect behavior, timers, and explicit scaling limits.",
+      "Punchline is a clean realtime systems sample with optional shared room ownership routing; it still keeps active gameplay state in memory, and that limit is explicit.",
     highlights: [
       "Built the live room loop with create, join, start, submit, reveal, pick winner, next round, end game, and play again messages.",
       "Kept game state server-authoritative so reconnects and refreshes recover from the room snapshot.",
       "Redacted room state per viewer to protect hands and preserve anonymous judging.",
-      "Documented the real v0 limitation: in-memory rooms require a single running instance until a shared store is added.",
+      "Added production hardening around one-container runtime, probes, security headers, origin checks, socket limits, idle eviction, local room caps, smoke testing, and optional Postgres room ownership leases.",
     ],
     sections: [
       {
@@ -320,18 +320,18 @@ export const projects: Project[] = [
         title: "Technical perspective",
         paragraphs: [
           "The Go backend owns the game state and broadcasts WebSocket snapshots. The frontend reconnects after refresh and renders viewer-specific state.",
-          "The local v0 is intentionally single-instance because rooms are in memory. That is not hidden; the README calls it out and leaves Postgres/Redis migrations as the next durability step.",
+          "Postgres is used only as an optional room ownership registry for multi-machine routing, not as durable active-game storage. If the owning process restarts, full room-state recovery is still future work.",
         ],
       },
       {
         title: "How I would present it",
         paragraphs: [
-          "I would demo it with two browser windows, then explain redaction, judge rotation, timers, reconnects, and why scaling realtime room state needs a shared backend.",
+          "I would demo it with two browser windows, then explain redaction, judge rotation, timers, guest-token reconnects, bounded WebSocket fanout, and the Fly-Replay room ownership path.",
           "The strongest signal is honest realtime engineering rather than a polished static game mockup.",
         ],
       },
     ],
-    stack: ["Go", "WebSocket", "React", "Vite", "Docker", "Fly.io", "PostgreSQL planned"],
+    stack: ["Go", "WebSocket", "React", "Vite", "Docker", "Fly.io", "PostgreSQL"],
     links: [],
     featured: true,
   },
@@ -343,50 +343,50 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A daily market-decision game backed by a Bayesian inference engine, procedural puzzle generation, semantic validation, Prisma/Postgres attempts, analytics, rate limiting, and tests.",
+      "A daily market-decision game backed by a Bayesian inference engine, deterministic puzzle generation, semantic answer validation, one-attempt sessions, Prisma/Postgres persistence, first-party analytics, rate limiting, sharing, and tests.",
     description:
-      "Mini Market is a daily decision-quality game. Players read a binary contract, weigh noisy signals against the quoted price, choose buy/sell/pass, set confidence, and learn the fair value and expected value afterward. Technically it demonstrates a typed domain engine: Bayesian posterior calculation, procedural puzzle generation, semantic answer-key validation, attempts, archive, stats, analytics, share payloads, Prisma/Postgres persistence, in-memory local fallback, and Vitest coverage.",
+      "Mini Market is a daily decision-quality game. Players read a binary contract, weigh noisy signals against the quoted price, choose buy/sell/pass, set confidence, and learn the fair value and expected value afterward. It is a working Next.js app, not a static demo: daily puzzles are deterministically generated from calendar dates, public APIs hide solution data before submission, anonymous sessions get one attempt per puzzle, profile pages show streaks and calibration, sharing uses native/clipboard/SVG paths, and analytics/rate limits persist in Postgres when configured with an in-memory local fallback.",
     metrics: [
       { label: "Engine", value: "Bayesian" },
       { label: "Actions", value: "Buy/Sell/Pass" },
       { label: "Persistence", value: "Prisma/Postgres" },
-      { label: "Tests", value: "Domain + API" },
+      { label: "Backend", value: "Next routes" },
     ],
     facts: [
       { label: "Scope", value: "Daily market-decision puzzle with explainable scoring" },
       { label: "Role", value: "Domain model, scoring engine, generator, API routes, product UI" },
-      { label: "Status", value: "Public repo with local zero-setup fallback" },
+      { label: "Status", value: "Public repo; working local app, production hardening still partial" },
       { label: "Proof", value: "README, tests, puzzle validator, Prisma schema, CI commands" },
       { label: "Local source", value: "/Users/udaymukhija/MiniMarket" },
       { label: "Best fit", value: "Product engineering roles with domain modeling" },
     ],
     system: [
-      { label: "Product loop", value: "Daily contract, noisy signals, quoted price, buy/sell/pass decision, confidence, fair-value reveal" },
+      { label: "Product loop", value: "Daily contract, noisy signals, quoted price, buy/sell/pass decision, confidence, fair-value reveal, share result" },
       { label: "Engine", value: "Closed-form posterior from prior and likelihood ratios, cross-checked with Monte Carlo tests" },
-      { label: "Generator", value: "Procedural puzzles where difficulty, fair value, expected value, and explanation come from the model" },
-      { label: "Persistence", value: "Prisma/Postgres attempts when configured; in-memory attempt store for local development" },
+      { label: "Generator", value: "Deterministic daily puzzles starting 2026-05-23 with semantic validation against recomputed answer keys" },
+      { label: "Persistence", value: "Prisma/Postgres puzzles, attempts, analytics, and rate-limit buckets when configured; in-memory fallback for local demos" },
     ],
     evidenceNote:
-      "Mini Market is strongest as a domain-engine project: the answer key is derived from a model, validated independently, and covered by tests.",
+      "Mini Market is strongest as a domain-engine project: the answer key is derived from the model, revalidated, hidden until submission, and tested across domain/API/UI behavior.",
     highlights: [
       "Built a market-decision game around expected value and confidence instead of a generic trivia score.",
       "Derived puzzle answers from an explicit Bayesian model and cross-checked the math with Monte Carlo tests.",
-      "Added procedural generation plus semantic validation so explanations are generated from the same engine as the answer.",
-      "Implemented daily/archive routes, attempts, stats, analytics, sharing, rate limiting, and Prisma-backed persistence.",
+      "Added deterministic daily generation plus semantic validation so explanations and answer keys stay tied to the same engine.",
+      "Implemented daily/archive/profile/glossary routes, one-attempt behavior, calibration stats, analytics, sharing, rate limiting, and Prisma-backed persistence.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
           "Mini Market teaches decision quality. The player is not rewarded for guessing a hidden fact alone; they are judged on whether they found the edge and sized confidence appropriately.",
-          "The daily format gives it a small repeatable loop, while the reveal explains fair value and expected value in plain terms.",
+          "The daily format gives it a small repeatable loop, while the reveal explains fair value, expected value, edge capture, and confidence in plain terms.",
         ],
       },
       {
         title: "Technical perspective",
         paragraphs: [
           "The engine computes posterior probability, fair value, expected value, and best action from explicit inputs. Puzzle generation samples scenarios and then asks the same engine to derive the answer.",
-          "That matters because the game is not hand-waving the answer key. Tests can re-derive it and fail when content disagrees with the model.",
+          "That matters because the game is not hand-waving the answer key. Validation recomputes the answer, public APIs withhold solution data, and tests cover the domain logic, route behavior, analytics, and rate limiting.",
         ],
       },
       {
@@ -405,40 +405,40 @@ export const projects: Project[] = [
     slug: "ramble",
     title: "Ramble",
     label: "Voice Notes Product",
-    status: "Local scaffold",
+    status: "Local MVP scaffold",
     category: "product",
     year: "2026",
     summary:
-      "A voice-to-card web MVP scaffold with a Next.js recorder, Go API, Postgres persistence, idempotent recording creation, mock transcription/structuring, and provider seams.",
+      "A voice-to-structured-card web MVP scaffold with browser recording/upload, a Go API, Postgres persistence, idempotent multipart creation, mock structuring, optional Sarvam STT, search, edit, copy, and delete.",
     description:
-      "Ramble turns 30-90 seconds of messy speech into a title, summary, key points, tasks, tags, and a saved card. The local repo is honest about being a scaffold: the product loop runs with mock transcription and structuring, while Go provider seams allow Sarvam or another speech-to-text provider to replace the mock path later. It demonstrates clean backend boundaries for media capture, recordings, cards, tasks, search, edit, copy, delete, and provider integration.",
+      "Ramble turns 30-90 seconds of messy speech into a title, summary, key points, tasks, tags, and a saved card. The current repo is a working web MVP scaffold: the Next.js frontend records or uploads audio, the Go net/http API creates recordings idempotently with clientUploadId, persists recordings/cards/tasks in Postgres, polls status, lists recent cards, searches card text/tags, and supports open/edit/save/copy/delete. Mock transcription and structuring keep the loop runnable by default, while a Sarvam Saaras v3 transcription adapter proves the provider seam for real speech-to-text.",
     metrics: [
       { label: "Modes", value: "Note/Task/Message" },
       { label: "Backend", value: "Go API" },
-      { label: "Providers", value: "Mock + Sarvam seam" },
+      { label: "STT", value: "Mock + Sarvam" },
       { label: "Storage", value: "Postgres + disk" },
     ],
     facts: [
       { label: "Scope", value: "Voice note to structured card scaffold" },
       { label: "Role", value: "Product scope, Go API, data model, provider seams, frontend loop" },
-      { label: "Status", value: "Local scaffold, not a finished MVP" },
+      { label: "Status", value: "Working local MVP scaffold; demo-grade auth and inline processing" },
       { label: "Proof", value: "README, product docs, Go build/test scripts, provider seam" },
       { label: "Local source", value: "/Users/udaymukhija/Ramble" },
       { label: "Best fit", value: "Backend/product roles involving async media and AI providers" },
     ],
     system: [
-      { label: "Capture", value: "Record or upload short audio in the Next.js frontend" },
-      { label: "Backend", value: "Go net/http API for recordings, cards, status, search, edit, and delete" },
-      { label: "Processing", value: "Mock transcription and structuring now; Sarvam STT seam documented for real audio" },
-      { label: "Persistence", value: "Postgres users, recordings, cards, tasks, plus local disk audio storage for dev" },
+      { label: "Capture", value: "Record in browser or upload audio, then create a recording through multipart POST" },
+      { label: "Backend", value: "Go net/http API for recordings, status polling, cards, transforms, search, edit, and delete" },
+      { label: "Processing", value: "Mock transcription/structuring by default; optional Sarvam Saaras v3 STT through provider config" },
+      { label: "Boundary", value: "Per-browser demo user ids, inline processing, local/ephemeral audio storage, and SQL text search are not beta-ready auth/queue/search" },
     ],
     evidenceNote:
-      "Ramble is best framed as a scaffold with good boundaries: capture, idempotent recording creation, provider seams, card persistence, and search.",
+      "Ramble is best framed as a working MVP scaffold with good boundaries: capture, idempotent uploads, provider seams, Postgres cards/tasks, search, and honest demo-grade limits.",
     highlights: [
       "Locked v1 to three modes so the product does not sprawl into a broad assistant.",
-      "Built the backend in Go around recordings, cards, status, and search before wiring paid providers.",
-      "Kept transcription and structuring swappable through provider interfaces.",
-      "Documented the follow-up path for real STT, queues, retries, auth, privacy controls, and provider-quality eval fixtures.",
+      "Built the backend in Go around idempotent audio uploads, recordings, status polling, cards, transforms, search, edit, copy, and delete.",
+      "Kept transcription and structuring swappable through provider interfaces, with Sarvam STT available behind config.",
+      "Documented the follow-up path for production auth, queues/retries, cost controls, privacy/retention controls, durable object storage, and better structuring providers.",
     ],
     sections: [
       {
@@ -452,13 +452,13 @@ export const projects: Project[] = [
         title: "Technical perspective",
         paragraphs: [
           "The local implementation proves the architecture before paid providers are introduced. The Go API owns recordings, cards, status, search, and provider orchestration.",
-          "Mock providers make the loop runnable, while the Sarvam seam documents how real code-mixed speech transcription slots in.",
+          "Mock providers make the loop runnable, while the Sarvam adapter shows how real speech transcription slots in. The unfinished parts are also explicit: no production auth, no background worker, no semantic search, no production LLM structuring, and no durable user-audio storage.",
         ],
       },
       {
         title: "How I would present it",
         paragraphs: [
-          "I would be explicit that this is a scaffold. The value is the product boundary, data model, idempotent recording creation, and provider seam.",
+          "I would be explicit that this is a scaffold, not a launched SaaS. The value is the product boundary, Go/Postgres model, idempotent recording creation, provider seam, and full local voice-to-card loop.",
           "The next serious step is quality evaluation for real transcription and structured-output providers.",
         ],
       },
@@ -471,61 +471,61 @@ export const projects: Project[] = [
     slug: "closetdelta",
     title: "ClosetDelta",
     label: "Wardrobe Decision Engine",
-    status: "Local scaffold",
+    status: "Local MVP",
     category: "product",
     year: "2026",
     summary:
-      "A wardrobe purchase decision scaffold that scores whether a candidate item unlocks useful outfits against an existing closet, with explainable Buy/Wait/Skip verdicts.",
+      "A local wardrobe purchase decision app that scores whether a candidate item unlocks useful outfits against an existing closet, then saves the verdict, evidence, and feedback for deterministic scoring updates.",
     description:
-      "ClosetDelta asks one shopping question: does this new clothing item add useful outfits to what I already own? The scaffold demonstrates an explainable decision engine rather than a generic stylist. It uses manual wardrobe metadata, compatibility tables, rule-based scoring, redundancy checks, outfit-unlock logic, saved purchase analyses, a planned Prisma model, and focused tests around the scoring layer.",
+      "ClosetDelta asks one shopping question: does this new clothing item add enough useful outfits to what I already own? The current repo is a local/demo MVP, not a production wardrobe platform. It has wardrobe and candidate CRUD, manual metadata, upload/URL image input, rule-based scoring for pairing/color/season/formality/redundancy/outfit unlocks, Buy/Wait/Skip verdicts, quick-read previews, saved analysis history, candidate and wardrobe snapshots, closest-overlap evidence, agree/disagree feedback, and deterministic learning that tunes pair-score weights from saved corrections.",
     metrics: [
       { label: "Verdicts", value: "Buy/Wait/Skip" },
       { label: "Scoring", value: "Rule-based" },
-      { label: "Inputs", value: "Wardrobe + item" },
-      { label: "Tests", value: "Scoring layer" },
+      { label: "Store", value: "JSON dev store" },
+      { label: "Learning", value: "Feedback tuned" },
     ],
     facts: [
-      { label: "Scope", value: "Wardrobe purchase decision scaffold" },
+      { label: "Scope", value: "Local wardrobe-aware purchase decision workflow" },
       { label: "Role", value: "Product scope, scoring model, UI components, API shape" },
-      { label: "Status", value: "Local scaffold" },
-      { label: "Proof", value: "README, docs, Prisma schema, scoring tests" },
+      { label: "Status", value: "Local MVP; not production-ready, no accounts or hosted storage" },
+      { label: "Proof", value: "README, app routes, dev store, scoring/feedback tests, Prisma schema" },
       { label: "Local source", value: "/Users/udaymukhija/Closet" },
       { label: "Best fit", value: "Product engineering roles with explainable decision logic" },
     ],
     system: [
-      { label: "Inputs", value: "Manual wardrobe metadata plus candidate item upload or URL" },
+      { label: "Inputs", value: "Manual wardrobe and candidate metadata plus upload or source URL image input" },
       { label: "Scoring", value: "Category compatibility, color fit, season overlap, formality distance, redundancy, outfit unlocks" },
-      { label: "Output", value: "Buy, Wait, or Skip verdict with score breakdown and explanations" },
-      { label: "Persistence", value: "Prisma model for wardrobe, candidates, analyses, and snapshot-hash idempotency" },
+      { label: "Output", value: "Buy, Wait, or Skip verdict with score breakdown, outfit examples, overlap evidence, and explanation" },
+      { label: "Persistence", value: "JSON-backed development store with candidate/wardrobe snapshots, scoring-weight hash idempotency, and feedback learning" },
     ],
     evidenceNote:
-      "ClosetDelta is early, but the product boundary is crisp: explainable outfit-unlock scoring before computer vision or marketplace features.",
+      "ClosetDelta is no longer just a scaffold: it has a local product loop, saved analyses, snapshots, and feedback learning, while still avoiding claims about CV, auth, or production persistence.",
     highlights: [
       "Scoped the MVP to one decision instead of a broad closet-management app.",
       "Started with manual metadata and transparent rules so verdicts can be inspected and debugged.",
-      "Separated wardrobe state, candidate analysis, score breakdown, outfit unlocks, and history.",
-      "Deferred computer vision, marketplace, native mobile, and generic AI styling until the core decision engine works.",
+      "Persisted analyses with candidate and wardrobe snapshots so feedback remains meaningful after closet edits.",
+      "Added agree/disagree feedback that deterministically tunes pair-score weights from saved corrections.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
           "ClosetDelta is for the moment before buying clothes, not for managing every outfit forever.",
-          "The product asks whether a new item is additive or redundant, then explains the verdict in terms the user can inspect.",
+          "The product asks whether a new item is additive or redundant, then explains the verdict through outfit examples, compatibility signals, closest-overlap evidence, and saved decision history.",
         ],
       },
       {
         title: "Technical perspective",
         paragraphs: [
           "The useful technical work is the scoring layer: compatibility, redundancy, seasonality, formality, and outfit unlocks.",
-          "The scaffold keeps persistence and idempotency in view through the Prisma model and wardrobe snapshot hash, even though the app is still early.",
+          "The current runtime uses a JSON development store, not Prisma/Postgres, but it still models persistence concerns through snapshots, scoring-weight hashes, idempotent analysis creation, Zod API validation, and focused Vitest coverage.",
         ],
       },
       {
         title: "How I would present it",
         paragraphs: [
           "I would present ClosetDelta as a product-thinking and explainability sample rather than a finished AI fashion app.",
-          "That framing is stronger because the current repo proves the decision logic, not computer vision accuracy.",
+          "That framing is stronger because the current repo proves the decision logic, feedback loop, and local workflow, not computer vision accuracy, marketplace scraping, or production auth.",
         ],
       },
     ],
@@ -537,46 +537,46 @@ export const projects: Project[] = [
     slug: "receipt-scanner",
     title: "Receipt Scanner",
     label: "Expense Archive",
-    status: "Public repo; pre-MVP",
+    status: "Public repo; local MVP",
     category: "product",
     year: "2026",
     summary:
-      "A Spring Boot and React expense archive prototype for uploading receipts, running async OCR, reviewing extracted fields, categorizing spend, searching records, and exporting CSV.",
+      "A Spring Boot and React private expense archive with JWT auth, private receipt image storage, async OCR/parsing, user correction, review/confirmation, archive search, monthly summaries, CSV export, and smoke proof.",
     description:
-      "Receipt Scanner is a private archive for receipts, invoices, and payment screenshots. It is not framed as a finished OCR product: the local README says the build and demo are not currently green. What it demonstrates today is a substantial backend foundation for a personal expense archive: JWT auth, per-user ownership, Flyway schema, file validation, S3/MinIO storage, async processing, mock Google Vision fallback, rule-based parsing, status transitions, category analytics, and a React/Vite frontend.",
+      "Receipt Scanner is a private archive for receipts, invoices, and payment screenshots. The current README says the local MVP loop is implemented and scriptable: registration/login, JWT-protected upload, S3-compatible object storage, async processing, mock OCR by default, optional Google Cloud Vision OCR, rule-based parsing, manual correction, review queue, confirmation, archive search/filter, monthly spending summary, CSV export, presigned image preview, account deletion, and a React/Vite UI for the core flows. It is still pre-production: no hosted deployment is claimed, and production storage/secrets/privacy/OCR setup still need hardening.",
     metrics: [
       { label: "Backend", value: "Spring Boot 3.4" },
       { label: "Java", value: "21" },
       { label: "Storage", value: "MinIO/S3" },
-      { label: "Status", value: "Pre-MVP" },
+      { label: "Proof", value: "smoke.sh" },
     ],
     facts: [
-      { label: "Scope", value: "Private receipt and expense archive prototype" },
+      { label: "Scope", value: "Private receipt and expense archive with reviewable OCR workflow" },
       { label: "Role", value: "Backend architecture, async OCR flow, auth, frontend shell" },
-      { label: "Status", value: "Pre-MVP with known build/demo blockers" },
-      { label: "Proof", value: "README, docs/ROADMAP.md, Flyway migrations, backend services" },
+      { label: "Status", value: "Local MVP loop implemented and scriptable; no live production deployment claimed" },
+      { label: "Proof", value: "README, scripts/smoke.sh, JUnit/MockMvc/Testcontainers tests, frontend build script" },
       { label: "Local source", value: "/Users/udaymukhija/receipt_scanner" },
       { label: "Best fit", value: "Backend roles where honest stabilization planning matters" },
     ],
     system: [
-      { label: "Target loop", value: "Register, upload receipt image, extract fields, review/correct, categorize, search, summarize, export CSV" },
-      { label: "Pipeline", value: "Upload stores file, saves PENDING receipt, triggers async OCR/parsing, writes COMPLETED/NEEDS_REVIEW/FAILED" },
-      { label: "Backend", value: "Spring Boot, PostgreSQL, Flyway, JWT, S3-compatible storage, Google Vision mock fallback, Tika validation" },
-      { label: "Boundary", value: "Experimental LayoutLM FastAPI scaffold exists but is not wired into the runtime and should not be claimed as shipped ML" },
+      { label: "Product loop", value: "Register, upload image, process asynchronously, review/correct, confirm, search/filter, summarize, export CSV, delete account" },
+      { label: "Pipeline", value: "Upload validates/stores private object, saves PENDING receipt, triggers worker, reads bytes for OCR, parses, and persists status/data" },
+      { label: "Backend", value: "Spring Boot, PostgreSQL, Flyway, Spring Security JWT, S3-compatible storage, Google Vision optional, mock OCR default, Tika validation" },
+      { label: "Boundary", value: "Experimental LayoutLM/FastAPI code under ml_service is not wired into the active runtime and should not be claimed as production ML" },
     ],
     evidenceNote:
-      "Receipt Scanner should be framed carefully: promising backend architecture and roadmap, but explicitly pre-MVP with known local blockers.",
+      "Receipt Scanner has moved past the old blocker framing: the local API loop is scriptable, while production hosting and real OCR/storage hardening remain unclaimed.",
     highlights: [
-      "Built the intended async ingestion shape: immediate upload acknowledgement, background OCR/parsing, and review-needed status for low-confidence extraction.",
-      "Added JWT auth, per-user data ownership, Flyway migrations, file validation, MinIO/S3-compatible storage, and category analytics foundations.",
-      "Kept OCR replaceable with a mock fallback for local development rather than requiring Google Vision credentials.",
-      "Documented the stabilization work honestly: build fixes, S3 config cleanup, and frontend auth wiring before end-to-end demo claims.",
+      "Built the async ingestion shape: immediate upload acknowledgement, private object storage, background OCR/parsing, status transitions, and review-needed records.",
+      "Added JWT auth, per-user ownership, account deletion, Flyway migrations, file validation, MinIO/S3-compatible storage, presigned previews, and category/monthly analytics.",
+      "Kept OCR replaceable with deterministic mock OCR by default and optional Google Cloud Vision for credentialed runs.",
+      "Added a repeatable smoke script that proves account creation, upload, processing, correction, review, confirmation, search, summary, CSV export, account deletion, and stale-token rejection.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
-          "Receipt Scanner is meant to become a corrected, searchable archive of personal spending proof. OCR is infrastructure, not the product itself.",
+          "Receipt Scanner is a corrected, searchable archive of personal spending proof. OCR is infrastructure, not the product itself.",
           "The useful user loop is upload, extract, review, correct, categorize, search, summarize, and export.",
         ],
       },
@@ -584,14 +584,14 @@ export const projects: Project[] = [
         title: "Technical perspective",
         paragraphs: [
           "The backend shape is a modular Spring Boot app with auth, storage, validation, background processing, OCR abstraction, parsing, statuses, and analytics.",
-          "The current repo is not green end to end, so the technical story should be about architecture and stabilization rather than production readiness.",
+          "The current proof path is local: backend tests, Testcontainers integration setup, frontend build, and `scripts/smoke.sh`. It should still not be presented as a hosted production product or a trained custom OCR system.",
         ],
       },
       {
         title: "How I would present it",
         paragraphs: [
-          "I would present this as a pre-MVP prototype with clear Release 0 work, not as a polished deployed scanner.",
-          "That honesty helps: it shows judgment about what is built, what is broken, and why custom ML is deferred until user corrections exist.",
+          "I would present this as a local MVP with a real end-to-end backend loop, not as a polished deployed scanner.",
+          "That honesty helps: it shows judgment about what is built, what still needs production hardening, and why custom ML is deferred until user corrections create useful training data.",
         ],
       },
     ],
@@ -601,85 +601,82 @@ export const projects: Project[] = [
   },
   {
     slug: "logistics-data-engineering",
-    title: "Logistics Data Engineering",
-    label: "Data Platform",
+    title: "Logistics Customer Ops Pipeline",
+    label: "Customer Data Pipeline",
     status: "Public repo",
     category: "data",
     year: "2026",
     summary:
-      "A logistics lakehouse demo with generated fleet, shipment, and last-mile events, DuckDB/dbt marts, quality reports, Streamlit dashboard, and optional Kafka/Spark/Airflow depth.",
+      "A local data engineering pipeline that ingests messy 3PL CSV exports, validates and quarantines bad rows, models logistics operations in DuckDB/dbt, and exports SLA, exception, trip, and route-productivity reports.",
     description:
-      "Logistics Data Engineering is a local data-platform project for fleet tracking, shipment SLAs, and last-mile operations. It demonstrates a verified sample path from generated parquet to DuckDB source views to dbt marts to quality reports to Streamlit, plus a deeper architecture path with simulators, Kafka, Spark, Airflow, and customer-mode CSV/Parquet ingestion.",
+      "Logistics Customer Ops Pipeline turns customer logistics exports into trusted daily operations tables. A config-driven ingestion layer maps raw CSV columns into canonical Bronze parquet, validates records with JSON Schema, writes reject reports for bad rows, and uses a SHA-based ledger for idempotent reruns. dbt then builds DuckDB staging/intermediate/mart models for shipments, SLA breaches, delivery exceptions, trips, and route productivity. The recruiter-facing local proof path runs ingestion, dbt, quality checks, CSV exports, verification, and a Streamlit control-tower dashboard.",
     metrics: [
-      { label: "Demo data", value: "500 shipments" },
-      { label: "Fleet", value: "30 vehicles" },
-      { label: "Ops", value: "60 shifts" },
-      { label: "Verified path", value: "DuckDB/dbt" },
+      { label: "Core marts", value: "5 non-empty" },
+      { label: "Exports", value: "5 CSVs" },
+      { label: "Warehouse", value: "DuckDB/dbt" },
+      { label: "Proof", value: "make customer-trial" },
     ],
     facts: [
-      { label: "Scope", value: "Logistics data platform and operator dashboard" },
-      { label: "Role", value: "Pipeline design, dbt marts, quality checks, dashboard, deploy page" },
-      { label: "Status", value: "Public repo with local and Vercel/HF demo paths" },
-      { label: "Proof", value: "README, Makefile demo path, dbt project, quality reports, Streamlit app" },
+      { label: "Scope", value: "Customer CSV exports to trusted logistics marts, reports, and dashboard" },
+      { label: "Role", value: "Config-driven ingestion, validation, dbt marts, quality checks, exports, dashboard" },
+      { label: "Status", value: "Public repo with working local customer demo; hosted page not treated as source of truth" },
+      { label: "Proof", value: "README, make customer-trial, make customer-verify, dbt project, quality reports, Streamlit app" },
       { label: "Local source", value: "/Users/udaymukhija/logistics" },
       { label: "Best fit", value: "Data engineering and analytics platform roles" },
     ],
     system: [
-      { label: "Domains", value: "Fleet telematics, shipment tracking, last-mile delivery execution" },
-      { label: "Verified path", value: "Sample parquet -> DuckDB source views -> dbt marts -> quality reports -> Streamlit" },
-      { label: "Marts", value: "Trip reconstruction, shipment journeys, agent/zone daily facts, dashboard-ready counts and KPIs" },
-      { label: "Depth path", value: "Simulators, Kafka, Spark Bronze/Silver layers, Airflow DAG, customer batch dropzone" },
+      { label: "Ingestion", value: "Customer CSV exports -> config-driven mapping -> canonical Bronze parquet with contracts, rejects, and idempotency" },
+      { label: "Modeling", value: "DuckDB source views plus dbt staging, intermediate, and mart layers" },
+      { label: "Outputs", value: "Shipment summary, SLA breaches, delivery exceptions, trip summary, route productivity, and Streamlit dashboard" },
+      { label: "Depth path", value: "Kafka, Spark, and Airflow exist as optional depth, not the main proof path" },
     ],
     evidenceNote:
-      "The local repo is useful because it separates the verified DuckDB/dbt demo path from the heavier streaming architecture path.",
+      "The strongest proof is the local customer batch path: `make customer-trial` plus verification that the core marts and CSV exports are populated.",
     highlights: [
-      "Modeled three related logistics domains instead of one synthetic stream.",
-      "Built a simple proof path that runs without Docker-heavy infrastructure: generate sample data, build marts, run quality checks, open Streamlit.",
-      "Added a recruiter-facing Vercel page that embeds the running dashboard and explains the data flow.",
-      "Kept Kafka, Spark, and Airflow as deeper architecture options rather than pretending the whole stack is required for the first demo.",
+      "Built config-driven ingestion that maps messy customer exports into canonical Bronze parquet.",
+      "Added JSON Schema validation, reject reports for bad rows, and an ingestion ledger so reruns skip identical files.",
+      "Modeled shipments, SLA breaches, delivery exceptions, trips, and route productivity in DuckDB/dbt.",
+      "Kept Kafka, Spark, and Airflow as optional architecture depth rather than leading with unverified streaming claims.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
-          "The product story is a small logistics control tower. Operators want to understand trips, shipment journeys, delivery attempts, agent shifts, and data quality.",
-          "The dashboard reads built artifacts rather than hand-coded marketing numbers, so the demo ties back to generated events and marts.",
+          "The product story is a small logistics control tower for operators dealing with messy third-party exports.",
+          "The dashboard and CSV reports read built artifacts rather than hand-coded marketing numbers, so the demo ties back to ingested files, reject evidence, quality checks, and marts.",
         ],
       },
       {
         title: "Technical perspective",
         paragraphs: [
-          "The verified path is intentionally pragmatic: sample parquet, DuckDB source views, dbt models/tests, JSON quality reports, and Streamlit.",
-          "The deeper path shows how the same domain could expand into simulators, Kafka topics, Spark processing, and Airflow orchestration.",
+          "The verified path is intentionally pragmatic: customer CSVs, config-driven transforms, Bronze parquet, DuckDB source views, dbt models, quality checks, CSV exports, and Streamlit.",
+          "The deeper path shows how the same domain could expand into Kafka topics, Spark processing, and Airflow orchestration, but the local customer demo is the source of truth.",
         ],
       },
       {
         title: "How I would present it",
         paragraphs: [
           "I would start with the dashboard and then trace one metric backward through dbt and source data.",
-          "The honest boundary is that the local sample path is the strongest proof; the streaming stack is architecture depth unless freshly run end to end.",
+          "The honest boundary is that the local customer batch path is the strongest proof; the streaming stack is architecture depth unless freshly run end to end.",
         ],
       },
     ],
     stack: ["Python", "DuckDB", "dbt", "Streamlit", "Kafka", "Spark", "Airflow"],
-    links: [
-      { label: "GitHub repo", href: "https://github.com/udaymukhija3/logistics-data-engineering" },
-      { label: "Demo page", href: "https://logistics-data-engineering.vercel.app/" },
-    ],
+    links: [{ label: "GitHub repo", href: "https://github.com/udaymukhija3/logistics-data-engineering" }],
     featured: true,
     flagship: true,
   },
   {
     slug: "inventory-management-sys",
-    title: "Inventory Management System",
+    title: "Stockout Prevention Data Pipeline",
     label: "Inventory Data Platform",
     status: "Public repo",
     category: "data",
     year: "2026",
     summary:
-      "An inventory operations service plus data-engineering spine: Spring Boot writes, transactional outbox, Kafka, idempotent Python ETL, Redis, FastAPI analytics, frontend monitor, and stockout backtest gate.",
+      "An event-driven inventory analytics pipeline that converts stock mutations into validated analytics outputs, run evidence, dbt marts, Redis/FastAPI serving, and a CI-gated stockout-prevention backtest.",
     description:
-      "Inventory Management System is an operational inventory backend with a data platform attached. Every write flows through a transactional outbox into Kafka, a Python ETL pipeline materializes analytics into Postgres/Redis/Parquet, FastAPI serves metrics, and a frontend monitor shows run status. The project defends a business metric with a stockout-prevention backtest and CI gate rather than only CRUD endpoints.",
+      "Stockout Prevention Data Pipeline is an inventory operations and analytics project. Spring Boot inventory writes publish through a transactional outbox into Kafka, idempotent Python ETL materializes current metrics and history into Postgres/Redis/Parquet, FastAPI serves analytics, dbt builds tested marts, and a frontend monitor shows the run state. The project defends a business metric with a deterministic stockout-prevention backtest that records recall, precision, and estimated dollars saved, with CI failing if recall drops below 60%.",
     metrics: [
       { label: "Backtest gate", value: "60% recall" },
       { label: "Event path", value: "Outbox -> Kafka" },
@@ -687,26 +684,26 @@ export const projects: Project[] = [
       { label: "Proof", value: "make demo" },
     ],
     facts: [
-      { label: "Scope", value: "Inventory operations service plus analytics pipeline" },
+      { label: "Scope", value: "Event-driven inventory analytics and stockout-prevention proof pipeline" },
       { label: "Role", value: "Backend services, event flow, ETL, analytics API, demo proof artifacts" },
-      { label: "Status", value: "Public repo with supported local demo path" },
+      { label: "Status", value: "Public repo with supported local `make demo` path; no production ERP/auth claims" },
       { label: "Proof", value: "README, make demo, artifacts/demo, backtest harness, Docker Compose" },
       { label: "Local source", value: "/Users/udaymukhija/inventory_management_sys" },
       { label: "Best fit", value: "Backend, data platform, and distributed-systems roles" },
     ],
     system: [
-      { label: "Operational path", value: "Spring Boot inventory-service handles products, warehouses, adjustments, reservations, sales, receipts" },
+      { label: "Operational path", value: "Spring Boot inventory-service handles products, warehouses, adjustments, reservations, sales, and receipts" },
       { label: "Event path", value: "Transactional outbox writes in same DB transaction, relay publishes to Kafka with retry/give-up behavior" },
-      { label: "Analytics path", value: "Python ETL writes current metrics, metric history, Redis hot reads, Parquet manifests, and data quality runs" },
+      { label: "Analytics path", value: "Python ETL writes current metrics, metric history, processed-event logs, invalid-event rows, Redis hot reads, Parquet manifests, and DQ runs" },
       { label: "Decision path", value: "Stockout-prevention backtest records recall, precision, estimated dollars saved, and fails CI below threshold" },
     ],
     evidenceNote:
-      "This repo has one of the clearest proof paths: `make demo` produces API, DB, Redis, Parquet, and summary artifacts for the supported stack.",
+      "This repo has one of the clearest proof paths: `make demo` produces API, DB, Redis, Parquet, dbt, quality, and backtest evidence for the supported stack.",
     highlights: [
       "Built the supported local path around inventory-service, data-pipeline-service, analytics-service, frontend, Postgres, Redis, Kafka, Prometheus, and Grafana.",
       "Used a transactional outbox to avoid dual writes between inventory mutations and Kafka publication.",
-      "Made the ETL idempotent through processed-event tracking and separated current metrics from metric history.",
-      "Added a stockout-prevention backtest so the project has a business metric with recall, precision, and estimated value saved.",
+      "Made the ETL idempotent through processed-event tracking, persisted invalid events, and separated current metrics from metric history.",
+      "Added dbt marts over analytics.daily_sales and a stockout-prevention backtest with a 60% recall CI gate.",
     ],
     sections: [
       {
@@ -720,14 +717,14 @@ export const projects: Project[] = [
         title: "Technical perspective",
         paragraphs: [
           "The important technical choice is the event boundary. Inventory writes stay transactional, then outbox publication and ETL materialization handle downstream analytics.",
-          "The analytics service and Redis cache give the project a serving story, while Parquet manifests and DB run tables give it an audit trail.",
+          "The analytics service and Redis cache give the project a serving story, while processed-event logs, invalid-event tables, Parquet manifests, dbt marts, and DB run tables give it an audit trail.",
         ],
       },
       {
         title: "How I would present it",
         paragraphs: [
           "I would run the supported demo path and inspect the artifacts: before/after inventory, analytics payload, pipeline run, data quality, Redis key, and Parquet output.",
-          "The strongest resume angle is not trained forecasting yet; it is event-driven inventory analytics with a deterministic stockout-prevention backtest.",
+          "The strongest resume angle is not real-time ML forecasting yet; it is event-driven inventory analytics with deterministic backtest evidence and a CI recall gate.",
         ],
       },
     ],
@@ -744,50 +741,50 @@ export const projects: Project[] = [
     category: "ml",
     year: "2026",
     summary:
-      "An artifact-backed grocery recommender with data contracts, leakage-aware preprocessing, LightGBM/XGBoost rankers, calibration, baseline lift, FastAPI serving, and a browser demo.",
+      "An artifact-backed known-shopper grocery reorder recommender with point-in-time validation, feature contracts, LightGBM/XGBoost rankers, calibrated ranking, baseline lift, FastAPI serving, Docker packaging, monitoring endpoints, and a browser demo.",
     description:
-      "Instacart Reorder Recommender predicts which products a shopper is likely to reorder in the next basket. It demonstrates ML engineering beyond a notebook: raw-data contracts, dataset fingerprints, deterministic splits, point-in-time features, candidate and full-basket evaluation, calibration, thresholding, baseline lift, saved run artifacts, a FastAPI service, monitoring endpoints, and a demo UI backed by artifacts.",
+      "Instacart Reorder Recommender predicts which products a known Instacart shopper is likely to buy again in their next basket. It demonstrates ML engineering beyond a notebook: point-in-time data validation, feature contracts, leakage checks, deterministic demo bundle, LightGBM/XGBoost training, calibrated ranking, offline evaluation against realistic reorder baselines, saved run artifacts, FastAPI serving, OpenAPI docs, monitoring endpoints, Docker packaging, and a browser demo. It is not a cold-start discovery engine, chatbot cart assistant, online A/B-tested recommender, or proof of production revenue impact.",
     metrics: [
       { label: "Candidate F1", value: "0.5665" },
       { label: "Basket F1", value: "0.4159" },
-      { label: "Lift", value: "1.67x recency" },
-      { label: "Products", value: "49,688" },
+      { label: "P@10/R@10", value: "0.5577/0.7025" },
+      { label: "Tests", value: "93 passed" },
     ],
     facts: [
       { label: "Scope", value: "Artifact-backed grocery reorder recommender" },
       { label: "Role", value: "Data contracts, feature engineering, model evaluation, serving API" },
-      { label: "Status", value: "Local case study with checked-in artifacts" },
-      { label: "Proof", value: "README, verify_run_20260304, feature contract, API demo path" },
+      { label: "Status", value: "Strong local/demo portfolio state with checked-in artifacts" },
+      { label: "Proof", value: "README, verify_run_20260304, feature contract, resume_release evidence, API demo path" },
       { label: "Local source", value: "/Users/udaymukhija/Instacart" },
       { label: "Best fit", value: "Applied ML and backend-adjacent ML systems roles" },
     ],
     system: [
-      { label: "Data path", value: "Raw Instacart CSVs, schema checks, referential integrity, deterministic user splits, dataset fingerprints" },
-      { label: "Features", value: "User, product, aisle, department, user-product, time, recency, and reorder-history features" },
+      { label: "Data path", value: "Raw Instacart CSVs, point-in-time validation, referential integrity, deterministic splits, dataset fingerprints" },
+      { label: "Features", value: "65 serving features under contract ca27e59e71136bc1" },
       { label: "Evaluation", value: "Candidate reorder and full-basket contracts, baseline lift, slice metrics, calibration plots, threshold curves" },
-      { label: "Serving", value: "FastAPI loads model, feature schema, processed feature tables, product metadata, monitoring state" },
+      { label: "Serving", value: "FastAPI loads model artifacts, feature schema, processed feature tables, product metadata, demo bundle, and monitoring state" },
     ],
     evidenceNote:
-      "The strongest proof is the checked-in March 4, 2026 verification run and artifact-backed API path.",
+      "The strongest proof is the checked-in March 4, 2026 verification run, resume_release evidence pack, and artifact-backed FastAPI/browser demo path.",
     highlights: [
       "Evaluated candidate ranking separately from full-basket reconstruction so the metrics do not overstate product value.",
       "Saved feature contracts and fingerprints so training and serving can be checked against the same artifact boundary.",
-      "Reported LightGBM temporal candidate F1 of 0.5665 and full-basket F1 of 0.4159, plus 1.67x lift over recency.",
-      "Exposed recommendations, portfolio evidence, health, monitoring, and latency metadata through FastAPI.",
+      "Reported LightGBM temporal candidate F1 of 0.5665, full-basket F1 of 0.4159, P@10 of 0.5577, R@10 of 0.7025, and 1.67x lift over recency.",
+      "Exposed recommendations, portfolio overview, health, OpenAPI docs, monitoring, and latency metadata through FastAPI.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
           "The product question is straightforward: for a known shopper, which items should appear in a buy-again shelf or smart cart suggestion?",
-          "That is a practical recommender surface because grocery buying has rhythm, basket context, and repeated products.",
+          "That is a practical recommender surface because grocery buying has rhythm, basket context, and repeated products. It should not be framed as cold-start discovery or a live commerce impact claim.",
         ],
       },
       {
         title: "Technical perspective",
         paragraphs: [
           "The repo is strongest where many recommender demos are weak: contracts, leakage control, split protocol, evaluation boundaries, calibration, and serving parity.",
-          "The FastAPI app loads saved artifacts and returns ranked products with feature-version, request ID, and latency metadata.",
+          "The FastAPI app loads saved artifacts and returns ranked products with feature version, request ID, fallback status, and latency metadata.",
         ],
       },
       {
@@ -811,12 +808,12 @@ export const projects: Project[] = [
     category: "ml",
     year: "2026",
     summary:
-      "A production-oriented energy forecasting system with strict feature contracts, two LightGBM models, baseline leaderboards, walk-forward backtests, API/CLI serving, metrics, and monitoring artifacts.",
+      "A production-oriented energy forecasting system with strict feature contracts, explicit consumption/production LightGBM artifacts, baseline leaderboards, walk-forward backtests, API/CLI serving, Prometheus metrics, and demo evidence packs.",
     description:
-      "Enefit Prosumer Forecasting predicts Estonian prosumer consumption and production. It demonstrates leakage-resistant time-series ML engineering: schema-validated ingestion, causal weather and price joins, target-specific LightGBM models, required baselines, feature-contract enforcement across training/API/CLI, walk-forward backtesting, ablations, Prometheus metrics, drift checks, retrain artifacts, and recruiter demo evidence under docs/assets.",
+      "Enefit Prosumer Forecasting predicts Estonian prosumer consumption and production. It demonstrates leakage-resistant time-series ML engineering: schema-validated ingestion, explicit processed data layers, causal weather and price joins, target-specific LightGBM artifacts, required baseline leaderboards on every run, strict feature-contract enforcement across training/API/CLI, optional uncertainty intervals, closed-loop walk-forward backtesting, ablation matrices, Prometheus metrics, drift/performance/retrain checks, and recruiter demo evidence under docs/assets.",
     metrics: [
       { label: "Rows", value: "2.0M+" },
-      { label: "Features", value: "106" },
+      { label: "Contracts", value: "Strict" },
       { label: "Targets", value: "2 models" },
       { label: "Serving", value: "API + CLI" },
     ],
@@ -829,18 +826,18 @@ export const projects: Project[] = [
       { label: "Best fit", value: "Forecasting, ML systems, and backend-adjacent ML roles" },
     ],
     system: [
-      { label: "Data path", value: "Raw Kaggle tables, schema validation, feature layers, lineage reports, causal joins" },
-      { label: "Model layer", value: "Separate consumption and production LightGBM artifacts with baseline leaderboards" },
+      { label: "Data path", value: "Raw Kaggle tables, schema validation, raw/staged/feature parquet layers, lineage reports, causal joins" },
+      { label: "Model layer", value: "Separate consumption and production LightGBM artifacts, optional uncertainty path, and baseline leaderboards" },
       { label: "Evaluation", value: "Holdout metrics, per-target reports, walk-forward backtests, ablation matrix, robustness report" },
       { label: "Serving", value: "FastAPI and CLI inference reuse the same feature contract and saved production pointers" },
     ],
     evidenceNote:
-      "Enefit is a strong ML systems entry because it connects leakage control, artifacts, backtests, serving, and monitoring instead of only reporting model scores.",
+      "Enefit is a strong ML systems entry because it connects leakage control, versioned artifacts, baselines, backtests, serving, monitoring, and evidence packs instead of only reporting model scores.",
     highlights: [
       "Built separate consumption and production model artifacts rather than forcing one target shape.",
       "Used strict feature contracts across training, API inference, and CLI inference.",
-      "Generated demo evidence for health, model info, predictions, metrics, OpenAPI, CLI output, training metrics, backtests, monitoring, and error analysis.",
-      "Documented limitations around closed-loop evaluation cost, in-memory serving caches, fallback modes, and live-outcome monitoring.",
+      "Generated demo evidence for health, model info, predictions, metrics, OpenAPI, CLI output, training metrics, baselines, backtests, monitoring, error analysis, and robustness scorecards.",
+      "Documented limitations around closed-loop evaluation cost, in-memory serving caches, fallback modes, and lack of realized online accuracy against live outcomes.",
     ],
     sections: [
       {
@@ -861,7 +858,7 @@ export const projects: Project[] = [
         title: "How I would present it",
         paragraphs: [
           "I would start with the feature contract and per-target artifacts, then show the API checks and docs/assets evidence pack.",
-          "The honest boundary is that monitoring artifacts prove scheduled drift/retrain checks, not realized online accuracy from production traffic.",
+          "The honest boundary is that monitoring artifacts prove scheduled drift/retrain checks, not realized online accuracy from production traffic. For the fastest public recruiter link, the README points to deploying the Streamlit dashboard first and the FastAPI service afterward.",
         ],
       },
     ],
@@ -878,50 +875,50 @@ export const projects: Project[] = [
     category: "ml",
     year: "2026",
     summary:
-      "A production-shaped IEEE-CIS fraud scorer with chronology-safe splits, feature contracts, calibrated probabilities, cost-aware thresholding, deploy bundles, FastAPI serving, drift checks, and proof artifacts.",
+      "A production-shaped IEEE-CIS fraud scorer with chronology-safe splits, offline/online feature contracts, calibrated probabilities, cost-aware thresholding, deploy-bundle serving, a browser review console, drift checks, challenger reports, and proof artifacts.",
     description:
-      "Fraud Detection Platform is built around the operational risks of fraud ML: temporal leakage, train/serve mismatch, arbitrary thresholds, poor calibration, challenger promotion, drift, and serving observability. The checked-in local project merges transaction and identity data, validates contracts, trains a LightGBM artifact, calibrates probability, selects a cost-aware threshold, packages a deploy bundle, serves predictions through FastAPI, and exposes proof packs, drift reports, and challenger benchmarks.",
+      "Fraud Detection Platform is built around the operational risks of fraud ML: temporal leakage, train/serve mismatch, arbitrary thresholds, poor calibration, challenger promotion, drift, and serving observability. The checked-in project merges transaction and identity data, preserves chronology through TransactionDT, validates offline and online feature contracts, trains a LightGBM artifact, calibrates probability with Platt scaling, selects a threshold from explicit false-positive/false-negative costs, packages a SHA256-manifest deploy bundle, serves predictions through FastAPI and a browser fraud review console, and exposes monitoring, proof packs, drift reports, and challenger benchmarks.",
     metrics: [
       { label: "AUC-ROC", value: "0.8658" },
       { label: "AUC-PR", value: "0.4806" },
       { label: "Threshold", value: "0.0700" },
-      { label: "Features", value: "411" },
+      { label: "Net savings", value: "$308k" },
     ],
     facts: [
       { label: "Scope", value: "Production-shaped fraud scoring system" },
       { label: "Role", value: "Feature path, calibration, thresholding, serving, monitoring artifacts" },
-      { label: "Status", value: "Local case study with checked-in raw data and deploy bundle" },
+      { label: "Status", value: "Portfolio/recruiter-ready local project; not a live payment production system" },
       { label: "Proof", value: "README, evaluation report, deploy bundle, proof pack, drift report" },
       { label: "Local source", value: "/Users/udaymukhija/fraud" },
       { label: "Best fit", value: "Applied ML and risk-oriented backend roles" },
     ],
     system: [
       { label: "Data path", value: "IEEE-CIS transaction/identity merge with raw and processed contracts" },
-      { label: "Protocol", value: "Chronological train, calibration, and untouched test slices under train_calibration_test_v1" },
-      { label: "Decisioning", value: "Platt calibration plus threshold selected from false-positive and false-negative costs" },
-      { label: "Serving", value: "FastAPI loads deploy bundle with model, feature pipeline, schema, operating point, metadata, manifest" },
+      { label: "Protocol", value: "Separate chronological model fitting, calibration, threshold selection, and final test reporting under train_calibration_test_v1" },
+      { label: "Decisioning", value: "Platt calibration plus threshold 0.0700 selected from $10 false-positive and $100 false-negative costs" },
+      { label: "Serving", value: "FastAPI loads deploy bundle with model, feature pipeline, schema, operating point, metadata, manifest, and browser console" },
     ],
     evidenceNote:
-      "Fraud is compelling because the repo exposes uncomfortable operational evidence too: challenger results, critical drift, and in-memory enrichment limits.",
+      "Fraud is compelling because the repo exposes uncomfortable operational evidence too: CatBoost is the offline challenger leader, drift is visible, and hosted latency should not be claimed without a fresh deployed benchmark.",
     highlights: [
       "Separated model fitting, calibration, threshold selection, and final test reporting on chronological slices.",
       "Selected threshold 0.0700 from explicit cost assumptions rather than a default 0.5 cutoff.",
       "Packaged model, feature pipeline, schema, operating point, metadata, and manifest into a coherent deploy bundle.",
-      "Kept challenger and drift reports visible, including a stronger CatBoost offline result and a critical drift report.",
+      "Kept calibration, challenger, drift, monitoring, proof-pack, and business readout evidence visible, including a stronger CatBoost offline result.",
     ],
     sections: [
       {
         title: "Product perspective",
         paragraphs: [
           "The product is a fraud review service, not just a classifier. It needs risk scores, reasons, thresholds, latency metadata, monitoring, and evidence for why a transaction was flagged.",
-          "The business readout matters because fraud decisions trade off caught fraud against customer friction.",
+          "The business readout matters because fraud decisions trade off caught fraud against customer friction; the shipped threshold catches about 57.9% of fraud with about 5.6% customer friction under the README's assumptions.",
         ],
       },
       {
         title: "Technical perspective",
         paragraphs: [
           "The system demonstrates chronology-safe evaluation, feature contracts, calibration, cost-based thresholding, bundle-based serving, drift checks, and proof-pack generation.",
-          "The API serves single and batch predictions, health, metrics, model info, demo summary, and a browser console from the checked-in bundle.",
+          "The API serves single and batch predictions, health, metrics, model info, demo summary, and a browser console from the checked-in bundle. Render config exists for permanent hosting; Cloudflare Tunnel is only an ephemeral screen-share path.",
         ],
       },
       {
