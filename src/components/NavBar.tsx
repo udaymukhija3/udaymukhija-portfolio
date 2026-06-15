@@ -22,7 +22,7 @@ export function NavBar() {
             href="/projects"
             aria-current={currentPathname.startsWith("/projects") ? "page" : undefined}
           >
-            Projects
+            Work
           </Link>
           {isExternalResume ? (
             <a className="nav-link" href={resumeHref} target="_blank" rel="noreferrer">
@@ -38,18 +38,11 @@ export function NavBar() {
             </Link>
           )}
           <Link
-            className={navLinkClassName(currentPathname === "/experience")}
-            href="/experience"
-            aria-current={currentPathname === "/experience" ? "page" : undefined}
-          >
-            Experience
-          </Link>
-          <Link
             className={navLinkClassName(currentPathname === "/notes")}
             href="/notes"
             aria-current={currentPathname === "/notes" ? "page" : undefined}
           >
-            Notes
+            Writing
           </Link>
           <Link className="nav-link" href="/#contact">
             Contact

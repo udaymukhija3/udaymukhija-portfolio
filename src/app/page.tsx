@@ -1,12 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { ProjectEvidenceLens } from "../components/ProjectEvidenceLens";
 import { StructuredData } from "../components/StructuredData";
 import { projects } from "../data/projects";
 import { educationItems, experienceItems } from "../data/resume";
-import { contactLinks, resumeHref, skills, snapshotItems } from "../data/siteContent";
+import { contactLinks, resumeHref, skills } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
+import type { Project } from "../types";
 
 const emailLink = contactLinks.find((link) => link.label === "Email");
 const personEmail = emailLink ? emailLink.href.replace(/^mailto:/, "") : undefined;
@@ -20,54 +20,46 @@ export const metadata: Metadata = {
   },
 };
 
-const focusAreas = [
+const proofAreas = [
   {
-    title: "Product systems",
-    body: "Go, Spring Boot, and Next.js products where backend state owns the real rules: rooms, tickets, attempts, activities, media, and approvals.",
-    links: [
-      { label: "Gathr", href: "/projects/gathrly" },
-      { label: "VibeGrid", href: "/projects/vibegrid" },
-      { label: "ResolveOps", href: "/projects/resolveops" },
-      { label: "Murmur", href: "/projects/murmur" },
-    ],
+    label: "Product systems",
+    title: "I ship the stateful product loop.",
+    body: "Activities, puzzle attempts, private voice rooms, ticket approvals, receipts, and inventory flows are modeled behind explicit backend contracts.",
   },
   {
-    title: "Data platforms",
-    body: "Operational writes, event streams, customer CSV ingestion, dbt/DuckDB marts, quality checks, pipeline artifacts, dashboards, and business-facing metrics.",
-    links: [
-      { label: "Stockout Pipeline", href: "/projects/inventory-management-sys" },
-      { label: "Logistics", href: "/projects/logistics-data-engineering" },
-    ],
+    label: "Data platforms",
+    title: "I make the proof path inspectable.",
+    body: "The stronger projects include migrations, smoke tests, quality checks, dashboards, evaluation artifacts, and README-level evidence for reviewers.",
   },
   {
-    title: "ML systems",
-    body: "Feature contracts, leakage-safe evaluation, calibration, deploy bundles, proof packs, monitoring endpoints, and honest limits.",
-    links: [
-      { label: "Fraud", href: "/projects/fraud-detection-platform" },
-      { label: "Instacart", href: "/projects/instacart-reorder-recommender" },
-      { label: "Enefit", href: "/projects/enefit-forecasting" },
-    ],
+    label: "ML and AI",
+    title: "I keep model claims honest.",
+    body: "AI and ML work is framed around feature contracts, deterministic guardrails, human approval, calibration, serving bundles, and documented limits.",
   },
 ];
 
-const domainItems = [
-  "Spring Boot",
-  "Go",
-  "FastAPI",
-  "Next.js",
-  "PostgreSQL",
-  "Redis",
-  "Kafka",
-  "DuckDB",
-  "dbt",
-  "WebSocket",
-  "REST APIs",
-  "JPA/Hibernate",
-  "JWT Auth",
-  "ACID transactions",
-  "Rate limiting",
-  "Caching",
-  "LightGBM",
+const stackGroups = [
+  {
+    label: "Backend",
+    items: ["Java", "Spring Boot", "Go", "FastAPI", "PostgreSQL", "Redis"],
+  },
+  {
+    label: "Product",
+    items: ["Next.js", "TypeScript", "REST APIs", "WebSocket", "JWT auth", "Docker"],
+  },
+  {
+    label: "Data and ML",
+    items: ["Kafka", "DuckDB", "dbt", "Python", "LightGBM", "quality checks"],
+  },
+];
+
+const spotlightProjectSlugs = [
+  "gathrly",
+  "vibegrid",
+  "murmur",
+  "resolveops",
+  "inventory-management-sys",
+  "fraud-detection-platform",
 ];
 
 function HomeSection({
@@ -99,24 +91,44 @@ function HomeSection({
   );
 }
 
+function getFact(project: Project, label: string) {
+  return project.facts.find((fact) => fact.label === label)?.value;
+}
+
+function SpotlightProject({ project }: { project: Project }) {
+  const bestFit = getFact(project, "Best fit") ?? project.label;
+  const proof = getFact(project, "Proof") ?? project.status;
+
+  return (
+    <article className="spotlight-row">
+      <div className="work-meta">
+        <span>{project.year}</span>
+        <span>{project.label}</span>
+      </div>
+
+      <div className="spotlight-main">
+        <h3>
+          <Link href={`/projects/${project.slug}`}>{project.title}</Link>
+        </h3>
+        <p>{project.summary}</p>
+        <div className="evidence-proof">
+          <span>{bestFit}</span>
+          <span>{proof}</span>
+        </div>
+      </div>
+
+      <div className="spotlight-side">
+        <p>{project.stack.slice(0, 4).join(" / ")}</p>
+        <Link className="inline-link" href={`/projects/${project.slug}`}>
+          Case study
+        </Link>
+      </div>
+    </article>
+  );
+}
+
 export default function HomePage() {
-  const featuredProjectSlugs = [
-    "gathrly",
-    "vibegrid",
-    "murmur",
-    "resolveops",
-    "punchline",
-    "mini-market",
-    "ramble",
-    "closetdelta",
-    "receipt-scanner",
-    "inventory-management-sys",
-    "logistics-data-engineering",
-    "enefit-forecasting",
-    "fraud-detection-platform",
-    "instacart-reorder-recommender",
-  ];
-  const featuredProjects = featuredProjectSlugs.flatMap((slug) => {
+  const spotlightProjects = spotlightProjectSlugs.flatMap((slug) => {
     const project = projects.find((item) => item.slug === slug);
 
     return project ? [project] : [];
@@ -155,101 +167,109 @@ export default function HomePage() {
       <StructuredData data={personJsonLd} />
 
       <section className="home-hero" aria-labelledby="home-title">
-        <div className="container">
-          <div className="home-kicker">
-            <span>Software Engineer</span>
-            <span>{siteConfig.location}</span>
-          </div>
-
+        <div className="container home-hero-shell">
           <div className="home-hero-copy">
-            <h1 id="home-title">Software engineer building backend-heavy products and data systems.</h1>
-            <p>
-              I'm Uday. I build Spring Boot, Go, FastAPI, and Next.js systems where the interesting
-              work lives in backend contracts, product workflows, transactional state, realtime
-              behavior, data pipelines, ML artifacts, and honest proof paths.
+            <p className="eyebrow">Uday Mukhija</p>
+            <h1 id="home-title">Software engineer for backend-heavy products and data systems.</h1>
+            <p className="hero-lede">
+              I build the parts that make products real: API contracts, transactional workflows,
+              realtime state, data pipelines, evaluation artifacts, and proof paths a reviewer can
+              inspect.
             </p>
-          </div>
 
-          <div className="home-actions" aria-label="Primary links">
-            <Link className="button button-solid" href="/projects">
-              View projects
-            </Link>
-            {isResumeExternal ? (
-              <a className="button button-ghost" {...resumeProps}>
-                Resume
-              </a>
-            ) : (
-              <Link className="button button-ghost" href={resumeHref}>
-                Resume
+            <div className="home-actions" aria-label="Primary links">
+              <Link className="button button-solid" href="/projects">
+                See the work
               </Link>
-            )}
-            {profileLinks.map((link) => (
-              <a
-                key={link.label}
-                className="button button-ghost"
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {link.label}
-              </a>
-            ))}
+              {isResumeExternal ? (
+                <a className="button button-ghost" {...resumeProps}>
+                  Resume
+                </a>
+              ) : (
+                <Link className="button button-ghost" href={resumeHref}>
+                  Resume
+                </Link>
+              )}
+            </div>
+
+            <div className="hero-profile-links" aria-label="Profile links">
+              {profileLinks.map((link) => (
+                <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
+                  {link.label}
+                </a>
+              ))}
+              <a href="#contact">Email</a>
+            </div>
           </div>
 
-          <dl className="snapshot-strip" aria-label="Portfolio snapshot">
-            {snapshotItems.map((item) => (
-              <div key={item.label}>
-                <dt>{item.label}</dt>
-                <dd>{item.value}</dd>
+          <aside className="hero-brief" aria-label="Portfolio snapshot">
+            <img src="/icon.svg" alt="" aria-hidden="true" />
+            <dl>
+              <div>
+                <dt>Based in</dt>
+                <dd>{siteConfig.location}</dd>
               </div>
-            ))}
-          </dl>
+              <div>
+                <dt>Core stack</dt>
+                <dd>Java, Go, FastAPI, Next.js, PostgreSQL</dd>
+              </div>
+              <div>
+                <dt>Portfolio</dt>
+                <dd>{projects.length} repo-grounded case studies</dd>
+              </div>
+              <div>
+                <dt>Strongest proof</dt>
+                <dd>Gathr, VibeGrid, Murmur, Stockout Pipeline, Fraud</dd>
+              </div>
+            </dl>
+          </aside>
         </div>
       </section>
 
       <HomeSection
-        eyebrow="Focus"
-        title="The work is product-first, with serious backend and data depth."
-        note="Start with the projects where domain rules, transactions, realtime behavior, queues, evaluation artifacts, and proof paths are visible."
+        eyebrow="Positioning"
+        title="Clear product judgment, with engineering depth behind it."
+        note="The site is organized around what the work proves, not just what libraries appear in the stack."
       >
-        <div className="focus-grid">
-          {focusAreas.map((area) => (
-            <article key={area.title} className="focus-card">
+        <div className="proof-grid">
+          {proofAreas.map((area) => (
+            <article key={area.label} className="proof-item">
+              <p className="eyebrow">{area.label}</p>
               <h3>{area.title}</h3>
               <p>{area.body}</p>
-              <div className="inline-link-row">
-                {area.links.map((link) => (
-                  <Link key={link.href} className="inline-link" href={link.href}>
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
             </article>
           ))}
         </div>
       </HomeSection>
 
       <HomeSection
-        eyebrow="Domains"
-        title="The technical surface area I want to be judged on."
+        eyebrow="Stack"
+        title="Broad tools, one throughline: systems that hold up under real product behavior."
         className="section-muted"
       >
-        <div className="domain-cloud" aria-label="Domains">
-          {domainItems.map((item) => (
-            <span key={item}>{item}</span>
+        <div className="stack-matrix" aria-label="Technical strengths">
+          {stackGroups.map((group) => (
+            <section key={group.label} className="stack-group">
+              <h3>{group.label}</h3>
+              <p>{group.items.join(" / ")}</p>
+            </section>
           ))}
         </div>
       </HomeSection>
 
       <HomeSection
         eyebrow="Selected work"
-        title="Fourteen local projects, grouped by what they demonstrate."
-        note="Use the lens if you're scoping for a specific role. The strongest entries pair product intent with implementation detail, metrics, proof paths, and honest limits."
+        title="Six entry points. The full archive is there when you want depth."
+        note="These are the fastest reads if you want to understand my judgment: product loops, backend state, data proof paths, and honest ML or AI boundaries."
       >
-        <ProjectEvidenceLens projects={featuredProjects} />
+        <div className="spotlight-list">
+          {spotlightProjects.map((project) => (
+            <SpotlightProject key={project.slug} project={project} />
+          ))}
+        </div>
         <div className="section-actions">
           <Link className="inline-link" href="/projects">
-            View all projects
+            View all {projects.length} projects
           </Link>
         </div>
       </HomeSection>
