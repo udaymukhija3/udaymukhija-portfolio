@@ -70,17 +70,12 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       proofPath ? `Follow the documented proof path: ${proofPath}.` : "Use the case-study evidence as the primary proof path.",
       inspectionTargets ? `Inspect these areas in the case study: ${inspectionTargets}.` : "Inspect the linked source or proof artifacts where available.",
     ];
-  const stackPreview = project.stack.slice(0, 5);
-  const stackSummary =
-    project.stack.length > stackPreview.length
-      ? `${stackPreview.join(", ")} +${project.stack.length - stackPreview.length}`
-      : stackPreview.join(", ");
   const metaItems = [
     { label: "Year", value: project.year },
     { label: "Role", value: getFact("Role") ?? "Software engineering" },
     { label: "Status", value: project.status },
     { label: "Scope", value: getFact("Scope") ?? "Self-directed project" },
-    { label: "Stack", value: stackSummary },
+    { label: "Best fit", value: getFact("Best fit") ?? "Product and systems work" },
     {
       label: "Evaluation path",
       value: proofPath ?? (primaryLink ? primaryLink.label : "Case study only"),

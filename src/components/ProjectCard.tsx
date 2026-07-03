@@ -7,8 +7,6 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project, detailed = false }: ProjectCardProps) {
-  const stackPreview = project.stack.slice(0, detailed ? 4 : 3);
-  const remainingStackCount = project.stack.length - stackPreview.length;
   const proofPath = project.facts.find((fact) => fact.label === "Proof")?.value;
   const proofBullets = project.highlights.slice(0, detailed ? 3 : 2);
   const githubLink = project.links.find((link) => link.href.includes("github.com"));
@@ -48,14 +46,6 @@ export function ProjectCard({ project, detailed = false }: ProjectCardProps) {
           <dd>{proofPath ?? "Case study"}</dd>
         </div>
       </dl>
-
-      <p className="project-stack">
-        <span>Stack</span>
-        <span>
-          {stackPreview.join(" / ")}
-          {remainingStackCount > 0 ? ` +${remainingStackCount}` : ""}
-        </span>
-      </p>
 
       <div className="project-links">
         <Link className="project-link project-link-primary" href={`/projects/${project.slug}`}>

@@ -9,7 +9,7 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A private-alpha local social planning app for reliable 2-6 person activities, with a Spring Boot backend, Expo mobile app, static web demo, group chat, reliability scoring, safety, privacy, and recommender infrastructure.",
+      "A private-alpha local planning product for reliable small-group activities, with joining, confirmation, group chat, reliability scoring, safety, privacy, and a reviewer demo.",
     description:
       "Gathr turns local intent into small plans: pick a neighborhood hub, see what is happening soon, join a 2-6 person activity, chat with the group, show up, and save places worth remembering. The current repo is a private-alpha/recruiter-demo codebase that demonstrates backend-heavy product systems: Spring Boot, Postgres, Redis, Flyway, phone OTP auth, WebSocket/STOMP chat, reliability mechanics, safety/report flows, privacy export/delete, launch flags, and recommender-system substrate while the alpha feed remains heuristic/fallback-first.",
     metrics: [
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A daily semantic grouping puzzle where one Go binary serves the exported Next.js frontend and owns answer secrecy, guest attempts, community puzzles, admin publishing, moderation, analytics, and observability.",
+      "A daily semantic grouping puzzle where the server owns answer secrecy, guest attempts, community puzzles, admin publishing, moderation, analytics, and observability.",
     description:
       "VibeGrid is a daily semantic grouping puzzle: 16 tiles, 4 hidden vibe-based categories, 4 mistakes, and spoiler-safe sharing. The local repo includes the core game loop, durable Postgres path, community puzzle links, password-backed admin desk, moderation queue, reports and appeals, migrations, CI, Docker, Fly/Render deploy config, structured logs, health/readiness probes, metrics, and monitoring templates. A quick demo runs without a database; Postgres unlocks the full product surface.",
     metrics: [
@@ -155,7 +155,7 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A private short-voice app with a Next.js client, Go API, magic-link auth, invite-only rooms, authenticated media, heard receipts, reactions, saved murmurs, Web Push nudges, PWA wiring, and metrics.",
+      "A private short-voice app with magic-link sign-in, invite-only rooms, media upload and playback, heard receipts, reactions, saved notes, nudges, notifications, and metrics.",
     description:
       "Murmur is a private voice-note product for close people. The Go-backed web MVP demonstrates the core loop: sign in, create a private room, invite someone, record up to 90 seconds, upload audio, play it back, update heard state, react, save, and export/delete account data. It includes membership checks on room, murmur, and media access; server-side audio-duration validation; SSE room updates; quiet hours and nudge plumbing; Web Push subscription management; PWA installability wiring; loop-health metrics; and a production deployment plan for Vercel, Render, managed Postgres, Resend, and private S3/R2 media.",
     metrics: [
@@ -222,7 +222,7 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "An operator-facing D2C support dashboard where a Go worker classifies tickets, retrieves context, applies deterministic rules, drafts a resolution, and waits for human approval.",
+      "An operator-facing D2C support dashboard that classifies tickets, retrieves order and policy context, proposes safe resolutions, drafts replies, and waits for human approval.",
     description:
       "ResolveOps is an AI order-issue resolver for Shopify-style D2C stores. It demonstrates the safer version of an AI workflow: LLM-style inference proposes, deterministic workflow and human approval decide. The local project includes a Go API and worker, Postgres schema and seed data, Redis-backed async jobs, a Next.js dashboard, retrieval over policies/orders/products/prior tickets, approval decisions, audit logs, monitoring, and a golden eval endpoint.",
     metrics: [
@@ -289,7 +289,7 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A playable web-first multiplayer party game with a Go WebSocket engine, server-authoritative rooms, rotating judges, timers, redacted per-viewer snapshots, guest-token reconnects, one-container deploy support, and optional Postgres room ownership routing.",
+      "A playable web-first multiplayer party game with server-authoritative rooms, rotating judges, timers, private per-player views, reconnects, smoke tests, and deployment routing notes.",
     description:
       "Punchline is a live party game: host a room, share a 4-character code or invite link, join from phones, answer a prompt, let a rotating judge pick the funniest submission, and play to a score limit. It demonstrates a production-leaning realtime backend: server-authoritative Go room engine, custom WebSocket transport, redacted room snapshots per viewer, guest-token reconnects, host-only controls, timers, bounded socket queues, origin checks, health/readiness probes, smoke tests, a Vite/React client, one-container API/WS/UI runtime, and optional Postgres room ownership leases for Fly.io replay routing. Active gameplay state is still in memory on the owning process.",
     metrics: [
@@ -355,7 +355,7 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A daily market-decision game backed by a Bayesian inference engine, deterministic puzzle generation, semantic answer validation, one-attempt sessions, Prisma/Postgres persistence, first-party analytics, rate limiting, sharing, and tests.",
+      "A daily market-decision game that tests expected-value judgment with generated puzzles, hidden answer keys, one-attempt sessions, profile stats, sharing, analytics, and tests.",
     description:
       "Mini Market is a daily decision-quality game. Players read a binary contract, weigh noisy signals against the quoted price, choose buy/sell/pass, set confidence, and learn the fair value and expected value afterward. It is a working Next.js app, not a static demo: daily puzzles are deterministically generated from calendar dates, public APIs hide solution data before submission, anonymous sessions get one attempt per puzzle, profile pages show streaks and calibration, sharing uses native/clipboard/SVG paths, and analytics/rate limits persist in Postgres when configured with an in-memory local fallback.",
     metrics: [
@@ -421,7 +421,7 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A voice-to-structured-card web MVP scaffold with browser recording/upload, a Go API, Postgres persistence, idempotent multipart creation, mock structuring, optional Sarvam STT, search, edit, copy, and delete.",
+      "A voice-to-structured-card MVP scaffold that records or uploads audio, creates saved cards, supports search/edit/copy/delete, and keeps provider boundaries clear.",
     description:
       "Ramble turns 30-90 seconds of messy speech into a title, summary, key points, tasks, tags, and a saved card. The current repo is a working web MVP scaffold: the Next.js frontend records or uploads audio, the Go net/http API creates recordings idempotently with clientUploadId, persists recordings/cards/tasks in Postgres, polls status, lists recent cards, searches card text/tags, and supports open/edit/save/copy/delete. Mock transcription and structuring keep the loop runnable by default, while a Sarvam Saaras v3 transcription adapter proves the provider seam for real speech-to-text.",
     metrics: [
@@ -553,7 +553,7 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A Spring Boot and React private expense archive with JWT auth, private receipt image storage, async OCR/parsing, user correction, review/confirmation, archive search, monthly summaries, CSV export, and smoke proof.",
+      "A private expense archive with receipt upload, async extraction, user correction, review and confirmation, archive search, monthly summaries, CSV export, and smoke proof.",
     description:
       "Receipt Scanner is a private archive for receipts, invoices, and payment screenshots. The current README says the local MVP loop is implemented and scriptable: registration/login, JWT-protected upload, S3-compatible object storage, async processing, mock OCR by default, optional Google Cloud Vision OCR, rule-based parsing, manual correction, review queue, confirmation, archive search/filter, monthly spending summary, CSV export, presigned image preview, account deletion, and a React/Vite UI for the core flows. It is still pre-production: no hosted deployment is claimed, and production storage/secrets/privacy/OCR setup still need hardening.",
     metrics: [
@@ -619,7 +619,7 @@ export const projects: Project[] = [
     category: "data",
     year: "2026",
     summary:
-      "A local data engineering pipeline that ingests messy 3PL CSV exports, validates and quarantines bad rows, models logistics operations in DuckDB/dbt, and exports SLA, exception, trip, and route-productivity reports.",
+      "A data engineering pipeline that turns messy logistics exports into trusted operations tables, reject reports, SLA views, exception reports, route productivity outputs, and a dashboard.",
     description:
       "Logistics Customer Ops Pipeline turns customer logistics exports into trusted daily operations tables. A config-driven ingestion layer maps raw CSV columns into canonical Bronze parquet, validates records with JSON Schema, writes reject reports for bad rows, and uses a SHA-based ledger for idempotent reruns. dbt then builds DuckDB staging/intermediate/mart models for shipments, SLA breaches, delivery exceptions, trips, and route productivity. The recruiter-facing local proof path runs ingestion, dbt, quality checks, CSV exports, verification, and a Streamlit control-tower dashboard.",
     metrics: [
@@ -686,13 +686,13 @@ export const projects: Project[] = [
     category: "data",
     year: "2026",
     summary:
-      "An event-driven inventory analytics pipeline that converts stock mutations into validated analytics outputs, run evidence, dbt marts, Redis/FastAPI serving, and a CI-gated stockout-prevention backtest.",
+      "An inventory data pipeline that converts stock changes into validated analytics, run evidence, reporting outputs, serving payloads, and a stockout-prevention backtest.",
     description:
       "Stockout Prevention Data Pipeline is an inventory operations and analytics project. Spring Boot inventory writes publish through a transactional outbox into Kafka, idempotent Python ETL materializes current metrics and history into Postgres/Redis/Parquet, FastAPI serves analytics, dbt builds tested marts, and a frontend monitor shows the run state. The project defends a business metric with a deterministic stockout-prevention backtest that records recall, precision, and estimated dollars saved, with CI failing if recall drops below 60%.",
     metrics: [
       { label: "Backtest gate", value: "60% recall" },
-      { label: "Event path", value: "Outbox -> Kafka" },
-      { label: "Serving", value: "FastAPI + Redis" },
+      { label: "Event path", value: "Transactional handoff" },
+      { label: "Serving", value: "Analytics payloads" },
       { label: "Proof", value: "make demo" },
     ],
     facts: [
@@ -710,18 +710,18 @@ export const projects: Project[] = [
       { label: "Decision path", value: "Stockout-prevention backtest records recall, precision, estimated dollars saved, and fails CI below threshold" },
     ],
     evidenceNote:
-      "This repo has one of the clearest proof paths: `make demo` produces API, DB, Redis, Parquet, dbt, quality, and backtest evidence for the supported stack.",
+      "This repo has one of the clearest proof paths: `make demo` produces database, serving, data-quality, reporting, and backtest evidence for the supported workflow.",
     evaluationPath: [
       "Open the GitHub repo and run `make demo`.",
-      "Inspect artifacts/demo, the backtest output, dbt reports, and quality artifacts.",
-      "Read the architecture section below for the transactional outbox, Kafka relay, ETL, Redis/FastAPI serving, and dbt marts.",
+      "Inspect artifacts/demo, the backtest output, quality reports, and generated reporting artifacts.",
+      "Read the architecture section below for operational writes, event handoff, processing, serving, and reporting.",
       "Check the README proof path and CI stockout-recall gate.",
     ],
     highlights: [
-      "Built the supported local path around inventory-service, data-pipeline-service, analytics-service, frontend, Postgres, Redis, Kafka, Prometheus, and Grafana.",
-      "Used a transactional outbox to avoid dual writes between inventory mutations and Kafka publication.",
+      "Built the supported local path around inventory writes, pipeline processing, analytics serving, dashboard views, event delivery, and monitoring.",
+      "Used a transactional outbox to avoid dual writes between inventory mutations and downstream event publication.",
       "Made the ETL idempotent through processed-event tracking, persisted invalid events, and separated current metrics from metric history.",
-      "Added dbt marts over analytics.daily_sales and a stockout-prevention backtest with a 60% recall CI gate.",
+      "Added reporting marts over daily sales and a stockout-prevention backtest with a 60% recall CI gate.",
     ],
     sections: [
       {
@@ -759,7 +759,7 @@ export const projects: Project[] = [
     category: "ml",
     year: "2026",
     summary:
-      "An artifact-backed known-shopper grocery reorder recommender with point-in-time validation, feature contracts, LightGBM/XGBoost rankers, calibrated ranking, baseline lift, FastAPI serving, Docker packaging, monitoring endpoints, and a browser demo.",
+      "A known-shopper grocery reorder recommender with leakage-aware data validation, saved training artifacts, calibrated ranking, baseline lift, serving endpoints, monitoring, and a browser demo.",
     description:
       "Instacart Reorder Recommender predicts which products a known Instacart shopper is likely to buy again in their next basket. It demonstrates ML engineering beyond a notebook: point-in-time data validation, feature contracts, leakage checks, deterministic demo bundle, LightGBM/XGBoost training, calibrated ranking, offline evaluation against realistic reorder baselines, saved run artifacts, FastAPI serving, OpenAPI docs, monitoring endpoints, Docker packaging, and a browser demo. It is not a cold-start discovery engine, chatbot cart assistant, online A/B-tested recommender, or proof of production revenue impact.",
     metrics: [
@@ -826,7 +826,7 @@ export const projects: Project[] = [
     category: "ml",
     year: "2026",
     summary:
-      "A production-oriented energy forecasting system with strict feature contracts, explicit consumption/production LightGBM artifacts, baseline leaderboards, walk-forward backtests, API/CLI serving, Prometheus metrics, and demo evidence packs.",
+      "An energy forecasting system with strict data contracts, separate consumption and production artifacts, baseline leaderboards, walk-forward backtests, serving paths, metrics, and demo evidence packs.",
     description:
       "Enefit Prosumer Forecasting predicts Estonian prosumer consumption and production. It demonstrates leakage-resistant time-series ML engineering: schema-validated ingestion, explicit processed data layers, causal weather and price joins, target-specific LightGBM artifacts, required baseline leaderboards on every run, strict feature-contract enforcement across training/API/CLI, optional uncertainty intervals, closed-loop walk-forward backtesting, ablation matrices, Prometheus metrics, drift/performance/retrain checks, and recruiter demo evidence under docs/assets.",
     metrics: [
@@ -893,7 +893,7 @@ export const projects: Project[] = [
     category: "ml",
     year: "2026",
     summary:
-      "A production-shaped IEEE-CIS fraud scorer with chronology-safe splits, offline/online feature contracts, calibrated probabilities, cost-aware thresholding, deploy-bundle serving, a browser review console, drift checks, challenger reports, and proof artifacts.",
+      "A production-shaped fraud scorer with chronology-safe evaluation, calibrated probabilities, cost-aware thresholds, a browser review console, drift checks, challenger reports, and proof artifacts.",
     description:
       "Fraud Detection Platform is built around the operational risks of fraud ML: temporal leakage, train/serve mismatch, arbitrary thresholds, poor calibration, challenger promotion, drift, and serving observability. The checked-in project merges transaction and identity data, preserves chronology through TransactionDT, validates offline and online feature contracts, trains a LightGBM artifact, calibrates probability with Platt scaling, selects a threshold from explicit false-positive/false-negative costs, packages a SHA256-manifest deploy bundle, serves predictions through FastAPI and a browser fraud review console, and exposes monitoring, proof packs, drift reports, and challenger benchmarks.",
     metrics: [
@@ -956,9 +956,9 @@ export const projects: Project[] = [
 
 export const projectCategories = [
   { id: "all", label: "All" },
-  { id: "product", label: "Product Systems" },
-  { id: "data", label: "Data Platforms" },
-  { id: "ml", label: "ML Systems" },
+  { id: "product", label: "Products" },
+  { id: "data", label: "Data Engineering" },
+  { id: "ml", label: "AI / ML" },
 ] as const;
 
 export function getProjectBySlug(slug: string) {

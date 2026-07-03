@@ -1,60 +1,56 @@
 export const resumeSummary = {
   eyebrow: "Resume",
-  title: "Software engineer building backend-heavy products and data systems",
+  title: "Software engineer building product, backend, data, and AI workflow systems",
   intro:
-    "I work with Spring Boot, Go, FastAPI, Next.js, PostgreSQL, Redis, Kafka, DuckDB/dbt, and ML serving artifacts. The strongest signal is product engineering with clear backend contracts, transactional state, realtime behavior, data pipelines, and evidence-backed evaluation.",
-  note: "Open to backend, platform, data-intensive, and backend-adjacent ML engineering roles.",
+    "I help teams turn rough ideas into working software: SaaS MVPs, internal tools, backend APIs, admin dashboards, data pipelines, and AI workflows with human review, clear tradeoffs, and maintainable code.",
+  note: "Open to backend, platform, data-intensive, AI product engineering, and production-readiness work.",
 };
 
 export const skillGroups = [
   {
-    label: "Languages",
-    items: ["Java", "Python", "JavaScript", "TypeScript", "SQL", "Scala", "Go", "C++"],
+    label: "Product delivery",
+    items: ["SaaS MVPs", "Internal tools", "Admin dashboards", "D2C workflows", "Demo-ready product loops"],
   },
   {
-    label: "Backend engineering",
+    label: "Backend systems",
     items: [
-      "Spring Boot",
-      "Go",
-      "FastAPI",
-      "REST APIs",
-      "JPA/Hibernate",
-      "JWT Auth",
-      "WebSocket",
-      "PostgreSQL",
-      "Redis",
-      "Kafka",
-      "Docker",
-      "AWS",
-    ],
-  },
-  {
-    label: "Backend concepts",
-    items: [
-      "ACID transactions",
-      "Database normalization",
       "API design",
-      "Rate limiting",
-      "Caching strategies",
-      "Optimistic locking",
-      "Pessimistic locking",
-      "Event-driven architecture",
+      "Authentication",
+      "Permissions",
+      "Workflow state",
+      "Admin operations",
+      "Rate limits",
+      "Caching",
+      "Reliable data models",
     ],
   },
   {
-    label: "Production engineering",
+    label: "AI workflows",
     items: [
-      "CI/CD",
-      "Observability",
-      "Integration testing",
-      "Cloud deployment",
-      "Message-driven services",
-      "System design",
+      "Ticket classification",
+      "RAG pipelines",
+      "Summarization",
+      "Structured extraction",
+      "Draft generation",
+      "Human approval",
+      "Evaluation cases",
     ],
   },
   {
-    label: "Data and ML",
-    items: ["Airflow", "Flink", "Spark", "MLflow", "PyTorch", "XGBoost", "Pandas", "NumPy"],
+    label: "Data engineering",
+    items: [
+      "Ingestion",
+      "Validation",
+      "Reject handling",
+      "Quality checks",
+      "Operational dashboards",
+      "Reporting outputs",
+      "Backtests",
+    ],
+  },
+  {
+    label: "Production readiness",
+    items: ["Deployment paths", "Smoke tests", "Observability", "Error handling", "Pagination", "Performance", "Reliability audits"],
   },
 ];
 
@@ -65,8 +61,8 @@ export const experienceItems = [
     period: "Jan. 2025 - Jun. 2025",
     location: "Gurugram, IN",
     bullets: [
-      "Migrated a legacy no-code data model to normalized PostgreSQL, enforcing relational structure and ACID-compliant storage for 50,000+ course records while eliminating redundant data.",
-      "Built a YouTube-to-Course engine using Python and FastAPI to transform unstructured video metadata into sequential curriculum modules, reducing course generation time by 85%.",
+      "Migrated a legacy no-code data model into a normalized relational model for 50,000+ course records while eliminating redundant data.",
+      "Built a YouTube-to-Course engine that transformed unstructured video metadata into sequential curriculum modules, reducing course generation time by 85%.",
     ],
   },
 ];
@@ -75,7 +71,7 @@ export const resumeProjects = [
   {
     title: "Gathr",
     href: "/projects/gathrly",
-    summary: "Spring Boot and Expo private-alpha local planning product with heuristic feed ranking, realtime chat, reliability scoring, privacy flows, and a static demo.",
+    summary: "Private-alpha local planning product with activity discovery, joining, confirmation, chat, reliability scoring, safety, privacy, and a static reviewer demo.",
     bullets: [
       "Modeled the discovery-to-attendance loop across hubs, activities, join/leave, confirmation, check-in, chat, Drops, safety, and privacy.",
       "Built backend-owned reliability and trust mechanics, including no-show penalties, report flows, blocked users, and data export/delete paths.",
@@ -84,18 +80,18 @@ export const resumeProjects = [
   {
     title: "VibeGrid",
     href: "/projects/vibegrid",
-    summary: "Go-backed daily word puzzle with server-authoritative rules, idempotent guesses, Postgres attempt locking, admin publishing, moderation, and metrics.",
+    summary: "Daily puzzle product with server-authoritative rules, duplicate-safe guesses, admin publishing, moderation, sharing, and operational metrics.",
     bullets: [
-      "Kept answer keys off the client by validating guesses in Go and revealing group data only after correct submissions.",
-      "Designed guest attempts around Postgres row locking and client guess IDs so retries and double-clicks are safe.",
+      "Kept answer keys off the client by validating guesses server-side and revealing group data only after correct submissions.",
+      "Designed guest attempts around database row locking and client guess IDs so retries and double-clicks are safe.",
     ],
   },
   {
     title: "Stockout Prevention Data Pipeline",
     href: "/projects/inventory-management-sys",
-    summary: "Inventory analytics pipeline with transactional outbox, Kafka, idempotent ETL, Redis/FastAPI serving, dbt marts, and a CI-gated stockout backtest.",
+    summary: "Inventory data pipeline that turns stock events into validated analytics, reporting evidence, and a CI-gated stockout-prevention backtest.",
     bullets: [
-      "Connected Spring Boot inventory writes to analytics through a transactional outbox, Kafka relay, Python ETL, Postgres marts, Redis cache, and Parquet artifacts.",
+      "Connected inventory writes to analytics through an event handoff, repeatable processing, data marts, cacheable payloads, and persisted artifacts.",
       "Added a stockout-prevention backtest that records recall, precision, and estimated dollars saved, with a CI gate on recall.",
     ],
   },

@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "Resume",
   description:
-    "Resume for Uday Mukhija, a software engineer building backend-heavy products, data platforms, and ML systems with Spring Boot, Go, FastAPI, Next.js, PostgreSQL, Redis, Kafka, and artifact-backed proof paths.",
+    "Resume for Uday Mukhija, a software engineer building production-ready apps, backend systems, dashboards, data pipelines, and AI-powered workflows.",
   alternates: {
     canonical: "/resume",
   },

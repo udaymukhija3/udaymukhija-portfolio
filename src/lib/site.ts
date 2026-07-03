@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Uday Mukhija",
   title: "Uday Mukhija | Software Engineer",
   description:
-    "Software engineer building backend-heavy products, realtime systems, AI workflows, data platforms, and ML systems with strong fundamentals around state, contracts, evals, reliability, and proof paths.",
+    "Software engineer helping SaaS founders, D2C brands, and small teams build production-ready apps, backend systems, dashboards, data pipelines, and AI-powered workflows.",
   location: "India",
 };
 

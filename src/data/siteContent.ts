@@ -3,52 +3,41 @@ export const resumeHref =
   "https://drive.google.com/file/d/1ewrfIQ2m4onv6HaPB-gNKj-rxPgZ8iCR/view?usp=drive_link";
 
 export const skills = [
-  "Go",
-  "Java",
-  "TypeScript",
-  "Python",
-  "PostgreSQL",
-  "Redis",
-  "Kafka",
-  "DuckDB",
-  "dbt",
-  "Backend Systems",
-  "Distributed Systems",
-  "Realtime Protocols",
-  "WebSocket/SSE",
-  "State Machines",
-  "Transaction Boundaries",
-  "Idempotency",
-  "REST APIs",
-  "AI Workflows",
-  "Retrieval-Augmented Generation",
-  "Human-in-the-Loop Guardrails",
-  "Feature Contracts",
-  "Model Evaluation",
-  "Calibration",
-  "Data Contracts",
-  "Schema Validation",
+  "SaaS MVPs",
+  "Internal tools",
+  "Backend systems",
+  "Admin dashboards",
+  "AI support workflows",
+  "RAG pipelines",
+  "Structured extraction",
+  "Human-approved AI drafts",
+  "Data pipelines",
+  "Operational dashboards",
+  "Data quality checks",
+  "Schema design",
+  "Authentication",
+  "Workflow automation",
+  "Production readiness",
   "Observability",
-  "LightGBM",
 ];
 
 export const snapshotItems = [
-  { label: "Focus", value: "Backend-heavy product systems" },
-  { label: "Operating range", value: "Go/Java services, realtime protocols, AI guardrails, evals, feature/data contracts" },
-  { label: "Strengths", value: "State ownership, transactions, idempotency, product workflows, proof paths" },
-  { label: "ML/data", value: "Retrieval workflows, feature contracts, calibration, dbt/quality proof paths" },
-  { label: "Best proof", value: "Gathr, VibeGrid, Stockout Pipeline" },
+  { label: "Focus", value: "Production-ready product and data systems" },
+  { label: "Operating range", value: "MVPs, internal tools, AI workflows, backend APIs, dashboards, data pipelines" },
+  { label: "Strengths", value: "Product loops, data models, edge cases, proof paths, reliability" },
+  { label: "AI/data", value: "Human-approved AI workflows, trusted analytics, quality checks, monitoring" },
+  { label: "Best proof", value: "ResolveOps, Stockout Pipeline, VibeGrid" },
   { label: "Based in", value: "India" },
 ];
 
 export const aboutBlurb =
-  "If you're skimming, start with these. They show how I think about backend boundaries, product workflows, transactional state, realtime behavior, data pipelines, and honest ML artifacts.";
+  "If you're skimming, start with these. They show how I think about product workflows, data models, operational edge cases, AI guardrails, and proof paths.";
 
 export const pillarCards = [
   {
-    title: "Product systems",
+    title: "Product systems and internal tools",
     body:
-      "Go, Spring Boot, and Next.js products with real domain rules: rooms, attempts, tickets, activities, media, moderation, and approvals.",
+      "Working products with real domain rules: rooms, tickets, activities, media, moderation, approvals, and admin workflows.",
     links: [
       { label: "Gathr", href: "/projects/gathrly" },
       { label: "VibeGrid", href: "/projects/vibegrid" },
@@ -56,9 +45,9 @@ export const pillarCards = [
     ],
   },
   {
-    title: "Data and ML systems",
+    title: "Data and AI workflows",
     body:
-      "Data contracts, dbt marts, backtests, calibration, feature contracts, deploy bundles, serving APIs, and proof artifacts.",
+      "Pipelines, dashboards, quality checks, retrieval workflows, structured outputs, evaluation paths, and proof artifacts.",
     links: [
       { label: "Stockout Pipeline", href: "/projects/inventory-management-sys" },
       { label: "Fraud", href: "/projects/fraud-detection-platform" },
@@ -70,12 +59,12 @@ export const pillarCards = [
 export const workPrinciples = [
   {
     title: "Keep the contract clear",
-    body: "I prefer explicit APIs, simple state transitions, and systems that are easy to reason about under failure.",
+    body: "I prefer clear product boundaries, simple state transitions, and systems that are easy to reason about under failure.",
   },
   {
     title: "Make correctness visible",
     body:
-      "For backend work, I care about transaction boundaries, cache behavior, retries, rate limits, and observability hooks.",
+      "For backend and data work, I care about validation, retries, idempotency, edge cases, and monitoring that shows what happened.",
   },
 ];
 

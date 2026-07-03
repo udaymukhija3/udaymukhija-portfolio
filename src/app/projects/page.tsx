@@ -32,7 +32,7 @@ const projectPriority = new Map(
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Project archive for backend-heavy product systems, data platforms, and ML systems work by Uday Mukhija, grounded in repos and proof artifacts.",
+    "Project archive for product systems, backend work, AI workflows, data engineering, dashboards, and proof-backed software by Uday Mukhija.",
   alternates: {
     canonical: "/projects",
   },
@@ -80,9 +80,9 @@ export default async function ProjectsPage({
           <p className="eyebrow">Work</p>
           <h1>Project archive</h1>
           <p>
-            Start with the three featured projects on the homepage. This page keeps the broader
-            set available for additional depth across product systems, data platforms, and ML
-            systems.
+            Start with the featured work on the homepage. This archive keeps the broader set
+            available for additional depth across product builds, internal tools, AI workflows,
+            data engineering, dashboards, and ML systems.
           </p>
         </div>
       </section>

@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 };
 
 const featuredProjectSlugs = [
-  "gathrly",
-  "vibegrid",
+  "resolveops",
   "inventory-management-sys",
+  "vibegrid",
 ];
 
 function HomeSection({
@@ -60,40 +60,77 @@ function getFact(project: Project, label: string) {
 }
 
 const featuredDescriptions: Record<string, string> = {
-  gathrly:
-    "Private-alpha local planning product with activity lifecycle state, auth, realtime chat, reliability, safety, and privacy flows.",
-  vibegrid:
-    "Server-authoritative daily puzzle game with transaction-safe guesses and production-minded deploy scaffolding.",
+  resolveops:
+    "AI order-issue resolver for D2C stores that classifies tickets, gathers order and policy context, and drafts agent-approved replies.",
   "inventory-management-sys":
-    "Event-driven inventory analytics pipeline connecting transactional writes to Kafka, ETL, serving, dbt marts, and stockout backtest evidence.",
+    "Inventory data pipeline that turns stock events into validated analytics, run evidence, and stockout-prevention decisions.",
+  vibegrid:
+    "Server-authoritative daily puzzle product with race-safe guesses, admin publishing, moderation, metrics, and a deployable operating path.",
 };
 
 const featuredProofs: Record<string, string[]> = {
-  gathrly: [
-    "Backend-owned activity lifecycle, OTP auth, reliability, safety, and privacy flows",
-    "Spring Boot, Postgres, Redis, Flyway, and WebSocket/STOMP chat paths",
-    "Product judgment around private-beta scope and reviewer-visible proof paths",
-  ],
-  vibegrid: [
-    "Server-side answer secrecy and idempotent guess handling",
-    "Postgres attempt locking, guest sessions, health checks, metrics, and deploy path",
-    "A compact game loop with admin publishing, moderation, and share surfaces",
+  resolveops: [
+    "Ticket classification, context retrieval, safe resolution proposals, and human approval",
+    "Workflow audit trail, escalation handling, monitoring payloads, and evaluation cases",
+    "Product judgment around AI features that assist operators instead of replacing them",
   ],
   "inventory-management-sys": [
-    "Transactional outbox from inventory writes into Kafka",
-    "Idempotent ETL, Redis/FastAPI serving, Parquet artifacts, and dbt marts",
-    "Stockout-prevention backtest with a CI-gated recall threshold",
+    "Reliable movement from operational inventory changes to analytics outputs",
+    "Data quality checks, invalid-row capture, reproducible demo evidence, and reporting artifacts",
+    "A stockout-prevention backtest tied to a business metric instead of dashboard decoration",
+  ],
+  vibegrid: [
+    "Server-side answer secrecy and duplicate-safe scoring",
+    "Guest play, creator links, admin publishing, reports, appeals, and moderation surfaces",
+    "Launch-minded health checks, metrics, rate limits, smoke tests, and deployment notes",
   ],
 };
 
 const strengthItems = [
-  "private access control",
-  "stateful workflows",
-  "realtime collaboration",
-  "transactional correctness",
-  "data pipelines",
+  "product loops with real backend state",
+  "multi-step workflows and admin tools",
+  "private access control and permissions",
+  "data models that can survive change",
+  "data ingestion, validation, and reporting",
   "AI workflows with human approval",
-  "evaluation and monitoring",
+  "production readiness and observability",
+  "clear tradeoffs for MVP scope",
+];
+
+const helpItems = [
+  "Build MVPs from rough product ideas into demo-ready software",
+  "Design backend APIs, data models, auth flows, and admin dashboards",
+  "Add AI features such as ticket classification, RAG, summarization, extraction, and draft generation",
+  "Improve existing apps with pagination, caching, error handling, deployment, and reliability work",
+  "Turn operational data into trusted dashboards, reports, and repeatable proof paths",
+];
+
+const fitItems = [
+  "SaaS MVPs",
+  "Internal tools",
+  "AI support dashboards",
+  "D2C and e-commerce workflows",
+  "Backend APIs",
+  "Admin panels",
+  "AI/RAG integrations",
+  "Data pipelines and dashboards",
+  "Schema design",
+  "Production-readiness audits",
+];
+
+const dataWorkItems = [
+  {
+    title: "Stockout Prevention Data Pipeline",
+    href: "/projects/inventory-management-sys",
+    body:
+      "Turns inventory changes into validated analytics, quality evidence, reporting outputs, and a stockout-prevention backtest.",
+  },
+  {
+    title: "Logistics Customer Ops Pipeline",
+    href: "/projects/logistics-data-engineering",
+    body:
+      "Turns messy customer logistics exports into trusted operations tables, reject reports, SLA views, route productivity reports, and a control-tower dashboard.",
+  },
 ];
 
 function FeaturedProjectCard({ project }: { project: Project }) {
@@ -199,17 +236,17 @@ export default function HomePage() {
           <div className="home-hero-copy">
             <p className="eyebrow">Uday Mukhija</p>
             <h1 id="home-title">
-              Software engineer building backend-heavy products, data systems, and AI workflows.
+              I build useful software for product teams with real operational problems.
             </h1>
             <p className="hero-lede">
-              I design product loops that hold up beyond the demo: API contracts, transactional
-              state, auth, realtime behavior, queues, data pipelines, evals, observability, and
-              deployment paths reviewers can inspect.
+              I help SaaS founders, D2C brands, and small teams turn rough product ideas into
+              working apps, backend systems, dashboards, APIs, data pipelines, and AI-powered
+              workflows.
             </p>
             <p className="hero-start">
-              Start with <Link href="/projects/gathrly">Gathr</Link>,{" "}
-              <Link href="/projects/vibegrid">VibeGrid</Link>, and{" "}
-              <Link href="/projects/inventory-management-sys">Stockout Pipeline</Link>.
+              Start with <Link href="/projects/resolveops">ResolveOps</Link>,{" "}
+              <Link href="/projects/inventory-management-sys">Stockout Pipeline</Link>, and{" "}
+              <Link href="/projects/vibegrid">VibeGrid</Link>.
             </p>
 
             <div className="home-actions" aria-label="Primary links">
@@ -230,19 +267,19 @@ export default function HomePage() {
             <dl className="availability-grid" aria-label="Availability and fit">
               <div>
                 <dt>Available for</dt>
-                <dd>Backend, platform, data-intensive, and AI product engineering roles</dd>
+                <dd>MVP builds, internal tools, backend systems, AI workflows, and data products</dd>
               </div>
               <div>
                 <dt>Location</dt>
                 <dd>India / Remote</dd>
               </div>
               <div>
-                <dt>Preferred stack</dt>
-                <dd>Go, Java/Spring Boot, Postgres, Redis, Next.js</dd>
+                <dt>Best fit</dt>
+                <dd>SaaS, D2C, support operations, dashboards, data-heavy workflows</dd>
               </div>
               <div>
                 <dt>Best proof</dt>
-                <dd>Gathr, VibeGrid, Stockout Pipeline</dd>
+                <dd>ResolveOps, Stockout Pipeline, VibeGrid</dd>
               </div>
             </dl>
           </div>
@@ -251,15 +288,15 @@ export default function HomePage() {
             <dl>
               <div>
                 <dt>Start here</dt>
-                <dd>Three case studies before the full archive.</dd>
+                <dd>Three proof paths before the full archive.</dd>
               </div>
               <div>
-                <dt>What to inspect</dt>
-                <dd>Architecture, status metadata, smoke paths, and source links.</dd>
+                <dt>What to look for</dt>
+                <dd>Product loop, data model, edge cases, proof path, and launch constraints.</dd>
               </div>
               <div>
                 <dt>Then go deeper</dt>
-                <dd>The project archive is available when you want more breadth.</dd>
+                <dd>The archive adds private apps, data engineering, ML systems, and internal tools.</dd>
               </div>
             </dl>
           </aside>
@@ -269,8 +306,8 @@ export default function HomePage() {
       <HomeSection
         id="work"
         eyebrow="Start here"
-        title="Three projects that carry the strongest signal."
-        note="The homepage is intentionally curated. The archive stays available for additional depth."
+        title="Three proof paths that show how I deliver."
+        note="AI workflow, data engineering, and backend product work before the full archive."
       >
         <div className="featured-project-grid">
           {featuredProjects.map((project) => (
@@ -282,7 +319,7 @@ export default function HomePage() {
       <HomeSection
         eyebrow="Strength"
         title="What I'm strong at"
-        note="I am strongest where product behavior creates backend complexity:"
+        note="I am strongest where product behavior creates backend, data, and operational complexity:"
         className="section-muted"
       >
         <ul className="strength-list">
@@ -293,14 +330,63 @@ export default function HomePage() {
       </HomeSection>
 
       <HomeSection
+        eyebrow="How I can help"
+        title="Useful software, not just code."
+        note="I think through the product, data model, backend behavior, edge cases, deployment path, and what will make the system reliable after launch."
+      >
+        <div className="service-grid">
+          <section className="service-panel">
+            <h3>I can help with</h3>
+            <ul className="service-list">
+              {helpItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="service-panel">
+            <h3>Good fit projects</h3>
+            <ul className="service-list service-list-compact">
+              {fitItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      </HomeSection>
+
+      <HomeSection
+        eyebrow="Data engineering"
+        title="I also build data work that operators can trust."
+        note="The data projects are about reliable ingestion, validation, quality checks, reports, and dashboards."
+        className="section-muted"
+      >
+        <div className="data-work-list">
+          {dataWorkItems.map((item) => (
+            <article key={item.href} className="data-work-item">
+              <h3>
+                <Link className="project-title-link" href={item.href}>
+                  {item.title}
+                </Link>
+              </h3>
+              <p>{item.body}</p>
+              <Link className="inline-link" href={item.href}>
+                Case study
+              </Link>
+            </article>
+          ))}
+        </div>
+      </HomeSection>
+
+      <HomeSection
         eyebrow="More work"
-        title="Additional systems are available, but secondary."
-        note="The archive holds the broader set of product, data, and ML case studies without making the homepage a catalog."
+        title="The archive is there when you want breadth."
+        note="Use it after the top examples, not as the first thing to evaluate."
       >
         <div className="archive-strip">
           <p>
-            Use it when you want to compare more systems after the top three: private media,
-            AI-assisted support, logistics marts, fraud scoring, and forecasting.
+            Compare private apps, internal tools, data pipelines, ML systems, and production-minded
+            experiments with clear status and proof paths.
           </p>
           <Link className="inline-link" href="/projects">
             Open project archive
@@ -311,9 +397,9 @@ export default function HomePage() {
       <HomeSection
         id="contact"
         eyebrow="Contact"
-        title="Want to evaluate the work quickly?"
+        title="Have a product or system that needs to work for real?"
         className="section-last contact-section"
-        note="Start with the three featured case studies, then open the repos and proof paths."
+        note="Send the problem, constraints, and what exists today. I will be most useful where the product loop, data model, and reliability details matter."
       >
         <div className="contact-strip">
           <a className="button button-solid" href={emailHref}>
