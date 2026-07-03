@@ -101,7 +101,7 @@ ul {
 }
 
 .container {
-  width: min(1120px, calc(100% - 48px));
+  width: min(1040px, calc(100% - 48px));
   margin: 0 auto;
 }
 
@@ -167,7 +167,7 @@ ul {
 }
 
 .section {
-  padding: 5rem 0;
+  padding: 6rem 0;
 }
 
 .section-compact-top {
@@ -175,7 +175,7 @@ ul {
 }
 
 .section-last {
-  padding-bottom: 5.5rem;
+  padding-bottom: 7rem;
 }
 
 .section-muted {
@@ -185,19 +185,19 @@ ul {
 }
 
 .section-tight {
-  padding-top: 3.5rem;
+  padding-top: 4.5rem;
 }
 
 .home-hero {
-  padding: 4rem 0 3.25rem;
+  padding: 4.75rem 0 4rem;
   border-bottom: 1px solid var(--line);
 }
 
 .home-hero-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.36fr);
-  gap: 4rem;
-  align-items: end;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.32fr);
+  gap: 5rem;
+  align-items: start;
 }
 
 .home-kicker {
@@ -213,16 +213,16 @@ ul {
 
 .home-hero-copy {
   display: grid;
-  gap: 1.15rem;
+  gap: 1.2rem;
   max-width: 760px;
 }
 
 .home-hero-copy h1 {
   max-width: 760px;
-  font-size: 3.55rem;
+  font-size: 2.85rem;
   font-weight: 680;
   letter-spacing: 0;
-  line-height: 1.03;
+  line-height: 1.08;
 }
 
 .home-hero-copy p:not(.eyebrow),
@@ -231,6 +231,16 @@ ul {
   color: var(--muted-strong);
   font-size: 1.08rem;
   line-height: 1.72;
+}
+
+.hero-start {
+  color: var(--text);
+  font-weight: 560;
+}
+
+.hero-start a {
+  color: var(--sage-dark);
+  text-decoration-color: rgba(23, 107, 92, 0.28);
 }
 
 .home-actions,
@@ -248,7 +258,7 @@ ul {
 }
 
 .home-actions {
-  margin-top: 0.45rem;
+  margin-top: 0.3rem;
 }
 
 .button,
@@ -348,17 +358,48 @@ ul {
   color: var(--sage-dark);
 }
 
-.hero-brief {
+.availability-grid {
   display: grid;
-  gap: 1.25rem;
-  padding-top: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  max-width: 760px;
+  margin-top: 1rem;
   border-top: 1px solid var(--line-strong);
 }
 
-.hero-brief img {
-  width: 3.4rem;
-  height: 3.4rem;
-  border-radius: 14px;
+.availability-grid div {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem 1rem 0.95rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.availability-grid div:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.availability-grid dt,
+.project-evaluation-meta dt {
+  color: var(--sage);
+  font-size: 0.76rem;
+  font-weight: 650;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.availability-grid dd,
+.project-evaluation-meta dd {
+  margin: 0;
+  color: var(--muted-strong);
+  line-height: 1.45;
+}
+
+.hero-brief {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 0.35rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-strong);
 }
 
 .hero-brief dl {
@@ -524,6 +565,99 @@ ul {
   line-height: 1.65;
 }
 
+.featured-project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.featured-project-card {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  min-height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.featured-project-card h3 {
+  font-size: 1.24rem;
+  font-weight: 680;
+  line-height: 1.22;
+}
+
+.project-proof-block {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.project-proof-block > p {
+  color: var(--text);
+  font-weight: 650;
+}
+
+.project-proof-block ul,
+.reviewer-steps {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--muted-strong);
+}
+
+.project-proof-block li,
+.reviewer-steps li {
+  line-height: 1.55;
+}
+
+.project-evaluation-meta {
+  display: grid;
+  gap: 0.65rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+.project-evaluation-meta div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.strength-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  max-width: 760px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.strength-list li {
+  list-style: none;
+  padding: 0.9rem 1rem 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted-strong);
+}
+
+.strength-list li:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.archive-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.archive-strip p {
+  max-width: 42rem;
+  color: var(--muted-strong);
+  line-height: 1.65;
+}
+
 .domain-cloud {
   display: flex;
   flex-wrap: wrap;
@@ -654,6 +788,16 @@ ul {
 .spotlight-list {
   display: grid;
   gap: 0;
+}
+
+.project-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.project-detail-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .work-list {
@@ -814,7 +958,8 @@ ul {
 .two-column,
 .resume-grid,
 .project-hero,
-.project-overview-grid {
+.project-overview-grid,
+.reviewer-path-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
@@ -976,6 +1121,16 @@ ul {
   border-top: 1px solid var(--line);
 }
 
+.project-card,
+.project-detail-card {
+  align-content: start;
+  min-height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.78);
+}
+
 .project-grid > .project-card:last-child,
 .project-detail-grid > .project-detail-card:last-child,
 .experience-list > .experience-row:last-child,
@@ -1126,12 +1281,15 @@ ul {
 
 @media (max-width: 900px) {
   .home-hero-copy h1 {
-    font-size: 3.15rem;
+    font-size: 2.45rem;
   }
 
   .home-hero-shell,
   .proof-grid,
-  .stack-matrix {
+  .stack-matrix,
+  .featured-project-grid,
+  .project-grid,
+  .project-detail-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1169,7 +1327,8 @@ ul {
   .resume-project-grid,
   .resume-grid,
   .project-hero,
-  .project-overview-grid {
+  .project-overview-grid,
+  .reviewer-path-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1213,7 +1372,7 @@ ul {
   }
 
   .container {
-    width: min(100% - 28px, 1120px);
+    width: min(100% - 28px, 1040px);
   }
 
   .nav-shell {
@@ -1268,6 +1427,27 @@ ul {
   .home-actions {
     align-items: center;
     flex-direction: row;
+  }
+
+  .availability-grid,
+  .strength-list {
+    grid-template-columns: 1fr;
+  }
+
+  .availability-grid div:nth-last-child(-n + 2),
+  .strength-list li:nth-last-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .availability-grid div:last-child,
+  .strength-list li:last-child {
+    border-bottom: 0;
+  }
+
+  .archive-strip {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
   }
 
   .hero-profile-links {

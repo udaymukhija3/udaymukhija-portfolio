@@ -1,35 +1,43 @@
-export const resumeHref = process.env.NEXT_PUBLIC_RESUME_URL || "/resume";
+export const resumeHref =
+  process.env.NEXT_PUBLIC_RESUME_URL ||
+  "https://drive.google.com/file/d/1ewrfIQ2m4onv6HaPB-gNKj-rxPgZ8iCR/view?usp=drive_link";
 
 export const skills = [
-  "Java",
-  "Spring Boot",
   "Go",
-  "FastAPI",
-  "Next.js",
+  "Java",
   "TypeScript",
+  "Python",
   "PostgreSQL",
   "Redis",
   "Kafka",
   "DuckDB",
   "dbt",
-  "WebSocket",
+  "Backend Systems",
+  "Distributed Systems",
+  "Realtime Protocols",
+  "WebSocket/SSE",
+  "State Machines",
+  "Transaction Boundaries",
+  "Idempotency",
   "REST APIs",
-  "JPA/Hibernate",
-  "JWT Auth",
-  "ACID transactions",
-  "Caching",
-  "Rate limiting",
-  "Docker",
-  "Python",
+  "AI Workflows",
+  "Retrieval-Augmented Generation",
+  "Human-in-the-Loop Guardrails",
+  "Feature Contracts",
+  "Model Evaluation",
+  "Calibration",
+  "Data Contracts",
+  "Schema Validation",
+  "Observability",
   "LightGBM",
 ];
 
 export const snapshotItems = [
   { label: "Focus", value: "Backend-heavy product systems" },
-  { label: "Main stack", value: "Java, Spring Boot, Go, FastAPI, Next.js, PostgreSQL" },
-  { label: "Strengths", value: "APIs, workflows, transactions, realtime state, data pipelines" },
-  { label: "ML/data", value: "Artifact-backed evaluation, serving contracts, dbt/quality proof paths" },
-  { label: "Best proof", value: "Gathr, VibeGrid, Murmur, Stockout Pipeline, Fraud" },
+  { label: "Operating range", value: "Go/Java services, realtime protocols, AI guardrails, evals, feature/data contracts" },
+  { label: "Strengths", value: "State ownership, transactions, idempotency, product workflows, proof paths" },
+  { label: "ML/data", value: "Retrieval workflows, feature contracts, calibration, dbt/quality proof paths" },
+  { label: "Best proof", value: "Gathr, VibeGrid, Stockout Pipeline" },
   { label: "Based in", value: "India" },
 ];
 

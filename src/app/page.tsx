@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { StructuredData } from "../components/StructuredData";
 import { projects } from "../data/projects";
-import { educationItems, experienceItems } from "../data/resume";
+import { educationItems } from "../data/resume";
 import { contactLinks, resumeHref, skills } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 import type { Project } from "../types";
@@ -20,46 +20,10 @@ export const metadata: Metadata = {
   },
 };
 
-const proofAreas = [
-  {
-    label: "Product systems",
-    title: "I ship the stateful product loop.",
-    body: "Activities, puzzle attempts, private voice rooms, ticket approvals, receipts, and inventory flows are modeled behind explicit backend contracts.",
-  },
-  {
-    label: "Data platforms",
-    title: "I make the proof path inspectable.",
-    body: "The stronger projects include migrations, smoke tests, quality checks, dashboards, evaluation artifacts, and README-level evidence for reviewers.",
-  },
-  {
-    label: "ML and AI",
-    title: "I keep model claims honest.",
-    body: "AI and ML work is framed around feature contracts, deterministic guardrails, human approval, calibration, serving bundles, and documented limits.",
-  },
-];
-
-const stackGroups = [
-  {
-    label: "Backend",
-    items: ["Java", "Spring Boot", "Go", "FastAPI", "PostgreSQL", "Redis"],
-  },
-  {
-    label: "Product",
-    items: ["Next.js", "TypeScript", "REST APIs", "WebSocket", "JWT auth", "Docker"],
-  },
-  {
-    label: "Data and ML",
-    items: ["Kafka", "DuckDB", "dbt", "Python", "LightGBM", "quality checks"],
-  },
-];
-
-const spotlightProjectSlugs = [
+const featuredProjectSlugs = [
   "gathrly",
   "vibegrid",
-  "murmur",
-  "resolveops",
   "inventory-management-sys",
-  "fraud-detection-platform",
 ];
 
 function HomeSection({
@@ -95,52 +59,116 @@ function getFact(project: Project, label: string) {
   return project.facts.find((fact) => fact.label === label)?.value;
 }
 
-function SpotlightProject({ project }: { project: Project }) {
-  const bestFit = getFact(project, "Best fit") ?? project.label;
+const featuredDescriptions: Record<string, string> = {
+  gathrly:
+    "Private-alpha local planning product with activity lifecycle state, auth, realtime chat, reliability, safety, and privacy flows.",
+  vibegrid:
+    "Server-authoritative daily puzzle game with transaction-safe guesses and production-minded deploy scaffolding.",
+  "inventory-management-sys":
+    "Event-driven inventory analytics pipeline connecting transactional writes to Kafka, ETL, serving, dbt marts, and stockout backtest evidence.",
+};
+
+const featuredProofs: Record<string, string[]> = {
+  gathrly: [
+    "Backend-owned activity lifecycle, OTP auth, reliability, safety, and privacy flows",
+    "Spring Boot, Postgres, Redis, Flyway, and WebSocket/STOMP chat paths",
+    "Product judgment around private-beta scope and reviewer-visible proof paths",
+  ],
+  vibegrid: [
+    "Server-side answer secrecy and idempotent guess handling",
+    "Postgres attempt locking, guest sessions, health checks, metrics, and deploy path",
+    "A compact game loop with admin publishing, moderation, and share surfaces",
+  ],
+  "inventory-management-sys": [
+    "Transactional outbox from inventory writes into Kafka",
+    "Idempotent ETL, Redis/FastAPI serving, Parquet artifacts, and dbt marts",
+    "Stockout-prevention backtest with a CI-gated recall threshold",
+  ],
+};
+
+const strengthItems = [
+  "private access control",
+  "stateful workflows",
+  "realtime collaboration",
+  "transactional correctness",
+  "data pipelines",
+  "AI workflows with human approval",
+  "evaluation and monitoring",
+];
+
+function FeaturedProjectCard({ project }: { project: Project }) {
   const proof = getFact(project, "Proof") ?? project.status;
+  const githubLink = project.links.find((link) => link.href.includes("github.com"));
+  const demoLink = project.links.find(
+    (link) => !link.href.includes("github.com") && link.label.toLowerCase().includes("demo"),
+  );
 
   return (
-    <article className="spotlight-row">
-      <div className="work-meta">
-        <span>{project.year}</span>
-        <span>{project.label}</span>
+    <article className="featured-project-card">
+      <div className="project-card-meta">
+        <p className="project-kicker">{project.label}</p>
+        <p className="project-status">{project.status}</p>
+      </div>
+      <h3>
+        <Link className="project-title-link" href={`/projects/${project.slug}`}>
+          {project.title}
+        </Link>
+      </h3>
+      <p className="project-summary">{featuredDescriptions[project.slug] ?? project.summary}</p>
+
+      <div className="project-proof-block">
+        <p>What it proves:</p>
+        <ul>
+          {(featuredProofs[project.slug] ?? project.highlights.slice(0, 3)).map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       </div>
 
-      <div className="spotlight-main">
-        <h3>
-          <Link href={`/projects/${project.slug}`}>{project.title}</Link>
-        </h3>
-        <p>{project.summary}</p>
-        <div className="evidence-proof">
-          <span>{bestFit}</span>
-          <span>{proof}</span>
+      <dl className="project-evaluation-meta">
+        <div>
+          <dt>Status</dt>
+          <dd>{project.status}</dd>
         </div>
-      </div>
+        <div>
+          <dt>Evaluation path</dt>
+          <dd>{proof}</dd>
+        </div>
+      </dl>
 
-      <div className="spotlight-side">
-        <p>{project.stack.slice(0, 4).join(" / ")}</p>
-        <Link className="inline-link" href={`/projects/${project.slug}`}>
+      <div className="project-links">
+        <Link className="project-link project-link-primary" href={`/projects/${project.slug}`}>
           Case study
         </Link>
+        {githubLink ? (
+          <a className="project-link" href={githubLink.href} target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        ) : null}
+        {demoLink ? (
+          <a className="project-link" href={demoLink.href} target="_blank" rel="noreferrer">
+            Demo
+          </a>
+        ) : null}
       </div>
     </article>
   );
 }
 
 export default function HomePage() {
-  const spotlightProjects = spotlightProjectSlugs.flatMap((slug) => {
+  const featuredProjects = featuredProjectSlugs.flatMap((slug) => {
     const project = projects.find((item) => item.slug === slug);
 
     return project ? [project] : [];
   });
   const socialLinks = contactLinks.filter((link) => link.href.startsWith("http"));
-  const profileLinks = socialLinks.filter(
-    (link) => link.label === "GitHub" || link.label === "LinkedIn",
-  );
   const isResumeExternal = resumeHref.startsWith("http");
   const resumeProps = isResumeExternal
     ? { href: resumeHref, target: "_blank", rel: "noreferrer" as const }
     : { href: resumeHref };
+  const emailHref = emailLink?.href ?? "mailto:udaymukhija3@gmail.com";
+  const githubLink = contactLinks.find((link) => link.label === "GitHub");
+  const linkedInLink = contactLinks.find((link) => link.label === "LinkedIn");
 
   const personJsonLd = {
     "@context": "https://schema.org",
@@ -170,16 +198,23 @@ export default function HomePage() {
         <div className="container home-hero-shell">
           <div className="home-hero-copy">
             <p className="eyebrow">Uday Mukhija</p>
-            <h1 id="home-title">Software engineer for backend-heavy products and data systems.</h1>
+            <h1 id="home-title">
+              Software engineer building backend-heavy products, data systems, and AI workflows.
+            </h1>
             <p className="hero-lede">
-              I build the parts that make products real: API contracts, transactional workflows,
-              realtime state, data pipelines, evaluation artifacts, and proof paths a reviewer can
-              inspect.
+              I design product loops that hold up beyond the demo: API contracts, transactional
+              state, auth, realtime behavior, queues, data pipelines, evals, observability, and
+              deployment paths reviewers can inspect.
+            </p>
+            <p className="hero-start">
+              Start with <Link href="/projects/gathrly">Gathr</Link>,{" "}
+              <Link href="/projects/vibegrid">VibeGrid</Link>, and{" "}
+              <Link href="/projects/inventory-management-sys">Stockout Pipeline</Link>.
             </p>
 
             <div className="home-actions" aria-label="Primary links">
               <Link className="button button-solid" href="/projects">
-                See the work
+                Work
               </Link>
               {isResumeExternal ? (
                 <a className="button button-ghost" {...resumeProps}>
@@ -192,34 +227,39 @@ export default function HomePage() {
               )}
             </div>
 
-            <div className="hero-profile-links" aria-label="Profile links">
-              {profileLinks.map((link) => (
-                <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
-                  {link.label}
-                </a>
-              ))}
-              <a href="#contact">Email</a>
-            </div>
+            <dl className="availability-grid" aria-label="Availability and fit">
+              <div>
+                <dt>Available for</dt>
+                <dd>Backend, platform, data-intensive, and AI product engineering roles</dd>
+              </div>
+              <div>
+                <dt>Location</dt>
+                <dd>India / Remote</dd>
+              </div>
+              <div>
+                <dt>Preferred stack</dt>
+                <dd>Go, Java/Spring Boot, Postgres, Redis, Next.js</dd>
+              </div>
+              <div>
+                <dt>Best proof</dt>
+                <dd>Gathr, VibeGrid, Stockout Pipeline</dd>
+              </div>
+            </dl>
           </div>
 
-          <aside className="hero-brief" aria-label="Portfolio snapshot">
-            <img src="/icon.svg" alt="" aria-hidden="true" />
+          <aside className="hero-brief" aria-label="Fast reviewer path">
             <dl>
               <div>
-                <dt>Based in</dt>
-                <dd>{siteConfig.location}</dd>
+                <dt>Start here</dt>
+                <dd>Three case studies before the full archive.</dd>
               </div>
               <div>
-                <dt>Core stack</dt>
-                <dd>Java, Go, FastAPI, Next.js, PostgreSQL</dd>
+                <dt>What to inspect</dt>
+                <dd>Architecture, status metadata, smoke paths, and source links.</dd>
               </div>
               <div>
-                <dt>Portfolio</dt>
-                <dd>{projects.length} repo-grounded case studies</dd>
-              </div>
-              <div>
-                <dt>Strongest proof</dt>
-                <dd>Gathr, VibeGrid, Murmur, Stockout Pipeline, Fraud</dd>
+                <dt>Then go deeper</dt>
+                <dd>The project archive is available when you want more breadth.</dd>
               </div>
             </dl>
           </aside>
@@ -227,112 +267,77 @@ export default function HomePage() {
       </section>
 
       <HomeSection
-        eyebrow="Positioning"
-        title="Clear product judgment, with engineering depth behind it."
-        note="The site is organized around what the work proves, not just what libraries appear in the stack."
+        id="work"
+        eyebrow="Start here"
+        title="Three projects that carry the strongest signal."
+        note="The homepage is intentionally curated. The archive stays available for additional depth."
       >
-        <div className="proof-grid">
-          {proofAreas.map((area) => (
-            <article key={area.label} className="proof-item">
-              <p className="eyebrow">{area.label}</p>
-              <h3>{area.title}</h3>
-              <p>{area.body}</p>
-            </article>
+        <div className="featured-project-grid">
+          {featuredProjects.map((project) => (
+            <FeaturedProjectCard key={project.slug} project={project} />
           ))}
         </div>
       </HomeSection>
 
       <HomeSection
-        eyebrow="Stack"
-        title="Broad tools, one throughline: systems that hold up under real product behavior."
+        eyebrow="Strength"
+        title="What I'm strong at"
+        note="I am strongest where product behavior creates backend complexity:"
         className="section-muted"
       >
-        <div className="stack-matrix" aria-label="Technical strengths">
-          {stackGroups.map((group) => (
-            <section key={group.label} className="stack-group">
-              <h3>{group.label}</h3>
-              <p>{group.items.join(" / ")}</p>
-            </section>
+        <ul className="strength-list">
+          {strengthItems.map((item) => (
+            <li key={item}>{item}</li>
           ))}
-        </div>
+        </ul>
       </HomeSection>
 
       <HomeSection
-        eyebrow="Selected work"
-        title="Six entry points. The full archive is there when you want depth."
-        note="These are the fastest reads if you want to understand my judgment: product loops, backend state, data proof paths, and honest ML or AI boundaries."
+        eyebrow="More work"
+        title="Additional systems are available, but secondary."
+        note="The archive holds the broader set of product, data, and ML case studies without making the homepage a catalog."
       >
-        <div className="spotlight-list">
-          {spotlightProjects.map((project) => (
-            <SpotlightProject key={project.slug} project={project} />
-          ))}
-        </div>
-        <div className="section-actions">
+        <div className="archive-strip">
+          <p>
+            Use it when you want to compare more systems after the top three: private media,
+            AI-assisted support, logistics marts, fraud scoring, and forecasting.
+          </p>
           <Link className="inline-link" href="/projects">
-            View all {projects.length} projects
+            Open project archive
           </Link>
-        </div>
-      </HomeSection>
-
-      <HomeSection
-        eyebrow="Experience"
-        title="Recent backend work and foundation."
-        className="section-tight"
-      >
-        <div className="two-column">
-          <div className="quiet-panel">
-            <h3>Experience</h3>
-            <div className="timeline-list">
-              {experienceItems.map((item) => (
-                <article key={item.company}>
-                  <div>
-                    <span>{item.period}</span>
-                    <span>{item.location}</span>
-                  </div>
-                  <h4>{item.role}</h4>
-                  <p>{item.company}</p>
-                  <p>{item.bullets[0]}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="quiet-panel">
-            <h3>Foundation</h3>
-            <div className="education-list">
-              {educationItems.map((item) => (
-                <article key={item.school}>
-                  <span>{item.period}</span>
-                  <h4>{item.school}</h4>
-                  <p>{item.detail}</p>
-                </article>
-              ))}
-            </div>
-          </div>
         </div>
       </HomeSection>
 
       <HomeSection
         id="contact"
         eyebrow="Contact"
-        title="If the work lines up, reach out."
+        title="Want to evaluate the work quickly?"
         className="section-last contact-section"
+        note="Start with the three featured case studies, then open the repos and proof paths."
       >
         <div className="contact-strip">
-          {contactLinks.map((link) => {
-            const isExternal = link.href.startsWith("http");
-
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noreferrer" : undefined}
-              >
-                {link.label}
-              </a>
-            );
-          })}
+          <a className="button button-solid" href={emailHref}>
+            Email me
+          </a>
+          {isResumeExternal ? (
+            <a className="button button-ghost" {...resumeProps}>
+              View resume
+            </a>
+          ) : (
+            <Link className="button button-ghost" href={resumeHref}>
+              View resume
+            </Link>
+          )}
+          {githubLink ? (
+            <a className="button button-ghost" href={githubLink.href} target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+          ) : null}
+          {linkedInLink ? (
+            <a className="button button-ghost" href={linkedInLink.href} target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+          ) : null}
         </div>
       </HomeSection>
     </>

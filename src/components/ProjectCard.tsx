@@ -9,6 +9,10 @@ type ProjectCardProps = {
 export function ProjectCard({ project, detailed = false }: ProjectCardProps) {
   const stackPreview = project.stack.slice(0, detailed ? 4 : 3);
   const remainingStackCount = project.stack.length - stackPreview.length;
+  const proofPath = project.facts.find((fact) => fact.label === "Proof")?.value;
+  const proofBullets = project.highlights.slice(0, detailed ? 3 : 2);
+  const githubLink = project.links.find((link) => link.href.includes("github.com"));
+  const otherLinks = project.links.filter((link) => link !== githubLink);
 
   return (
     <article className={detailed ? "project-detail-card" : "project-card"}>
@@ -23,8 +27,28 @@ export function ProjectCard({ project, detailed = false }: ProjectCardProps) {
           {project.title}
         </Link>
       </h3>
-      <p className="project-summary">{detailed ? project.description : project.summary}</p>
-      <p className="project-proof">{project.evidenceNote}</p>
+      <p className="project-summary">{project.summary}</p>
+
+      <div className="project-proof-block">
+        <p>What it proves:</p>
+        <ul>
+          {proofBullets.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <dl className="project-evaluation-meta">
+        <div>
+          <dt>Status</dt>
+          <dd>{project.status}</dd>
+        </div>
+        <div>
+          <dt>Evaluation path</dt>
+          <dd>{proofPath ?? "Case study"}</dd>
+        </div>
+      </dl>
+
       <p className="project-stack">
         <span>Stack</span>
         <span>
@@ -35,9 +59,14 @@ export function ProjectCard({ project, detailed = false }: ProjectCardProps) {
 
       <div className="project-links">
         <Link className="project-link project-link-primary" href={`/projects/${project.slug}`}>
-          View case study
+          Case study
         </Link>
-        {project.links.map((link) => (
+        {githubLink ? (
+          <a href={githubLink.href} className="project-link" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        ) : null}
+        {otherLinks.map((link) => (
           <a key={link.label} href={link.href} className="project-link" target="_blank" rel="noreferrer">
             {link.label}
           </a>

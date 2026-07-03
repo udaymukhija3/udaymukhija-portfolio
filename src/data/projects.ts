@@ -11,7 +11,7 @@ export const projects: Project[] = [
     summary:
       "A private-alpha local social planning app for reliable 2-6 person activities, with a Spring Boot backend, Expo mobile app, static web demo, group chat, reliability scoring, safety, privacy, and recommender infrastructure.",
     description:
-      "Gathr turns local intent into small plans: pick a neighborhood hub, see what is happening soon, join a 2-6 person activity, chat with the group, show up, and save places worth remembering. The current repo is a private-alpha/recruiter-demo codebase, not a public consumer network. It demonstrates backend-heavy product systems: Spring Boot, Postgres, Redis, Flyway, phone OTP auth, WebSocket/STOMP chat, reliability mechanics, safety/report flows, privacy export/delete, launch flags, and recommender-system substrate while the alpha feed remains heuristic/fallback-first.",
+      "Gathr turns local intent into small plans: pick a neighborhood hub, see what is happening soon, join a 2-6 person activity, chat with the group, show up, and save places worth remembering. The current repo is a private-alpha/recruiter-demo codebase that demonstrates backend-heavy product systems: Spring Boot, Postgres, Redis, Flyway, phone OTP auth, WebSocket/STOMP chat, reliability mechanics, safety/report flows, privacy export/delete, launch flags, and recommender-system substrate while the alpha feed remains heuristic/fallback-first.",
     metrics: [
       { label: "Backend", value: "Spring Boot" },
       { label: "Mobile", value: "Expo RN" },
@@ -33,7 +33,13 @@ export const projects: Project[] = [
       { label: "Launch boundary", value: "Private beta channel, one coded hub, Expo push provider, account deletion, non-core surfaces frozen off" },
     ],
     evidenceNote:
-      "The strongest framing is backend-heavy local social planning with trust, safety, reliability, privacy, and recommender infrastructure, not a launched public social network.",
+      "Best evaluated as a private-alpha local planning system with trust, safety, reliability, privacy, and recommender infrastructure.",
+    evaluationPath: [
+      "Open the GitHub repo and start with the README plus static web demo notes.",
+      "Read the architecture section below for lifecycle state, auth, realtime chat, privacy, and launch boundaries.",
+      "Inspect the LaunchManifest, backend/mobile verification docs, and WebSocket/STOMP chat paths referenced by the repo.",
+      "Run the documented verification path before treating it as more than a private-alpha reviewer demo.",
+    ],
     highlights: [
       "Built the activity lifecycle from discovery to attendance, including feed sections, join/leave, confirmation, check-in, completion, feedback, and Drops.",
       "Modeled reliability as backend state with human-readable blocking reasons rather than simple UI messaging.",
@@ -78,7 +84,7 @@ export const projects: Project[] = [
     summary:
       "A daily semantic grouping puzzle where one Go binary serves the exported Next.js frontend and owns answer secrecy, guest attempts, community puzzles, admin publishing, moderation, analytics, and observability.",
     description:
-      "VibeGrid is a daily semantic grouping puzzle: 16 tiles, 4 hidden vibe-based categories, 4 mistakes, and spoiler-safe sharing. It is not a static mockup: the local repo includes the core game loop, durable Postgres path, community puzzle links, password-backed admin desk, moderation queue, reports and appeals, migrations, CI, Docker, Fly/Render deploy config, structured logs, health/readiness probes, metrics, and monitoring templates. A quick demo runs without a database; Postgres unlocks the full product surface.",
+      "VibeGrid is a daily semantic grouping puzzle: 16 tiles, 4 hidden vibe-based categories, 4 mistakes, and spoiler-safe sharing. The local repo includes the core game loop, durable Postgres path, community puzzle links, password-backed admin desk, moderation queue, reports and appeals, migrations, CI, Docker, Fly/Render deploy config, structured logs, health/readiness probes, metrics, and monitoring templates. A quick demo runs without a database; Postgres unlocks the full product surface.",
     metrics: [
       { label: "Runtime", value: "One Go binary" },
       { label: "Guess safety", value: "Idempotent" },
@@ -101,6 +107,12 @@ export const projects: Project[] = [
     ],
     evidenceNote:
       "The repo proves more than gameplay: answer secrecy, idempotency, community creation, admin publishing, moderation, analytics, and same-origin deploy scaffolding are visible.",
+    evaluationPath: [
+      "Open the GitHub repo and run the no-database quick demo described in the README.",
+      "Read the architecture section below for rules, persistence, and operations.",
+      "Run the Go tests and smoke script from the repo docs.",
+      "Inspect the migrations plus /healthz, /readyz, /metrics, rate limits, and deploy configuration.",
+    ],
     highlights: [
       "Kept answer metadata server-side and made every guess pass through the Go rules engine.",
       "Used row locking plus client guess IDs so double clicks and retries do not corrupt attempt state.",
@@ -167,7 +179,7 @@ export const projects: Project[] = [
       { label: "Deployment", value: "Next.js on Vercel, Go API on Render, managed Postgres, Resend, private S3/R2 media" },
     ],
     evidenceNote:
-      "The local repo now shows the private voice loop plus saved-note retention and PWA installability; it still does not claim a permanent production URL or offline-first PWA.",
+      "Best evaluated as a private voice loop with saved-note retention and PWA installability; permanent production URL and offline-first behavior are outside the claim.",
     highlights: [
       "Built the narrow private voice loop instead of a broad public audio feed.",
       "Made the Go API authoritative for sessions, room membership, invite acceptance, murmur creation, playback, and reactions.",
@@ -699,6 +711,12 @@ export const projects: Project[] = [
     ],
     evidenceNote:
       "This repo has one of the clearest proof paths: `make demo` produces API, DB, Redis, Parquet, dbt, quality, and backtest evidence for the supported stack.",
+    evaluationPath: [
+      "Open the GitHub repo and run `make demo`.",
+      "Inspect artifacts/demo, the backtest output, dbt reports, and quality artifacts.",
+      "Read the architecture section below for the transactional outbox, Kafka relay, ETL, Redis/FastAPI serving, and dbt marts.",
+      "Check the README proof path and CI stockout-recall gate.",
+    ],
     highlights: [
       "Built the supported local path around inventory-service, data-pipeline-service, analytics-service, frontend, Postgres, Redis, Kafka, Prometheus, and Grafana.",
       "Used a transactional outbox to avoid dual writes between inventory mutations and Kafka publication.",

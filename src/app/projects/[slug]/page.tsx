@@ -57,6 +57,19 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
   const getFact = (label: string) => project.facts.find((fact) => fact.label === label)?.value;
   const primaryLink = project.links[0];
+  const proofPath = getFact("Proof");
+  const inspectionTargets = project.system
+    .slice(0, 3)
+    .map((item) => item.label)
+    .join(", ");
+  const evaluationSteps =
+    project.evaluationPath ??
+    [
+      primaryLink ? `Open the ${primaryLink.label}.` : "Start with the status and proof metadata.",
+      "Read the architecture section below.",
+      proofPath ? `Follow the documented proof path: ${proofPath}.` : "Use the case-study evidence as the primary proof path.",
+      inspectionTargets ? `Inspect these areas in the case study: ${inspectionTargets}.` : "Inspect the linked source or proof artifacts where available.",
+    ];
   const stackPreview = project.stack.slice(0, 5);
   const stackSummary =
     project.stack.length > stackPreview.length
@@ -69,8 +82,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     { label: "Scope", value: getFact("Scope") ?? "Self-directed project" },
     { label: "Stack", value: stackSummary },
     {
-      label: "Proof",
-      value: primaryLink ? primaryLink.label : getFact("Proof") ?? "Case study only",
+      label: "Evaluation path",
+      value: proofPath ?? (primaryLink ? primaryLink.label : "Case study only"),
     },
   ];
   const metricItems = project.metrics.slice(0, 3);
@@ -108,8 +121,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               {project.label} · {project.year}
             </p>
             <h1>{project.title}</h1>
-            <p className="lead">{project.description}</p>
-            <p className="detail-note">{project.evidenceNote}</p>
+            <p className="lead">{project.summary}</p>
             <div className="project-links">
               <Link className="project-link project-link-primary" href="/projects">
                 Back to projects
@@ -144,6 +156,36 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       </section>
 
       <section className="section section-compact-top">
+        <div className="container reviewer-path-grid">
+          <article className="content-block">
+            <p className="eyebrow">Reviewer path</p>
+            <h2>Fastest way to evaluate this</h2>
+            <ol className="reviewer-steps">
+              {evaluationSteps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </article>
+
+          <aside className="content-block status-proof-block">
+            <p className="eyebrow">Status</p>
+            <h2>Status and proof</h2>
+            <dl className="project-evaluation-meta">
+              <div>
+                <dt>Status</dt>
+                <dd>{project.status}</dd>
+              </div>
+              <div>
+                <dt>Evaluation path</dt>
+                <dd>{proofPath ?? "Case study"}</dd>
+              </div>
+            </dl>
+            <p>{project.evidenceNote}</p>
+          </aside>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="container project-overview-grid">
           <article className="content-block">
             <p className="eyebrow">Overview</p>

@@ -37,6 +37,7 @@ export type Project = {
   stack: string[];
   links: ProjectLink[];
   evidenceNote: string;
+  evaluationPath?: string[];
   featured?: boolean;
   flagship?: boolean;
 };

@@ -37,13 +37,6 @@ export function NavBar() {
               Resume
             </Link>
           )}
-          <Link
-            className={navLinkClassName(currentPathname === "/notes")}
-            href="/notes"
-            aria-current={currentPathname === "/notes" ? "page" : undefined}
-          >
-            Writing
-          </Link>
           <Link className="nav-link" href="/#contact">
             Contact
           </Link>

@@ -42,7 +42,7 @@ export const skillGroups = [
     ],
   },
   {
-    label: "Currently learning",
+    label: "Production engineering",
     items: [
       "CI/CD",
       "Observability",

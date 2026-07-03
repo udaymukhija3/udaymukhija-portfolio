@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SectionHeading } from "../../components/SectionHeading";
-import { contactLinks } from "../../data/siteContent";
+import { contactLinks, resumeHref } from "../../data/siteContent";
 import {
   educationItems,
   experienceItems,
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 
 export default function ResumePage() {
   const profileLinks = contactLinks.filter((link) => link.label !== "Resume");
+  const isResumeExternal = resumeHref.startsWith("http");
 
   return (
     <>
@@ -31,6 +32,14 @@ export default function ResumePage() {
           <p>{resumeSummary.intro}</p>
           <p className="detail-note">{resumeSummary.note}</p>
           <div className="inline-link-row">
+            <a
+              className="inline-link"
+              href={resumeHref}
+              target={isResumeExternal ? "_blank" : undefined}
+              rel={isResumeExternal ? "noreferrer" : undefined}
+            >
+              Resume document
+            </a>
             {profileLinks.map((link) => {
               const isExternal = link.href.startsWith("http");
 

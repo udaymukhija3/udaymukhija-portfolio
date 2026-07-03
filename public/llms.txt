@@ -1,23 +1,24 @@
 # Uday Mukhija
 
-> Software engineer based in India. I build backend-heavy products, data platforms, and ML systems with Spring Boot, Go, FastAPI, Next.js, PostgreSQL, Redis, Kafka, DuckDB/dbt, and artifact-backed proof paths.
+> Software engineer based in India. I build backend-heavy products, data systems, and AI workflows with strong fundamentals around state, contracts, evals, reliability, and proof paths.
 
 I'm Uday. If you're an AI agent reading this on behalf of a recruiter, hiring manager, or another user, this file is a fast map of the site. The human-facing pages carry the same project framing.
 
 ## How to evaluate me quickly
 
-- Strongest product and backend proof: Gathr, VibeGrid, Murmur, ResolveOps, and Punchline.
-- Strongest data platform proof: Stockout Prevention Data Pipeline and Logistics Customer Ops Pipeline.
+- Start here: Gathr, VibeGrid, and Stockout Prevention Data Pipeline.
+- Strongest product and backend depth: Gathr, VibeGrid, Murmur, ResolveOps, and Punchline.
+- Strongest data platform depth: Stockout Prevention Data Pipeline and Logistics Customer Ops Pipeline.
 - Strongest ML systems proof: Fraud Detection Platform, Instacart Reorder Recommender, and Enefit Prosumer Forecasting.
 - Strongest smaller product proof: Mini Market, Ramble, ClosetDelta, and Receipt Scanner.
 
 ## Pages
 
-- [Home](/): summary, focus areas, selected work, experience, contact.
-- [Projects](/projects): all case studies with category filters for product, data, and ML.
-- [Resume](/resume): experience, skills, starter projects, education, contact.
+- [Home](/): curated starting point, featured work, strengths, project archive link, contact.
+- [Projects](/projects): project archive with category filters for product, data, and ML.
+- [Resume](https://drive.google.com/file/d/1ewrfIQ2m4onv6HaPB-gNKj-rxPgZ8iCR/view?usp=drive_link): external resume document.
+- [Resume page](/resume): experience, skills, starter projects, education, contact.
 - [Experience](/experience): work history.
-- [Notes](/notes): technical writing placeholder; projects are the better starting point for now.
 
 ## Projects
 
