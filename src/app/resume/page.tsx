@@ -160,11 +160,11 @@ export default function ResumePage() {
               <Link className="inline-link" href="/projects/gathrly">
                 Gathr
               </Link>
+              <Link className="inline-link" href="/projects/murmur">
+                Murmur
+              </Link>
               <Link className="inline-link" href="/projects/vibegrid">
                 VibeGrid
-              </Link>
-              <Link className="inline-link" href="/projects/inventory-management-sys">
-                Stockout Pipeline
               </Link>
             </div>
             <div className="inline-link-row">

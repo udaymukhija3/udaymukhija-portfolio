@@ -26,22 +26,22 @@ export const snapshotItems = [
   { label: "Operating range", value: "MVPs, internal tools, AI workflows, backend APIs, dashboards, data pipelines" },
   { label: "Strengths", value: "Product loops, data models, edge cases, proof paths, reliability" },
   { label: "AI/data", value: "Human-approved AI workflows, trusted analytics, quality checks, monitoring" },
-  { label: "Best proof", value: "ResolveOps, Stockout Pipeline, VibeGrid" },
+  { label: "Best proof", value: "Gathr, Murmur, VibeGrid" },
   { label: "Based in", value: "India" },
 ];
 
 export const aboutBlurb =
-  "If you're skimming, start with these. They show how I think about product workflows, data models, operational edge cases, AI guardrails, and proof paths.";
+  "If you're skimming, start with Gathr, Murmur, and VibeGrid. They show how I think about private product loops, backend state, edge cases, launch boundaries, and proof paths.";
 
 export const pillarCards = [
   {
     title: "Product systems and internal tools",
     body:
-      "Working products with real domain rules: rooms, tickets, activities, media, moderation, approvals, and admin workflows.",
+      "Working products with real domain rules: local plans, invite-only rooms, private media, puzzle attempts, moderation, and admin workflows.",
     links: [
       { label: "Gathr", href: "/projects/gathrly" },
+      { label: "Murmur", href: "/projects/murmur" },
       { label: "VibeGrid", href: "/projects/vibegrid" },
-      { label: "ResolveOps", href: "/projects/resolveops" },
     ],
   },
   {

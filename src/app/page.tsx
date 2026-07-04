@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 };
 
 const featuredProjectSlugs = [
-  "resolveops",
-  "inventory-management-sys",
+  "gathrly",
+  "murmur",
   "vibegrid",
 ];
 
@@ -60,24 +60,24 @@ function getFact(project: Project, label: string) {
 }
 
 const featuredDescriptions: Record<string, string> = {
-  resolveops:
-    "AI order-issue resolver for D2C stores that classifies tickets, gathers order and policy context, and drafts agent-approved replies.",
-  "inventory-management-sys":
-    "Inventory data pipeline that turns stock events into validated analytics, run evidence, and stockout-prevention decisions.",
+  gathrly:
+    "Local planning product from the gathr-slice2-complete codebase, built around discovery, joining, confirmation, group chat, safety, privacy, and reviewer proof paths.",
+  murmur:
+    "Private short-voice product with invite-only rooms, magic-link sign-in, authenticated media, reactions, saved notes, nudges, notifications, and production-hardening work.",
   vibegrid:
     "Server-authoritative daily puzzle product with race-safe guesses, admin publishing, moderation, metrics, and a deployable operating path.",
 };
 
 const featuredProofs: Record<string, string[]> = {
-  resolveops: [
-    "Ticket classification, context retrieval, safe resolution proposals, and human approval",
-    "Workflow audit trail, escalation handling, monitoring payloads, and evaluation cases",
-    "Product judgment around AI features that assist operators instead of replacing them",
+  gathrly: [
+    "Discovery-to-attendance workflow with join, confirmation, check-in, chat, and post-meet memory paths",
+    "Backend-owned reliability, blocked-action reasons, reporting, privacy export, and account deletion",
+    "Reviewer paths across backend, mobile, static web demo, launch manifest, and verification docs",
   ],
-  "inventory-management-sys": [
-    "Reliable movement from operational inventory changes to analytics outputs",
-    "Data quality checks, invalid-row capture, reproducible demo evidence, and reporting artifacts",
-    "A stockout-prevention backtest tied to a business metric instead of dashboard decoration",
+  murmur: [
+    "Invite-only room membership gates room, voice note, playback, and media access",
+    "Magic-link sessions, upload validation, heard state, reactions, saved notes, and account export/delete",
+    "Notification, PWA, metrics, deployment, and security hardening around a narrow private product loop",
   ],
   vibegrid: [
     "Server-side answer secrecy and duplicate-safe scoring",
@@ -236,7 +236,7 @@ export default function HomePage() {
           <div className="home-hero-copy">
             <p className="eyebrow">Uday Mukhija</p>
             <h1 id="home-title">
-              I build useful software for product teams with real operational problems.
+              I build backend-heavy product systems for teams with real operational problems.
             </h1>
             <p className="hero-lede">
               I help SaaS founders, D2C brands, and small teams turn rough product ideas into
@@ -244,8 +244,8 @@ export default function HomePage() {
               workflows.
             </p>
             <p className="hero-start">
-              Start with <Link href="/projects/resolveops">ResolveOps</Link>,{" "}
-              <Link href="/projects/inventory-management-sys">Stockout Pipeline</Link>, and{" "}
+              Start with <Link href="/projects/gathrly">Gathr</Link>,{" "}
+              <Link href="/projects/murmur">Murmur</Link>, and{" "}
               <Link href="/projects/vibegrid">VibeGrid</Link>.
             </p>
 
@@ -267,7 +267,7 @@ export default function HomePage() {
             <dl className="availability-grid" aria-label="Availability and fit">
               <div>
                 <dt>Available for</dt>
-                <dd>MVP builds, internal tools, backend systems, AI workflows, and data products</dd>
+                <dd>Backend, platform, data-intensive, and AI product engineering roles</dd>
               </div>
               <div>
                 <dt>Location</dt>
@@ -275,11 +275,11 @@ export default function HomePage() {
               </div>
               <div>
                 <dt>Best fit</dt>
-                <dd>SaaS, D2C, support operations, dashboards, data-heavy workflows</dd>
+                <dd>SaaS, D2C, private product loops, internal tools, and data-heavy workflows</dd>
               </div>
               <div>
                 <dt>Best proof</dt>
-                <dd>ResolveOps, Stockout Pipeline, VibeGrid</dd>
+                <dd>Gathr, Murmur, VibeGrid</dd>
               </div>
             </dl>
           </div>
@@ -288,15 +288,15 @@ export default function HomePage() {
             <dl>
               <div>
                 <dt>Start here</dt>
-                <dd>Three proof paths before the full archive.</dd>
+                <dd>Gathr, Murmur, and VibeGrid before the full archive.</dd>
               </div>
               <div>
                 <dt>What to look for</dt>
-                <dd>Product loop, data model, edge cases, proof path, and launch constraints.</dd>
+                <dd>Product loop, access control, state, edge cases, proof path, and launch constraints.</dd>
               </div>
               <div>
                 <dt>Then go deeper</dt>
-                <dd>The archive adds private apps, data engineering, ML systems, and internal tools.</dd>
+                <dd>The archive adds data engineering, AI workflows, ML systems, and smaller product builds.</dd>
               </div>
             </dl>
           </aside>
@@ -306,8 +306,8 @@ export default function HomePage() {
       <HomeSection
         id="work"
         eyebrow="Start here"
-        title="Three proof paths that show how I deliver."
-        note="AI workflow, data engineering, and backend product work before the full archive."
+        title="Three headliners that show how I deliver."
+        note="Gathr and Murmur show private product systems. VibeGrid shows correctness-heavy product operations. Data engineering and AI work sit deeper in the archive."
       >
         <div className="featured-project-grid">
           {featuredProjects.map((project) => (

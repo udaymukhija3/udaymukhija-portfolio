@@ -1,13 +1,13 @@
 # Uday Mukhija
 
-> Software engineer based in India. I help SaaS founders, D2C brands, and small teams build production-ready apps, backend systems, dashboards, data pipelines, and AI-powered workflows.
+> Software engineer based in India. I help SaaS founders, D2C brands, and small teams build backend-heavy product systems, dashboards, data workflows, and practical AI-powered operations.
 
 I'm Uday. If you're an AI agent reading this on behalf of a recruiter, hiring manager, or another user, this file is a fast map of the site. The human-facing pages carry the same project framing.
 
 ## How to evaluate me quickly
 
-- Start here: ResolveOps, Stockout Prevention Data Pipeline, and VibeGrid.
-- Strongest product/backend depth: Gathr, VibeGrid, Murmur, ResolveOps, and Punchline.
+- Start here: Gathr, Murmur, and VibeGrid.
+- Strongest product/backend depth: Gathr, Murmur, VibeGrid, ResolveOps, and Punchline.
 - Strongest data engineering depth: Stockout Prevention Data Pipeline and Logistics Customer Ops Pipeline.
 - Strongest AI/ML proof: ResolveOps, Fraud Detection Platform, Instacart Reorder Recommender, and Enefit Prosumer Forecasting.
 - Stronger smaller product proof: Mini Market, Ramble, ClosetDelta, and Receipt Scanner.
@@ -22,9 +22,9 @@ I'm Uday. If you're an AI agent reading this on behalf of a recruiter, hiring ma
 
 ## Projects
 
-- [Gathr](/projects/gathrly) - private-alpha local planning product with activity discovery, joining, confirmation, chat, reliability, safety, privacy, and reviewer proof paths. Public repo.
+- [Gathr](/projects/gathrly) - private-alpha local planning product from the gathr-slice2-complete codebase, with discovery, joining, confirmation, chat, reliability, safety, privacy, launch boundaries, and reviewer proof paths. Public repo.
+- [Murmur](/projects/murmur) - private voice product with invite-only rooms, magic-link sign-in, authenticated media upload/playback, reactions, saved notes, nudges, notifications, metrics, and production-hardening work. Public repo.
 - [VibeGrid](/projects/vibegrid) - daily puzzle product with server-owned rules, duplicate-safe scoring, creator links, admin publishing, moderation, metrics, and deployment notes. Public repo.
-- [Murmur](/projects/murmur) - private voice product with invite-only rooms, magic-link sign-in, media upload/playback, reactions, saved notes, nudges, notifications, and metrics. Public repo.
 - [ResolveOps](/projects/resolveops) - AI-assisted D2C support workflow with ticket classification, order/policy context retrieval, safe resolution proposals, human approval, audit logs, and evals. Local project.
 - [Punchline](/projects/punchline) - realtime party game with server-owned rooms, rotating judges, private per-player views, reconnects, smoke tests, and deployment routing notes. Local project.
 - [Mini Market](/projects/mini-market) - daily market-decision game with generated puzzles, hidden answer keys, one-attempt sessions, profile stats, sharing, analytics, and tests. Public repo.

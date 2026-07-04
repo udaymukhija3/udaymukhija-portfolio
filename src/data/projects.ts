@@ -9,42 +9,43 @@ export const projects: Project[] = [
     category: "product",
     year: "2026",
     summary:
-      "A private-alpha local planning product for reliable small-group activities, with joining, confirmation, group chat, reliability scoring, safety, privacy, and a reviewer demo.",
+      "A private-alpha local planning product from gathr-slice2-complete, with discovery, joining, confirmation, group chat, reliability, safety, privacy, launch boundaries, and reviewer proof paths.",
     description:
-      "Gathr turns local intent into small plans: pick a neighborhood hub, see what is happening soon, join a 2-6 person activity, chat with the group, show up, and save places worth remembering. The current repo is a private-alpha/recruiter-demo codebase that demonstrates backend-heavy product systems: Spring Boot, Postgres, Redis, Flyway, phone OTP auth, WebSocket/STOMP chat, reliability mechanics, safety/report flows, privacy export/delete, launch flags, and recommender-system substrate while the alpha feed remains heuristic/fallback-first.",
+      "Gathr is the product system in the gathr-slice2-complete codebase. It turns local intent into small plans: pick a neighborhood hub, see what is happening soon, join a 2-6 person activity, chat with the group, show up, and save places worth remembering. The strongest evidence is product behavior that has to be owned by the backend: access, activity state, reliability, safety reports, privacy export/delete, launch flags, reviewer demo surfaces, and a recommender substrate whose current alpha path remains heuristic/fallback-first.",
     metrics: [
-      { label: "Backend", value: "Spring Boot" },
-      { label: "Mobile", value: "Expo RN" },
-      { label: "Launch hub", value: "Koramangala" },
+      { label: "Loop", value: "Discovery to attendance" },
+      { label: "Access", value: "Phone OTP" },
+      { label: "Review", value: "Static web demo" },
       { label: "Channel", value: "Private beta" },
     ],
     facts: [
-      { label: "Scope", value: "Private-alpha local social planning product with mobile, backend, and static demo" },
-      { label: "Role", value: "Backend architecture, product logic, trust/safety, mobile integration" },
+      { label: "Scope", value: "Private-alpha local social planning product with backend, mobile app, and static web demo" },
+      { label: "Role", value: "Backend architecture, product logic, trust/safety, mobile integration, reviewer proof path" },
       { label: "Status", value: "Public repo with a private-beta/TestFlight-style launch boundary" },
-      { label: "Proof", value: "README, LaunchManifest, static web demo, backend/mobile verification docs" },
+      { label: "Proof", value: "README, START_HERE, LaunchManifest, LOCAL_VERIFY, static web demo, backend/mobile verification docs" },
       { label: "Local source", value: "/Users/udaymukhija/gathr-slice2-complete" },
       { label: "Best fit", value: "Backend product systems and social-platform roles" },
     ],
     system: [
       { label: "Product loop", value: "Hub selection, feed browse, activity join, group chat, confirmation, check-in, post-meet Drop" },
-      { label: "Backend", value: "Spring Boot, PostgreSQL, Flyway, Redis, Caffeine, JWT refresh rotation, Docker/Render demo path" },
-      { label: "Realtime", value: "Activity-scoped STOMP/SockJS chat with fallback, typing, presence, rate limits, idempotent client message IDs" },
+      { label: "State", value: "Backend-owned activity lifecycle, reliability movement, blocked-action reasons, safety reports, privacy export/delete" },
+      { label: "Realtime", value: "Activity-scoped chat with fallback behavior, typing, presence, rate limits, idempotent client message IDs" },
       { label: "Launch boundary", value: "Private beta channel, one coded hub, Expo push provider, account deletion, non-core surfaces frozen off" },
+      { label: "Reviewer surfaces", value: "Static web demo, local backend/mobile verification guide, launch manifest, release contracts, and runbooks" },
     ],
     evidenceNote:
-      "Best evaluated as a private-alpha local planning system with trust, safety, reliability, privacy, and recommender infrastructure.",
+      "Best evaluated from the gathr-slice2-complete proof path: product loop, launch manifest, backend/mobile verification, safety, privacy, reliability, and recommender substrate.",
     evaluationPath: [
-      "Open the GitHub repo and start with the README plus static web demo notes.",
-      "Read the architecture section below for lifecycle state, auth, realtime chat, privacy, and launch boundaries.",
-      "Inspect the LaunchManifest, backend/mobile verification docs, and WebSocket/STOMP chat paths referenced by the repo.",
-      "Run the documented verification path before treating it as more than a private-alpha reviewer demo.",
+      "Open the GitHub repo or local gathr-slice2-complete README, then read START_HERE for the current doc map.",
+      "Open the static web demo notes to understand the reviewer-facing product loop without installing the mobile app.",
+      "Read the architecture section below for activity state, access, chat, reliability, safety, privacy, and launch boundaries.",
+      "Inspect LaunchManifest, LOCAL_VERIFY, backend/mobile verification docs, and the release contracts before making production claims.",
     ],
     highlights: [
       "Built the activity lifecycle from discovery to attendance, including feed sections, join/leave, confirmation, check-in, completion, feedback, and Drops.",
       "Modeled reliability as backend state with human-readable blocking reasons rather than simple UI messaging.",
       "Implemented realtime activity chat with WebSocket delivery paths, typing/presence, rate limiting, and blocked-user filtering.",
-      "Kept the alpha honest with a static sample-data web preview, demo-mode backend deploy, launch flags, and a clear boundary between heuristic ranking and future model-backed ranking.",
+      "Kept the alpha honest with a static sample-data web preview, demo-mode backend deploy, launch flags, release contracts, and a clear boundary between heuristic ranking and future model-backed ranking.",
     ],
     sections: [
       {
@@ -57,8 +58,8 @@ export const projects: Project[] = [
       {
         title: "Technical perspective",
         paragraphs: [
-          "The backend demonstrates API boundaries, lifecycle state, transactional persistence, Flyway migrations, Redis-backed operational paths, Caffeine caching, JWT refresh rotation, and WebSocket chat.",
-          "The repo also contains recommender substrate: event tracking, feature-store concepts, ONNX/model-serving hooks, promotion gates, semantic search, and graph ideas. The honest alpha story is still heuristic/fallback-first ranking, not a trained production recommendation model.",
+          "The backend owns the product contracts that matter: activity state, join and confirmation rules, chat delivery, reliability movement, safety reports, blocked users, privacy export/delete, launch flags, and reviewer-mode fallbacks.",
+          "The repo also contains recommender substrate: event tracking, feature-store concepts, model-serving hooks, promotion gates, semantic search, and graph ideas. The honest alpha story is still heuristic/fallback-first ranking, not a trained production recommendation model.",
         ],
       },
       {
@@ -93,9 +94,9 @@ export const projects: Project[] = [
     ],
     facts: [
       { label: "Scope", value: "Daily puzzle product with backend-owned rules and publishing tools" },
-      { label: "Role", value: "Go API, game rules, data model, Next.js UI, moderation/admin flow" },
+      { label: "Role", value: "Product rules, scoring contracts, data model, player flow, moderation/admin operations" },
       { label: "Status", value: "Public repo; deploy-ready locally, permanent production URL not claimed" },
-      { label: "Proof", value: "README, Go tests, migrations, smoke script, deployment docs" },
+      { label: "Proof", value: "README, service tests, migrations, smoke script, deployment docs" },
       { label: "Local source", value: "/Users/udaymukhija/Vibegrid" },
       { label: "Best fit", value: "Backend/product roles with correctness-heavy state" },
     ],
@@ -110,7 +111,7 @@ export const projects: Project[] = [
     evaluationPath: [
       "Open the GitHub repo and run the no-database quick demo described in the README.",
       "Read the architecture section below for rules, persistence, and operations.",
-      "Run the Go tests and smoke script from the repo docs.",
+      "Run the service tests and smoke script from the repo docs.",
       "Inspect the migrations plus /healthz, /readyz, /metrics, rate limits, and deploy configuration.",
     ],
     highlights: [
@@ -161,25 +162,31 @@ export const projects: Project[] = [
     metrics: [
       { label: "Voice cap", value: "90 seconds" },
       { label: "Auth", value: "Magic link" },
-      { label: "Backend", value: "Go API" },
+      { label: "Access", value: "Invite-only rooms" },
       { label: "Retention", value: "Saved murmurs" },
     ],
     facts: [
       { label: "Scope", value: "Private room-based voice MVP" },
-      { label: "Role", value: "Go API, auth, access control, media flow, product UI" },
+      { label: "Role", value: "Auth, access control, media flow, room state, product UI, production hardening" },
       { label: "Status", value: "Public repo; local MVP and production-capable scaffold, permanent URL not claimed" },
-      { label: "Proof", value: "README, VERIFY.md, Go service tests, deployment docs" },
+      { label: "Proof", value: "README, VERIFY.md, service tests, deployment docs" },
       { label: "Local source", value: "/Users/udaymukhija/Murmur" },
       { label: "Best fit", value: "Backend/product roles around private media and access control" },
     ],
     system: [
       { label: "Product loop", value: "Magic-link sign-in, private room, invite, record, upload, play, heard state, react, save, nudge" },
-      { label: "Backend", value: "Go net/http API with pgx, SQL migrations, sessions, events, notifications, metrics" },
+      { label: "Backend contracts", value: "Server-owned sessions, room membership, media ingestion, events, notifications, and metrics" },
       { label: "Privacy", value: "Room membership gates room, murmur, and media endpoints; saved murmurs remain visible to the saver after normal expiry" },
       { label: "Deployment", value: "Next.js on Vercel, Go API on Render, managed Postgres, Resend, private S3/R2 media" },
     ],
     evidenceNote:
-      "Best evaluated as a private voice loop with saved-note retention and PWA installability; permanent production URL and offline-first behavior are outside the claim.",
+      "Best evaluated as a private voice product where room membership, media access, saved-note retention, notifications, and deploy/security posture are backend contracts.",
+    evaluationPath: [
+      "Open the GitHub repo and start with the README plus VERIFY.md.",
+      "Walk the core loop: sign in, create a room, invite someone, record, upload, play back, react, save, and nudge.",
+      "Inspect membership checks around rooms, murmurs, and media access, plus server-side media duration validation.",
+      "Run the documented service tests and review the deployment/security notes before treating it as more than the current production-capable scaffold.",
+    ],
     highlights: [
       "Built the narrow private voice loop instead of a broad public audio feed.",
       "Made the Go API authoritative for sessions, room membership, invite acceptance, murmur creation, playback, and reactions.",

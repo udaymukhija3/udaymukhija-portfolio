@@ -71,10 +71,19 @@ export const resumeProjects = [
   {
     title: "Gathr",
     href: "/projects/gathrly",
-    summary: "Private-alpha local planning product with activity discovery, joining, confirmation, chat, reliability scoring, safety, privacy, and a static reviewer demo.",
+    summary: "Private-alpha local planning product from gathr-slice2-complete, with discovery, joining, confirmation, chat, reliability, safety, privacy, and reviewer proof paths.",
     bullets: [
       "Modeled the discovery-to-attendance loop across hubs, activities, join/leave, confirmation, check-in, chat, Drops, safety, and privacy.",
       "Built backend-owned reliability and trust mechanics, including no-show penalties, report flows, blocked users, and data export/delete paths.",
+    ],
+  },
+  {
+    title: "Murmur",
+    href: "/projects/murmur",
+    summary: "Private short-voice product with invite-only rooms, authenticated media, saved notes, nudges, notifications, metrics, and deployment hardening.",
+    bullets: [
+      "Made room membership authoritative across invite acceptance, room access, voice-note creation, playback, reactions, and saved-note retention.",
+      "Added server-side media validation, account export/delete paths, notification settings, PWA installability, loop-health metrics, and deploy/security checks.",
     ],
   },
   {
@@ -83,16 +92,7 @@ export const resumeProjects = [
     summary: "Daily puzzle product with server-authoritative rules, duplicate-safe guesses, admin publishing, moderation, sharing, and operational metrics.",
     bullets: [
       "Kept answer keys off the client by validating guesses server-side and revealing group data only after correct submissions.",
-      "Designed guest attempts around database row locking and client guess IDs so retries and double-clicks are safe.",
-    ],
-  },
-  {
-    title: "Stockout Prevention Data Pipeline",
-    href: "/projects/inventory-management-sys",
-    summary: "Inventory data pipeline that turns stock events into validated analytics, reporting evidence, and a CI-gated stockout-prevention backtest.",
-    bullets: [
-      "Connected inventory writes to analytics through an event handoff, repeatable processing, data marts, cacheable payloads, and persisted artifacts.",
-      "Added a stockout-prevention backtest that records recall, precision, and estimated dollars saved, with a CI gate on recall.",
+      "Designed guest attempts around row locking and client guess IDs so retries and double-clicks do not corrupt scoring.",
     ],
   },
 ];

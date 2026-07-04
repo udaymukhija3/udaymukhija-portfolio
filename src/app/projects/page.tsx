@@ -13,8 +13,8 @@ type ActiveCategory = ProjectCategory | "all";
 const projectPriority = new Map(
   [
     "gathrly",
-    "vibegrid",
     "murmur",
+    "vibegrid",
     "resolveops",
     "punchline",
     "mini-market",
