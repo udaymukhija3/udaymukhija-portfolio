@@ -78,12 +78,8 @@ export default async function ProjectsPage({
       <section className="section page-intro">
         <div className="container page-intro-shell page-intro-narrow">
           <p className="eyebrow">Work</p>
-          <h1>Project archive</h1>
-          <p>
-            Start with the featured work on the homepage. This archive keeps the broader set
-            available for additional depth across product builds, internal tools, AI workflows,
-            data engineering, dashboards, and ML systems.
-          </p>
+          <h1>Selected projects, with the engineering behavior they prove.</h1>
+          <p>Start with Gathr, Murmur, and VibeGrid. The rest is here for depth.</p>
         </div>
       </section>
 

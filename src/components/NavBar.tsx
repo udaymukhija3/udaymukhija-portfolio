@@ -2,19 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { resumeHref } from "../data/siteContent";
+import { contactLinks, resumeHref } from "../data/siteContent";
 
 export function NavBar() {
   const pathname = usePathname();
   const currentPathname = pathname ?? "";
   const isExternalResume = resumeHref.startsWith("http");
+  const emailHref = contactLinks.find((link) => link.label === "Email")?.href ?? "mailto:udaymukhija3@gmail.com";
   const navLinkClassName = (isActive: boolean) => (isActive ? "nav-link is-active" : "nav-link");
 
   return (
     <header className="site-header">
       <div className="container nav-shell">
         <Link className="brand" href="/">
-          Uday Mukhija
+          <span>Uday Mukhija</span>
         </Link>
         <nav className="nav" aria-label="Primary">
           <Link
@@ -37,9 +38,9 @@ export function NavBar() {
               Resume
             </Link>
           )}
-          <Link className="nav-link" href="/#contact">
-            Contact
-          </Link>
+          <a className="nav-link" href={emailHref}>
+            Email
+          </a>
         </nav>
       </div>
     </header>

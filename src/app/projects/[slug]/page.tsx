@@ -82,6 +82,12 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     },
   ];
   const metricItems = project.metrics.slice(0, 3);
+  const currentProjectIndex = projects.findIndex((item) => item.slug === project.slug);
+  const previousProject = currentProjectIndex > 0 ? projects[currentProjectIndex - 1] : undefined;
+  const nextProject =
+    currentProjectIndex >= 0 && currentProjectIndex < projects.length - 1
+      ? projects[currentProjectIndex + 1]
+      : undefined;
 
   const repoLink = project.links.find((link) => link.href.includes("github.com"));
   const projectJsonLd = {
@@ -129,7 +135,39 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             </div>
           </div>
 
-          <aside className="detail-panel" aria-label="Project metadata">
+          <aside className="detail-panel" aria-label="Fastest way to evaluate this project">
+            <p className="eyebrow">Reviewer path</p>
+            <h2>Fastest way to evaluate this</h2>
+            <ol className="reviewer-steps">
+              {evaluationSteps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </aside>
+        </div>
+      </section>
+
+      <section className="section section-compact-top">
+        <div className="container reviewer-path-grid">
+          <article className="content-block">
+            <p className="eyebrow">Status</p>
+            <h2>Status and proof</h2>
+            <dl className="project-evaluation-meta">
+              <div>
+                <dt>Status</dt>
+                <dd>{project.status}</dd>
+              </div>
+              <div>
+                <dt>Evaluation path</dt>
+                <dd>{proofPath ?? "Case study"}</dd>
+              </div>
+            </dl>
+            <p>{project.evidenceNote}</p>
+          </article>
+
+          <aside className="content-block" aria-label="Project metadata">
+            <p className="eyebrow">Metadata</p>
+            <h2>What to know first</h2>
             <dl className="meta-list">
               {metaItems.map((item) => (
                 <div key={item.label}>
@@ -146,36 +184,6 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 </div>
               ))}
             </div>
-          </aside>
-        </div>
-      </section>
-
-      <section className="section section-compact-top">
-        <div className="container reviewer-path-grid">
-          <article className="content-block">
-            <p className="eyebrow">Reviewer path</p>
-            <h2>Fastest way to evaluate this</h2>
-            <ol className="reviewer-steps">
-              {evaluationSteps.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ol>
-          </article>
-
-          <aside className="content-block status-proof-block">
-            <p className="eyebrow">Status</p>
-            <h2>Status and proof</h2>
-            <dl className="project-evaluation-meta">
-              <div>
-                <dt>Status</dt>
-                <dd>{project.status}</dd>
-              </div>
-              <div>
-                <dt>Evaluation path</dt>
-                <dd>{proofPath ?? "Case study"}</dd>
-              </div>
-            </dl>
-            <p>{project.evidenceNote}</p>
           </aside>
         </div>
       </section>
@@ -218,6 +226,15 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               ))}
             </article>
           ))}
+          <nav className="project-next" aria-label="Project navigation">
+            <Link href="/projects">All work</Link>
+            <div>
+              {previousProject ? (
+                <Link href={`/projects/${previousProject.slug}`}>Previous: {previousProject.title}</Link>
+              ) : null}
+              {nextProject ? <Link href={`/projects/${nextProject.slug}`}>Next: {nextProject.title}</Link> : null}
+            </div>
+          </nav>
         </div>
       </section>
     </>
