@@ -71,7 +71,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       inspectionTargets ? `Inspect these areas in the case study: ${inspectionTargets}.` : "Inspect the linked source or proof artifacts where available.",
     ];
   const metaItems = [
-    { label: "Year", value: project.year },
+    { label: "Build window", value: project.timeline },
     { label: "Role", value: getFact("Role") ?? "Software engineering" },
     { label: "Status", value: project.status },
     { label: "Scope", value: getFact("Scope") ?? "Self-directed project" },
@@ -108,7 +108,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     },
     programmingLanguage: project.stack,
     keywords: [...project.stack, project.category, project.label].join(", "),
-    datePublished: project.year,
+    ...(project.dateCreated ? { dateCreated: project.dateCreated } : {}),
+    ...(project.dateModified ? { dateModified: project.dateModified } : {}),
   };
 
   return (
@@ -119,7 +120,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="container project-hero">
           <div className="project-hero-copy">
             <p className="eyebrow">
-              {project.label} · {project.year}
+              {project.label} · {project.timeline}
             </p>
             <h1>{project.title}</h1>
             <p className="lead">{project.summary}</p>

@@ -54,7 +54,10 @@ function sortProjects(items: Project[]) {
       return flagshipDelta;
     }
 
-    return Number(right.year) - Number(left.year);
+    const leftDate = left.sortDate ?? left.dateModified ?? left.dateCreated ?? "";
+    const rightDate = right.sortDate ?? right.dateModified ?? right.dateCreated ?? "";
+
+    return rightDate.localeCompare(leftDate);
   });
 }
 

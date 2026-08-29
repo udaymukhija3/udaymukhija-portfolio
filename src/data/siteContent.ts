@@ -3,35 +3,37 @@ export const resumeHref =
   "https://drive.google.com/file/d/1ewrfIQ2m4onv6HaPB-gNKj-rxPgZ8iCR/view?usp=drive_link";
 
 export const skills = [
-  "SaaS MVPs",
-  "Internal tools",
-  "Backend systems",
-  "Admin dashboards",
-  "AI support workflows",
-  "RAG pipelines",
-  "Structured extraction",
-  "Human-approved AI drafts",
-  "Data pipelines",
-  "Operational dashboards",
-  "Data quality checks",
-  "Schema design",
-  "Authentication",
-  "Workflow automation",
-  "Production readiness",
-  "Observability",
+  "Go backend services",
+  "Java domain services",
+  "Python ML and data systems",
+  "TypeScript product surfaces",
+  "PostgreSQL transactional design",
+  "Redis queues and realtime coordination",
+  "WebSocket and SSE protocols",
+  "Kafka and event-driven workflows",
+  "DuckDB and dbt analytics",
+  "Spark and Airflow-style pipelines",
+  "RAG and retrieval workflows",
+  "LLM evals and guardrails",
+  "Structured outputs",
+  "Human-approved AI actions",
+  "Idempotency and state machines",
+  "Auth and privacy boundaries",
+  "Data contracts and quality gates",
+  "Observability and launch readiness",
 ];
 
 export const snapshotItems = [
-  { label: "Focus", value: "Production-ready product and data systems" },
-  { label: "Operating range", value: "MVPs, internal tools, AI workflows, backend APIs, dashboards, data pipelines" },
-  { label: "Strengths", value: "Product loops, data models, edge cases, proof paths, reliability" },
-  { label: "AI/data", value: "Human-approved AI workflows, trusted analytics, quality checks, monitoring" },
+  { label: "Focus", value: "Backend-heavy product systems that hold up under real use" },
+  { label: "Operating range", value: "Realtime protocols, AI workflows, evals, data contracts, dashboards, and launch paths" },
+  { label: "Strengths", value: "State, idempotency, auth boundaries, edge cases, proof paths, reliability" },
+  { label: "AI/data", value: "Human-approved AI actions, retrieval, quality gates, trusted analytics, monitoring" },
   { label: "Best proof", value: "Gathr, Murmur, VibeGrid" },
   { label: "Based in", value: "India" },
 ];
 
 export const aboutBlurb =
-  "If you're skimming, start with Gathr, Murmur, and VibeGrid. They show how I think about private product loops, backend state, edge cases, launch boundaries, and proof paths.";
+  "If you're skimming, start with Gathr, VibeGrid, Murmur, Punchline, and Mini Market. They show how I think about product state, realtime protocols, access boundaries, eval-style proof, and launch constraints.";
 
 export const pillarCards = [
   {

@@ -17,7 +17,7 @@ export function ProjectCard({ project, detailed = false }: ProjectCardProps) {
       <div className="project-card-meta">
         <p className="project-kicker">{project.label}</p>
         <p className="project-status">
-          {project.year} · {project.status}
+          {project.timeline} · {project.status}
         </p>
       </div>
       <h3>

@@ -7,11 +7,14 @@ export const projects: Project[] = [
     label: "Private-Alpha Social Planning",
     status: "Public repo",
     category: "product",
-    year: "2026",
+    timeline: "Dec 2025-Jul 2026",
+    sortDate: "2026-07-07",
+    dateCreated: "2025-12-04",
+    dateModified: "2026-07-07",
     summary:
-      "A private-alpha local planning product from gathr-slice2-complete, with discovery, joining, confirmation, group chat, reliability, safety, privacy, launch boundaries, and reviewer proof paths.",
+      "A private-alpha local planning product with discovery, joining, confirmation, group chat, reliability, safety, privacy, launch boundaries, and reviewer proof paths.",
     description:
-      "Gathr is the product system in the gathr-slice2-complete codebase. It turns local intent into small plans: pick a neighborhood hub, see what is happening soon, join a 2-6 person activity, chat with the group, show up, and save places worth remembering. The strongest evidence is product behavior that has to be owned by the backend: access, activity state, reliability, safety reports, privacy export/delete, launch flags, reviewer demo surfaces, and a recommender substrate whose current alpha path remains heuristic/fallback-first.",
+      "Gathr turns local intent into small plans: pick a neighborhood hub, see what is happening soon, join a 2-6 person activity, chat with the group, show up, and save places worth remembering. The strongest evidence is product behavior that has to be owned by the backend: access, activity state, reliability, safety reports, privacy export/delete, launch flags, reviewer demo surfaces, and a recommender substrate whose current alpha path remains heuristic/fallback-first.",
     metrics: [
       { label: "Loop", value: "Discovery to attendance" },
       { label: "Access", value: "Phone OTP" },
@@ -23,7 +26,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Backend architecture, product logic, trust/safety, mobile integration, reviewer proof path" },
       { label: "Status", value: "Public repo with a private-beta/TestFlight-style launch boundary" },
       { label: "Proof", value: "README, START_HERE, LaunchManifest, LOCAL_VERIFY, static web demo, backend/mobile verification docs" },
-      { label: "Local source", value: "/Users/udaymukhija/gathr-slice2-complete" },
       { label: "Best fit", value: "Backend product systems and social-platform roles" },
     ],
     system: [
@@ -34,9 +36,9 @@ export const projects: Project[] = [
       { label: "Reviewer surfaces", value: "Static web demo, local backend/mobile verification guide, launch manifest, release contracts, and runbooks" },
     ],
     evidenceNote:
-      "Best evaluated from the gathr-slice2-complete proof path: product loop, launch manifest, backend/mobile verification, safety, privacy, reliability, and recommender substrate.",
+      "Best evaluated from the proof path: product loop, launch manifest, backend/mobile verification, safety, privacy, reliability, and recommender substrate.",
     evaluationPath: [
-      "Open the GitHub repo or local gathr-slice2-complete README, then read START_HERE for the current doc map.",
+      "Open the GitHub repo README, then read START_HERE for the current doc map.",
       "Open the static web demo notes to understand the reviewer-facing product loop without installing the mobile app.",
       "Read the architecture section below for activity state, access, chat, reliability, safety, privacy, and launch boundaries.",
       "Inspect LaunchManifest, LOCAL_VERIFY, backend/mobile verification docs, and the release contracts before making production claims.",
@@ -81,7 +83,10 @@ export const projects: Project[] = [
     label: "Daily Puzzle Product",
     status: "Public repo",
     category: "product",
-    year: "2026",
+    timeline: "Jun-Jul 2026",
+    sortDate: "2026-07-01",
+    dateCreated: "2026-06-02",
+    dateModified: "2026-07-01",
     summary:
       "A daily semantic grouping puzzle where the server owns answer secrecy, guest attempts, community puzzles, admin publishing, moderation, analytics, and observability.",
     description:
@@ -97,7 +102,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Product rules, scoring contracts, data model, player flow, moderation/admin operations" },
       { label: "Status", value: "Public repo; deploy-ready locally, permanent production URL not claimed" },
       { label: "Proof", value: "README, service tests, migrations, smoke script, deployment docs" },
-      { label: "Local source", value: "/Users/udaymukhija/Vibegrid" },
       { label: "Best fit", value: "Backend/product roles with correctness-heavy state" },
     ],
     system: [
@@ -154,7 +158,10 @@ export const projects: Project[] = [
     label: "Private Voice Product",
     status: "Public repo",
     category: "product",
-    year: "2026",
+    timeline: "Jun 2026",
+    sortDate: "2026-06-12",
+    dateCreated: "2026-06-07",
+    dateModified: "2026-06-12",
     summary:
       "A private short-voice app with magic-link sign-in, invite-only rooms, media upload and playback, heard receipts, reactions, saved notes, nudges, notifications, and metrics.",
     description:
@@ -170,7 +177,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Auth, access control, media flow, room state, product UI, production hardening" },
       { label: "Status", value: "Public repo; local MVP and production-capable scaffold, permanent URL not claimed" },
       { label: "Proof", value: "README, VERIFY.md, service tests, deployment docs" },
-      { label: "Local source", value: "/Users/udaymukhija/Murmur" },
       { label: "Best fit", value: "Backend/product roles around private media and access control" },
     ],
     system: [
@@ -227,7 +233,9 @@ export const projects: Project[] = [
     label: "AI Support Workflow",
     status: "Local project",
     category: "product",
-    year: "2026",
+    timeline: "Jul 2026 evidence pass",
+    sortDate: "2026-07-07",
+    dateModified: "2026-07-07",
     summary:
       "An operator-facing D2C support dashboard that classifies tickets, retrieves order and policy context, proposes safe resolutions, drafts replies, and waits for human approval.",
     description:
@@ -243,7 +251,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Workflow design, Go API/worker, rule engine, dashboard, evals" },
       { label: "Status", value: "Local project with Docker Compose demo path" },
       { label: "Proof", value: "README, schema/seed SQL, workflow code, eval endpoint, monitoring payload" },
-      { label: "Local source", value: "/Users/udaymukhija/resolveops" },
       { label: "Best fit", value: "AI product engineering and backend workflow roles" },
     ],
     system: [
@@ -294,7 +301,10 @@ export const projects: Project[] = [
     label: "Realtime Party Game",
     status: "Local project",
     category: "product",
-    year: "2026",
+    timeline: "Jun 2026",
+    sortDate: "2026-06-13",
+    dateCreated: "2026-06-13",
+    dateModified: "2026-06-13",
     summary:
       "A playable web-first multiplayer party game with server-authoritative rooms, rotating judges, timers, private per-player views, reconnects, smoke tests, and deployment routing notes.",
     description:
@@ -310,7 +320,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Go game engine, WebSocket protocol, React client, deployment shape" },
       { label: "Status", value: "Playable local v0; optional Postgres ownership registry, no durable game recovery yet" },
       { label: "Proof", value: "README, Go tests, frontend build, Dockerfile, Fly config, realtime smoke script" },
-      { label: "Local source", value: "/Users/udaymukhija/punchline_codebase" },
       { label: "Best fit", value: "Realtime backend and product engineering roles" },
     ],
     system: [
@@ -360,7 +369,10 @@ export const projects: Project[] = [
     label: "Decision Puzzle Product",
     status: "Public repo",
     category: "product",
-    year: "2026",
+    timeline: "May-Jun 2026",
+    sortDate: "2026-06-11",
+    dateCreated: "2026-05-23",
+    dateModified: "2026-06-11",
     summary:
       "A daily market-decision game that tests expected-value judgment with generated puzzles, hidden answer keys, one-attempt sessions, profile stats, sharing, analytics, and tests.",
     description:
@@ -376,7 +388,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Domain model, scoring engine, generator, API routes, product UI" },
       { label: "Status", value: "Public repo; working local app, production hardening still partial" },
       { label: "Proof", value: "README, tests, puzzle validator, Prisma schema, CI commands" },
-      { label: "Local source", value: "/Users/udaymukhija/MiniMarket" },
       { label: "Best fit", value: "Product engineering roles with domain modeling" },
     ],
     system: [
@@ -426,7 +437,7 @@ export const projects: Project[] = [
     label: "Voice Notes Product",
     status: "Local MVP scaffold",
     category: "product",
-    year: "2026",
+    timeline: "Local scaffold",
     summary:
       "A voice-to-structured-card MVP scaffold that records or uploads audio, creates saved cards, supports search/edit/copy/delete, and keeps provider boundaries clear.",
     description:
@@ -442,7 +453,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Product scope, Go API, data model, provider seams, frontend loop" },
       { label: "Status", value: "Working local MVP scaffold; demo-grade auth and inline processing" },
       { label: "Proof", value: "README, product docs, Go build/test scripts, provider seam" },
-      { label: "Local source", value: "/Users/udaymukhija/Ramble" },
       { label: "Best fit", value: "Backend/product roles involving async media and AI providers" },
     ],
     system: [
@@ -492,7 +502,7 @@ export const projects: Project[] = [
     label: "Wardrobe Decision Engine",
     status: "Local MVP",
     category: "product",
-    year: "2026",
+    timeline: "Local MVP",
     summary:
       "A local wardrobe purchase decision app that scores whether a candidate item unlocks useful outfits against an existing closet, then saves the verdict, evidence, and feedback for deterministic scoring updates.",
     description:
@@ -508,7 +518,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Product scope, scoring model, UI components, API shape" },
       { label: "Status", value: "Local MVP; not production-ready, no accounts or hosted storage" },
       { label: "Proof", value: "README, app routes, dev store, scoring/feedback tests, Prisma schema" },
-      { label: "Local source", value: "/Users/udaymukhija/Closet" },
       { label: "Best fit", value: "Product engineering roles with explainable decision logic" },
     ],
     system: [
@@ -558,7 +567,10 @@ export const projects: Project[] = [
     label: "Expense Archive",
     status: "Public repo; local MVP",
     category: "product",
-    year: "2026",
+    timeline: "Dec 2025-Jul 2026",
+    sortDate: "2026-07-05",
+    dateCreated: "2025-12-12",
+    dateModified: "2026-07-05",
     summary:
       "A private expense archive with receipt upload, async extraction, user correction, review and confirmation, archive search, monthly summaries, CSV export, and smoke proof.",
     description:
@@ -574,7 +586,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Backend architecture, async OCR flow, auth, frontend shell" },
       { label: "Status", value: "Local MVP loop implemented and scriptable; no live production deployment claimed" },
       { label: "Proof", value: "README, scripts/smoke.sh, JUnit/MockMvc/Testcontainers tests, frontend build script" },
-      { label: "Local source", value: "/Users/udaymukhija/receipt_scanner" },
       { label: "Best fit", value: "Backend roles where honest stabilization planning matters" },
     ],
     system: [
@@ -624,7 +635,10 @@ export const projects: Project[] = [
     label: "Customer Data Pipeline",
     status: "Public repo",
     category: "data",
-    year: "2026",
+    timeline: "Feb-Jun 2026",
+    sortDate: "2026-06-02",
+    dateCreated: "2026-02-02",
+    dateModified: "2026-06-02",
     summary:
       "A data engineering pipeline that turns messy logistics exports into trusted operations tables, reject reports, SLA views, exception reports, route productivity outputs, and a dashboard.",
     description:
@@ -640,7 +654,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Config-driven ingestion, validation, dbt marts, quality checks, exports, dashboard" },
       { label: "Status", value: "Public repo with working local customer demo; hosted page not treated as source of truth" },
       { label: "Proof", value: "README, make customer-trial, make customer-verify, dbt project, quality reports, Streamlit app" },
-      { label: "Local source", value: "/Users/udaymukhija/logistics" },
       { label: "Best fit", value: "Data engineering and analytics platform roles" },
     ],
     system: [
@@ -691,7 +704,10 @@ export const projects: Project[] = [
     label: "Inventory Data Platform",
     status: "Public repo",
     category: "data",
-    year: "2026",
+    timeline: "Nov 2025-May 2026",
+    sortDate: "2026-05-30",
+    dateCreated: "2025-11-15",
+    dateModified: "2026-05-30",
     summary:
       "An inventory data pipeline that converts stock changes into validated analytics, run evidence, reporting outputs, serving payloads, and a stockout-prevention backtest.",
     description:
@@ -707,7 +723,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Backend services, event flow, ETL, analytics API, demo proof artifacts" },
       { label: "Status", value: "Public repo with supported local `make demo` path; no production ERP/auth claims" },
       { label: "Proof", value: "README, make demo, artifacts/demo, backtest harness, Docker Compose" },
-      { label: "Local source", value: "/Users/udaymukhija/inventory_management_sys" },
       { label: "Best fit", value: "Backend, data platform, and distributed-systems roles" },
     ],
     system: [
@@ -764,7 +779,10 @@ export const projects: Project[] = [
     label: "ML Recommender",
     status: "Local case study",
     category: "ml",
-    year: "2026",
+    timeline: "Mar-Jun 2026",
+    sortDate: "2026-06-01",
+    dateCreated: "2026-03-04",
+    dateModified: "2026-06-01",
     summary:
       "A known-shopper grocery reorder recommender with leakage-aware data validation, saved training artifacts, calibrated ranking, baseline lift, serving endpoints, monitoring, and a browser demo.",
     description:
@@ -780,7 +798,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Data contracts, feature engineering, model evaluation, serving API" },
       { label: "Status", value: "Strong local/demo portfolio state with checked-in artifacts" },
       { label: "Proof", value: "README, verify_run_20260304, feature contract, resume_release evidence, API demo path" },
-      { label: "Local source", value: "/Users/udaymukhija/Instacart" },
       { label: "Best fit", value: "Applied ML and backend-adjacent ML systems roles" },
     ],
     system: [
@@ -831,7 +848,10 @@ export const projects: Project[] = [
     label: "ML Forecasting",
     status: "Public repo",
     category: "ml",
-    year: "2026",
+    timeline: "Mar 2026",
+    sortDate: "2026-03-25",
+    dateCreated: "2026-03-25",
+    dateModified: "2026-03-25",
     summary:
       "An energy forecasting system with strict data contracts, separate consumption and production artifacts, baseline leaderboards, walk-forward backtests, serving paths, metrics, and demo evidence packs.",
     description:
@@ -847,7 +867,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Data joins, feature engineering, model training, backtests, serving" },
       { label: "Status", value: "Public repo with evidence pack and deployment notes" },
       { label: "Proof", value: "README, docs/assets, feature contract, backtests, API artifacts" },
-      { label: "Local source", value: "/Users/udaymukhija/Enefit Project" },
       { label: "Best fit", value: "Forecasting, ML systems, and backend-adjacent ML roles" },
     ],
     system: [
@@ -898,7 +917,10 @@ export const projects: Project[] = [
     label: "ML Risk System",
     status: "Local case study",
     category: "ml",
-    year: "2026",
+    timeline: "Feb-Mar 2026",
+    sortDate: "2026-03-05",
+    dateCreated: "2026-02-11",
+    dateModified: "2026-03-05",
     summary:
       "A production-shaped fraud scorer with chronology-safe evaluation, calibrated probabilities, cost-aware thresholds, a browser review console, drift checks, challenger reports, and proof artifacts.",
     description:
@@ -914,7 +936,6 @@ export const projects: Project[] = [
       { label: "Role", value: "Feature path, calibration, thresholding, serving, monitoring artifacts" },
       { label: "Status", value: "Portfolio/recruiter-ready local project; not a live payment production system" },
       { label: "Proof", value: "README, evaluation report, deploy bundle, proof pack, drift report" },
-      { label: "Local source", value: "/Users/udaymukhija/fraud" },
       { label: "Best fit", value: "Applied ML and risk-oriented backend roles" },
     ],
     system: [

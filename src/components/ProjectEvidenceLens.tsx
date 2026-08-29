@@ -118,7 +118,7 @@ export function ProjectEvidenceLens({ projects }: ProjectEvidenceLensProps) {
             return (
               <article key={project.slug} className="work-row evidence-row">
                 <div className="work-meta">
-                  <span>{project.year}</span>
+                  <span>{project.timeline}</span>
                   <span>{project.label}</span>
                 </div>
                 <div className="work-main">

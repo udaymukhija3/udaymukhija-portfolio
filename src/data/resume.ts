@@ -71,7 +71,7 @@ export const resumeProjects = [
   {
     title: "Gathr",
     href: "/projects/gathrly",
-    summary: "Private-alpha local planning product from gathr-slice2-complete, with discovery, joining, confirmation, chat, reliability, safety, privacy, and reviewer proof paths.",
+    summary: "Private-alpha local planning product with discovery, joining, confirmation, chat, reliability, safety, privacy, and reviewer proof paths.",
     bullets: [
       "Modeled the discovery-to-attendance loop across hubs, activities, join/leave, confirmation, check-in, chat, Drops, safety, and privacy.",
       "Built backend-owned reliability and trust mechanics, including no-show penalties, report flows, blocked users, and data export/delete paths.",

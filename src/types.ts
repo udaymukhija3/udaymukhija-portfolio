@@ -26,7 +26,10 @@ export type Project = {
   label: string;
   status: string;
   category: ProjectCategory;
-  year: string;
+  timeline: string;
+  sortDate?: string;
+  dateCreated?: string;
+  dateModified?: string;
   summary: string;
   description: string;
   metrics: ProjectMetric[];

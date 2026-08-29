@@ -15,6 +15,7 @@ export function NavBar() {
     <header className="site-header">
       <div className="container nav-shell">
         <Link className="brand" href="/">
+          <span className="brand-mark" aria-hidden="true">UM</span>
           <span>Uday Mukhija</span>
         </Link>
         <nav className="nav" aria-label="Primary">
@@ -23,11 +24,11 @@ export function NavBar() {
             href="/projects"
             aria-current={currentPathname.startsWith("/projects") ? "page" : undefined}
           >
-            Work
+            <span aria-hidden="true">01</span> Work
           </Link>
           {isExternalResume ? (
             <a className="nav-link" href={resumeHref} target="_blank" rel="noreferrer">
-              Resume
+              <span aria-hidden="true">02</span> Resume
             </a>
           ) : (
             <Link
@@ -35,11 +36,11 @@ export function NavBar() {
               href={resumeHref}
               aria-current={currentPathname === resumeHref ? "page" : undefined}
             >
-              Resume
+              <span aria-hidden="true">02</span> Resume
             </Link>
           )}
           <a className="nav-link" href={emailHref}>
-            Email
+            <span aria-hidden="true">03</span> Email
           </a>
         </nav>
       </div>
