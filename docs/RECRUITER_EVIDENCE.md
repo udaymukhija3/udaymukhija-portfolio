@@ -13,17 +13,19 @@ This portfolio presents calm product experiences backed by explicit engineering 
 | Product information architecture | Three featured products on `/`; compact full archive on `/projects`; experience-first case studies with a native technical-proof disclosure | Browser-reviewed at 1440×1000 and 390×844 |
 | Truthful product presentation | Real Gathr capture, real VibeGrid artwork, and a labeled Murmur DOM fragment based on the current product UI | Both image assets returned HTTP 200 and loaded with non-zero natural dimensions |
 | Responsive and accessible UI | Semantic landmarks/headings, visible focus states, skip link, labeled media, no phone-width overflow, reduced-motion override | DOM snapshots plus 390px and 1440px rendered checks |
-| Rendering and performance posture | Static homepage, static experience/resume pages, statically generated case studies, optimized `next/image` media, CSS-only ambient motion | Successful Next.js production build; 23 static/generated pages |
+| Motion and interaction | Staged hero type, a living system path, scroll-linked Gathr expansion, VibeGrid stage travel, Murmur playback motion, pointer depth, section reveals, and case-study opening motion | Motion states inspected before, during, and after scroll at desktop and phone widths |
+| Rendering and performance posture | Static pages and case studies, optimized `next/image` media, one passive requestAnimationFrame scroll controller, IntersectionObserver reveals, and offscreen animation pausing | Successful Next.js production build; 23 static/generated pages; animation lifecycle inspected in-browser |
 | Claim and route integrity | Project claims centralized in `src/data/projects.ts`; all 14 case-study routes, filters, metadata routes, and media verified | HTTP 200 route sweep and clean browser console |
 
 ## Selected implementation evidence
 
-- `src/components/HomeWorkbench.tsx` — selected-work, archive, About, and contact hierarchy.
-- `src/components/ProjectMedia.tsx` — truthful media routing and labeled system portraits for projects without screenshots.
-- `src/app/projects/[slug]/page.tsx` — product-first case-study structure with progressive technical disclosure.
-- `src/app/globals.css` — Calibrated Quiet tokens, responsive compositions, focus treatment, motion, and reduced-motion behavior.
-- `src/data/projects.ts` — centralized claims; VibeGrid updated to match its current make/judge/reveal product contract.
-- `public/images/projects` — source product assets used by the presentation layer.
+- `src/components/HomeWorkbench.tsx`: selected-work, archive, About, and contact hierarchy.
+- `src/components/usePortfolioMotion.ts`: scroll progress, reveal observers, offscreen pausing, pointer depth, touch response, and reduced-motion short circuit.
+- `src/components/ProjectMedia.tsx`: truthful media routing and labeled system portraits for projects without screenshots.
+- `src/app/projects/[slug]/page.tsx`: product-first case-study structure with progressive technical disclosure.
+- `src/app/globals.css`: Calibrated Quiet tokens, responsive compositions, focus treatment, motion, and reduced-motion behavior.
+- `src/data/projects.ts`: centralized claims; VibeGrid updated to match its current make/judge/reveal product contract.
+- `public/images/projects`: source product assets used by the presentation layer.
 
 ## Exact verification
 
@@ -39,6 +41,10 @@ Rendered checks covered:
 
 - Homepage at 1440×1000 and 390×844.
 - Hero, hero-to-project continuity, all three featured-project compositions, archive, About, and contact rhythm.
+- Staged hero states at 180 ms and after settling, with 48 declared motion hooks and project animation paused while offscreen.
+- Scroll-linked endpoint travel and scale, Gathr clip/scale/opacity expansion, VibeGrid make/judge/reveal runner, and Murmur waveform/playhead motion.
+- Project animation lifecycle: hero motion pauses after its transition; each featured project starts and stops based on viewport intersection.
+- Pointer-driven project depth and touch press fallback.
 - Gathr case-study opening and expanded technical-proof disclosure.
 - Project archive filters; data returned 2 entries and AI/ML returned 3 entries.
 - Resume and experience routes at phone width.
@@ -48,7 +54,7 @@ Rendered checks covered:
 
 ## Deployment status and honest gaps
 
-The repository is build-ready. The existing Vercel site has not been redeployed from this work, so the production URL should not be treated as updated until a deployment is run and inspected.
+The motion pass is build-ready locally. Production verification remains required after the reviewed commit reaches Vercel.
 
 Remaining manual checks before calling the redesign fully deployed:
 

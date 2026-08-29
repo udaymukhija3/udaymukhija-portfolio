@@ -24,6 +24,7 @@ export function ProjectMedia({ project, context = "featured" }: ProjectMediaProp
             src="/images/projects/gathr-plans.png"
             width={1206}
           />
+          <span className="gathr-focus-frame" aria-hidden="true"><i /><i /><i /><i /></span>
         </div>
         <figcaption>Real product capture · Gathr Plans</figcaption>
       </figure>
@@ -42,6 +43,14 @@ export function ProjectMedia({ project, context = "featured" }: ProjectMediaProp
             src="/images/projects/vibegrid-social-card.png"
             width={1200}
           />
+          <div className="vibegrid-sequence" aria-hidden="true">
+            <div className="vibegrid-sequence-labels">
+              <span>Make</span>
+              <span>Judge</span>
+              <span>Reveal</span>
+            </div>
+            <span className="vibegrid-sequence-track"><i /></span>
+          </div>
         </div>
         <figcaption>Real product artwork · VibeGrid crew ritual</figcaption>
       </figure>
@@ -64,9 +73,13 @@ export function ProjectMedia({ project, context = "featured" }: ProjectMediaProp
             {murmurWaveform.map((level, index) => (
               <span
                 key={`${level}-${index}`}
-                style={{ "--wave-level": `${level}%` } as CSSProperties}
+                style={{
+                  "--wave-level": `${level}%`,
+                  "--wave-delay": `${index * -0.09}s`,
+                } as CSSProperties}
               />
             ))}
+            <i className="murmur-playhead" />
           </div>
           <blockquote>“Made chai. Miss you.”</blockquote>
           <div className="murmur-fragment-state">
