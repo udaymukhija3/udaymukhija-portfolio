@@ -64,7 +64,7 @@ Rendered checks covered:
 
 ## Deployment status and honest gaps
 
-The extended motion pass was deployed to Vercel from commit `4b720f2` and verified on the production URL. The live homepage exposed the hero, continuity, reading-progress, About-system, contact-signal, and project-state markup. The global reading line responded to production scroll position, the About and contact paths entered their running states in view, and the Gathr technical-proof disclosure opened with the intended reveal. The inspected production pages had no horizontal overflow. The homepage, archive, three featured case studies, experience, resume, and metadata routes returned HTTP 200 in the final production sweep.
+The supporting-route motion pass was deployed to Vercel from commit `944ec14` and verified on the production URL. The live site exposed the hero, continuity, reading-progress, About-system, contact-signal, route-frame, experience-rail, resume-scan, archive-view, and directional project-navigation markup. Production archive filtering changed the view from 14 projects to 9 product projects with the correct URL and active category. The global reading line, route entry, experience rail, resume signal, and case-study navigation all entered their intended states. The inspected production pages had no horizontal overflow and the browser console remained clean. The homepage, archive, product filter, three featured case studies, experience, resume, and metadata routes returned HTTP 200 in the final production sweep.
 
 Remaining evidence gaps:
 
