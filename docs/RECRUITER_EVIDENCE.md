@@ -54,12 +54,11 @@ Rendered checks covered:
 
 ## Deployment status and honest gaps
 
-The motion pass is build-ready locally. Production verification remains required after the reviewed commit reaches Vercel.
+The motion pass was deployed to Vercel from commit `42ead48` and verified on the production URL. The live homepage exposed the new hero, continuity, and project-state markup; 48 declared animation hooks were present, offscreen project motion paused, the Gathr media loaded with non-zero dimensions, and the browser console remained clean. The homepage, archive, three featured case studies, experience, resume, and both product-media assets returned HTTP 200 in the production sweep.
 
-Remaining manual checks before calling the redesign fully deployed:
+Remaining evidence gaps:
 
-- Deploy the reviewed commit to Vercel and repeat the key route/media sweep against the production URL.
-- Run a production performance audit if numeric Lighthouse/Web Vitals evidence is required; no score is claimed here.
+- Run a production performance audit if numeric Lighthouse or Web Vitals evidence is required; no score is claimed here.
 - Add automated visual regression coverage if the design will be changed frequently.
 
 ## Interview defense
