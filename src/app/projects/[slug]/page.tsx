@@ -239,10 +239,25 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </details>
 
           <nav className="project-next" aria-label="Project navigation">
-            <Link href="/projects">All work</Link>
-            <div>
-              {previousProject ? <Link href={`/projects/${previousProject.slug}`}>Previous: {previousProject.title}</Link> : null}
-              {nextProject ? <Link href={`/projects/${nextProject.slug}`}>Next: {nextProject.title}</Link> : null}
+            <Link className="project-next-all" href="/projects">
+              <small>Archive</small>
+              <span>All work</span>
+            </Link>
+            <div className="project-next-links">
+              {previousProject ? (
+                <Link className="project-next-link project-next-previous" href={`/projects/${previousProject.slug}`}>
+                  <small>Previous</small>
+                  <span>{previousProject.title}</span>
+                  <i aria-hidden="true">←</i>
+                </Link>
+              ) : null}
+              {nextProject ? (
+                <Link className="project-next-link project-next-forward" href={`/projects/${nextProject.slug}`}>
+                  <small>Next</small>
+                  <span>{nextProject.title}</span>
+                  <i aria-hidden="true">→</i>
+                </Link>
+              ) : null}
             </div>
           </nav>
         </div>

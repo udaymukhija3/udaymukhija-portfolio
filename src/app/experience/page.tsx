@@ -34,8 +34,10 @@ export default function ExperiencePage() {
             note="The resume page has the fuller version."
           />
           <div className="experience-list">
+            <span className="experience-rail" aria-hidden="true" />
             {experienceItems.map((item) => (
               <article key={item.company} className="experience-row">
+                <span className="experience-node" aria-hidden="true"><i /></span>
                 <div className="experience-header">
                   <div>
                     <h3>{item.role}</h3>

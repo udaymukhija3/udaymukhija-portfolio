@@ -13,7 +13,7 @@ This portfolio presents calm product experiences backed by explicit engineering 
 | Product information architecture | Three featured products on `/`; compact full archive on `/projects`; experience-first case studies with a native technical-proof disclosure | Browser-reviewed at 1440×1000 and 390×844 |
 | Truthful product presentation | Real Gathr capture, real VibeGrid artwork, and a labeled Murmur DOM fragment based on the current product UI | Both image assets returned HTTP 200 and loaded with non-zero natural dimensions |
 | Responsive and accessible UI | Semantic landmarks/headings, visible focus states, skip link, labeled media, no phone-width overflow, reduced-motion override | DOM snapshots plus 390px and 1440px rendered checks |
-| Motion and interaction | Staged hero type, a living system path, global reading progress, scroll-linked Gathr expansion, VibeGrid stage travel, Murmur playback motion, About and contact state paths, archive direction feedback, pointer depth, section reveals, and case-study proof opening motion | Motion states inspected before, during, and after scroll at desktop and phone widths |
+| Motion and interaction | Staged hero type, a living system path, global reading progress, route entry, scroll-linked Gathr expansion, VibeGrid stage travel, Murmur playback motion, About and contact state paths, archive filter and row feedback, experience timeline, resume evaluation signal, pointer depth, section reveals, case-study proof opening, and directional project navigation | Motion states inspected before, during, and after scroll at desktop and phone widths |
 | Rendering and performance posture | Static pages and case studies, optimized `next/image` media, two scoped passive requestAnimationFrame scroll controllers, IntersectionObserver reveals, and offscreen animation pausing | Successful Next.js production build; 23 static/generated pages; animation lifecycle inspected in-browser |
 | Claim and route integrity | Project claims centralized in `src/data/projects.ts`; all 14 case-study routes, filters, metadata routes, and media verified | HTTP 200 route sweep and clean browser console |
 
@@ -22,6 +22,8 @@ This portfolio presents calm product experiences backed by explicit engineering 
 - `src/components/HomeWorkbench.tsx`: selected-work, archive, About, and contact hierarchy.
 - `src/components/NavBar.tsx`: route-aware navigation plus a global requestAnimationFrame reading-progress controller.
 - `src/components/usePortfolioMotion.ts`: scroll progress, reveal observers, offscreen pausing, pointer depth, touch response, and reduced-motion short circuit.
+- `src/app/template.tsx`: a remounting route frame that gives client navigation one restrained arrival state.
+- `src/app/experience/page.tsx` and `src/app/resume/page.tsx`: a work-history rail and finite evaluation path using native document content.
 - `src/components/ProjectMedia.tsx`: truthful media routing and labeled system portraits for projects without screenshots.
 - `src/app/projects/[slug]/page.tsx`: product-first case-study structure with progressive technical disclosure.
 - `src/app/globals.css`: Calibrated Quiet tokens, responsive compositions, focus treatment, motion, and reduced-motion behavior.
@@ -50,6 +52,9 @@ Rendered checks covered:
 - About permission, retry, and recovery state path, with animation scoped to section visibility.
 - Contact open-channel signal path, with animation scoped to section visibility.
 - Archive-row directional feedback and the animated native technical-proof disclosure.
+- Archive category changes with route re-entry, card reveals, and one active-lens indicator.
+- Experience timeline drawing, resume card reveals, and a finite Product to Backend to Data evaluation signal.
+- Expanded previous and next project navigation with directional focus and hover feedback.
 - Gathr case-study opening and expanded technical-proof disclosure.
 - Project archive filters; data returned 2 entries and AI/ML returned 3 entries.
 - Resume and experience routes at phone width.

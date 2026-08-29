@@ -56,6 +56,13 @@ export default function ResumePage() {
               );
             })}
           </div>
+          <div className="resume-scan" aria-hidden="true">
+            <span className="resume-scan-line" />
+            <span className="resume-scan-runner"><i /></span>
+            <span className="resume-scan-stop resume-scan-stop-one"><i /><small>Product</small></span>
+            <span className="resume-scan-stop resume-scan-stop-two"><i /><small>Backend</small></span>
+            <span className="resume-scan-stop resume-scan-stop-three"><i /><small>Data</small></span>
+          </div>
         </div>
       </section>
 

@@ -108,7 +108,7 @@ export default async function ProjectsPage({
             </div>
           </div>
 
-          <div className="project-detail-grid">
+          <div className="project-detail-grid" data-archive-view={activeCategory}>
             {visibleProjects.map((project) => (
               <ProjectCard key={project.slug} project={project} detailed />
             ))}
