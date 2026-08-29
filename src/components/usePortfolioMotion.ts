@@ -20,6 +20,8 @@ export function usePortfolioMotion(rootRef: RefObject<HTMLDivElement | null>) {
     const gathr = root.querySelector<HTMLElement>(".featured-project-gathrly");
     const revealItems = Array.from(root.querySelectorAll<HTMLElement>("[data-reveal]"));
     const tiltItems = Array.from(root.querySelectorAll<HTMLElement>("[data-tilt]"));
+    const liveMotionItems = Array.from(root.querySelectorAll<HTMLElement>("[data-live-motion]"));
+    const observedMotionItems = Array.from(new Set([...tiltItems, ...liveMotionItems]));
     let frame = 0;
     let pressTimer = 0;
 
@@ -62,7 +64,7 @@ export function usePortfolioMotion(rootRef: RefObject<HTMLDivElement | null>) {
       { rootMargin: "18% 0px", threshold: 0.01 },
     );
 
-    tiltItems.forEach((item) => projectObserver.observe(item));
+    observedMotionItems.forEach((item) => projectObserver.observe(item));
 
     const writeScrollState = () => {
       frame = 0;
@@ -98,7 +100,6 @@ export function usePortfolioMotion(rootRef: RefObject<HTMLDivElement | null>) {
         root.style.setProperty("--gathr-opacity", `${0.2 + gathrProgress * 0.8}`);
       }
 
-      document.documentElement.toggleAttribute("data-page-scrolled", window.scrollY > 24);
     };
 
     const scheduleScrollState = () => {
@@ -185,7 +186,6 @@ export function usePortfolioMotion(rootRef: RefObject<HTMLDivElement | null>) {
       window.removeEventListener("pointermove", updatePointer);
       root.removeEventListener("pointerdown", pressProject);
       root.removeAttribute("data-hero-active");
-      document.documentElement.removeAttribute("data-page-scrolled");
     };
   }, [rootRef]);
 }

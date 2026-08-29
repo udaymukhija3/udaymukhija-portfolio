@@ -141,7 +141,13 @@ export function HomeWorkbench({ projects, profileLinks, emailHref }: HomeWorkben
         </div>
       </section>
 
-      <section id="about" className="section about-section" aria-labelledby="about-title" data-reveal>
+      <section
+        id="about"
+        className="section about-section"
+        aria-labelledby="about-title"
+        data-reveal
+        data-live-motion
+      >
         <div className="container about-grid">
           <p className="eyebrow">About</p>
           <div>
@@ -156,11 +162,24 @@ export function HomeWorkbench({ projects, profileLinks, emailHref }: HomeWorkben
               <Link className="quiet-link" href="/experience">Experience</Link>
               <Link className="quiet-link" href="/resume">Resume page</Link>
             </div>
+            <div className="about-system" aria-hidden="true">
+              <span className="about-system-track" />
+              <span className="about-system-signal"><i /></span>
+              <span className="about-state about-state-one"><i /><small>permission</small></span>
+              <span className="about-state about-state-two"><i /><small>retry</small></span>
+              <span className="about-state about-state-three"><i /><small>recovery</small></span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="section contact-section" aria-labelledby="contact-title" data-reveal>
+      <section
+        id="contact"
+        className="section contact-section"
+        aria-labelledby="contact-title"
+        data-reveal
+        data-live-motion
+      >
         <div className="container contact-grid">
           <p className="eyebrow">Contact</p>
           <div>
@@ -174,6 +193,14 @@ export function HomeWorkbench({ projects, profileLinks, emailHref }: HomeWorkben
                   {link.label}
                 </a>
               ))}
+            </div>
+            <div className="contact-signal" aria-hidden="true">
+              <span className="contact-signal-line" />
+              <span className="contact-signal-runner"><i /></span>
+              <span className="contact-signal-node contact-signal-node-one"><i /></span>
+              <span className="contact-signal-node contact-signal-node-two"><i /></span>
+              <span className="contact-signal-node contact-signal-node-three"><i /></span>
+              <small>Open channel</small>
             </div>
           </div>
         </div>

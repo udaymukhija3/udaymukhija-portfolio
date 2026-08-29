@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import { contactLinks } from "../data/siteContent";
 
 export function NavBar() {
@@ -11,6 +12,38 @@ export function NavBar() {
   const navLinkClassName = (isActive: boolean) => (isActive ? "nav-link is-active" : "nav-link");
   const isCaseStudy = currentPathname.startsWith("/projects/");
   const isArchive = currentPathname === "/projects";
+
+  useEffect(() => {
+    let frame = 0;
+
+    const writeReadingState = () => {
+      frame = 0;
+      const viewportHeight = Math.max(window.innerHeight, 1);
+      const scrollableHeight = Math.max(document.documentElement.scrollHeight - viewportHeight, 1);
+      const progress = Math.min(1, Math.max(0, window.scrollY / scrollableHeight));
+
+      document.documentElement.style.setProperty("--site-progress", progress.toFixed(4));
+      document.documentElement.toggleAttribute("data-page-scrolled", window.scrollY > 24);
+    };
+
+    const scheduleReadingState = () => {
+      if (!frame) {
+        frame = window.requestAnimationFrame(writeReadingState);
+      }
+    };
+
+    writeReadingState();
+    window.addEventListener("scroll", scheduleReadingState, { passive: true });
+    window.addEventListener("resize", scheduleReadingState, { passive: true });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleReadingState);
+      window.removeEventListener("resize", scheduleReadingState);
+      document.documentElement.style.removeProperty("--site-progress");
+      document.documentElement.removeAttribute("data-page-scrolled");
+    };
+  }, [currentPathname]);
 
   return (
     <header className="site-header">
@@ -40,6 +73,7 @@ export function NavBar() {
           </a>
         </nav>
       </div>
+      <span className="site-reading-progress" aria-hidden="true" />
     </header>
   );
 }
