@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ProjectMedia } from "../../../components/ProjectMedia";
 import { StructuredData } from "../../../components/StructuredData";
 import { getProjectBySlug, projects } from "../../../data/projects";
 import { getSiteUrl, siteConfig } from "../../../lib/site";
@@ -12,9 +13,7 @@ type ProjectPageProps = {
 };
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+  return projects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
@@ -22,17 +21,13 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    return {
-      title: "Project not found",
-    };
+    return { title: "Project not found" };
   }
 
   return {
     title: project.title,
     description: project.description,
-    alternates: {
-      canonical: `/projects/${project.slug}`,
-    },
+    alternates: { canonical: `/projects/${project.slug}` },
     openGraph: {
       title: `${project.title} | ${siteConfig.name}`,
       description: project.description,
@@ -56,40 +51,31 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   }
 
   const getFact = (label: string) => project.facts.find((fact) => fact.label === label)?.value;
-  const primaryLink = project.links[0];
+  const repoLink = project.links.find((link) => link.href.includes("github.com"));
   const proofPath = getFact("Proof");
-  const inspectionTargets = project.system
-    .slice(0, 3)
-    .map((item) => item.label)
-    .join(", ");
-  const evaluationSteps =
-    project.evaluationPath ??
-    [
-      primaryLink ? `Open the ${primaryLink.label}.` : "Start with the status and proof metadata.",
-      "Read the architecture section below.",
-      proofPath ? `Follow the documented proof path: ${proofPath}.` : "Use the case-study evidence as the primary proof path.",
-      inspectionTargets ? `Inspect these areas in the case study: ${inspectionTargets}.` : "Inspect the linked source or proof artifacts where available.",
-    ];
-  const metaItems = [
+  const productSection = project.sections[0];
+  const technicalSection = project.sections[1];
+  const reflectionSections = project.sections.slice(2);
+  const importantInteractions = project.highlights.slice(0, 2);
+  const failureCases = project.highlights.slice(2);
+  const evaluationSteps = project.evaluationPath ?? [
+    repoLink ? `Open the ${repoLink.label}.` : "Start with the project status and available evidence.",
+    "Read the architecture and edge-case sections.",
+    proofPath ? `Follow the documented proof path: ${proofPath}.` : "Use the case-study evidence as the primary proof path.",
+  ];
+  const proofFacts = [
     { label: "Build window", value: project.timeline },
     { label: "Role", value: getFact("Role") ?? "Software engineering" },
     { label: "Status", value: project.status },
     { label: "Scope", value: getFact("Scope") ?? "Self-directed project" },
-    { label: "Best fit", value: getFact("Best fit") ?? "Product and systems work" },
-    {
-      label: "Evaluation path",
-      value: proofPath ?? (primaryLink ? primaryLink.label : "Case study only"),
-    },
+    { label: "Proof", value: proofPath ?? "Case study" },
   ];
-  const metricItems = project.metrics.slice(0, 3);
   const currentProjectIndex = projects.findIndex((item) => item.slug === project.slug);
   const previousProject = currentProjectIndex > 0 ? projects[currentProjectIndex - 1] : undefined;
-  const nextProject =
-    currentProjectIndex >= 0 && currentProjectIndex < projects.length - 1
-      ? projects[currentProjectIndex + 1]
-      : undefined;
+  const nextProject = currentProjectIndex >= 0 && currentProjectIndex < projects.length - 1
+    ? projects[currentProjectIndex + 1]
+    : undefined;
 
-  const repoLink = project.links.find((link) => link.href.includes("github.com"));
   const projectJsonLd = {
     "@context": "https://schema.org",
     "@type": repoLink ? "SoftwareSourceCode" : "CreativeWork",
@@ -97,15 +83,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     description: project.description,
     url: `${getSiteUrl()}/projects/${project.slug}`,
     ...(repoLink ? { codeRepository: repoLink.href } : {}),
-    author: {
-      "@type": "Person",
-      name: siteConfig.name,
-      url: getSiteUrl(),
-    },
-    creator: {
-      "@type": "Person",
-      name: siteConfig.name,
-    },
+    author: { "@type": "Person", name: siteConfig.name, url: getSiteUrl() },
+    creator: { "@type": "Person", name: siteConfig.name },
     programmingLanguage: project.stack,
     keywords: [...project.stack, project.category, project.label].join(", "),
     ...(project.dateCreated ? { dateCreated: project.dateCreated } : {}),
@@ -116,123 +95,153 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     <>
       <StructuredData data={projectJsonLd} />
 
-      <section className="section page-intro">
-        <div className="container project-hero">
-          <div className="project-hero-copy">
-            <p className="eyebrow">
-              {project.label} · {project.timeline}
-            </p>
-            <h1>{project.title}</h1>
-            <p className="lead">{project.summary}</p>
-            <div className="project-links">
-              <Link className="project-link project-link-primary" href="/projects">
-                Back to projects
-              </Link>
-              {project.links.map((link) => (
-                <a key={link.label} className="project-link" href={link.href} target="_blank" rel="noreferrer">
-                  {link.label}
-                </a>
-              ))}
-            </div>
+      <section className="section project-intro">
+        <div className="container project-intro-copy">
+          <p className="eyebrow">{project.label}</p>
+          <h1>{project.title}</h1>
+          <p className="lead">{project.summary}</p>
+          <div className="project-links">
+            <Link className="project-link project-link-primary" href="/#work">Back to selected work</Link>
+            {project.links.map((link) => (
+              <a key={link.label} className="project-link" href={link.href} target="_blank" rel="noreferrer">
+                {link.label} <span aria-hidden="true">↗</span>
+              </a>
+            ))}
           </div>
-
-          <aside className="detail-panel" aria-label="Fastest way to evaluate this project">
-            <p className="eyebrow">Reviewer path</p>
-            <h2>Fastest way to evaluate this</h2>
-            <ol className="reviewer-steps">
-              {evaluationSteps.map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ol>
-          </aside>
         </div>
       </section>
 
-      <section className="section section-compact-top">
-        <div className="container reviewer-path-grid">
-          <article className="content-block">
-            <p className="eyebrow">Status</p>
-            <h2>Status and proof</h2>
-            <dl className="project-evaluation-meta">
-              <div>
-                <dt>Status</dt>
-                <dd>{project.status}</dd>
-              </div>
-              <div>
-                <dt>Evaluation path</dt>
-                <dd>{proofPath ?? "Case study"}</dd>
-              </div>
-            </dl>
-            <p>{project.evidenceNote}</p>
+      <section className="project-case-media-section" aria-label={`${project.title} product visual`}>
+        <div className="container">
+          <ProjectMedia project={project} context="case-study" />
+        </div>
+      </section>
+
+      <section className="section project-narrative-section">
+        <div className="container project-narrative-grid">
+          <header>
+            <p className="eyebrow">Product</p>
+            <h2>What it does and how it feels.</h2>
+          </header>
+          <article className="project-prose">
+            {(productSection?.paragraphs ?? [project.summary]).map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </article>
+        </div>
+      </section>
+
+      <section className="section project-interaction-section">
+        <div className="container project-interaction-grid">
+          <header>
+            <p className="eyebrow">Important interaction</p>
+            <h2>The loop the product has to make believable.</h2>
+          </header>
+          <ol className="interaction-list">
+            {importantInteractions.map((interaction, index) => (
+              <li key={interaction}>
+                <span>0{index + 1}</span>
+                <p>{interaction}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="section engineering-section">
+        <div className="container engineering-grid">
+          <article>
+            <p className="eyebrow">Engineering challenge</p>
+            <h2>Keep the product simple while the system handles the difficult behavior.</h2>
+            <div className="project-prose">
+              {(technicalSection?.paragraphs ?? [project.evidenceNote]).map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
           </article>
 
-          <aside className="content-block" aria-label="Project metadata">
-            <p className="eyebrow">Metadata</p>
-            <h2>What to know first</h2>
-            <dl className="meta-list">
-              {metaItems.map((item) => (
+          <aside>
+            <p className="eyebrow">Architecture</p>
+            <dl className="architecture-list">
+              {project.system.map((item) => (
                 <div key={item.label}>
                   <dt>{item.label}</dt>
                   <dd>{item.value}</dd>
                 </div>
               ))}
             </dl>
-            <div className="metric-list" aria-label={`${project.title} highlights`}>
-              {metricItems.map((metric) => (
-                <div key={metric.label} className="metric-list-item">
-                  <span>{metric.label}</span>
-                  <strong>{metric.value}</strong>
-                </div>
-              ))}
-            </div>
           </aside>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container project-overview-grid">
-          <article className="content-block">
-            <p className="eyebrow">Overview</p>
-            <h2>Why I built it</h2>
-            <p>{project.summary}</p>
-            <ul className="story-list">
-              {project.highlights.map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
+      {failureCases.length > 0 ? (
+        <section className="section failure-section">
+          <div className="container project-narrative-grid">
+            <header>
+              <p className="eyebrow">Edges and failure</p>
+              <h2>What has to hold up.</h2>
+            </header>
+            <ul className="failure-list">
+              {failureCases.map((item) => <li key={item}>{item}</li>)}
             </ul>
-          </article>
+          </div>
+        </section>
+      ) : null}
 
-          <aside className="content-block">
-            <p className="eyebrow">Architecture</p>
-            <h2>How it's put together</h2>
-            <dl className="system-list">
-              {project.system.map((item) => (
-                <div key={item.label} className="system-list-item">
-                  <dt>{item.label}</dt>
-                  <dd>{item.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </aside>
-        </div>
-      </section>
+      {reflectionSections.length > 0 ? (
+        <section className="section reflection-section">
+          <div className="container reflection-grid">
+            {reflectionSections.map((section) => (
+              <article key={section.title} className="project-reflection">
+                <h2>{section.title}</h2>
+                {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
-      <section className="section section-last">
-        <div className="container project-sections">
-          {project.sections.map((section) => (
-            <article key={section.title} className="prose-section">
-              <h2>{section.title}</h2>
-              {section.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </article>
-          ))}
+      <section className="section technical-proof-section">
+        <div className="container">
+          <details className="technical-proof">
+            <summary>
+              <span>
+                <small>Technical proof</small>
+                Repository, verification, stack, and project status
+              </span>
+              <span aria-hidden="true">+</span>
+            </summary>
+            <div className="technical-proof-body">
+              <div>
+                <p className="technical-proof-note">{project.evidenceNote}</p>
+                <dl className="proof-facts">
+                  {proofFacts.map((item) => (
+                    <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>
+                  ))}
+                </dl>
+              </div>
+              <div>
+                <h3>Fastest verification path</h3>
+                <ol className="reviewer-steps">
+                  {evaluationSteps.map((step) => <li key={step}>{step}</li>)}
+                </ol>
+                <h3>Stack</h3>
+                <p>{project.stack.join(" · ")}</p>
+                {project.metrics.length > 0 ? (
+                  <dl className="metric-list">
+                    {project.metrics.map((metric) => (
+                      <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>
+                    ))}
+                  </dl>
+                ) : null}
+              </div>
+            </div>
+          </details>
+
           <nav className="project-next" aria-label="Project navigation">
             <Link href="/projects">All work</Link>
             <div>
-              {previousProject ? (
-                <Link href={`/projects/${previousProject.slug}`}>Previous: {previousProject.title}</Link>
-              ) : null}
+              {previousProject ? <Link href={`/projects/${previousProject.slug}`}>Previous: {previousProject.title}</Link> : null}
               {nextProject ? <Link href={`/projects/${nextProject.slug}`}>Next: {nextProject.title}</Link> : null}
             </div>
           </nav>

@@ -18,18 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-const selectedProjectSlugs = ["gathrly", "vibegrid", "murmur", "punchline", "mini-market"];
-
-function getSelectedProjects() {
-  return selectedProjectSlugs.flatMap((slug) => {
-    const project = projects.find((item) => item.slug === slug);
-
-    return project ? [project] : [];
-  });
-}
-
 export default function HomePage() {
-  const selectedProjects = getSelectedProjects();
   const socialLinks = contactLinks.filter((link) => link.href.startsWith("http"));
   const githubLink = contactLinks.find((link) => link.label === "GitHub");
   const linkedInLink = contactLinks.find((link) => link.label === "LinkedIn");
@@ -58,7 +47,7 @@ export default function HomePage() {
     <>
       <StructuredData data={personJsonLd} />
       <HomeWorkbench
-        projects={selectedProjects}
+        projects={projects}
         profileLinks={[githubLink, linkedInLink].filter(
           (link): link is NonNullable<typeof link> => Boolean(link),
         )}

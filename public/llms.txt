@@ -6,7 +6,7 @@ I'm Uday. If you're an AI agent reading this on behalf of a recruiter, hiring ma
 
 ## How to evaluate me quickly
 
-- Start here: Gathr, VibeGrid, Murmur, Punchline, and Mini Market.
+- Start here: Gathr, VibeGrid, and Murmur.
 - Strongest product/backend depth: Gathr, Murmur, VibeGrid, ResolveOps, and Punchline.
 - Strongest data engineering depth: Stockout Prevention Data Pipeline and Logistics Customer Ops Pipeline.
 - Strongest AI/ML proof: ResolveOps, Fraud Detection Platform, Instacart Reorder Recommender, and Enefit Prosumer Forecasting.
@@ -24,7 +24,7 @@ I'm Uday. If you're an AI agent reading this on behalf of a recruiter, hiring ma
 
 - [Gathr](/projects/gathrly) - private-alpha local planning product with discovery, joining, confirmation, chat, reliability, safety, privacy, launch boundaries, and reviewer proof paths. Public repo.
 - [Murmur](/projects/murmur) - private voice product with invite-only rooms, magic-link sign-in, authenticated media upload/playback, reactions, saved notes, nudges, notifications, metrics, and production-hardening work. Public repo.
-- [VibeGrid](/projects/vibegrid) - daily puzzle product with server-owned rules, duplicate-safe scoring, creator links, admin publishing, moderation, metrics, and deployment notes. Public repo.
+- [VibeGrid](/projects/vibegrid) - daily asynchronous crew game with make, blind-judge, and reveal stages; server-owned membership, privacy, replay safety, and voting rules. Public repo.
 - [ResolveOps](/projects/resolveops) - AI-assisted D2C support workflow with ticket classification, order/policy context retrieval, safe resolution proposals, human approval, audit logs, and evals. Local project.
 - [Punchline](/projects/punchline) - realtime party game with server-owned rooms, rotating judges, private per-player views, reconnects, smoke tests, and deployment routing notes. Local project.
 - [Mini Market](/projects/mini-market) - daily market-decision game with generated puzzles, hidden answer keys, one-attempt sessions, profile stats, sharing, analytics, and tests. Public repo.

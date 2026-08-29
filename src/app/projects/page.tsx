@@ -13,8 +13,8 @@ type ActiveCategory = ProjectCategory | "all";
 const projectPriority = new Map(
   [
     "gathrly",
-    "murmur",
     "vibegrid",
+    "murmur",
     "resolveops",
     "punchline",
     "mini-market",
@@ -80,9 +80,9 @@ export default async function ProjectsPage({
     <>
       <section className="section page-intro">
         <div className="container page-intro-shell page-intro-narrow">
-          <p className="eyebrow">Work</p>
-          <h1>Selected projects, with the engineering behavior they prove.</h1>
-          <p>Start with Gathr, Murmur, and VibeGrid. The rest is here for depth.</p>
+          <p className="eyebrow">Work archive</p>
+          <h1>A wider view of the work.</h1>
+          <p>Products, data systems, and machine-learning work. Each case study keeps the deeper technical proof within reach.</p>
         </div>
       </section>
 

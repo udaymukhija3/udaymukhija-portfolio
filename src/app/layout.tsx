@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { NavBar } from "../components/NavBar";
+import { contactLinks, resumeHref } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 import "./globals.css";
 
@@ -39,6 +40,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const githubLink = contactLinks.find((link) => link.label === "GitHub");
+  const linkedInLink = contactLinks.find((link) => link.label === "LinkedIn");
+
   return (
     <html lang="en">
       <body>
@@ -50,6 +54,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <footer className="site-footer">
           <div className="container footer-shell">
             <p>© {new Date().getFullYear()} Uday Mukhija</p>
+            <nav aria-label="Secondary">
+              {githubLink ? <a href={githubLink.href} target="_blank" rel="noreferrer">GitHub</a> : null}
+              {linkedInLink ? <a href={linkedInLink.href} target="_blank" rel="noreferrer">LinkedIn</a> : null}
+              <a href={resumeHref} target={resumeHref.startsWith("http") ? "_blank" : undefined} rel={resumeHref.startsWith("http") ? "noreferrer" : undefined}>Resume</a>
+            </nav>
           </div>
         </footer>
       </body>
