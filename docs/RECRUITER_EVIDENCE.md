@@ -59,7 +59,7 @@ Rendered checks covered:
 
 ## Deployment status and honest gaps
 
-The motion pass was deployed to Vercel from commit `42ead48` and verified on the production URL. The live homepage exposed the new hero, continuity, and project-state markup; 48 declared animation hooks were present, offscreen project motion paused, the Gathr media loaded with non-zero dimensions, and the browser console remained clean. The homepage, archive, three featured case studies, experience, resume, and both product-media assets returned HTTP 200 in the production sweep.
+The extended motion pass was deployed to Vercel from commit `4b720f2` and verified on the production URL. The live homepage exposed the hero, continuity, reading-progress, About-system, contact-signal, and project-state markup. The global reading line responded to production scroll position, the About and contact paths entered their running states in view, and the Gathr technical-proof disclosure opened with the intended reveal. The inspected production pages had no horizontal overflow. The homepage, archive, three featured case studies, experience, resume, and metadata routes returned HTTP 200 in the final production sweep.
 
 Remaining evidence gaps:
 
