@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { anchors, exposures } from "./exposures";
-import styles from "./band.module.css";
+import { anchors, exposures } from "./bandExposures";
+import styles from "./Band.module.css";
 
 /* The sky opens: night indigo → dawn violet → clear day blue.
    The band stays in the vermilion family the whole way — yellow on blue is a

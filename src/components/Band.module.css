@@ -30,13 +30,6 @@
 :global(body):has([data-band-route]) :global(.site-reading-progress) {
   display: none;
 }
-/* .route-frame animates a transform with fill-mode: both, so it keeps a
-   transform forever and becomes the containing block for every fixed
-   descendant. The band, disc and ground must resolve against the viewport. */
-:global(body):has([data-band-route]) :global(.route-frame) {
-  animation: none;
-  transform: none;
-}
 
 .root {
   /* Written every frame by BandStage. */

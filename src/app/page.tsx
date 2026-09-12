@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Daybreak } from "../components/Daybreak";
+import { Band } from "../components/Band";
 import { StructuredData } from "../components/StructuredData";
 import { educationItems } from "../data/resume";
 import { contactLinks, skills } from "../data/siteContent";
@@ -11,7 +11,7 @@ const personEmail = emailLink ? emailLink.href.replace(/^mailto:/, "") : undefin
 const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: { absolute: "DAYBREAK — Uday Mukhija" },
+  title: { absolute: siteConfig.title },
   description: siteConfig.description,
   alternates: {
     canonical: "/",
@@ -44,7 +44,7 @@ export default function HomePage() {
   return (
     <>
       <StructuredData data={personJsonLd} />
-      <Daybreak />
+      <Band />
     </>
   );
 }

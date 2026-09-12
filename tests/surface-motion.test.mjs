@@ -63,10 +63,19 @@ test("restored positions and reverse reading are deterministic, with safe invali
   }
 });
 
-test("the homepage retains the DAYBREAK composition and native scrolling",async()=>{
+test("the homepage is the BAND composition with native scrolling; DAYBREAK stays reachable",async()=>{
   const page=await readFile(new URL("../src/app/page.tsx",import.meta.url),"utf8");
-  assert.match(page,/<Daybreak \/>/);
-  assert.doesNotMatch(page,/Orbit/);
+  assert.match(page,/<Band \/>/);
+  assert.doesNotMatch(page,/Orbit|Daybreak/);
+  const band=await readFile(new URL("../src/components/Band.tsx",import.meta.url),"utf8");
+  for(const id of ['edge-title','voice-title','possibility-title','connection-title','curiosity-title','openness-title']) assert.ok(band.includes(id));
+  // Real links, real document flow: nothing inert, nothing hijacked, no WebGL.
+  assert.doesNotMatch(band,/inert|preventDefault|SolarSculpture|three/);
+  const stage=await readFile(new URL("../src/components/BandStage.tsx",import.meta.url),"utf8");
+  assert.match(stage,/window\.scrollY/);
+  assert.doesNotMatch(stage,/preventDefault|wheel/);
+  const daybreakRoute=await readFile(new URL("../src/app/daybreak/page.tsx",import.meta.url),"utf8");
+  assert.match(daybreakRoute,/<Daybreak \/>/);
   const sunrise=await readFile(new URL("../src/components/SunrisePortfolio.tsx",import.meta.url),"utf8");
   for(const id of ['intro-title','murmur-title','vibe-title','gathr-title','lab-title','contact-title']) assert.ok(sunrise.includes(id));
   assert.match(sunrise,/<SolarSculpture compact/);

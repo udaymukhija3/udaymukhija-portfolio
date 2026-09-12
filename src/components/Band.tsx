@@ -1,19 +1,11 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { contactLinks } from "../../data/siteContent";
-import { experiments } from "../../data/experiments";
-import { projects } from "../../data/projects";
+import { contactLinks } from "../data/siteContent";
+import { experiments } from "../data/experiments";
+import { projects } from "../data/projects";
 import { BandStage } from "./BandStage";
-import { anchors } from "./exposures";
-import styles from "./band.module.css";
-
-export const metadata: Metadata = {
-  title: "Band",
-  description: "A direction study: one hard-edged horizon carries the sunrise. Selected work by Uday Mukhija.",
-  alternates: { canonical: "/band" },
-  robots: { index: false, follow: true },
-};
+import { anchors } from "./bandExposures";
+import styles from "./Band.module.css";
 
 const wave = [14, 26, 18, 44, 28, 66, 38, 82, 54, 96, 62, 78, 46, 92, 70, 100, 66, 88, 52, 78, 44, 60, 30, 48, 22];
 const swatches = ["#e2452c", "#ef9a2e", "#8e3a3e", "#b5553a"];
@@ -22,7 +14,7 @@ function Arrow() {
   return <i aria-hidden="true">↗</i>;
 }
 
-export default function BandPage() {
+export function Band() {
   return (
     <BandStage>
       <section id={anchors[0]} className={`${styles.exposure} ${styles.wide}`} data-exposure="0" aria-labelledby="edge-title">

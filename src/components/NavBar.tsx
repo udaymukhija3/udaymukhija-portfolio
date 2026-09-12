@@ -8,7 +8,7 @@ import { contactLinks } from "../data/siteContent";
 export function NavBar() {
   const pathname = usePathname();
   const currentPathname = pathname ?? "";
-  const isDaybreak = currentPathname === "/";
+  const isDaybreak = currentPathname === "/daybreak";
   const emailHref = contactLinks.find((link) => link.label === "Email")?.href ?? "mailto:udaymukhija3@gmail.com";
   const navLinkClassName = (isActive: boolean) => (isActive ? "nav-link is-active" : "nav-link");
   const isCaseStudy = currentPathname.startsWith("/projects/");
@@ -17,7 +17,7 @@ export function NavBar() {
   const isAbout = currentPathname === "/about";
 
   useEffect(() => {
-    if (currentPathname === "/") return;
+    if (isDaybreak) return;
     let frame = 0;
 
     const writeReadingState = () => {
@@ -47,7 +47,7 @@ export function NavBar() {
       document.documentElement.style.removeProperty("--site-progress");
       document.documentElement.removeAttribute("data-page-scrolled");
     };
-  }, [currentPathname]);
+  }, [currentPathname, isDaybreak]);
 
   return (
     <header className="site-header" data-daybreak={isDaybreak ? "true" : undefined}>
