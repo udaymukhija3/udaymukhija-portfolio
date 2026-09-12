@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { NavBar } from "../components/NavBar";
+import { SiteMeasure } from "../components/SiteMeasure";
 import { contactLinks, resumeHref } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 import "./globals.css";
 import "./daybreak-shell.css";
+import "./system.css";
 
 const siteUrl = getSiteUrl();
 
@@ -52,6 +54,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </a>
         <NavBar />
         <main id="main-content">{children}</main>
+        <SiteMeasure />
         <footer className="site-footer">
           <div className="container footer-shell">
             <p>© {new Date().getFullYear()} Uday Mukhija</p>

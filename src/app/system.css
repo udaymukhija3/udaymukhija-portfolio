@@ -1,0 +1,461 @@
+/* SYSTEM — every interior route is printed on the homepage's ground.
+   Loaded after globals.css. Re-points its tokens, replaces the display tier
+   with the serif voice, and enforces one type scale and one spacing scale. */
+
+:root {
+  /* Palette — the day ink set from the homepage. */
+  --stone: #f0e7d4;      /* bone: page ground, the same material as the measure strip */
+  --paper: #f7f1e4;      /* raised bone: cards, plates */
+  --ink: #14233f;
+  --muted: #33405c;
+  --quiet: #33405c;
+  --line: #14233f2e;
+  --line-strong: #14233f55;
+  --slate: #7a1d0e;      /* eyebrows and small accents: deep vermilion, 4.7:1 on bone */
+  --eucalyptus: #e2452c; /* state and markers: sindoor */
+  --sage-wash: #e8dfca;
+  --blue-wash: #c2daec;  /* sky wash */
+  --sindoor: #e2452c;
+
+  /* Type scale — five sizes, site-wide. Nothing else is permitted. */
+  --t-display: clamp(2.75rem, 5.5vw, 5.75rem);
+  --t-title: clamp(2rem, 3.4vw, 3.25rem);
+  --t-subtitle: clamp(1.25rem, 1.6vw, 1.5rem);
+  --t-body: 1.0625rem;
+  --t-meta: 0.75rem;
+
+  /* Spacing scale — eight steps: 4 8 12 16 24 32 48 72. */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4.5rem;
+
+  --ground-h: max(3.4vh, 1.75rem);
+}
+
+body {
+  font-size: var(--t-body);
+}
+
+/* ── display tier: one voice ─────────────────────────────────── */
+
+.home-hero h1,
+.page-intro h1,
+.project-intro h1,
+.lab-hero h1,
+.about-page-hero h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--t-display);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.quiet-section-heading h2,
+.archive-preview-section h2,
+.featured-project-copy h3,
+.section-header h2,
+.project-narrative-section h2,
+.project-interaction-section h2,
+.failure-section h2,
+.about-section h2,
+.contact-section h2,
+.engineering-section h2,
+.workbench-heading h2,
+.compact-archive-heading h2,
+.closing-about h2,
+.closing-contact h2,
+.lab-study-grid > header h2,
+.measure-copy h3,
+.about-section-heading h2,
+.about-record h2,
+.about-page-copy,
+.murmur-fragment blockquote,
+.tempo-readout strong,
+.spatial-field-poster strong,
+.project-portrait-product-title > strong,
+.project-portrait-data > strong,
+.project-portrait-ml-title strong {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--t-title);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+.project-detail-card h3,
+.project-card h3,
+.resume-card h2,
+.project-reflection h2,
+.about-principle-grid h3,
+.lab-index a strong,
+.workbench-control-copy strong,
+.technical-proof summary > span:last-child {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--t-subtitle);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.project-portrait-ml-title > span,
+.contact-mark i {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+/* ── ledes, prose, meta ──────────────────────────────────────── */
+
+.home-intro,
+.project-intro .lead,
+.about-lead,
+.about-page-lead,
+.closing-lead {
+  font-size: var(--t-subtitle);
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.project-prose p,
+.interaction-list p,
+.measure-copy > p:last-child {
+  font-size: var(--t-body);
+}
+
+.eyebrow,
+.filter-chip,
+.primary-text-link,
+.quiet-link,
+.contact-email,
+.lens-search,
+.workbench-stage-footer > p,
+.compact-archive-heading > p,
+.lab-study-grid > header > p:last-child,
+.project-portrait-data > footer,
+.project-portrait-ml > footer,
+.tempo-options small,
+.constraint-field-controls button small {
+  font-size: var(--t-meta);
+}
+
+.eyebrow {
+  color: var(--slate);
+  letter-spacing: 0.16em;
+}
+
+/* ── chrome ──────────────────────────────────────────────────── */
+
+.site-header {
+  backdrop-filter: none;
+  background: var(--stone);
+  border-bottom-color: var(--line);
+}
+.nav-link.is-active::after,
+.nav-link:hover::after {
+  background: var(--sindoor);
+}
+.site-reading-progress {
+  display: none; /* the horizon carries reading progress now */
+}
+
+/* Room for the fixed ground on every route that has one. */
+body:has(.site-ground) main,
+body:has(.site-ground) .site-footer {
+  padding-bottom: calc(var(--ground-h) + var(--s-6));
+}
+body:has(.site-ground) .site-footer {
+  border-top: 1px solid var(--line);
+}
+
+/* ── the ground: the homepage's measure strip, on every route ──── */
+
+.site-ground {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--ground-h);
+  background: var(--stone);
+  border-top: 3px solid var(--sindoor); /* the horizon */
+  z-index: 40;
+}
+.site-ground::before {
+  /* reading progress travels along the horizon */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -3px;
+  height: 3px;
+  width: 100%;
+  background: var(--ink);
+  transform: scaleX(var(--site-progress, 0));
+  transform-origin: left;
+}
+.site-measure {
+  position: absolute;
+  inset: 0 6.25%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: stretch;
+}
+.site-measure a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding-inline-end: var(--s-2);
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: var(--t-meta);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-decoration: none;
+  min-width: 0;
+}
+.site-measure a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 0.45rem;
+  background: var(--line-strong);
+}
+.site-measure a[aria-current] {
+  color: var(--ink);
+}
+.site-measure a[aria-current]::before {
+  background: var(--sindoor);
+  height: 0.8rem;
+}
+.site-measure b {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.site-measure span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .site-measure {
+    inset: 0 7%;
+  }
+  .site-measure span {
+    display: none;
+  }
+}
+@media print {
+  .site-ground {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYOUT — the interior rhythm is the homepage's rhythm.
+   Content starts high, sections breathe on the spacing scale, heads get
+   enough measure never to stack one word per line, media sits in plates.
+   Grid overrides are gated above globals' collapse point (980px) so the
+   existing single-column mobile rules keep winning below it. */
+
+:root {
+  --gutter: max(1.25rem, 6.25vw);           /* the homepage's gutter */
+  --container: 96rem;
+  --section-space: var(--s-8);               /* 72px per side, not 172 */
+}
+
+/* ── intros: one column, high, like an exposure ─────────────── */
+
+.page-intro,
+.project-intro.section {
+  padding-top: var(--s-8);
+  padding-bottom: var(--s-7);
+}
+.page-intro-shell,
+.page-intro-narrow,
+.project-intro-copy {
+  max-width: 58rem;
+  gap: var(--s-5);
+}
+.page-intro p:not(.eyebrow),
+.project-intro .lead {
+  max-width: 52ch;
+}
+.project-case-media-section {
+  padding-bottom: var(--s-8);
+}
+
+/* ── media: the homepage's plate, not a padded stage ────────── */
+
+.project-media-stage {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  transition: none;
+}
+.project-media-stage-portrait,
+.project-media-case-study.project-media-gathrly .project-media-stage-portrait {
+  min-height: 0;
+  padding: var(--s-6);
+}
+.project-media-stage-portrait .project-media-image,
+.project-media-case-study.project-media-gathrly .project-media-image {
+  width: auto;
+  height: min(64vh, 40rem);
+  max-height: none;
+}
+.project-media-stage-landscape {
+  background: #0e1733;
+  padding: var(--s-4);
+}
+.project-media figcaption {
+  margin-top: var(--s-3);
+  font-size: var(--t-meta);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── section heads: measure first ───────────────────────────── */
+
+.project-narrative-section h2,
+.project-interaction-section h2,
+.failure-section h2,
+.lab-study-grid > header h2,
+.quiet-section-heading h2,
+.about-section-heading h2,
+.engineering-section h2 {
+  max-width: 24ch; /* bounded by the column; never one word per line */
+  text-wrap: balance;
+}
+.project-narrative-grid header,
+.project-interaction-grid header,
+.lab-study-grid > header {
+  gap: var(--s-4);
+}
+.engineering-section,
+.failure-section,
+.reflection-section,
+.technical-proof-section {
+  padding-block: var(--s-8);
+}
+
+@media (min-width: 981px) {
+  .project-narrative-grid,
+  .project-interaction-grid {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--s-8);
+  }
+  .lab-study-grid {
+    grid-template-columns: 4fr 8fr;
+    gap: var(--s-8);
+  }
+  .quiet-section-heading,
+  .about-page-grid,
+  .about-section-heading {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--s-8);
+  }
+  .engineering-grid,
+  .reflection-grid {
+    gap: var(--s-8);
+  }
+  .lab-hero-grid {
+    grid-template-columns: 8fr 4fr;
+    gap: var(--s-7);
+  }
+}
+
+/* ── about: eyebrow over headline in one column ─────────────── */
+
+.about-page-hero-grid {
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  max-width: 58rem;
+}
+.about-page-hero-grid .eyebrow,
+.about-page-hero-grid h1,
+.about-page-hero-grid .about-page-lead,
+.about-page-hero-grid > * {
+  grid-column: 1;
+  padding-top: 0;
+}
+.about-page-lead {
+  max-width: 52ch;
+}
+.about-page-body,
+.about-principles,
+.about-record {
+  padding-block: var(--s-8);
+}
+
+/* The closing block: the night set, sized by its content, one voice. */
+.about-page-contact {
+  padding-block: var(--s-8);
+  background: var(--ink);
+  color: var(--stone);
+}
+.about-page-contact-grid {
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  max-width: 58rem;
+  align-items: start;
+}
+.about-page-contact .eyebrow {
+  color: #ccd2e2;
+}
+.about-page-contact h2 {
+  max-width: 16ch;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--t-display);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.about-page-contact .quiet-link {
+  grid-column: auto;
+}
+.about-page-contact .contact-email,
+.about-page-contact .quiet-link {
+  color: var(--stone);
+}
+.closing-contact,
+.closing-about {
+  min-height: 0;
+  padding: var(--s-8) var(--s-6);
+}
+.closing-contact h2,
+.closing-about h2 {
+  max-width: 16ch;
+}
+
+/* ── lab: hero by content, studies on the scale ─────────────── */
+
+.lab-hero {
+  min-height: 0;
+  padding-block: var(--s-8);
+}
+.lab-hero h1 {
+  max-width: 16ch;
+}
+.lab-index-section {
+  padding-block: var(--s-7);
+}
+.lab-study {
+  padding-block: var(--s-8);
+}
+
+/* ── archive ────────────────────────────────────────────────── */
+
+.section-compact-top {
+  padding-top: var(--s-6);
+}
+.projects-toolbar {
+  margin-bottom: var(--s-6);
+}

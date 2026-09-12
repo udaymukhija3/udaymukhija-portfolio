@@ -1,6 +1,6 @@
-/* BAND — a hard-edged horizon bar with a cropped disc cresting it.
+/* BAND — a horizon line, a travelling sun, six exposures.
    Flat fields only: no gradients as atmosphere, no blur, no canvas, no WebGL.
-   The field warms with the band, so the palette never lands on a flag. */
+   Type uses the site's five sizes; spacing uses its eight steps (system.css). */
 
 :global(body):has([data-band-route]) {
   background: #0e1733;
@@ -17,8 +17,6 @@
   background: #0b132b;
   color: #f4ecda;
   border-color: #ffffff1f;
-  backdrop-filter: none;
-  box-shadow: none;
 }
 :global(body):has([data-band-route]) :global(.brand),
 :global(body):has([data-band-route]) :global(.nav-link) {
@@ -27,21 +25,31 @@
 :global(body):has([data-band-route]) :global(.brand small) {
   color: #b3bcd6;
 }
-:global(body):has([data-band-route]) :global(.site-reading-progress) {
-  display: none;
+/* Once the sky is day, the masthead stops being the darkest thing on the page. */
+:global(body):has([data-band-route][data-light="day"]) > :global(.site-header) {
+  background: #c2daec;
+  color: #14233f;
+  border-color: #14233f30;
+}
+:global(body):has([data-band-route][data-light="day"]) :global(.brand),
+:global(body):has([data-band-route][data-light="day"]) :global(.nav-link) {
+  color: #14233f;
+}
+:global(body):has([data-band-route][data-light="day"]) :global(.brand small) {
+  color: #33405c;
 }
 
 .root {
   /* Written every frame by BandStage. */
   --field: #0e1733;
   --band-c: #7a3b4a;
-  --band-h: 4vh;
-  --disc-c: #8e3a3e;
-  --crest: 2vh;
+  --band-h: 3vh;
+  --sun-c: #8e3a3e;
+  --sun-x: 92vw;
+  --sun-y: -25vh;
+  --sun-d: 62vh;
   --drift: 0px;
 
-  --ground-h: 3.4vh;
-  --disc-d: 62vh;
   --bone: #f0e7d4;
   --sindoor: #e2452c;
   /* Ink set: flipped in one step by BandStage when the sky outgrows it. */
@@ -49,7 +57,9 @@
   --dim: #ccd2e2;
   --ember: #ffc78e;
   --hairline: #ffffff2b;
-  --plate-bg: #0a0f24d9;
+  --plate-bg: #0a0f24;
+
+  --gutter: 6.25%;
 
   position: relative;
   background: var(--field);
@@ -59,23 +69,25 @@
 
 /* ── the fixed composition ──────────────────────────────────── */
 
-/* The disc is always cropped by the right edge and by the band: only the
-   upper-left arc is ever visible, so it reads as light, not as a logo. */
+/* The sun is placed by its centre: x across the viewport, y above the horizon.
+   It rises, drifts west, and shrinks as it clears the air — the moon illusion
+   in reverse. It is never a logo: cropped by the frame edge early, by the band
+   until the fifth exposure, and free only in the last. */
 .disc {
   position: fixed;
-  right: -17vh;
-  top: calc(100svh - var(--ground-h) - var(--band-h) - var(--crest));
-  width: var(--disc-d);
-  height: var(--disc-d);
+  left: calc(var(--sun-x) - var(--sun-d) / 2);
+  top: calc(100svh - var(--ground-h) - var(--band-h) - var(--sun-y) - var(--sun-d) / 2);
+  width: var(--sun-d);
+  height: var(--sun-d);
   border-radius: 50%;
-  background: var(--disc-c);
-  transform: translateX(calc(var(--drift) * -0.7));
+  background: var(--sun-c);
+  transform: translateX(calc(var(--drift) * -0.5));
   z-index: 0;
   pointer-events: none;
 }
 
-/* Band and ground paint above content on purpose: the horizon stays intact
-   even if a section runs long. */
+/* The horizon paints above content on purpose: it stays intact even if a
+   section runs long, and things below it read as behind the earth. */
 .band {
   position: fixed;
   left: 0;
@@ -92,7 +104,6 @@
   right: 0;
   bottom: 0;
   height: var(--ground-h);
-  min-height: 1.75rem;
   background: var(--bone);
   z-index: 3;
 }
@@ -101,7 +112,7 @@
 
 .measure {
   position: absolute;
-  inset: 0 6.25%;
+  inset: 0 var(--gutter);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   align-items: stretch;
@@ -110,10 +121,11 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  padding-inline-end: 0.5rem;
+  gap: var(--s-2);
+  padding-inline-end: var(--s-2);
+  min-width: 0;
   color: #57544c;
-  font-size: 0.6875rem;
+  font-size: var(--t-meta);
   letter-spacing: 0.11em;
   text-transform: uppercase;
   text-decoration: none;
@@ -147,33 +159,36 @@
 /* ── exposures ──────────────────────────────────────────────── */
 
 .exposure {
-  /* Reserves the widest band plus the ground, so content never runs under it. */
-  --reserve: clamp(15rem, 35vh, 26rem);
-  /* The site header is sticky, so an exposure only ever owns the space below it. */
-  --chrome: 4.75rem;
+  --reserve: 16vh; /* overwritten per exposure by BandStage */
+  --chrome: 4.75rem; /* the sticky header owns the top of the viewport */
   --local: 1;
   position: relative;
   z-index: 1;
-  min-height: calc(100svh - var(--chrome));
+  /* A little shorter than the viewport, and content sits at the top, so the
+     next exposure has cleared the horizon before this one has left. */
+  min-height: calc(92svh - var(--chrome));
   display: grid;
-  align-content: center;
-  gap: clamp(1.5rem, 3.5vw, 4rem);
-  padding: clamp(1.25rem, 3vh, 2rem) 6.25% var(--reserve);
+  align-content: start;
+  gap: var(--s-7);
+  padding: var(--s-7) var(--gutter) var(--reserve);
   scroll-margin-top: var(--chrome);
 }
 
 /* Six exposures, six compositions — not one layout recoloured. */
 .wide {
   grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.5fr);
-  align-items: end;
+  align-items: start;
+}
+.wide .copy {
+  max-width: 58rem; /* the opening line gets the full measure */
 }
 .split {
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: center;
+  align-items: start;
 }
 .mediaFirst {
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  align-items: center;
+  align-items: start;
 }
 .mediaFirst .copy {
   order: 2;
@@ -189,9 +204,9 @@
 .eyebrow {
   display: flex;
   align-items: baseline;
-  gap: 0.9rem;
-  margin: 0 0 clamp(0.8rem, 1.8vh, 1.4rem);
-  font-size: 0.75rem;
+  gap: var(--s-3);
+  margin: 0 0 var(--s-5);
+  font-size: var(--t-meta);
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -206,7 +221,7 @@
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(2.6rem, 4.9vw, 5rem);
+  font-size: var(--t-display);
   line-height: 1.02;
   letter-spacing: -0.04em;
   text-wrap: balance;
@@ -215,10 +230,10 @@
   font-style: italic;
 }
 .lede {
-  max-width: 46ch;
-  margin: clamp(0.9rem, 2vh, 1.4rem) 0 0;
-  font-size: clamp(0.975rem, 1.1vw, 1.1rem);
-  line-height: 1.6;
+  max-width: 44ch;
+  margin: var(--s-5) 0 0;
+  font-size: var(--t-subtitle);
+  line-height: 1.45;
   color: var(--cream);
   opacity: 0.9;
   text-wrap: pretty;
@@ -226,8 +241,8 @@
 .proof {
   display: block;
   max-width: 44ch;
-  margin: 0.9rem 0 0;
-  font-size: 0.75rem;
+  margin: var(--s-4) 0 0;
+  font-size: var(--t-meta);
   line-height: 1.6;
   letter-spacing: 0.03em;
   color: var(--ember);
@@ -236,19 +251,18 @@
 .link {
   display: inline-flex;
   align-items: center;
-  gap: 1.6rem;
+  gap: var(--s-5);
   min-height: 2.75rem;
-  margin-top: 0.95rem;
-  padding: 0.5rem 0;
+  margin-top: var(--s-5);
+  padding: var(--s-2) 0;
   border-bottom: 1px solid var(--ember);
   color: var(--cream);
-  font-size: 0.875rem;
+  font-size: var(--t-body);
   font-weight: 500;
   text-decoration: none;
 }
 .link i {
   font-style: normal;
-  font-size: 1.1rem;
   transition: transform 200ms cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 .link:hover i {
@@ -259,12 +273,12 @@
   outline-offset: 6px;
 }
 
-/* ── plates: flat frames, hard edges, no floating shadows ───── */
+/* ── plates: flat, opaque, hard-edged; no floating shadows ──── */
 
 .plate {
   min-width: 0;
   margin: 0;
-  padding: 0.9rem;
+  padding: var(--s-4);
   border: 1px solid var(--hairline);
   background: var(--plate-bg);
 }
@@ -274,32 +288,32 @@
   height: auto;
 }
 .caption {
-  margin: 0.8rem 0 0;
-  font-size: 0.6875rem;
+  margin: var(--s-3) 0 0;
+  font-size: var(--t-meta);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--dim);
 }
-/* Sized from height so the plate can never reach into the band. */
+/* The capture is the hero of its exposure: sized from the viewport height. */
 .phonePlate {
   justify-self: center;
   width: auto;
 }
 .phonePlate img {
   width: auto;
-  height: min(28vh, 16rem);
+  height: min(52vh, 30rem);
 }
 
 .voice {
   background: var(--bone);
   color: #14192e;
-  padding: 1.3rem 1.4rem;
+  padding: var(--s-5);
 }
 .voiceTop {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-size: 0.6875rem;
+  font-size: var(--t-meta);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #57544c;
@@ -308,8 +322,8 @@
   display: flex;
   align-items: center;
   gap: 3px;
-  height: 3.2rem;
-  margin: 1.1rem 0 0.9rem;
+  height: var(--s-7);
+  margin: var(--s-4) 0;
 }
 .wave i {
   display: block;
@@ -319,22 +333,21 @@
 .voice blockquote {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.6rem;
-  line-height: 1.16;
+  font-size: var(--t-title);
+  line-height: 1.1;
   letter-spacing: -0.03em;
 }
 
 /* The lab's artifact is the index itself, under a strip of four flat colours. */
 .notebook {
   min-width: 0;
-  align-self: center;
 }
 .labMark {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 3px;
-  height: 0.6rem;
-  margin-bottom: 1.1rem;
+  height: var(--s-2);
+  margin-bottom: var(--s-4);
 }
 .labMark i {
   display: block;
@@ -347,16 +360,19 @@
 .index a {
   display: flex;
   align-items: baseline;
-  gap: 0.9rem;
-  padding: 0.38rem 0;
+  gap: var(--s-3);
+  padding: var(--s-2) 0;
   border-top: 1px solid var(--hairline);
   color: var(--cream);
-  font-size: 0.9rem;
+  font-size: var(--t-body);
   text-decoration: none;
+}
+.index a:last-child {
+  border-bottom: 1px solid var(--hairline);
 }
 .index a b {
   color: var(--ember);
-  font-size: 0.7rem;
+  font-size: var(--t-meta);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
@@ -372,42 +388,43 @@
 .contactLinks {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.4rem;
-  margin-top: 0.95rem;
-  font-size: 0.9375rem;
+  gap: var(--s-5);
+  margin-top: var(--s-4);
+  font-size: var(--t-body);
 }
 .contactLinks a {
   color: var(--cream);
   text-decoration: none;
   border-bottom: 1px solid var(--hairline);
-  padding-bottom: 0.2rem;
+  padding-bottom: var(--s-1);
 }
 .contactLinks a:hover {
   border-color: var(--ember);
 }
 .email {
   display: inline-block;
-  margin-top: 1rem;
-  padding-bottom: 0.3rem;
+  margin-top: var(--s-5);
+  padding-bottom: var(--s-1);
   border-bottom: 1px solid var(--ember);
   color: var(--cream);
-  font-size: clamp(1.05rem, 1.8vw, 1.5rem);
+  font-size: var(--t-subtitle);
   text-decoration: none;
 }
 .marginNote {
-  align-self: end;
+  align-self: start;
   justify-self: end;
   max-width: 13rem;
   margin: 0;
+  padding-top: var(--s-8);
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.15rem;
+  font-size: var(--t-subtitle);
   line-height: 1.35;
   color: var(--dim);
   text-align: right;
 }
 
-/* ── progressive disclosure, driven by each exposure's own position ──
+/* ── progressive disclosure, driven by each block's own position ──
    Reversible: scrolling back re-closes it. Not a one-shot trigger. */
 
 .copy > *,
@@ -430,12 +447,19 @@
 
 /* ── responsive ─────────────────────────────────────────────── */
 
+@media (min-width: 1700px) {
+  .exposure {
+    padding-inline: max(var(--gutter), calc((100vw - 96rem) / 2));
+  }
+  .copy {
+    max-width: 52rem;
+  }
+}
 @media (max-width: 1000px) {
   .wide,
   .split,
   .mediaFirst {
     grid-template-columns: 1fr;
-    align-items: start;
   }
   .mediaFirst .copy,
   .mediaFirst .plate {
@@ -444,49 +468,39 @@
   .marginNote {
     justify-self: start;
     text-align: left;
+    padding-top: 0;
   }
   .phonePlate {
     justify-self: start;
   }
   .phonePlate img {
-    height: min(28vh, 14rem);
+    height: min(40vh, 22rem);
   }
 }
 @media (max-width: 700px) {
   .root {
-    --disc-d: 44vh;
+    --gutter: 7%;
   }
-  /* A phone frame has no spare width: the disc shows as an edge of light
-     rather than a body, and never rises under full-width copy. */
+  /* A phone frame has no spare width: the sun stays smaller and further
+     east, so it never rises under full-width copy. */
   .disc {
-    right: -16vh;
-    top: calc(100svh - var(--ground-h) - var(--band-h) - var(--crest) * 0.45);
+    left: calc(var(--sun-x) + 20vw - var(--sun-d) * 0.35);
+    top: calc(100svh - var(--ground-h) - var(--band-h) - var(--sun-y) * 0.55 - var(--sun-d) * 0.35);
+    width: calc(var(--sun-d) * 0.7);
+    height: calc(var(--sun-d) * 0.7);
   }
   /* A phone reads as a document: exposures size to their content and the
      horizon does the pacing, instead of a screen-height frame per exposure. */
   .exposure {
     min-height: 0;
-    align-content: start;
-    padding: 4rem 7% var(--reserve);
-    gap: 1.75rem;
+    padding: var(--s-8) var(--gutter) var(--reserve);
+    gap: var(--s-6);
   }
-  .title {
-    font-size: clamp(2.4rem, 9vw, 3.4rem);
-  }
-  .lede {
-    font-size: 0.975rem;
-  }
-  .measure {
-    inset: 0 7%;
-  }
-  .measure a span {
+  .measure span {
     display: none;
   }
   .voice {
-    padding: 1rem 1.1rem;
-  }
-  .voice blockquote {
-    font-size: 1.35rem;
+    padding: var(--s-4);
   }
 }
 
@@ -500,9 +514,6 @@
   }
   .link i,
   .index a i {
-    transition: none;
-  }
-  .root {
     transition: none;
   }
 }
@@ -519,7 +530,7 @@
   }
   .exposure {
     min-height: 0;
-    padding: 2rem 0;
+    padding: var(--s-6) 0;
     break-inside: avoid;
   }
   .copy > *,

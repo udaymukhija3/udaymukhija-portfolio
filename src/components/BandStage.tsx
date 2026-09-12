@@ -12,17 +12,25 @@ const FIELD = ["#0e1733", "#1b2550", "#2e3566", "#46527f", "#93b0d2", "#c2daec"]
 const BAND = ["#7a3b4a", "#b03a34", "#d2402a", "#e2452c", "#d9401f", "#c8371b"];
 /* The disc does turn yellow as it climbs — that is what the sun does. It stays
    a circle, so it never becomes a stripe of yellow sitting on a blue field. */
-const DISC = ["#8e3a3e", "#c33b2c", "#e2452c", "#ee5a22", "#f4902a", "#f7c342"];
-const HEIGHT = [4, 8, 13, 18, 20, 22];
-const CREST = [1.5, 5, 9, 12.5, 15, 17.5];
+const SUN = ["#8e3a3e", "#c33b2c", "#e2452c", "#ee5a22", "#f4902a", "#f7c342"];
+/* The band is a horizon line that thickens a little, not a slab: the sky and
+   the sun carry the growth. */
+const HEIGHT = [3, 4, 5, 6, 7, 8];
+/* The sun travels: centre x as a fraction of the viewport width, centre y in
+   vh above the horizon, diameter in vh. It rises, drifts west, and shrinks as
+   it clears the air — cropped by the band until the fifth exposure, free in
+   the sixth. */
+const SUN_X = [0.92, 0.89, 0.85, 0.8, 0.75, 0.7];
+const SUN_Y = [-25, -18, -8, 2, 12, 22];
+const SUN_D = [62, 56, 50, 44, 38, 32];
 
 /* Once the sky is brighter than the type, the ink changes in one step rather
    than interpolating through a low-contrast middle. Flat fields make that free. */
 const DAYBREAK_AT = 0.62;
-const NIGHT_INK = { ink: "#f4ecda", dim: "#ccd2e2", accent: "#ffc78e", hair: "#ffffff2b", plate: "#0a0f24d9" };
-const DAY_INK = { ink: "#14233f", dim: "#2b3750", accent: "#7a1d0e", hair: "#14233f30", plate: "#ffffffc7" };
+const NIGHT_INK = { ink: "#f4ecda", dim: "#ccd2e2", accent: "#ffc78e", hair: "#ffffff2b", plate: "#0a0f24" };
+const DAY_INK = { ink: "#14233f", dim: "#2b3750", accent: "#7a1d0e", hair: "#14233f30", plate: "#f7f1e4" };
 
-const DRIFT = 22;
+const DRIFT = 36;
 /* Clearance above the band at which a block is fully revealed. */
 const REVEAL_PX = 36;
 
@@ -47,6 +55,7 @@ function rampNumber(stops: number[], p: number) {
 
 export function BandStage({ children }: { children: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const groundRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -103,7 +112,9 @@ export function BandStage({ children }: { children: ReactNode }) {
 
       const p = still ? index / (exposures.length - 1) : scrolled;
       const eased = smooth(p);
-      const groundPx = (parseFloat(getComputedStyle(root).getPropertyValue("--ground-h")) / 100) * view;
+      // Read the ground as rendered: its token is a max() expression, which
+      // computed style hands back unresolved.
+      const groundPx = groundRef.current?.getBoundingClientRect().height ?? 0;
       const horizon = view - groundPx - (rampNumber(HEIGHT, eased) / 100) * view;
 
       // A block resolves only once it has risen clear of the band, so nothing
@@ -118,12 +129,16 @@ export function BandStage({ children }: { children: ReactNode }) {
 
       root.style.setProperty("--field", rampColor(FIELD, p));
       root.style.setProperty("--band-c", rampColor(BAND, p));
-      root.style.setProperty("--disc-c", rampColor(DISC, p));
+      root.style.setProperty("--sun-c", rampColor(SUN, p));
       root.style.setProperty("--band-h", `${rampNumber(HEIGHT, eased).toFixed(2)}vh`);
-      root.style.setProperty("--crest", `${rampNumber(CREST, eased).toFixed(2)}vh`);
+      root.style.setProperty("--sun-x", `${(rampNumber(SUN_X, eased) * 100).toFixed(2)}vw`);
+      root.style.setProperty("--sun-y", `${rampNumber(SUN_Y, eased).toFixed(2)}vh`);
+      root.style.setProperty("--sun-d", `${rampNumber(SUN_D, eased).toFixed(2)}vh`);
       // One shared lateral travel: the reading surface slides a little left as
       // the visitor descends, as though it belongs to a much larger surface.
-      root.style.setProperty("--drift", still ? "0px" : `${(-DRIFT * eased).toFixed(1)}px`);
+      // Bounded by the viewport, so a phone's narrow gutter is never overrun.
+      const drift = Math.min(DRIFT, window.innerWidth * 0.025);
+      root.style.setProperty("--drift", still ? "0px" : `${(-drift * eased).toFixed(1)}px`);
 
       const isDay = p >= DAYBREAK_AT;
       if (isDay !== day) {
@@ -167,7 +182,7 @@ export function BandStage({ children }: { children: ReactNode }) {
       <div className={styles.disc} aria-hidden="true" />
       {children}
       <div className={styles.band} aria-hidden="true" />
-      <div className={styles.ground}>
+      <div ref={groundRef} className={styles.ground}>
         <nav className={styles.measure} aria-label="Exposures">
           {exposures.map((name, i) => (
             <a
