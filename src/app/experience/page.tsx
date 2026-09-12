@@ -18,9 +18,9 @@ export default function ExperiencePage() {
       <section className="section page-intro">
         <div className="container page-intro-shell">
           <p className="eyebrow">Experience</p>
-          <h1>Where I've worked</h1>
+          <h1>Where I&apos;ve worked</h1>
           <p>
-            Short version of my work history and the problems I've shipped. The resume page has
+            Short version of my work history and the problems I&apos;ve shipped. The resume page has
             the fuller skill breakdown.
           </p>
         </div>

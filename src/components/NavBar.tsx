@@ -8,12 +8,16 @@ import { contactLinks } from "../data/siteContent";
 export function NavBar() {
   const pathname = usePathname();
   const currentPathname = pathname ?? "";
+  const isDaybreak = currentPathname === "/";
   const emailHref = contactLinks.find((link) => link.label === "Email")?.href ?? "mailto:udaymukhija3@gmail.com";
   const navLinkClassName = (isActive: boolean) => (isActive ? "nav-link is-active" : "nav-link");
   const isCaseStudy = currentPathname.startsWith("/projects/");
   const isArchive = currentPathname === "/projects";
+  const isLab = currentPathname === "/lab";
+  const isAbout = currentPathname === "/about";
 
   useEffect(() => {
+    if (currentPathname === "/") return;
     let frame = 0;
 
     const writeReadingState = () => {
@@ -46,29 +50,38 @@ export function NavBar() {
   }, [currentPathname]);
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-daybreak={isDaybreak ? "true" : undefined}>
       <div className="container nav-shell">
-        <Link className="brand" href="/">
-          <span>Uday Mukhija</span>
-          <small>Software Engineer</small>
+        <Link className="brand" href="/" onClick={event => { if (isDaybreak) { event.preventDefault(); window.dispatchEvent(new CustomEvent("daybreak:navigate", { detail: "home" })); } }}>
+          <span>{isDaybreak ? "DAYBREAK" : "Uday Mukhija"}</span>
+          <small>{isDaybreak ? "UDAY MUKHIJA" : "Software Engineer"}</small>
         </Link>
         <nav className="nav" aria-label="Primary">
           <Link
-            className={navLinkClassName(isCaseStudy)}
-            href="/#work"
-            aria-current={isCaseStudy ? "page" : undefined}
+            className={navLinkClassName(isCaseStudy || isArchive)}
+            href="/projects"
+            onClick={event => { if (isDaybreak) { event.preventDefault(); window.dispatchEvent(new CustomEvent("daybreak:navigate", { detail: "work" })); } }}
+            aria-current={isCaseStudy || isArchive ? "page" : undefined}
           >
             Work
           </Link>
-          <Link className="nav-link" href="/#about">About</Link>
           <Link
-            className={`${navLinkClassName(isArchive)} nav-archive`}
-            href="/projects"
-            aria-current={isArchive ? "page" : undefined}
+            className={navLinkClassName(isLab)}
+            href="/lab"
+            onClick={event => { if (isDaybreak) { event.preventDefault(); window.dispatchEvent(new CustomEvent("daybreak:navigate", { detail: "lab" })); } }}
+            aria-current={isLab ? "page" : undefined}
           >
-            Archive
+            Lab
           </Link>
-          <a className="nav-link" href={emailHref}>
+          <Link
+            className={navLinkClassName(isAbout)}
+            href="/about"
+            onClick={event => { if (isDaybreak) { event.preventDefault(); window.dispatchEvent(new CustomEvent("daybreak:navigate", { detail: "about" })); } }}
+            aria-current={isAbout ? "page" : undefined}
+          >
+            About
+          </Link>
+          <a className="nav-link" href={emailHref} onClick={event => { if (isDaybreak) { event.preventDefault(); window.dispatchEvent(new CustomEvent("daybreak:navigate", { detail: "contact" })); } }}>
             Contact
           </a>
         </nav>

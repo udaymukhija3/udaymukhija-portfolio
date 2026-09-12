@@ -13,7 +13,7 @@ export function getSiteUrl() {
     process.env.VERCEL_URL;
 
   if (!configuredUrl) {
-    return "https://udaymukhija-portfolio.vercel.app";
+    return "https://daybreak-uday-mukhija.udiboy98.chatgpt.site";
   }
 
   return configuredUrl.startsWith("http") ? configuredUrl : `https://${configuredUrl}`;

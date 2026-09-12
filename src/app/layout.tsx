@@ -4,6 +4,7 @@ import { NavBar } from "../components/NavBar";
 import { contactLinks, resumeHref } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
 import "./globals.css";
+import "./daybreak-shell.css";
 
 const siteUrl = getSiteUrl();
 

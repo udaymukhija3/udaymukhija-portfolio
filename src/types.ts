@@ -44,3 +44,16 @@ export type Project = {
   featured?: boolean;
   flagship?: boolean;
 };
+
+export type ExperimentCategory = "motion" | "svg" | "typography" | "interaction" | "webgl";
+
+export type Experiment = {
+  slug: string;
+  title: string;
+  category: ExperimentCategory;
+  year: string;
+  description: string;
+  technologies: string[];
+  preview: "routing" | "tempo" | "measure" | "field";
+  route: string;
+};

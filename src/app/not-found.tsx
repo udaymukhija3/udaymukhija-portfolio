@@ -6,7 +6,7 @@ export default function NotFound() {
       <div className="container page-intro-shell">
         <p className="eyebrow">404</p>
         <h1>Page not found</h1>
-        <p>That page doesn't exist. The links below cover the rest of the site.</p>
+        <p>That page doesn&apos;t exist. The links below cover the rest of the site.</p>
         <div className="cta-row">
           <Link className="button button-solid" href="/">
             Back home

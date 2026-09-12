@@ -1,14 +1,8 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { ProjectCard } from "../../components/ProjectCard";
+import { ArchiveFilter } from "../../components/ArchiveFilter";
 import { projectCategories, projects } from "../../data/projects";
-import type { Project, ProjectCategory } from "../../types";
-
-type SearchParams = Promise<{
-  category?: string;
-}>;
-
-type ActiveCategory = ProjectCategory | "all";
+import type { Project } from "../../types";
 
 const projectPriority = new Map(
   [
@@ -61,20 +55,8 @@ function sortProjects(items: Project[]) {
   });
 }
 
-export default async function ProjectsPage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
-  const { category } = await searchParams;
-  const activeCategory: ActiveCategory = projectCategories.some((item) => item.id === category)
-    ? (category as ActiveCategory)
-    : "all";
-
-  const visibleProjects =
-    activeCategory === "all"
-      ? sortProjects(projects)
-      : sortProjects(projects.filter((project) => project.category === activeCategory));
+export default function ProjectsPage() {
+  const visibleProjects = sortProjects(projects);
 
   return (
     <>
@@ -86,34 +68,37 @@ export default async function ProjectsPage({
         </div>
       </section>
 
-      <section className="section section-compact-top section-last">
+      <section id="project-archive" className="section section-compact-top section-last">
         <div className="container">
           <div className="projects-toolbar">
             <div className="filter-row" role="navigation" aria-label="Project categories">
               {projectCategories.map((item) => {
                 const href = item.id === "all" ? "/projects" : `/projects?category=${item.id}`;
-                const className = item.id === activeCategory ? "filter-chip is-active" : "filter-chip";
+                const className = item.id === "all" ? "filter-chip is-active" : "filter-chip";
 
                 return (
-                  <Link
+                  <a
                     key={item.id}
                     className={className}
                     href={href}
-                    aria-current={item.id === activeCategory ? "page" : undefined}
+                    data-category-link={item.id}
+                    aria-current={item.id === "all" ? "page" : undefined}
                   >
                     {item.label}
-                  </Link>
+                  </a>
                 );
               })}
             </div>
           </div>
 
-          <div className="project-detail-grid" data-archive-view={activeCategory}>
+          <p className="archive-result-count" data-filter-count role="status">{visibleProjects.length} projects</p>
+          <div className="project-detail-grid">
             {visibleProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} detailed />
+              <div key={project.slug} data-project-category={project.category}><ProjectCard project={project} detailed /></div>
             ))}
           </div>
         </div>
+        <ArchiveFilter />
       </section>
     </>
   );

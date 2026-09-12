@@ -4,10 +4,71 @@ import type { Project } from "../types";
 
 type ProjectMediaProps = {
   project: Project;
-  context?: "featured" | "case-study";
+  context?: "featured" | "workbench" | "case-study";
 };
 
 const murmurWaveform = [34, 62, 45, 78, 53, 91, 68, 39, 84, 57, 73, 42, 66, 88, 49, 71, 38, 61, 81, 55, 76, 47, 69, 36];
+
+function ProjectPortrait({ project }: { project: Project }) {
+  const systemFacts = project.system.slice(0, 3);
+
+  if (project.category === "data") {
+    return (
+      <div className="project-portrait project-portrait-data" role="img" aria-label={`${project.title} data architecture summary`}>
+        <header><span>Data contract</span><span>{project.status}</span></header>
+        <strong>{project.title}</strong>
+        <dl>
+          {systemFacts.map((item, index) => (
+            <div key={item.label}>
+              <dt>{String(index + 1).padStart(2, "0")} / {item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <footer><span>Source</span><span>Contract</span><span>Consumer</span></footer>
+      </div>
+    );
+  }
+
+  if (project.category === "ml") {
+    return (
+      <div className="project-portrait project-portrait-ml" role="img" aria-label={`${project.title} machine-learning evaluation summary`}>
+        <header><span>Evaluation sheet</span><span>{project.status}</span></header>
+        <div className="project-portrait-ml-title">
+          <strong>{project.title}</strong>
+          <span aria-hidden="true">EVAL</span>
+        </div>
+        <div className="project-portrait-matrix">
+          {systemFacts.map((item, index) => (
+            <div key={item.label} style={{ "--portrait-order": index } as CSSProperties}>
+              <span>{item.label}</span>
+              <p>{item.value}</p>
+            </div>
+          ))}
+        </div>
+        <footer>Question → baseline → evidence</footer>
+      </div>
+    );
+  }
+
+  return (
+    <div className="project-portrait project-portrait-product" role="img" aria-label={`${project.title} product architecture summary`}>
+      <header><span>Product behavior</span><span>{project.status}</span></header>
+      <div className="project-portrait-product-title">
+        <strong>{project.title}</strong>
+        <small>{project.label}</small>
+      </div>
+      <ol>
+        {systemFacts.map((item, index) => (
+          <li key={item.label}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <div><strong>{item.label}</strong><p>{item.value}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
 
 export function ProjectMedia({ project, context = "featured" }: ProjectMediaProps) {
   const className = `project-media project-media-${project.slug} project-media-${context}`;
@@ -20,7 +81,7 @@ export function ProjectMedia({ project, context = "featured" }: ProjectMediaProp
             alt="Gathr Plans screen showing plan follow-up, upcoming plans, and planning tools"
             className="project-media-image"
             height={2622}
-            sizes={context === "featured" ? "(max-width: 760px) 88vw, 42vw" : "(max-width: 760px) 88vw, 34vw"}
+            sizes={context === "case-study" ? "(max-width: 760px) 88vw, 34vw" : "(max-width: 760px) 88vw, 42vw"}
             src="/images/projects/gathr-plans.png"
             width={1206}
           />
@@ -94,20 +155,8 @@ export function ProjectMedia({ project, context = "featured" }: ProjectMediaProp
 
   return (
     <figure className={className}>
-      <div className="project-signal" role="img" aria-label={`${project.title} system overview`}>
-        <span className="project-signal-title">{project.title}</span>
-        <span className="project-signal-line" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-        </span>
-        <div className="project-signal-terms">
-          {project.system.slice(0, 3).map((item) => (
-            <span key={item.label}>{item.label}</span>
-          ))}
-        </div>
-      </div>
-      <figcaption>System portrait · drawn from the case-study architecture</figcaption>
+      <ProjectPortrait project={project} />
+      <figcaption>Editorial architecture plate · drawn from documented project evidence</figcaption>
     </figure>
   );
 }

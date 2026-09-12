@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { ProjectMedia } from "./ProjectMedia";
 import { usePortfolioMotion } from "./usePortfolioMotion";
@@ -19,6 +19,14 @@ type HomeWorkbenchProps = {
 };
 
 const featuredProjectSlugs = ["gathrly", "vibegrid", "murmur"];
+const archivePreviewSlugs = [
+  "resolveops",
+  "punchline",
+  "mini-market",
+  "logistics-data-engineering",
+  "inventory-management-sys",
+  "fraud-detection-platform",
+];
 
 const projectIdeas: Record<string, string> = {
   gathrly: "Trust, attendance, and realtime coordination for plans that make it into the real world.",
@@ -26,30 +34,26 @@ const projectIdeas: Record<string, string> = {
   murmur: "Private voice notes with hard access boundaries and a deliberately narrow social loop.",
 };
 
-function SystemVisual() {
-  return (
-    <div className="system-visual" aria-hidden="true">
-      <span className="system-ambient" />
-      <span className="system-line" />
-      <span className="system-flow system-flow-one" />
-      <span className="system-flow system-flow-two" />
-      <span className="system-node system-node-one"><i /></span>
-      <span className="system-node system-node-two"><i /></span>
-      <span className="system-node system-node-three"><i /></span>
-      <span className="system-node system-node-live"><i /></span>
-      <span className="system-caption">State settles into product</span>
-    </div>
-  );
-}
+const practiceAreas = [
+  { number: "01", title: "Product interfaces", detail: "State people can understand" },
+  { number: "02", title: "Backend systems", detail: "Rules the server can defend" },
+  { number: "03", title: "Data + AI", detail: "Outputs that can be evaluated" },
+];
 
 export function HomeWorkbench({ projects, profileLinks, emailHref }: HomeWorkbenchProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [activeProjectSlug, setActiveProjectSlug] = useState(featuredProjectSlugs[0]);
   usePortfolioMotion(rootRef);
   const featuredProjects = featuredProjectSlugs.flatMap((slug) => {
     const project = projects.find((item) => item.slug === slug);
     return project ? [project] : [];
   });
-  const archiveProjects = projects.filter((project) => !featuredProjectSlugs.includes(project.slug));
+  const activeProject = featuredProjects.find((project) => project.slug === activeProjectSlug)
+    ?? featuredProjects[0];
+  const archiveProjects = archivePreviewSlugs.flatMap((slug) => {
+    const project = projects.find((item) => item.slug === slug);
+    return project ? [project] : [];
+  });
 
   return (
     <div className="home-shell" ref={rootRef}>
@@ -58,83 +62,130 @@ export function HomeWorkbench({ projects, profileLinks, emailHref }: HomeWorkben
           <div className="home-hero-copy">
             <p className="home-role">Uday Mukhija / Software Engineer</p>
             <h1 id="home-title">
-              <span className="hero-title-line"><span>Systems that</span></span>
-              <span className="hero-title-line"><span>hold up in the</span></span>
-              <span className="hero-title-line"><span>real world.</span></span>
+              <span className="hero-title-line"><span>The interface</span></span>
+              <span className="hero-title-line"><span>is only half</span></span>
+              <span className="hero-title-line"><span>the work.</span></span>
             </h1>
             <p className="home-intro">
-              I turn rough product ideas into dependable software, from the interface to the contracts underneath it.
+              I design product interfaces and engineer the state, data, and failure paths beneath them.
             </p>
             <a className="primary-text-link" href="#work">
               View selected work <span aria-hidden="true">↓</span>
             </a>
           </div>
-          <SystemVisual />
+          <aside className="hero-practice" aria-label="Areas of practice">
+            <div className="hero-practice-meta">
+              <span>Practice / 2026</span>
+              <span>Selected / 03</span>
+            </div>
+            <ol>
+              {practiceAreas.map((area) => (
+                <li key={area.number}>
+                  <span>{area.number}</span>
+                  <div>
+                    <strong>{area.title}</strong>
+                    <small>{area.detail}</small>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p>Surface clarity. System responsibility.</p>
+          </aside>
         </div>
       </section>
 
-      <div className="system-continuity" data-continuity aria-hidden="true">
-        <div className="container system-continuity-inner">
-          <span className="continuity-line" />
-          <span className="continuity-runner"><i /></span>
-          <span className="continuity-destination">01 / Gathr</span>
-        </div>
-      </div>
-
-      <section id="work" className="section featured-work-section">
+      <section
+        id="work"
+        className="section workbench-section"
+        aria-labelledby="workbench-title"
+        data-live-motion
+      >
         <div className="container">
-          <header className="quiet-section-heading" data-reveal>
-            <p className="eyebrow">Selected work</p>
-            <h2>Three systems worth opening.</h2>
-            <p>Product experiences first. The engineering proof is waiting inside each case study.</p>
+          <header className="workbench-heading" data-reveal>
+            <div>
+              <p className="eyebrow">Selected work</p>
+              <span>03 systems</span>
+            </div>
+            <h2 id="workbench-title">Three products. Three different problems.</h2>
+            <p>Choose a product to change the stage. Each case study opens up the decisions, system boundary, and proof.</p>
           </header>
 
-          <div className="featured-projects">
-            {featuredProjects.map((project, index) => (
-              <article
-                key={project.slug}
-                className={`featured-project featured-project-${project.slug}`}
-                data-reveal
+          <div className="project-workbench" data-active-project={activeProject?.slug}>
+            <div className="workbench-index" aria-label="Selected projects">
+              {featuredProjects.map((project, index) => {
+                const isActive = project.slug === activeProject?.slug;
+
+                return (
+                  <button
+                    key={project.slug}
+                    id={`workbench-control-${project.slug}`}
+                    className={isActive ? "workbench-control is-active" : "workbench-control"}
+                    type="button"
+                    aria-controls="workbench-stage"
+                    aria-pressed={isActive}
+                    onClick={() => setActiveProjectSlug(project.slug)}
+                    onFocus={() => setActiveProjectSlug(project.slug)}
+                    onMouseEnter={() => setActiveProjectSlug(project.slug)}
+                  >
+                    <span className="workbench-control-number">0{index + 1}</span>
+                    <span className="workbench-control-copy">
+                      <strong>{project.title}</strong>
+                      <small>{project.label}</small>
+                      <span>{projectIdeas[project.slug] ?? project.summary}</span>
+                    </span>
+                    <i aria-hidden="true">↗</i>
+                  </button>
+                );
+              })}
+            </div>
+
+            {activeProject ? (
+              <div
+                id="workbench-stage"
+                className={`workbench-stage workbench-stage-${activeProject.slug}`}
+                role="region"
+                aria-live="polite"
+                aria-labelledby={`workbench-control-${activeProject.slug}`}
                 data-tilt
               >
-                <div className="featured-project-copy">
-                  <p className="featured-project-number">0{index + 1}</p>
-                  <h3>{project.title}</h3>
-                  <p>{projectIdeas[project.slug] ?? project.summary}</p>
-                  <Link className="quiet-link" href={`/projects/${project.slug}`}>
-                    View case study <span aria-hidden="true">↗</span>
-                  </Link>
+                <div key={activeProject.slug} className="workbench-stage-content">
+                  <ProjectMedia project={activeProject} context="workbench" />
+                  <div className="workbench-stage-footer">
+                    <p>{projectIdeas[activeProject.slug] ?? activeProject.summary}</p>
+                    <Link className="quiet-link" href={`/projects/${activeProject.slug}`}>
+                      View {activeProject.title} case study <span aria-hidden="true">↗</span>
+                    </Link>
+                  </div>
                 </div>
-                <ProjectMedia project={project} />
-              </article>
-            ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
 
-      <section className="section archive-preview-section" aria-labelledby="archive-title" data-reveal>
-        <div className="container archive-preview-grid">
-          <header>
-            <p className="eyebrow">Archive</p>
-            <h2 id="archive-title">More things I&apos;ve built</h2>
-            <p>Smaller products, data systems, and machine-learning work, kept quieter but not hidden.</p>
-            <Link className="quiet-link" href="/projects">
-              Browse the full archive <span aria-hidden="true">↗</span>
-            </Link>
+      <section className="section compact-archive-section" aria-labelledby="archive-title" data-reveal>
+        <div className="container">
+          <header className="compact-archive-heading">
+            <div>
+              <p className="eyebrow">Archive</p>
+              <h2 id="archive-title">More things I&apos;ve built</h2>
+            </div>
+            <p>Products, data systems, and machine-learning work, kept concise here and detailed in the archive.</p>
+            <Link className="quiet-link" href="/projects">View all fourteen <span aria-hidden="true">↗</span></Link>
           </header>
 
-          <div className="archive-preview-list">
+          <div className="compact-archive-grid">
             {archiveProjects.map((project, index) => (
               <Link
                 key={project.slug}
                 href={`/projects/${project.slug}`}
-                className="archive-preview-row"
-                data-reveal
-                style={{ "--reveal-order": index } as CSSProperties}
+                className="compact-archive-item"
+                style={{ "--archive-order": index } as CSSProperties}
               >
-                <span>{project.title}</span>
-                <span>{project.label}</span>
-                <span aria-hidden="true">↗</span>
+                <span className="compact-archive-number">{String(index + 1).padStart(2, "0")}</span>
+                <strong>{project.title}</strong>
+                <small>{project.label}</small>
+                <i aria-hidden="true">↗</i>
               </Link>
             ))}
           </div>
@@ -143,46 +194,34 @@ export function HomeWorkbench({ projects, profileLinks, emailHref }: HomeWorkben
 
       <section
         id="about"
-        className="section about-section"
+        className="section home-closing-section"
         aria-labelledby="about-title"
         data-reveal
         data-live-motion
       >
-        <div className="container about-grid">
-          <p className="eyebrow">About</p>
-          <div>
+        <div className="container home-closing-grid">
+          <article className="closing-about">
+            <p className="eyebrow">About</p>
             <h2 id="about-title">I like the part after the demo.</h2>
-            <p className="about-lead">
+            <p className="closing-lead">
               The moment where retries, permissions, partial failure, and real people enter the picture, and the product still needs to feel simple.
             </p>
             <p>
               I&apos;m a software engineer based in India. My work moves between product interfaces, backend state, realtime protocols, data contracts, and AI workflows with explicit guardrails.
             </p>
             <div className="about-links">
+              <Link className="quiet-link" href="/about">More about me</Link>
               <Link className="quiet-link" href="/experience">Experience</Link>
-              <Link className="quiet-link" href="/resume">Resume page</Link>
             </div>
-            <div className="about-system" aria-hidden="true">
-              <span className="about-system-track" />
-              <span className="about-system-signal"><i /></span>
-              <span className="about-state about-state-one"><i /><small>permission</small></span>
-              <span className="about-state about-state-two"><i /><small>retry</small></span>
-              <span className="about-state about-state-three"><i /><small>recovery</small></span>
-            </div>
-          </div>
-        </div>
-      </section>
+            <dl className="working-principles">
+              <div><dt>Boundary</dt><dd>Make ownership explicit.</dd></div>
+              <div><dt>Failure</dt><dd>Design the next action.</dd></div>
+              <div><dt>Proof</dt><dd>Show what can be verified.</dd></div>
+            </dl>
+          </article>
 
-      <section
-        id="contact"
-        className="section contact-section"
-        aria-labelledby="contact-title"
-        data-reveal
-        data-live-motion
-      >
-        <div className="container contact-grid">
-          <p className="eyebrow">Contact</p>
-          <div>
+          <article id="contact" className="closing-contact" aria-labelledby="contact-title">
+            <p className="eyebrow">Contact</p>
             <h2 id="contact-title">Have something that needs to work beyond the happy path?</h2>
             <a className="contact-email" href={emailHref}>
               Start a conversation <span aria-hidden="true">↗</span>
@@ -194,15 +233,11 @@ export function HomeWorkbench({ projects, profileLinks, emailHref }: HomeWorkben
                 </a>
               ))}
             </div>
-            <div className="contact-signal" aria-hidden="true">
-              <span className="contact-signal-line" />
-              <span className="contact-signal-runner"><i /></span>
-              <span className="contact-signal-node contact-signal-node-one"><i /></span>
-              <span className="contact-signal-node contact-signal-node-two"><i /></span>
-              <span className="contact-signal-node contact-signal-node-three"><i /></span>
-              <small>Open channel</small>
+            <div className="contact-mark" aria-hidden="true">
+              <span>Write</span>
+              <i>↗</i>
             </div>
-          </div>
+          </article>
         </div>
       </section>
     </div>

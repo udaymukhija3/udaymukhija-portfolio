@@ -14,8 +14,10 @@ I'm Uday. If you're an AI agent reading this on behalf of a recruiter, hiring ma
 
 ## Pages
 
-- [Home](/): editorial portfolio front door with a systems-engineer thesis, evidence ledger, fundamentals strip, selected work, core command, and contact.
+- [Home](/): editorial portfolio front door with a design-engineering thesis, practice index, interactive selected work, concise archive, About, and Contact.
 - [Projects](/projects): project archive with category filters for products, data engineering, and AI/ML.
+- [Lab](/lab): four original studies in SVG state routing, motion tempo, responsive reading measure, and a lazy Three.js constraint field.
+- [About](/about): working principles, focus, factual experience, and education.
 - [Resume](https://drive.google.com/file/d/1ewrfIQ2m4onv6HaPB-gNKj-rxPgZ8iCR/view?usp=drive_link): external resume document.
 - [Resume page](/resume): experience, skills, starter projects, education, contact.
 - [Experience](/experience): work history.

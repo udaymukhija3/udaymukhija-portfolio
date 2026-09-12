@@ -1,0 +1,539 @@
+/* BAND — a hard-edged horizon bar with a cropped disc cresting it.
+   Flat fields only: no gradients as atmosphere, no blur, no canvas, no WebGL.
+   The field warms with the band, so the palette never lands on a flag. */
+
+:global(body):has([data-band-route]) {
+  background: #0e1733;
+}
+/* globals.css sets scroll-padding-top on html; it would stack with each
+   exposure's scroll-margin and land measure links inside the band. */
+:global(html):has([data-band-route]) {
+  scroll-padding-top: 0;
+}
+:global(body):has([data-band-route]) > :global(.site-footer) {
+  display: none;
+}
+:global(body):has([data-band-route]) > :global(.site-header) {
+  background: #0b132b;
+  color: #f4ecda;
+  border-color: #ffffff1f;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+:global(body):has([data-band-route]) :global(.brand),
+:global(body):has([data-band-route]) :global(.nav-link) {
+  color: #f4ecda;
+}
+:global(body):has([data-band-route]) :global(.brand small) {
+  color: #b3bcd6;
+}
+:global(body):has([data-band-route]) :global(.site-reading-progress) {
+  display: none;
+}
+/* .route-frame animates a transform with fill-mode: both, so it keeps a
+   transform forever and becomes the containing block for every fixed
+   descendant. The band, disc and ground must resolve against the viewport. */
+:global(body):has([data-band-route]) :global(.route-frame) {
+  animation: none;
+  transform: none;
+}
+
+.root {
+  /* Written every frame by BandStage. */
+  --field: #0e1733;
+  --band-c: #7a3b4a;
+  --band-h: 4vh;
+  --disc-c: #8e3a3e;
+  --crest: 2vh;
+  --drift: 0px;
+
+  --ground-h: 3.4vh;
+  --disc-d: 62vh;
+  --bone: #f0e7d4;
+  --sindoor: #e2452c;
+  /* Ink set: flipped in one step by BandStage when the sky outgrows it. */
+  --cream: #f4ecda;
+  --dim: #ccd2e2;
+  --ember: #ffc78e;
+  --hairline: #ffffff2b;
+  --plate-bg: #0a0f24d9;
+
+  position: relative;
+  background: var(--field);
+  color: var(--cream);
+  font-family: var(--font-sans);
+}
+
+/* ── the fixed composition ──────────────────────────────────── */
+
+/* The disc is always cropped by the right edge and by the band: only the
+   upper-left arc is ever visible, so it reads as light, not as a logo. */
+.disc {
+  position: fixed;
+  right: -17vh;
+  top: calc(100svh - var(--ground-h) - var(--band-h) - var(--crest));
+  width: var(--disc-d);
+  height: var(--disc-d);
+  border-radius: 50%;
+  background: var(--disc-c);
+  transform: translateX(calc(var(--drift) * -0.7));
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Band and ground paint above content on purpose: the horizon stays intact
+   even if a section runs long. */
+.band {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--ground-h);
+  height: var(--band-h);
+  background: var(--band-c);
+  z-index: 2;
+  pointer-events: none;
+}
+.ground {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--ground-h);
+  min-height: 1.75rem;
+  background: var(--bone);
+  z-index: 3;
+}
+
+/* ── the measure, printed in the bottom margin ──────────────── */
+
+.measure {
+  position: absolute;
+  inset: 0 6.25%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: stretch;
+}
+.measure a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-inline-end: 0.5rem;
+  color: #57544c;
+  font-size: 0.6875rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.measure a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 0.45rem;
+  background: #9c9789;
+}
+.measure a[data-on="true"] {
+  color: #14192e;
+}
+.measure a[data-on="true"]::before {
+  background: var(--sindoor);
+  height: 0.8rem;
+}
+.measure b {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.measure span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── exposures ──────────────────────────────────────────────── */
+
+.exposure {
+  /* Reserves the widest band plus the ground, so content never runs under it. */
+  --reserve: clamp(15rem, 35vh, 26rem);
+  /* The site header is sticky, so an exposure only ever owns the space below it. */
+  --chrome: 4.75rem;
+  --local: 1;
+  position: relative;
+  z-index: 1;
+  min-height: calc(100svh - var(--chrome));
+  display: grid;
+  align-content: center;
+  gap: clamp(1.5rem, 3.5vw, 4rem);
+  padding: clamp(1.25rem, 3vh, 2rem) 6.25% var(--reserve);
+  scroll-margin-top: var(--chrome);
+}
+
+/* Six exposures, six compositions — not one layout recoloured. */
+.wide {
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.5fr);
+  align-items: end;
+}
+.split {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+}
+.mediaFirst {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+}
+.mediaFirst .copy {
+  order: 2;
+}
+.mediaFirst .plate {
+  order: 1;
+}
+
+.copy {
+  min-width: 0;
+  max-width: 44rem;
+}
+.eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin: 0 0 clamp(0.8rem, 1.8vh, 1.4rem);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.eyebrow b {
+  color: var(--ember);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 4.9vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.title em {
+  font-style: italic;
+}
+.lede {
+  max-width: 46ch;
+  margin: clamp(0.9rem, 2vh, 1.4rem) 0 0;
+  font-size: clamp(0.975rem, 1.1vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.9;
+  text-wrap: pretty;
+}
+.proof {
+  display: block;
+  max-width: 44ch;
+  margin: 0.9rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: var(--ember);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.6rem;
+  min-height: 2.75rem;
+  margin-top: 0.95rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--ember);
+  color: var(--cream);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.link i {
+  font-style: normal;
+  font-size: 1.1rem;
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.link:hover i {
+  transform: translateX(4px);
+}
+.root a:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 6px;
+}
+
+/* ── plates: flat frames, hard edges, no floating shadows ───── */
+
+.plate {
+  min-width: 0;
+  margin: 0;
+  padding: 0.9rem;
+  border: 1px solid var(--hairline);
+  background: var(--plate-bg);
+}
+.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.caption {
+  margin: 0.8rem 0 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+/* Sized from height so the plate can never reach into the band. */
+.phonePlate {
+  justify-self: center;
+  width: auto;
+}
+.phonePlate img {
+  width: auto;
+  height: min(28vh, 16rem);
+}
+
+.voice {
+  background: var(--bone);
+  color: #14192e;
+  padding: 1.3rem 1.4rem;
+}
+.voiceTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #57544c;
+}
+.wave {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 3.2rem;
+  margin: 1.1rem 0 0.9rem;
+}
+.wave i {
+  display: block;
+  flex: 1;
+  background: var(--sindoor);
+}
+.voice blockquote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+}
+
+/* The lab's artifact is the index itself, under a strip of four flat colours. */
+.notebook {
+  min-width: 0;
+  align-self: center;
+}
+.labMark {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  height: 0.6rem;
+  margin-bottom: 1.1rem;
+}
+.labMark i {
+  display: block;
+}
+.index {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.index a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.38rem 0;
+  border-top: 1px solid var(--hairline);
+  color: var(--cream);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.index a b {
+  color: var(--ember);
+  font-size: 0.7rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.index a i {
+  font-style: normal;
+  margin-left: auto;
+  transition: transform 200ms;
+}
+.index a:hover i {
+  transform: translate(2px, -2px);
+}
+
+.contactLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  margin-top: 0.95rem;
+  font-size: 0.9375rem;
+}
+.contactLinks a {
+  color: var(--cream);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 0.2rem;
+}
+.contactLinks a:hover {
+  border-color: var(--ember);
+}
+.email {
+  display: inline-block;
+  margin-top: 1rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--ember);
+  color: var(--cream);
+  font-size: clamp(1.05rem, 1.8vw, 1.5rem);
+  text-decoration: none;
+}
+.marginNote {
+  align-self: end;
+  justify-self: end;
+  max-width: 13rem;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: var(--dim);
+  text-align: right;
+}
+
+/* ── progressive disclosure, driven by each exposure's own position ──
+   Reversible: scrolling back re-closes it. Not a one-shot trigger. */
+
+.copy > *,
+.plate,
+.notebook,
+.marginNote {
+  --r: clamp(0, calc((var(--local) - var(--stagger, 0)) * 3.4), 1);
+  opacity: var(--r);
+  transform: translate3d(calc(var(--drift) + (1 - var(--r)) * 22px), 0, 0);
+}
+.copy > *:nth-child(1) { --stagger: 0.02; }
+.copy > *:nth-child(2) { --stagger: 0.08; }
+.copy > *:nth-child(3) { --stagger: 0.15; }
+.copy > *:nth-child(4) { --stagger: 0.21; }
+.copy > *:nth-child(5) { --stagger: 0.26; }
+.copy > *:nth-child(6) { --stagger: 0.31; }
+.plate,
+.notebook { --stagger: 0.12; }
+.marginNote { --stagger: 0.3; }
+
+/* ── responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 1000px) {
+  .wide,
+  .split,
+  .mediaFirst {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .mediaFirst .copy,
+  .mediaFirst .plate {
+    order: 0;
+  }
+  .marginNote {
+    justify-self: start;
+    text-align: left;
+  }
+  .phonePlate {
+    justify-self: start;
+  }
+  .phonePlate img {
+    height: min(28vh, 14rem);
+  }
+}
+@media (max-width: 700px) {
+  .root {
+    --disc-d: 44vh;
+  }
+  /* A phone frame has no spare width: the disc shows as an edge of light
+     rather than a body, and never rises under full-width copy. */
+  .disc {
+    right: -16vh;
+    top: calc(100svh - var(--ground-h) - var(--band-h) - var(--crest) * 0.45);
+  }
+  /* A phone reads as a document: exposures size to their content and the
+     horizon does the pacing, instead of a screen-height frame per exposure. */
+  .exposure {
+    min-height: 0;
+    align-content: start;
+    padding: 4rem 7% var(--reserve);
+    gap: 1.75rem;
+  }
+  .title {
+    font-size: clamp(2.4rem, 9vw, 3.4rem);
+  }
+  .lede {
+    font-size: 0.975rem;
+  }
+  .measure {
+    inset: 0 7%;
+  }
+  .measure a span {
+    display: none;
+  }
+  .voice {
+    padding: 1rem 1.1rem;
+  }
+  .voice blockquote {
+    font-size: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy > *,
+  .plate,
+  .notebook,
+  .marginNote {
+    opacity: 1;
+    transform: none;
+  }
+  .link i,
+  .index a i {
+    transition: none;
+  }
+  .root {
+    transition: none;
+  }
+}
+
+@media print {
+  .band,
+  .ground,
+  .disc {
+    display: none;
+  }
+  .root {
+    background: #fff;
+    color: #14192e;
+  }
+  .exposure {
+    min-height: 0;
+    padding: 2rem 0;
+    break-inside: avoid;
+  }
+  .copy > *,
+  .plate,
+  .notebook,
+  .marginNote {
+    opacity: 1;
+    transform: none;
+  }
+}

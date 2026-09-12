@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { HomeWorkbench } from "../components/HomeWorkbench";
+import { Daybreak } from "../components/Daybreak";
 import { StructuredData } from "../components/StructuredData";
-import { projects } from "../data/projects";
 import { educationItems } from "../data/resume";
 import { contactLinks, skills } from "../data/siteContent";
 import { getSiteUrl, siteConfig } from "../lib/site";
@@ -12,6 +11,7 @@ const personEmail = emailLink ? emailLink.href.replace(/^mailto:/, "") : undefin
 const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
+  title: { absolute: "DAYBREAK — Uday Mukhija" },
   description: siteConfig.description,
   alternates: {
     canonical: "/",
@@ -20,8 +20,6 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const socialLinks = contactLinks.filter((link) => link.href.startsWith("http"));
-  const githubLink = contactLinks.find((link) => link.label === "GitHub");
-  const linkedInLink = contactLinks.find((link) => link.label === "LinkedIn");
 
   const personJsonLd = {
     "@context": "https://schema.org",
@@ -46,13 +44,7 @@ export default function HomePage() {
   return (
     <>
       <StructuredData data={personJsonLd} />
-      <HomeWorkbench
-        projects={projects}
-        profileLinks={[githubLink, linkedInLink].filter(
-          (link): link is NonNullable<typeof link> => Boolean(link),
-        )}
-        emailHref={emailLink?.href ?? "mailto:udaymukhija3@gmail.com"}
-      />
+      <Daybreak />
     </>
   );
 }

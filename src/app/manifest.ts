@@ -1,14 +1,16 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Uday Mukhija | Software Engineer",
+    name: "DAYBREAK — Uday Mukhija",
     short_name: "Uday Mukhija",
     description: "Portfolio site for Uday Mukhija.",
     start_url: "/",
     display: "standalone",
-    background_color: "#111916",
-    theme_color: "#111916",
+    background_color: "#080f22",
+    theme_color: "#080f22",
     icons: [
       {
         src: "/icon.svg",

@@ -1,76 +1,54 @@
-# Recruiter Evidence
+# Recruiter evidence
 
-Last verified: 2026-08-29
+Last verified: 2026-09-07
 
 ## Engineering thesis
 
-This portfolio presents calm product experiences backed by explicit engineering contracts. The selected work emphasizes state, permissions, retries, failure behavior, and honest launch boundaries without forcing implementation metadata into the first screen.
+This portfolio argues that Uday can make complex product behavior feel calm without hiding the contracts underneath it. The site proves that claim at two levels: factual case studies expose state, permissions, retries, failure handling, data quality, and evaluation paths; the portfolio itself demonstrates authored responsive composition, accessible interaction, restrained motion, native SVG, typed content, static generation, metadata, testing, and deployment readiness.
 
-## Capability scorecard
+## Evidence scorecard
 
-| Capability | Evidence in this repository | Verification |
-| --- | --- | --- |
-| Product information architecture | Three featured products on `/`; compact full archive on `/projects`; experience-first case studies with a native technical-proof disclosure | Browser-reviewed at 1440×1000 and 390×844 |
-| Truthful product presentation | Real Gathr capture, real VibeGrid artwork, and a labeled Murmur DOM fragment based on the current product UI | Both image assets returned HTTP 200 and loaded with non-zero natural dimensions |
-| Responsive and accessible UI | Semantic landmarks/headings, visible focus states, skip link, labeled media, no phone-width overflow, reduced-motion override | DOM snapshots plus 390px and 1440px rendered checks |
-| Motion and interaction | Staged hero type, a living system path, global reading progress, route entry, scroll-linked Gathr expansion, VibeGrid stage travel, Murmur playback motion, About and contact state paths, archive filter and row feedback, experience timeline, resume evaluation signal, pointer depth, section reveals, case-study proof opening, and directional project navigation | Motion states inspected before, during, and after scroll at desktop and phone widths |
-| Rendering and performance posture | Static pages and case studies, optimized `next/image` media, two scoped passive requestAnimationFrame scroll controllers, IntersectionObserver reveals, and offscreen animation pausing | Successful Next.js production build; 23 static/generated pages; animation lifecycle inspected in-browser |
-| Claim and route integrity | Project claims centralized in `src/data/projects.ts`; all 14 case-study routes, filters, metadata routes, and media verified | HTTP 200 route sweep and clean browser console |
+| Capability | Status | Strongest evidence | Remaining weakness |
+| --- | --- | --- | --- |
+| Product information architecture | PROVEN | Home prioritizes identity and three selected products; `/projects`, `/lab`, `/about`, case studies, experience, and resume each have a distinct job. | Notes/writing is intentionally omitted until real material exists. |
+| Editorial frontend craft | PROVEN | Fluid type hierarchy, 12/8/1-column recomposition, controlled measures, real media at judgeable scale, an editorial practice index, and category-specific project plates in `HomeWorkbench.tsx`, `ProjectMedia.tsx`, and `globals.css`. | Automated visual regression is not present. |
+| Accessible interaction | PROVEN | Semantic controls, visible focus, skip link, reduced-motion completion states, no pointer-only action, passing `jsx-a11y` lint, and browser keyboard/AX checks. | No external axe certification is claimed. |
+| Bespoke browser-medium work | PROVEN | `/lab` contains original SVG routing, transition-tempo, typography-measure, and Three.js constraint-field studies without a UI or animation library. | The Lab is intentionally small; it should grow only with finished studies. |
+| Truthful project presentation | PROVEN | Claims are centralized in `src/data/projects.ts`; Gathr/VibeGrid use real captures; Murmur is labeled as a native UI fragment; other projects use labeled product/data/ML evidence plates. | More repository-backed captures are needed. |
+| Rendering and performance posture | CREDIBLE_BUT_THIN | Static content routes, 14 generated project pages, Next Image sizing, bounded client islands, offscreen animation pausing, and a Three.js chunk lazy-loaded only near its Lab study. | No Lighthouse or field Web Vitals measurement; the Three.js chunk is about 128KB gzip. |
+| Verification and security hygiene | PROVEN | Lint, strict typecheck, 7 tests, 25-route production build, browser visual checks, and zero production dependency advisories on Next 16.3.4/React 19.2.8/Three.js 0.185.1. | No hosted CI workflow is present in this repository. |
+| Deployment readiness | CREDIBLE_BUT_THIN | Standard Next build/start contract, canonical URL configuration, metadata, manifest, robots, sitemap, and documented environment variables. | Current changes were not deployed in this session. |
 
-## Selected implementation evidence
+## Changes implemented in this pass
 
-- `src/components/HomeWorkbench.tsx`: selected-work, archive, About, and contact hierarchy.
-- `src/components/NavBar.tsx`: route-aware navigation plus a global requestAnimationFrame reading-progress controller.
-- `src/components/usePortfolioMotion.ts`: scroll progress, reveal observers, offscreen pausing, pointer depth, touch response, and reduced-motion short circuit.
-- `src/app/template.tsx`: a remounting route frame that gives client navigation one restrained arrival state.
-- `src/app/experience/page.tsx` and `src/app/resume/page.tsx`: a work-history rail and finite evaluation path using native document content.
-- `src/components/ProjectMedia.tsx`: truthful media routing and labeled system portraits for projects without screenshots.
-- `src/app/projects/[slug]/page.tsx`: product-first case-study structure with progressive technical disclosure.
-- `src/app/globals.css`: Calibrated Quiet tokens, responsive compositions, focus treatment, motion, and reduced-motion behavior.
-- `src/data/projects.ts`: centralized claims; VibeGrid updated to match its current make/judge/reveal product contract.
-- `public/images/projects`: source product assets used by the presentation layer.
+- Replaced the repeated line-and-node signature across the hero, About, Contact, and generic project media with an editorial practice index, working principles, typographic contact mark, and distinct product/data/ML evidence plates.
+- Sharpened the hero into a concise design-engineering proposition and made the selected-work heading/project navigation more direct.
+- Rebuilt the routing SVG around four labeled process stages so the path is explanatory rather than decorative.
+- Expanded `/lab` to four original studies: interactive state-routing SVG, motion-role comparison, variable reading measure, and a lazy-loaded Three.js constraint field with three response modes.
+- Added WebGL lifecycle controls: near-viewport loading, DPR cap, offscreen/background pause, reduced-motion behavior, GPU disposal, and a static capability fallback.
+- Added `/about` with repository-backed positioning, principles, experience, and education.
+- Reworked navigation and metadata discovery so Work, Lab, About, Contact, sitemap, manifest, and `llms.txt` agree.
+- Added `DESIGN_DIRECTION.md`, prioritized `CONTENT_TODO.md`, `QUALITY_REPORT.md`, ESLint configuration, and seven executable repository tests.
+- Upgraded Next.js/React and verified that the production dependency audit moved from four high-severity findings to zero known advisories.
+- Corrected small-text contrast tokens after measuring them against both stone and sage surfaces.
 
-## Exact verification
+## Verification evidence
 
-```bash
-npm run typecheck
-npm run build
-git diff --check
-```
+See `QUALITY_REPORT.md` for exact commands, viewport coverage, accessibility checks, contrast ratios, motion review, and honest performance limits.
 
-All three commands passed on 2026-08-29. The build compiled successfully with TypeScript, generated 23 pages, and emitted all 14 case-study paths.
+## Deployment status
 
-Rendered checks covered:
-
-- Homepage at 1440×1000 and 390×844.
-- Hero, hero-to-project continuity, all three featured-project compositions, archive, About, and contact rhythm.
-- Staged hero states at 180 ms and after settling, with 48 declared motion hooks and project animation paused while offscreen.
-- Scroll-linked endpoint travel and scale, Gathr clip/scale/opacity expansion, VibeGrid make/judge/reveal runner, and Murmur waveform/playhead motion.
-- Project animation lifecycle: hero motion pauses after its transition; each featured project starts and stops based on viewport intersection.
-- Pointer-driven project depth and touch press fallback.
-- Global reading progress on the homepage and case-study route.
-- About permission, retry, and recovery state path, with animation scoped to section visibility.
-- Contact open-channel signal path, with animation scoped to section visibility.
-- Archive-row directional feedback and the animated native technical-proof disclosure.
-- Archive category changes with route re-entry, card reveals, and one active-lens indicator.
-- Experience timeline drawing, resume card reveals, and a finite Product to Backend to Data evaluation signal.
-- Expanded previous and next project navigation with directional focus and hover feedback.
-- Gathr case-study opening and expanded technical-proof disclosure.
-- Project archive filters; data returned 2 entries and AI/ML returned 3 entries.
-- Resume and experience routes at phone width.
-- No horizontal overflow at either inspected viewport.
-- No browser warnings or errors in the inspected flows.
-- HTTP 200 for `/`, `/projects`, all three filtered archive URLs, all 14 case studies, `/experience`, `/resume`, metadata routes, and both product-media assets.
-
-## Deployment status and honest gaps
-
-The supporting-route motion pass was deployed to Vercel from commit `944ec14` and verified on the production URL. The live site exposed the hero, continuity, reading-progress, About-system, contact-signal, route-frame, experience-rail, resume-scan, archive-view, and directional project-navigation markup. Production archive filtering changed the view from 14 projects to 9 product projects with the correct URL and active category. The global reading line, route entry, experience rail, resume signal, and case-study navigation all entered their intended states. The inspected production pages had no horizontal overflow and the browser console remained clean. The homepage, archive, product filter, three featured case studies, experience, resume, and metadata routes returned HTTP 200 in the final production sweep.
-
-Remaining evidence gaps:
-
-- Run a production performance audit if numeric Lighthouse or Web Vitals evidence is required; no score is claimed here.
-- Add automated visual regression coverage if the design will be changed frequently.
+READY_WITH_MANUAL_STEPS. The build is deployable to standard Next.js hosting after setting the canonical production URL. No claim is made that this local revision is currently live.
 
 ## Interview defense
 
-The strongest walkthrough is: start with the Gathr interaction and explain why the interface stays calm while the backend owns attendance, reliability, safety, privacy, and realtime behavior. Then use VibeGrid to trace one staged rule from visible UI through authorization, transaction semantics, stable identity, and database constraints. Close with Murmur to discuss private-media access and deliberately narrow product scope. The portfolio structure itself demonstrates the same judgment: product understanding first, proof available when the conversation goes deeper.
+| Likely question | Evidence-based answer | Trade-off to discuss |
+| --- | --- | --- |
+| Why is this more convincing than a CRUD tutorial? | Fourteen factual projects expose explicit state, idempotency, permission, realtime, data-quality, and evaluation boundaries, while the portfolio itself has original interaction work, typed content, static generation, tests, and production metadata. | Breadth makes fast evaluation harder, so the homepage deliberately limits first contact to three products. |
+| Why is Three.js used only once? | The Constraint Field is specifically about spatial input and connected deformation. The dependency is route-local, near-viewport loaded, DPR-capped, paused offscreen, and backed by a CSS capability fallback. | The isolated chunk is about 128KB gzip, so using it as homepage decoration would be an unjustified cost. |
+| How was accessibility treated as design? | Focus, keyboard order, state labels, contrast, reduced motion, and non-pointer equivalents are part of the primitives and automated checks. | A complete audit would add axe and assistive-technology testing rather than treating lint as certification. |
+| How do you keep the content credible? | Claims live in one typed source; real screenshots, native fragments, and editorial architecture plates are labeled differently; missing artifacts remain explicit in `CONTENT_TODO.md`. | This is less visually uniform than fabricated mockups, but much easier to defend. |
+
+## Honest verdict
+
+RECRUITER_READY_WITH_GAPS. The portfolio now makes a coherent design-engineering case without repeating one visual trick, works across the required routes, and has repeatable quality checks. The remaining gaps are measurable performance evidence, visual-regression coverage, current deployment, defensible project outcomes, and more real media for secondary projects—not missing core product or interface structure.
