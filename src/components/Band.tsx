@@ -1,16 +1,32 @@
-import { existsSync } from "node:fs";
-import { join } from "node:path";
-import Image from "next/image";
 import Link from "next/link";
 import { contactLinks } from "../data/siteContent";
 import { experiments } from "../data/experiments";
 import { projects } from "../data/projects";
 import { BandStage } from "./BandStage";
 import { anchors } from "./bandExposures";
-import { environmentDirectory, exposurePhotos } from "./bandEnvironment";
+import { JoinPath } from "./JoinPath";
 import styles from "./Band.module.css";
 
-const wave = [14, 26, 18, 44, 28, 66, 38, 82, 54, 96, 62, 78, 46, 92, 70, 100, 66, 88, 52, 78, 44, 60, 30, 48, 22];
+/* Six exposures on the grid. Each is copy in the reading column and one
+   figure — a measured, drawn thing, never a picture — in the cells beside
+   it. Figures are numbered and captioned; the readout names the one in
+   focus. Everything here is real: the cap, the fragments, the join path,
+   the studies. */
+
+/* Murmur: the cap is real — 90 s, validated on the server. The note is a
+   12 s sample, drawn as one. */
+const MURMUR_CAP = 90;
+const MURMUR_SAMPLE = 12;
+const murmurWave = [18, 42, 30, 66, 48, 82, 60, 38, 74, 52, 88, 44, 70, 34, 58, 26, 62, 40, 30, 16];
+
+/* VibeGrid: a four-column palette, twelve fragments, four chosen. The four
+   named ones are the sample card's; the rest stay unnamed. */
+const fragments: Array<string | null> = [
+  null, "meal prep", null, null,
+  "monday dread", null, "five tabs", null,
+  null, null, null, "11pm panic",
+];
+
 const swatches = ["#e2452c", "#ef9a2e", "#8e3a3e", "#b5553a"];
 
 function Arrow() {
@@ -18,14 +34,8 @@ function Arrow() {
 }
 
 export function Band() {
-  // Which exposure photographs have been placed. Checked at render so a
-  // missing file leaves that exposure on the flat field, never a stand-in.
-  const environment = exposurePhotos.map(photo =>
-    existsSync(join(process.cwd(), "public", environmentDirectory, photo.file)),
-  );
-
   return (
-    <BandStage environment={environment}>
+    <BandStage>
       <section id={anchors[0]} className={`${styles.exposure} ${styles.wide}`} data-exposure="0" aria-labelledby="edge-title">
         <div className={styles.copy}>
           <p className={styles.eyebrow}><b>01</b> Uday Mukhija / Software engineer</p>
@@ -44,19 +54,25 @@ export function Band() {
           <span className={styles.proof}>Go-backed web MVP · Room-scoped private media</span>
           <Link className={styles.link} href="/projects/murmur">Explore Murmur <Arrow /></Link>
         </div>
-        <figure className={styles.plate}>
-          <div className={styles.voice}>
-            <div className={styles.voiceTop}><span>Murmur</span><span>00:12</span></div>
-            <div className={styles.wave} aria-hidden="true">
-              {wave.map((height, i) => <i key={i} style={{ height: `${height}%` }} />)}
+        <figure className={styles.figure} aria-labelledby="fig-02">
+          <div className={styles.strip} role="img" aria-label={`A ${MURMUR_SAMPLE}-second sample murmur against a ${MURMUR_CAP}-second cap.`}>
+            <div className={styles.stripWave} style={{ width: `${(MURMUR_SAMPLE / MURMUR_CAP) * 100}%` }}>
+              {murmurWave.map((height, i) => <i key={i} style={{ height: `${height}%` }} />)}
             </div>
-            <blockquote>“Made chai.<br />Miss you.”</blockquote>
+            <div className={styles.stripTicks} aria-hidden="true">
+              {Array.from({ length: MURMUR_CAP / 10 + 1 }, (_, i) => (
+                <span key={i} data-major={i % 3 === 0 ? "true" : undefined}>{i % 3 === 0 ? `${i * 10}` : ""}</span>
+              ))}
+            </div>
+            <span className={styles.stripCap}>cap {MURMUR_CAP} s</span>
           </div>
-          <figcaption className={styles.caption}>Interface study · illustrative voice note</figcaption>
+          <figcaption className={styles.caption} id="fig-02">
+            <b>Fig. 02</b> A {MURMUR_SAMPLE} s sample against the {MURMUR_CAP} s cap. Duration is validated on the server, not trusted from the client.
+          </figcaption>
         </figure>
       </section>
 
-      <section id={anchors[2]} className={`${styles.exposure} ${styles.mediaFirst}`} data-exposure="2" data-shade="right" aria-labelledby="possibility-title">
+      <section id={anchors[2]} className={`${styles.exposure} ${styles.mediaFirst}`} data-exposure="2" aria-labelledby="possibility-title">
         <div className={styles.copy}>
           <p className={styles.eyebrow}><b>03</b> VibeGrid / A daily social ritual</p>
           <h2 className={styles.title} id="possibility-title">Twelve fragments. Pick four.<br />Then <em>vote blind.</em></h2>
@@ -64,15 +80,23 @@ export function Band() {
           <span className={styles.proof}>Go / PostgreSQL · Hidden authors, fair votes, safe retries</span>
           <Link className={styles.link} href="/projects/vibegrid">Explore VibeGrid <Arrow /></Link>
         </div>
-        <figure className={styles.plate}>
-          <Image
-            src="/images/projects/vibegrid-social-card.png"
-            width={1200}
-            height={630}
-            sizes="(max-width: 1000px) 86vw, 44vw"
-            alt="VibeGrid product artwork: four fragments for the daily crew ritual"
-          />
-          <figcaption className={styles.caption}>Real product artwork · VibeGrid</figcaption>
+        <figure className={styles.figure} aria-labelledby="fig-03">
+          <div className={styles.palette} role="img" aria-label="A twelve-cell palette with four fragments chosen.">
+            {fragments.map((fragment, i) => (
+              <span key={i} className={styles.cell} data-chosen={fragment ? "true" : undefined}>
+                <small>{String(i + 1).padStart(2, "0")}</small>
+                {fragment ? <b>{fragment}</b> : null}
+              </span>
+            ))}
+          </div>
+          <ol className={styles.stages} aria-label="Stages">
+            <li><span>D+0</span> Make</li>
+            <li><span>D+1</span> Judge, authors hidden</li>
+            <li><span>D+2</span> Reveal; ties stay ties</li>
+          </ol>
+          <figcaption className={styles.caption} id="fig-03">
+            <b>Fig. 03</b> Exactly four of twelve, one title, one card per member per board; one ballot, never for yourself.
+          </figcaption>
         </figure>
       </section>
 
@@ -84,15 +108,11 @@ export function Band() {
           <span className={styles.proof}>Private alpha · Java / Spring Boot / Expo</span>
           <Link className={styles.link} href="/projects/gathrly">Meet Gathr <Arrow /></Link>
         </div>
-        <figure className={`${styles.plate} ${styles.phonePlate}`}>
-          <Image
-            src="/images/projects/gathr-plans.png"
-            width={1206}
-            height={2622}
-            sizes="(max-width: 1000px) 40vw, 15rem"
-            alt="Gathr Plans screen showing upcoming plans and planning tools"
-          />
-          <figcaption className={styles.caption}>Real product capture · Gathr Plans</figcaption>
+        <figure className={styles.figure} aria-labelledby="fig-04">
+          <JoinPath />
+          <figcaption className={styles.caption} id="fig-04">
+            <b>Fig. 04</b> One tap to join: an idempotency key, a locked row, seven guards in order, one write, a commit, then the group. Traced from the repository.
+          </figcaption>
         </figure>
       </section>
 
@@ -103,7 +123,7 @@ export function Band() {
           <p className={styles.lede}>Routing, tempo, measure, constraint. Interfaces that explain themselves, each with a complete non-animated state.</p>
           <Link className={styles.link} href="/projects">Browse all {projects.length} projects <i aria-hidden="true">+</i></Link>
         </div>
-        <div className={styles.notebook}>
+        <figure className={`${styles.figure} ${styles.notebook}`} aria-labelledby="fig-05">
           <div className={styles.labMark} aria-hidden="true">
             {swatches.map(colour => <i key={colour} style={{ background: colour }} />)}
           </div>
@@ -112,11 +132,15 @@ export function Band() {
               <Link key={experiment.slug} href={experiment.route}>
                 <b>{String(i + 1).padStart(2, "0")}</b>
                 {experiment.title}
+                <small>{experiment.category}</small>
                 <Arrow />
               </Link>
             ))}
           </nav>
-        </div>
+          <figcaption className={styles.caption} id="fig-05">
+            <b>Fig. 05</b> The Lab&apos;s index: state, timing, reading, spatial input.
+          </figcaption>
+        </figure>
       </section>
 
       <section id={anchors[5]} className={`${styles.exposure} ${styles.wide}`} data-exposure="5" aria-labelledby="openness-title">

@@ -1,107 +1,85 @@
-/* The environment behind the six exposures, and the viewfinder over it.
+/* The drawn morning behind the six exposures.
 
-   One supplied Central Park photograph per exposure, full-bleed and
-   cross-fading as the visitor moves between exposures. The material is the
-   park's: foliage, water, reflections, stone, glass, distant architecture,
-   density against openness. Outside the focus frame the world is soft and
-   slowly drifting; inside it the frame is sharp, exposed, and captioned as a
-   figure. Each exposure allocates the frame to a different range of cells on
-   the same 12 × 8 grid — asymmetry from one discipline.
+   No photographs. The park is rendered as material: a skyline of thin
+   vertical marks along one horizon (glass, distant architecture), a treeline
+   mass in front of it (foliage), a ruled water plane below with the skyline
+   reflected in it, and the stone of the rail. The sun rises behind the marks.
 
-   Files are expected under public/images/daybreak/. A missing file leaves
-   that exposure on the flat field; nothing stands in for it. */
-
-export type ExposurePhoto = {
-  file: string;
-  alt: string;
-  /** Which supplied photograph belongs here, for whoever places the files. */
-  source: string;
-  /** object-position for wide and for portrait viewports. */
-  focus: string;
-  focusNarrow: string;
-  /** Where the horizon sits in the frame, as a percentage of the viewport height. */
-  horizon: number;
-  /** Where the sun rises, as a percentage of the viewport width. */
-  sun: number;
-  /** The focus frame: 1-based inclusive cell range on the 12 × 8 grid. */
-  frame: { c0: number; r0: number; c1: number; r1: number };
-  /** What the frame is a figure of — the caption's subject. */
-  subject: string;
-};
+   Each exposure sets the world's state: how dense the skyline is (density
+   against openness), how much foliage stands in front, how still the water
+   is, and where the sun is on its arc. The stage interpolates between them. */
 
 export const GRID_COLUMNS = 12;
 export const GRID_ROWS = 8;
 
-export const exposurePhotos: readonly ExposurePhoto[] = [
-  {
-    file: "01-edge.webp",
-    alt: "The Lake in Central Park seen through a frame of spring leaves, twin towers and low sun beyond.",
-    source: "Portrait · the sunlit lake framed by leaves, a rowboat, the twin-towered block and sun flare top right.",
-    focus: "50% 60%",
-    focusNarrow: "55% 52%",
-    horizon: 58,
-    sun: 57,
-    frame: { c0: 6, r0: 1, c1: 12, r1: 6 },
-    subject: "Foliage, water, towers",
-  },
-  {
-    file: "02-voice.webp",
-    alt: "A shallow stream runs over rocks between new leaves, a rustic wooden rail in the foreground.",
-    source: "Portrait · the stream over rocks with the wooden fence.",
-    focus: "50% 55%",
-    focusNarrow: "50% 50%",
-    horizon: 22,
-    sun: 52,
-    frame: { c0: 7, r0: 2, c1: 12, r1: 8 },
-    subject: "Water over stone",
-  },
-  {
-    file: "03-possibility.webp",
-    alt: "Still grey water reflects twin-towered apartment blocks and a line of spring trees.",
-    source: "Landscape · the still Lake with the twin towers reflected, overcast, a pink tree on the far bank.",
-    focus: "50% 0%",
-    focusNarrow: "42% 30%",
-    horizon: 53,
-    sun: 40,
-    frame: { c0: 1, r0: 1, c1: 6, r1: 7 },
-    subject: "Reflection",
-  },
-  {
-    file: "04-connection.webp",
-    alt: "Two rowboats, two people in each, on green water in low sun.",
-    source: "Portrait · two rowboats on the Lake under a streaked blue sky.",
-    focus: "50% 67%",
-    focusNarrow: "45% 58%",
-    horizon: 56,
-    sun: 62,
-    frame: { c0: 5, r0: 2, c1: 11, r1: 8 },
-    subject: "Two boats, four people",
-  },
-  {
-    file: "05-curiosity.webp",
-    alt: "A goose stands at the water's edge on a rock beside three turtles lined up in the sun.",
-    source: "Landscape · the goose and three turtles on the rock, wide water.",
-    focus: "50% 100%",
-    focusNarrow: "55% 60%",
-    horizon: 31,
-    sun: 68,
-    frame: { c0: 7, r0: 4, c1: 12, r1: 8 },
-    subject: "Stone, a goose, three turtles",
-  },
-  {
-    file: "06-openness.webp",
-    alt: "A wide lawn full of people in summer light; a line of trees, and thin towers above them.",
-    source: "Landscape · the crowded meadow under the towers, kite in the air.",
-    focus: "50% 50%",
-    focusNarrow: "60% 50%",
-    horizon: 68,
-    sun: 55,
-    frame: { c0: 4, r0: 1, c1: 12, r1: 7 },
-    subject: "Openness against density",
-  },
+/* The horizon is the page's datum: one line, everything measured from it. */
+export const HORIZON = 62;
+
+export type ExposureWorld = {
+  /** The sun's azimuth, as a percentage of the viewport width. */
+  sun: number;
+  /** Fraction of the skyline's marks standing: 1 is dense, 0 is open. */
+  density: number;
+  /** Presence of the treeline in front of the skyline. */
+  foliage: number;
+  /** Stillness of the water: 1 is glass, 0 is broken. */
+  still: number;
+  /** The figure this exposure focuses on. */
+  figure: string;
+  subject: string;
+};
+
+export const worlds: readonly ExposureWorld[] = [
+  { sun: 60, density: 1, foliage: 0.95, still: 0.92, figure: "Fig. 01", subject: "The horizon, calibrated" },
+  { sun: 57, density: 0.9, foliage: 0.8, still: 0.75, figure: "Fig. 02", subject: "A ninety-second cap" },
+  { sun: 54, density: 0.78, foliage: 0.6, still: 0.85, figure: "Fig. 03", subject: "Twelve fragments, four chosen" },
+  { sun: 51, density: 0.64, foliage: 0.45, still: 0.55, figure: "Fig. 04", subject: "One tap, one locked transaction" },
+  { sun: 48, density: 0.48, foliage: 0.3, still: 0.7, figure: "Fig. 05", subject: "Four studies, indexed" },
+  { sun: 45, density: 0.28, foliage: 0.15, still: 0.95, figure: "Fig. 06", subject: "Openness" },
 ];
 
-export const environmentDirectory = "/images/daybreak";
+/* The skyline: forty-eight marks on a 1000-unit line, deterministic. Some
+   are glass — drawn as outlines that catch the sun — and a few are the thin
+   supertalls. Each mark has a threshold; it stands while density ≥ t, so the
+   skyline thins from the same drawing rather than swapping drawings. */
+export type Mark = { x: number; w: number; h: number; t: number; glass: boolean };
+
+export function skyline(count = 48): Mark[] {
+  let seed = 20260913;
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) % 4294967296;
+    return seed / 4294967296;
+  };
+  const marks: Mark[] = [];
+  for (let i = 0; i < count; i++) {
+    const x = 8 + i * (984 / count) + (rand() - 0.5) * 8;
+    const tall = rand() < 0.12;
+    const w = tall ? 3 + rand() * 3 : 6 + rand() * 12;
+    const h = tall ? 180 + rand() * 110 : 24 + rand() ** 1.6 * 120;
+    // Openness keeps the tall, thin marks longest; the low mass goes first.
+    const t = tall ? rand() * 0.3 : 0.15 + rand() * 0.72;
+    marks.push({ x, w, h, t, glass: rand() < 0.3 });
+  }
+  return marks;
+}
+
+/* The treeline: a soft irregular mass along the horizon, as a path. */
+export function treeline(points = 28): string {
+  let seed = 4111;
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) % 4294967296;
+    return seed / 4294967296;
+  };
+  const step = 1000 / (points - 1);
+  let d = "M0 100";
+  for (let i = 0; i < points; i++) {
+    const x = i * step;
+    const y = 100 - (18 + rand() * 42) * (0.6 + 0.4 * Math.sin(i * 0.9));
+    const cx = x - step / 2;
+    d += ` Q${cx.toFixed(1)} ${(y - 14 - rand() * 20).toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}`;
+  }
+  return d + " L1000 100 Z";
+}
 
 /* Central Park. The coordinates are the place; the clock is the page. */
 export const place = { name: "Central Park", city: "New York, NY", lat: "40.7812° N", lon: "73.9665° W" };

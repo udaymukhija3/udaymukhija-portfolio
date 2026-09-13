@@ -1,49 +1,39 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { anchors, exposures } from "./bandExposures";
-import { GRID_COLUMNS, GRID_ROWS, environmentDirectory, exposurePhotos, place } from "./bandEnvironment";
+import { GRID_COLUMNS, GRID_ROWS, HORIZON, place, skyline, treeline, worlds } from "./bandEnvironment";
 import styles from "./Band.module.css";
 
-/* The stage: a viewfinder held over a morning.
+/* The stage: a drawn morning, measured.
 
-   A 12 × 8 grid is drawn over the viewport. Each exposure allocates the
-   focus frame to a range of its cells; between exposures the frame glides
-   from one allocation to the next and pulls focus as it settles. Outside
-   the frame the world is soft and slowly drifting; inside it, sharp and
-   correctly exposed. The readout reports what the instrument sees: frame,
-   focus cells, exposure, time, place. All of it is driven by one scroll
-   fraction; nothing runs unless the page moves, except the ambient drift,
-   which stops under reduced motion. */
+   One scroll position runs everything. The sun rises along its arc behind
+   a skyline of marks that thins from dense to open; a treeline stands in
+   front and lightens as the day comes; the water below rules itself with
+   the skyline in it. A 12 × 8 grid is drawn over the viewport; the copy,
+   the figures and the readout are modules on it. Nothing runs unless the
+   page moves, except the slow ambient drift, which stops under reduced
+   motion. */
 
-/* The sky opens: night indigo → dawn violet → clear day blue. */
+/* The sky: zenith, mid-sky and horizon colours per moment; the water below. */
+const SKY_TOP = ["#0a1430", "#112044", "#27406f", "#6a8db8", "#a8c3df", "#c9dcee"];
+const SKY_MID = ["#1c2f5f", "#33497f", "#6a80a8", "#a8b8d0", "#d3dde9", "#e5ecf4"];
+const SKY_LOW = ["#ff9455", "#ffab6c", "#ffc48e", "#ffdcb2", "#f6e7d1", "#f1ebdf"];
+const WATER = ["#070e1e", "#0e1a34", "#24365a", "#5a7191", "#a4b4c6", "#d3dbe3"];
+const WATER_DEEP = ["#04091a", "#080f24", "#151f3d", "#3d5070", "#8797ab", "#c2cbd5"];
 const FIELD = ["#0e1733", "#1b2550", "#2e3566", "#46527f", "#93b0d2", "#c2daec"];
 const BAND = ["#7a3b4a", "#b03a34", "#d2402a", "#e2452c", "#d9401f", "#c8371b"];
 const HEIGHT = [0.28, 0.28, 0.3, 0.3, 0.32, 0.32];
 
-/* The light's treatment of the photographs: exposure in stops relative to
-   the source, saturation, contrast, and the cool tint before sunrise.
-   Outside the focus frame the frame is a further two-thirds of a stop under. */
-const EV = [-0.9, -0.7, -0.45, -0.12, 0.08, 0.18];
-const SAT = [0.55, 0.6, 0.7, 0.85, 0.84, 0.8];
-const CONTRAST = [1.3, 1.24, 1.14, 1.05, 0.98, 0.95];
-const TINT = [0.62, 0.52, 0.36, 0.14, 0.04, 0];
-
-/* The sunrise, composed over the photographs: a painted sky, the sun on the
-   horizon with its path on the water, a dark canopy at the top, then paper. */
+/* The sun — kept. A small hot core on the horizon with a wide soft light,
+   a horizon band, a path on the water; higher, paler and tighter as it climbs. */
 const SUN_RISE = [0, 0.06, 0.22, 0.48, 0.78, 1];
 const SUN_C = ["#ffb27a", "#ffbd88", "#ffd0a2", "#ffe3c4", "#fff1de", "#fff8ec"];
 const SUN_A = [0.95, 1, 1, 0.9, 0.72, 0.55];
 const SUN_R = [48, 46, 42, 38, 34, 32];
-const SKY_TOP = ["#0b1734", "#132247", "#2a4074", "#6c8dbb", "#a6c1de", "#c6daee"];
-const SKY_MID = ["#223466", "#374b84", "#6a7ea8", "#a6b6cf", "#d2dce8", "#e3ebf3"];
-const SKY_LOW = ["#ff9a5e", "#ffad70", "#ffc48e", "#ffdcb2", "#f5e5cf", "#efe9dd"];
-const WATER = ["#08101f", "#0f1a34", "#26365a", "#5b7191", "#a5b4c4", "#d4dce3"];
-const SKY = [0.92, 0.88, 0.78, 0.58, 0.42, 0.32];
 const GLOW = [0.85, 0.85, 0.65, 0.38, 0.16, 0.05];
-const BLOOM = [0.2, 0.24, 0.28, 0.28, 0.24, 0.18];
-const CANOPY = [0.9, 0.85, 0.72, 0.55, 0.4, 0.3];
+const CANOPY = [0.85, 0.8, 0.66, 0.5, 0.36, 0.26];
+const EV = [-0.9, -0.7, -0.45, -0.12, 0.08, 0.18];
 
 /* The clock is the page: it runs from the edge to openness. */
 const CLOCK_START = 5 * 60 + 48;
@@ -84,38 +74,28 @@ function clockAt(p: number) {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")} AM`;
 }
 
-const evLabel = (ev: number) => `${ev >= 0 ? "+" : "−"}${Math.abs(ev).toFixed(1)} EV`;
+const signed = (n: number, digits = 1, unit = "") =>
+  `${n >= 0 ? "+" : "−"}${Math.abs(n).toFixed(digits)}${unit}`;
 const column = (c: number) => String.fromCharCode(64 + Math.round(c));
-const cells = (f: { c0: number; r0: number; c1: number; r1: number }) =>
-  `${column(f.c0)}${f.r0} – ${column(f.c1)}${f.r1}`;
 
-type BandStageProps = {
-  children: ReactNode;
-  /** Which exposure photographs are present on disk, by exposure index. */
-  environment: readonly boolean[];
-};
-
-export function BandStage({ children, environment }: BandStageProps) {
+export function BandStage({ children }: { children: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const groundRef = useRef<HTMLDivElement>(null);
-  const envRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const marks = useMemo(() => skyline(), []);
+  const trees = useMemo(() => treeline(), []);
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
     const html = document.documentElement;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const narrow = window.matchMedia("(max-width: 1000px)");
     const sections = Array.from(root.querySelectorAll<HTMLElement>("[data-exposure]"));
-    const frames = envRef.current ? Array.from(envRef.current.querySelectorAll<HTMLElement>("[data-frame]")) : [];
-    // The readout's cells, by name: written directly each frame, no React state.
     const r: Record<string, HTMLElement | undefined> = {};
     root.querySelectorAll<HTMLElement>("[data-readout]").forEach(el => { r[el.dataset.readout ?? ""] = el; });
     let frame = 0;
     let index = 0;
     let day: boolean | undefined;
-    let shade = "";
     type Block = { el: HTMLElement; end: number };
     const blocks: Block[][] = sections.map(() => []);
 
@@ -126,7 +106,7 @@ export function BandStage({ children, environment }: BandStageProps) {
       sections.forEach((section, i) => {
         blocks[i] = (Array.from(section.children) as HTMLElement[]).map(el => ({
           el,
-          end: el.offsetTop + el.offsetHeight,
+          end: el.offsetTop,
         }));
       });
       schedule();
@@ -141,8 +121,7 @@ export function BandStage({ children, environment }: BandStageProps) {
       const scrolled = clamp(window.scrollY / span);
 
       // One continuous position over the exposures: integer when an exposure
-      // is centred in the viewport, fractional between two. Everything —
-      // light, frame, readout — reads from it, so they agree.
+      // is centred, fractional between two. Everything reads from it.
       const rects = sections.map(section => section.getBoundingClientRect());
       const centres = rects.map(rect => rect.top + rect.height / 2);
       const mid = view / 2;
@@ -157,22 +136,26 @@ export function BandStage({ children, environment }: BandStageProps) {
           }
         }
       }
-      // At the end of the document the last exposure is the one on show,
-      // however short it is.
       if (window.scrollY >= span - 2) x = centres.length - 1;
       index = Math.round(x);
       if (still) x = index;
-
       const p = x / (exposures.length - 1);
       const eased = smooth(p);
       const groundPx = groundRef.current?.getBoundingClientRect().height ?? 0;
       const horizonPx = view - groundPx - (rampNumber(HEIGHT, eased) / 100) * view;
 
+      // Blocks resolve as their top rises clear of the rail's horizon.
       rects.forEach((rect, i) => {
         for (const block of blocks[i]) {
-          const local = still ? 1 : clamp((horizonPx - (rect.top + block.end) - 6) / (REVEAL_PX - 6));
+          const local = still ? 1 : clamp((horizonPx - (rect.top + block.end) - REVEAL_PX) / 120);
           block.el.style.setProperty("--local", local.toFixed(3));
         }
+      });
+      // Each exposure's figure is in focus when its exposure is centred.
+      sections.forEach((section, i) => {
+        const focus = 1 - clamp(Math.abs(x - i) * 1.6);
+        section.style.setProperty("--focus", focus.toFixed(3));
+        section.toggleAttribute("data-focused", focus > 0.8);
       });
 
       const field = rampColor(FIELD, p);
@@ -184,99 +167,50 @@ export function BandStage({ children, environment }: BandStageProps) {
       const drift = Math.min(DRIFT, width * 0.025);
       root.style.setProperty("--drift", still ? "0px" : `${(-drift * eased).toFixed(1)}px`);
 
-      // ── the environment: which frames are on show ──
-      frames.forEach(el => {
-        const i = Number(el.dataset.frame);
-        el.style.opacity = clamp(1 - Math.abs(x - i)).toFixed(3);
-      });
-      const lower = Math.min(exposurePhotos.length - 1, Math.floor(x));
-      const upper = Math.min(exposurePhotos.length - 1, lower + 1);
+      // ── the world between two exposures ──
+      const lower = Math.min(worlds.length - 1, Math.floor(x));
+      const upper = Math.min(worlds.length - 1, lower + 1);
       const k = x - lower;
-      const a = exposurePhotos[lower];
-      const b = exposurePhotos[upper];
-
-      // ── the sunrise ──
-      const skyline = lerp(a.horizon, b.horizon, k);
+      const a = worlds[lower];
+      const b = worlds[upper];
       const sunX = lerp(a.sun, b.sun, k);
+      const density = lerp(a.density, b.density, k);
+      const foliage = lerp(a.foliage, b.foliage, k);
+      const stillness = lerp(a.still, b.still, k);
       const rise = rampNumber(SUN_RISE, p);
-      const sunY = skyline + 7 - rise * (skyline - 10);
-      root.style.setProperty("--horizon", `${skyline.toFixed(1)}%`);
-      root.style.setProperty("--sun-x", `${sunX.toFixed(1)}%`);
-      root.style.setProperty("--sun-y", `${sunY.toFixed(1)}%`);
+      const sunY = HORIZON + 1.5 - rise * (HORIZON - 12);
+      const elevation = -2 + rise * 24;
+
+      root.style.setProperty("--sun-x", `${sunX.toFixed(2)}%`);
+      root.style.setProperty("--sun-y", `${sunY.toFixed(2)}%`);
       root.style.setProperty("--sun-c", rampColor(SUN_C, p));
       root.style.setProperty("--sun-a", rampNumber(SUN_A, p).toFixed(3));
       root.style.setProperty("--sun-r", `${rampNumber(SUN_R, p).toFixed(1)}vmin`);
+      root.style.setProperty("--glow", rampNumber(GLOW, p).toFixed(3));
+      root.style.setProperty("--canopy", rampNumber(CANOPY, p).toFixed(3));
       root.style.setProperty("--sky-top", rampColor(SKY_TOP, p));
       root.style.setProperty("--sky-mid", rampColor(SKY_MID, p));
       root.style.setProperty("--sky-low", rampColor(SKY_LOW, p));
       root.style.setProperty("--water", rampColor(WATER, p));
-      root.style.setProperty("--glow", rampNumber(GLOW, p).toFixed(3));
-      root.style.setProperty("--sky", rampNumber(SKY, p).toFixed(3));
-      root.style.setProperty("--bloom", rampNumber(BLOOM, p).toFixed(3));
-      root.style.setProperty("--canopy", rampNumber(CANOPY, p).toFixed(3));
-
-      const ev = rampNumber(EV, p);
-      root.style.setProperty("--env-b", Math.pow(2, ev).toFixed(3));
-      root.style.setProperty("--env-s", rampNumber(SAT, p).toFixed(3));
-      root.style.setProperty("--env-c", rampNumber(CONTRAST, p).toFixed(3));
-      root.style.setProperty("--env-tint", rampNumber(TINT, p).toFixed(3));
+      root.style.setProperty("--water-deep", rampColor(WATER_DEEP, p));
+      root.style.setProperty("--density", density.toFixed(3));
+      root.style.setProperty("--foliage", foliage.toFixed(3));
+      root.style.setProperty("--still", stillness.toFixed(3));
       root.style.setProperty("--day", smooth(clamp((p - 0.57) / 0.1)).toFixed(3));
 
-      // ── the focus frame: cells → pixels, gliding between allocations ──
-      const gutter = Math.max(20, width * 0.0625);
-      const gap = Math.min(24, width * 0.0167);
-      const top = 4.75 * 16;
-      const bottom = view - groundPx - 2;
-      const contentW = width - gutter * 2;
-      const colW = (contentW - gap * (GRID_COLUMNS - 1)) / GRID_COLUMNS;
-      const rowH = (bottom - top) / GRID_ROWS;
-      const colX = (c: number) => gutter + (c - 1) * (colW + gap);
-      const colEnd = (c: number) => gutter + c * (colW + gap) - gap;
-      const rowY = (r: number) => top + (r - 1) * rowH;
-      const rowEnd = (r: number) => top + r * rowH;
-      const fa = a.frame;
-      const fb = b.frame;
-      const kk = still ? Math.round(k) : smooth(k);
-      let fx0 = lerp(colX(fa.c0), colX(fb.c0), kk);
-      let fx1 = lerp(colEnd(fa.c1), colEnd(fb.c1), kk);
-      let fy0 = lerp(rowY(fa.r0), rowY(fb.r0), kk);
-      let fy1 = lerp(rowEnd(fa.r1), rowEnd(fb.r1), kk);
-      if (narrow.matches) {
-        // One column: the frame is the lower part of the viewport, under the copy.
-        fx0 = gutter;
-        fx1 = width - gutter;
-        fy0 = top + (bottom - top) * 0.46;
-        fy1 = bottom;
-      }
-      root.style.setProperty("--fx0", `${fx0.toFixed(1)}px`);
-      root.style.setProperty("--fx1", `${fx1.toFixed(1)}px`);
-      root.style.setProperty("--fy0", `${fy0.toFixed(1)}px`);
-      root.style.setProperty("--fy1", `${fy1.toFixed(1)}px`);
-      // The figure caption sits under the frame, or inside its lower edge
-      // when the frame reaches the rail.
-      const capY = fy1 < bottom - 28 ? fy1 + 8 : fy1 - 24;
-      root.style.setProperty("--cap-y", `${capY.toFixed(1)}px`);
-      root.style.setProperty("--grid-top", `${top}px`);
-      root.style.setProperty("--grid-bottom", `${(view - bottom).toFixed(1)}px`);
-      // Focus pulls while the frame is travelling and settles as it lands.
-      const travel = still ? 0 : 1 - Math.abs(1 - 2 * k);
-      root.style.setProperty("--pull", `${(travel * 3.5).toFixed(2)}px`);
-      const side = sections[index]?.dataset.shade ?? "left";
-      if (side !== shade) {
-        shade = side;
-        root.dataset.shade = side;
-      }
-
       // ── the readout ──
+      const ev = rampNumber(EV, p);
       const clock = clockAt(p);
-      const current = exposurePhotos[index];
+      const world = worlds[index];
+      const standing = marks.filter(m => density >= m.t).length;
       if (r.frame) r.frame.textContent = `${String(index + 1).padStart(2, "0")} / ${String(exposures.length).padStart(2, "0")}`;
-      if (r.focus) r.focus.textContent = narrow.matches ? "A5 – L8" : cells(current.frame);
-      if (r.exposure) r.exposure.textContent = evLabel(ev);
-      if (r.time) r.time.textContent = clock;
-      if (r.subject) r.subject.textContent = current.subject;
+      if (r.focus) r.focus.textContent = world.figure;
+      if (r.exposure) r.exposure.textContent = signed(ev, 1, " EV");
       if (r.meter) r.meter.style.setProperty("--ev", ((ev + 2) / 4).toFixed(3));
-      if (r.caption) r.caption.textContent = `Fig. ${String(index + 1).padStart(2, "0")} — ${exposures[index]} · ${current.subject} · ${clock}`;
+      if (r.time) r.time.textContent = clock;
+      if (r.sun) r.sun.textContent = `${sunX.toFixed(0)} % · ${signed(elevation, 0, "°")}`;
+      if (r.density) r.density.textContent = `${String(standing).padStart(2, "0")} / ${marks.length}`;
+      if (r.subject) r.subject.textContent = world.subject;
       if (r.railClock) r.railClock.textContent = clock;
 
       const isDay = p >= DAYBREAK_AT;
@@ -310,7 +244,6 @@ export function BandStage({ children, environment }: BandStageProps) {
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", measure, { passive: true });
     motion.addEventListener("change", onMotion);
-    narrow.addEventListener("change", measure);
 
     return () => {
       cancelAnimationFrame(frame);
@@ -318,66 +251,71 @@ export function BandStage({ children, environment }: BandStageProps) {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", measure);
       motion.removeEventListener("change", onMotion);
-      narrow.removeEventListener("change", measure);
       html.style.removeProperty("--field");
     };
-  }, []);
-
-  const hasEnvironment = environment.some(Boolean);
+  }, [marks]);
 
   return (
-    <div ref={rootRef} className={styles.root} data-band-route data-environment={hasEnvironment ? "true" : undefined}>
-      {/* The environment: soft outside the focus frame, sharp inside it. */}
-      <div ref={envRef} className={styles.env} aria-hidden="true">
-        <div className={styles.envSoft}>
-          {exposurePhotos.map((photo, i) =>
-            environment[i] ? (
-              <div
-                key={photo.file}
-                className={styles.envFrame}
-                data-frame={i}
-                style={{ ["--focus" as string]: photo.focus, ["--focus-narrow" as string]: photo.focusNarrow }}
-              >
-                <div className={styles.envBase}>
-                  <Image src={`${environmentDirectory}/${photo.file}`} alt="" fill sizes="100vw" priority={i === 0} quality={78} />
-                </div>
-                <div className={styles.envBloom}>
-                  <Image src={`${environmentDirectory}/${photo.file}`} alt="" fill sizes="100vw" quality={60} />
-                </div>
-              </div>
-            ) : null,
-          )}
-        </div>
-        <div className={styles.envSharp}>
-          {exposurePhotos.map((photo, i) =>
-            environment[i] ? (
-              <div
-                key={photo.file}
-                className={styles.envFrame}
-                data-frame={i}
-                style={{ ["--focus" as string]: photo.focus, ["--focus-narrow" as string]: photo.focusNarrow }}
-              >
-                <div className={styles.envBase}>
-                  <Image src={`${environmentDirectory}/${photo.file}`} alt="" fill sizes="100vw" quality={82} />
-                </div>
-              </div>
-            ) : null,
-          )}
-        </div>
-        <div className={styles.envTint} />
-        <div className={styles.envSky} />
-        <div className={styles.envGlow} />
-        <div className={styles.envPath} />
-        <div className={styles.envSun} />
-        <div className={styles.envCanopy} />
-        <div className={styles.envHaze} />
-        <div className={styles.envPaper} />
+    <div ref={rootRef} className={styles.root} data-band-route>
+      {/* ── the world ─────────────────────────────────────────── */}
+      <div className={styles.world} aria-hidden="true">
+        <div className={styles.sky} />
+        <div className={styles.sunGlow} />
+        <div className={styles.sun} />
+
+        {/* the skyline: marks that stand while density ≥ their threshold */}
+        <svg className={styles.skyline} viewBox="0 0 1000 300" preserveAspectRatio="none">
+          {marks.map((m, i) => (
+            <rect
+              key={i}
+              className={m.glass ? styles.glass : styles.mass}
+              x={m.x}
+              y={300 - m.h}
+              width={m.w}
+              height={m.h}
+              style={{ ["--t" as string]: m.t }}
+            />
+          ))}
+        </svg>
+        {/* the treeline in front of it */}
+        <svg className={styles.treeline} viewBox="0 0 1000 100" preserveAspectRatio="none">
+          <path d={trees} />
+        </svg>
+        {/* the water: the skyline reflected, and ruled */}
+        <svg className={styles.reflection} viewBox="0 0 1000 300" preserveAspectRatio="none">
+          {marks.map((m, i) => (
+            <rect
+              key={i}
+              className={styles.mass}
+              x={m.x}
+              y={0}
+              width={m.w}
+              height={m.h * 0.7}
+              style={{ ["--t" as string]: m.t }}
+            />
+          ))}
+        </svg>
+        <div className={styles.sunPath} />
+        <div className={styles.ripples} />
+        <div className={styles.horizonLine} />
+
+        <div className={styles.canopy} />
+        <div className={styles.haze} />
+        <div className={styles.paper} />
         <div className={`${styles.shade} ${styles.shadeNight}`} />
         <div className={`${styles.shade} ${styles.shadeDay}`} />
-        <div className={styles.envGrain} />
+        <div className={styles.grain} />
+
+        {/* the instrument on the sun: a reticle, and the place */}
+        <div className={styles.reticle}>
+          <span className={styles.reticleLabel}>
+            <span>{place.lat}</span>
+            <span>{place.lon}</span>
+          </span>
+        </div>
       </div>
 
-      {/* The focusing screen: the grid, its coordinates, the frame, the figure caption. */}
+      {/* ── the grid ───────────────────────────────────────────── */}
       <div className={styles.screen} aria-hidden="true">
         <div className={styles.gridLines} />
         <div className={styles.gridColumns}>
@@ -386,18 +324,14 @@ export function BandStage({ children, environment }: BandStageProps) {
         <div className={styles.gridRows}>
           {Array.from({ length: GRID_ROWS }, (_, i) => <span key={i}>{i + 1}</span>)}
         </div>
-        <div className={styles.frameMarks}>
-          <i /><i /><i /><i />
-          <span data-readout="caption" className={styles.frameCaption}>Fig. 01 — The edge</span>
-        </div>
       </div>
 
       {children}
 
-      {/* The readout: what the instrument sees. */}
-      <dl className={styles.readout} aria-label="Viewfinder readout">
+      {/* ── the readout: what the instrument sees ─────────────── */}
+      <dl className={styles.readout} aria-label="Readout">
         <div><dt>Frame</dt><dd data-readout="frame">01 / 06</dd></div>
-        <div><dt>Focus</dt><dd data-readout="focus">F1 – L6</dd></div>
+        <div><dt>Focus</dt><dd data-readout="focus">Fig. 01</dd></div>
         <div><dt>Exposure</dt><dd data-readout="exposure">−0.9 EV</dd></div>
         <div className={styles.readoutMeter}>
           <span data-readout="meter" className={styles.meter} style={{ ["--ev" as string]: 0.275 }}>
@@ -405,10 +339,11 @@ export function BandStage({ children, environment }: BandStageProps) {
           </span>
         </div>
         <div><dt>Time</dt><dd data-readout="time">05:48 AM</dd></div>
+        <div><dt>Horizon</dt><dd>{HORIZON} %</dd></div>
+        <div><dt>Sun</dt><dd data-readout="sun">60 % · −2°</dd></div>
+        <div><dt>Skyline</dt><dd data-readout="density">48 / 48</dd></div>
         <div><dt>Place</dt><dd>{place.name}</dd></div>
-        <div><dt>Lat</dt><dd>{place.lat}</dd></div>
-        <div><dt>Lon</dt><dd>{place.lon}</dd></div>
-        <div><dt>Subject</dt><dd data-readout="subject">Foliage, water, towers</dd></div>
+        <div><dt>Subject</dt><dd data-readout="subject">The horizon, calibrated</dd></div>
       </dl>
 
       <div className={styles.band} aria-hidden="true" />
