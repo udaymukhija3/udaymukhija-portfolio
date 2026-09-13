@@ -65,10 +65,10 @@
   --progress: 0;
   --drift: 0px;
   /* The light's treatment of the photographs. */
-  --env-b: 0.27;
-  --env-s: 0.45;
+  --env-b: 0.42;
+  --env-s: 0.6;
   --env-c: 1.18;
-  --env-tint: 0.85;
+  --env-tint: 0.7;
   --day: 0;
 
   --bone: #f0e7d4;
@@ -294,11 +294,17 @@
   bottom: 0;
   display: flex;
   align-items: center;
+  gap: 0.35em;
   color: #57544c;
   font-size: var(--t-meta);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+.groundMark b {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: #14192e;
 }
 .measure a {
   position: relative;
@@ -645,8 +651,20 @@
   .exposure {
     padding-right: var(--gutter);
   }
+  /* One column: the shade covers the whole reading width, top-weighted. */
+  .shadeNight,
+  .root[data-shade="right"] .shadeNight {
+    background:
+      linear-gradient(180deg, rgba(4, 11, 26, 0.84) 0%, rgba(4, 11, 26, 0.72) 48%, rgba(4, 11, 26, 0.42) 78%, rgba(4, 11, 26, 0.3) 100%);
+  }
+  .shadeDay,
+  .root[data-shade="right"] .shadeDay {
+    background:
+      linear-gradient(180deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.8) 48%, rgba(247, 241, 228, 0.5) 78%, rgba(247, 241, 228, 0.32) 100%);
+  }
   .ruler,
-  .instrumentTop {
+  .instrumentTop,
+  .instrumentBottom {
     display: none;
   }
   .wide,

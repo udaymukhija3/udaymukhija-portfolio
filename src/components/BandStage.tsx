@@ -18,10 +18,10 @@ const HEIGHT = [0.28, 0.28, 0.3, 0.3, 0.32, 0.32];
    relative to the source, saturation, contrast, and the cool tint that the
    world carries before sunrise. Front-loaded like the field, so the first
    frame already has depth rather than three black screens. */
-const EV = [-1.9, -1.4, -0.7, -0.15, 0.15, 0.3];
-const SAT = [0.45, 0.55, 0.7, 0.9, 1, 1];
+const EV = [-1.25, -0.95, -0.55, -0.15, 0.1, 0.25];
+const SAT = [0.6, 0.68, 0.8, 0.92, 1, 1];
 const CONTRAST = [1.18, 1.14, 1.08, 1.02, 1, 1];
-const TINT = [0.85, 0.7, 0.45, 0.15, 0.04, 0];
+const TINT = [0.7, 0.55, 0.35, 0.12, 0.03, 0];
 
 /* The clock is the page: it runs from the edge to openness. */
 const CLOCK_START = 5 * 60 + 48;
@@ -178,7 +178,8 @@ export function BandStage({ children, environment }: BandStageProps) {
       root.style.setProperty("--env-s", rampNumber(SAT, p).toFixed(3));
       root.style.setProperty("--env-c", rampNumber(CONTRAST, p).toFixed(3));
       root.style.setProperty("--env-tint", rampNumber(TINT, p).toFixed(3));
-      root.style.setProperty("--day", smooth(clamp((p - 0.5) / 0.24)).toFixed(3));
+      // The shade flips with the ink: navy holds until daybreak, then paper.
+      root.style.setProperty("--day", smooth(clamp((p - 0.57) / 0.1)).toFixed(3));
       // Text sits on whichever side the exposure keeps its copy.
       const side = sections[index]?.dataset.shade ?? "left";
       if (side !== shade) {
@@ -299,7 +300,9 @@ export function BandStage({ children, environment }: BandStageProps) {
             </a>
           ))}
         </nav>
-        <span className={styles.groundMark} aria-hidden="true">Daybreak · MMXXVI</span>
+        <span className={styles.groundMark} aria-hidden="true">
+          Daybreak · MMXXVI · <b ref={el => { clockRefs.current[2] = el; }}>05:48 AM</b>
+        </span>
       </div>
     </div>
   );
