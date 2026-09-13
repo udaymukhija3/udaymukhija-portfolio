@@ -1,5 +1,5 @@
 /* The homepage has its own quiet ground; existing case studies keep their shell. */
-:root:has(#context-portfolio) {
+:root:has(#context-portfolio, #quiet-portfolio) {
   --ink: #111111;
   --charcoal: #2A2A2A;
   --paper: #F7F4EF;
@@ -26,17 +26,17 @@
   --context-gutter: clamp(24px, 4.8vw, 72px);
   scroll-padding-top: 24px;
 }
-body:has(#context-portfolio) {
+body:has(#context-portfolio, #quiet-portfolio) {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--context-font);
 }
-body:has(#context-portfolio) .route-frame { animation: none; }
-body:has(#context-portfolio) :where(a, button):focus-visible {
+body:has(#context-portfolio, #quiet-portfolio) .route-frame { animation: none; }
+body:has(#context-portfolio, #quiet-portfolio) :where(a, button, summary):focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 5px;
 }
-body:has(#context-portfolio) .skip-link { background: var(--paper); color: var(--ink); }
+body:has(#context-portfolio, #quiet-portfolio) .skip-link { background: var(--paper); color: var(--ink); }
 .context-container {
   width: 100%;
   max-width: 1600px;
@@ -47,8 +47,9 @@ body:has(#context-portfolio) .skip-link { background: var(--paper); color: var(-
 .context-navigation { min-height: 96px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .context-wordmark { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
 .context-navigation nav { display: flex; gap: clamp(24px, 3.6vw, 56px); font-size: 12px; }
-.context-navigation nav a { text-underline-offset: 5px; }
-.context-navigation nav a:hover { text-decoration: underline; }
+.context-navigation nav a { position: relative; }
+.context-navigation nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 240ms ease; }
+.context-navigation nav a:hover::after, .context-navigation nav a:focus-visible::after { transform: scaleX(1); }
 body:has(#context-portfolio) > .site-footer { border: 0; padding: 0; background: var(--paper); }
 body:has(#context-portfolio) .footer-shell {
   width: 100%; max-width: 1600px; padding: 32px var(--context-gutter) 48px;
@@ -66,4 +67,5 @@ body:has(#context-portfolio) .footer-shell a { color: var(--ink); }
 }
 @media (prefers-reduced-motion: reduce) {
   :root:has(#context-portfolio) { scroll-behavior: auto; }
+  .context-navigation nav a::after { transition: none; }
 }

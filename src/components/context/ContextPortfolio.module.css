@@ -3,12 +3,20 @@
 .heroGrid { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; min-height: inherit; align-items: end; padding-top: 176px; padding-bottom: 88px; }
 .heroCopy { grid-column: 1 / 9; }
 .heroCopy h1 { font-family: var(--context-font); font-size: clamp(5rem, 8.5vw, 9rem); font-weight: 600; line-height: .86; letter-spacing: -.065em; }
+.headlineLine { display: block; }
+.headlineLine > span { display: block; }
 .heroCopy p { margin-top: 32px; font-size: 11px; line-height: 1.5; letter-spacing: .18em; text-transform: uppercase; color: var(--charcoal); }
 .field { position: relative; overflow: hidden; isolation: isolate; width: 100%; height: 100%; background: var(--dawn); }
-.heroField { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 25%, var(--dawn) 52%, var(--apricot) 66%, var(--terracotta) 82%, var(--rose) 100%); }
+.heroField { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 25%, var(--dawn) 49%, #d7b7b6 65%, var(--rose) 83%, var(--berry) 100%); }
+.warmPhase, .dawnPhase { position: absolute; inset: 0; pointer-events: none; }
+.warmPhase { opacity: var(--warm-light, 0); background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 25%, var(--dawn) 49%, var(--apricot) 66%, var(--terracotta) 83%, var(--rose) 100%); }
+.dawnPhase { opacity: var(--dawn-light, 0); background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 25%, var(--dawn) 49%, #f0d7c7 66%, var(--apricot) 83%, var(--terracotta) 100%); }
+.solarLight { position: absolute; left: 30%; right: -4%; top: 62%; height: 64px; background: radial-gradient(ellipse at center, rgba(246,231,222,.9), rgba(246,231,222,.45) 24%, rgba(235,201,180,.12) 58%, transparent 74%); transform: translate(var(--horizon-x, 0px), var(--horizon-y, 0px)); }
 .lightWash { position: absolute; inset: 0; background: radial-gradient(ellipse 35% 23% at 66% 66%, rgba(246,231,222,.96) 0%, rgba(235,201,180,.75) 32%, rgba(217,152,134,.12) 75%, transparent 100%), radial-gradient(ellipse 45% 45% at 5% 80%, rgba(188,122,123,.25), transparent 90%), linear-gradient(176deg, transparent 56%, rgba(143,75,82,.07) 74%, transparent 86%); }
 .lightWash::after { content: ""; position: absolute; inset: 52% -10% -20%; background: radial-gradient(ellipse 11% 72% at 64% 35%, rgba(246,231,222,.63), rgba(235,201,180,.18) 62%, transparent 100%); }
 .water { position: absolute; left: -2%; bottom: -4%; width: 104%; height: 70%; }
+.heroField .water { transform: translate(var(--horizon-x, 0px), var(--horizon-y, 0px)); }
+.heroField .reflections { transform: translateX(var(--reflection-x, 0px)); opacity: var(--reflection-strength, .65); }
 .projectField { background: linear-gradient(175deg, var(--dawn) 0%, var(--apricot) 35%, var(--terracotta) 57%, var(--rose) 78%, var(--berry) 100%); }
 .projectField .lightWash { opacity: .8; }
 .projectField .water { height: 125%; bottom: -18%; }
@@ -26,12 +34,18 @@
 .title { grid-column: 2 / 5; font-size: clamp(1.6rem, 2vw, 2.2rem); font-weight: 450; line-height: 1.15; letter-spacing: -.035em; }
 .descriptor { grid-column: 5 / 11; display: flex; align-items: center; gap: 32px; font-size: 10px; font-weight: 400; letter-spacing: .16em; line-height: 1.4; text-transform: uppercase; opacity: 0; transition: opacity 180ms ease; }
 .descriptor i { display: block; height: 1px; width: 16px; background: var(--rule-strong); transform: scaleX(0); transform-origin: left; transition: transform 220ms var(--ease); }
-.symbol { grid-column: 12; justify-self: end; font-size: 24px; font-weight: 300; line-height: 1; }
+.symbol { grid-column: 12; justify-self: end; position: relative; width: 16px; height: 16px; }
+.symbol i { position: absolute; left: 2px; top: 7px; width: 12px; height: 1px; background: currentColor; transition: transform 380ms var(--ease), opacity 220ms ease; }
+.symbol i:last-child { transform: rotate(90deg); }
+.row[data-open=true] .symbol i:last-child { transform: rotate(0deg); opacity: 0; }
+.title { transition: transform 380ms var(--ease); }
+.row::after { content: ""; pointer-events: none; position: absolute; inset: -1px 0 auto; height: 1px; background: var(--ink); opacity: .3; transform: scaleX(0); transform-origin: left; transition: transform 600ms var(--ease); }
+.row:focus-within::after, .row[data-open=true]::after { transform: scaleX(1); }
 .preview { position: absolute; pointer-events: none; width: 19%; height: 32px; right: 8.5%; top: 24px; opacity: .6; clip-path: inset(0 100% 0 0); transition: clip-path 260ms var(--ease); }
 .expansion { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows 380ms var(--ease), visibility 380ms; }
 .expansionInner { overflow: hidden; min-height: 0; }
 .details { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; padding: 32px 0 64px; }
-.description { grid-column: 2 / 5; font-size: 14px; line-height: 1.5; color: var(--charcoal); padding-right: 16px; }
+.description { grid-column: 2 / 5; font-size: 14px; line-height: 1.5; color: var(--charcoal); padding-right: 16px; opacity: 0; transform: translateY(8px); transition: opacity 180ms ease, transform 380ms var(--ease); }
 .projectLink { display: inline-flex; align-items: center; gap: 12px; margin-top: 24px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
 .projectLink span[aria-hidden] { font-size: 20px; line-height: 1; transition: transform 180ms var(--ease); }
 .projectLink:hover span[aria-hidden] { transform: translateX(4px); }
@@ -41,6 +55,7 @@
 .metadata div + div { margin-top: 16px; }
 .metadata dt { font-size: 9px; text-transform: uppercase; letter-spacing: .16em; color: var(--text-muted); margin-bottom: 4px; }
 .row[data-open=true] .expansion { grid-template-rows: 1fr; visibility: visible; }
+.row[data-open=true] .description { opacity: 1; transform: translateY(0); transition-delay: 120ms; }
 .row[data-open=true] .artwork { clip-path: inset(0); transition-delay: 100ms; }
 .row[data-open=true] .metadata { opacity: 1; transition-delay: 280ms; }
 .row[data-open=true] .descriptor, .toggle:focus-visible .descriptor { opacity: 1; transition-delay: 100ms; }
@@ -50,19 +65,35 @@
 .fallback { padding-block: 24px; font-size: 14px; }
 .fallback a { margin-inline: 8px; text-decoration: underline; }
 @media (hover: hover) and (pointer: fine) {
+  .row:hover::after { transform: scaleX(1); }
+  .row:hover .title { transform: translateX(4px); }
   .row:not([data-open=true]):hover { background: linear-gradient(90deg, transparent 25%, rgba(235,201,180,.07), transparent); }
   .row:hover .descriptor { opacity: 1; transition-delay: 100ms; }
   .row:hover .descriptor i { transform: scaleX(1); transition-delay: 100ms; }
   .row:not([data-open=true]):hover .preview { clip-path: inset(0); transition-delay: 220ms; }
 }
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .heroField .water { animation: tide linear both; animation-timeline: scroll(root); animation-range: 0px 650px; }
-    .heroField .lightWash { animation: light linear both; animation-timeline: scroll(root); animation-range: 0px 650px; }
-  }
+@media (prefers-reduced-motion: no-preference) {
+  .headlineLine > span { animation: lineArrival 1000ms var(--ease) both; }
+  .headlineLine:nth-child(2) > span { animation-delay: 100ms; }
+  .heroCopy p { animation: copyArrival 800ms var(--ease) 280ms both; }
+  .hero[data-lit=true] .lightWash { animation: firstLight 4800ms ease-in-out both; }
+  .hero[data-lit=false] .lightWash { animation-play-state: paused; }
+  .row[data-open=true] .connections > path { stroke-dasharray: 1; animation: connect 1200ms var(--ease) 180ms both; }
+  .row[data-open=true] .connections circle { animation: nodeArrival 1100ms var(--ease) 250ms both; }
+  .row[data-open=true] .gridMotif rect { animation: alignCells 1000ms var(--ease) 150ms both; transform-box: fill-box; transform-origin: center; }
+  .row[data-open=true] .gridMotif rect:nth-child(3n) { animation-delay: 250ms; }
+  .row[data-open=true] .gridMotif rect:nth-child(3n + 1) { animation-delay: 350ms; }
+  .row[data-open=true] .waveMotif { transform-origin: center; animation: voiceArrival 1400ms var(--ease) 150ms both; }
+  .row[data-open=true] .artwork [data-artwork=horizon] .reflections { animation: horizonArrival 1600ms var(--ease) 120ms both; }
 }
-@keyframes tide { to { transform: translate(18px, -36px); } }
-@keyframes light { from { opacity: .8; } to { opacity: 1; transform: translateY(-12px); } }
+@keyframes lineArrival { from { transform: translateY(.3em); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes copyArrival { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes firstLight { 0% { opacity: .55; transform: translateX(-10px); } 55% { opacity: 1; } 100% { opacity: .9; transform: translateX(0); } }
+@keyframes connect { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes nodeArrival { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes alignCells { from { transform: translateY(12px); fill-opacity: .2; } to { transform: translateY(0); fill-opacity: 1; } }
+@keyframes voiceArrival { from { transform: scaleY(.25); opacity: .3; } to { transform: scaleY(1); opacity: 1; } }
+@keyframes horizonArrival { from { transform: translateX(-28px); opacity: .25; } to { transform: translateX(0); opacity: 1; } }
 @media (max-width: 1000px) {
   .heroGrid, .toggle, .details { gap: 24px; }
   .descriptor { grid-column: 5 / 12; font-size: 9px; gap: 16px; }

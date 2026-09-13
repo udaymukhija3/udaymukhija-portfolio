@@ -21,7 +21,7 @@ export function WorkIndex({ projects }: { projects: WorkProject[] }) {
             <span className={styles.number}>{project.index}</span>
             <span className={styles.title}>{project.title}</span>
             <span className={styles.descriptor} aria-hidden="true"><i />{project.category}</span>
-            <span className={styles.symbol} aria-hidden="true">{open ? "−" : "+"}</span>
+            <span className={styles.symbol} aria-hidden="true"><i /><i /></span>
           </button>
         </h2>
         <div className={styles.preview} aria-hidden="true">{project.preview}</div>

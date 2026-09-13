@@ -10,6 +10,7 @@ export function NavBar() {
   const currentPathname = pathname ?? "";
   const isDaybreak = currentPathname === "/daybreak";
   const isContext = currentPathname === "/";
+  const isQuiet = currentPathname === "/quiet";
   const emailHref = contactLinks.find((link) => link.label === "Email")?.href ?? "mailto:udaymukhija3@gmail.com";
   const navLinkClassName = (isActive: boolean) => (isActive ? "nav-link is-active" : "nav-link");
   const isCaseStudy = currentPathname.startsWith("/projects/");
@@ -18,7 +19,7 @@ export function NavBar() {
   const isAbout = currentPathname === "/about";
 
   useEffect(() => {
-    if (isDaybreak || isContext) return;
+    if (isDaybreak || isContext || isQuiet) return;
     let frame = 0;
 
     const writeReadingState = () => {
@@ -48,7 +49,19 @@ export function NavBar() {
       document.documentElement.style.removeProperty("--site-progress");
       document.documentElement.removeAttribute("data-page-scrolled");
     };
-  }, [currentPathname, isDaybreak, isContext]);
+  }, [currentPathname, isDaybreak, isContext, isQuiet]);
+
+  if (isQuiet) return (
+    <header className="quiet-header">
+      <nav aria-label="Primary">
+        <Link href="/quiet" aria-current="page">home</Link>
+        <a href="#work">work</a>
+        <Link href="/notes" prefetch={false}>notes</Link>
+        <Link href="/about" prefetch={false}>about</Link>
+      </nav>
+      <a href={emailHref}>say hello <span aria-hidden="true">↗</span></a>
+    </header>
+  );
 
   if (isContext) return (
     <header className="context-header">

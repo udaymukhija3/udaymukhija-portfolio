@@ -13,6 +13,7 @@ export function SunriseField({ id, hero = false, type = "horizon" }: {
   id: string; hero?: boolean; type?: IndexProject["artworkType"];
 }) {
   return <div className={`${styles.field} ${hero ? styles.heroField : styles.projectField}`} data-artwork={type} aria-hidden="true">
+    {hero && <><div className={styles.warmPhase} /><div className={styles.dawnPhase} /><div className={styles.solarLight} /></>}
     <div className={styles.lightWash} />
     <svg className={styles.water} viewBox="0 0 1440 360" preserveAspectRatio="none" fill="none">
       <defs>
@@ -47,7 +48,7 @@ export function SunriseField({ id, hero = false, type = "horizon" }: {
     </svg>
     {type !== "horizon" && <svg className={styles.motif} viewBox="0 0 1000 300" fill="none">
       {type === "connections" && <g className={styles.connections}>
-        <path d="M180 188L340 116L523 178L705 91L837 156M340 116L705 91M523 178L740 229" />
+        <path pathLength="1" d="M180 188L340 116L523 178L705 91L837 156M340 116L705 91M523 178L740 229" />
         {[[180,188],[340,116],[523,178],[705,91],[837,156],[740,229]].map(([cx,cy], i) => <circle key={i} cx={cx} cy={cy} r="3" />)}
       </g>}
       {type === "grid" && <g className={styles.gridMotif}>
