@@ -18,23 +18,32 @@ const HEIGHT = [0.28, 0.28, 0.3, 0.3, 0.32, 0.32];
    relative to the source, saturation, contrast, and the cool tint that the
    world carries before sunrise. Front-loaded like the field, so the first
    frame already has depth rather than three black screens. */
-const EV = [-1.25, -0.95, -0.55, -0.15, 0.1, 0.25];
-const SAT = [0.6, 0.68, 0.8, 0.92, 1, 1];
-const CONTRAST = [1.18, 1.14, 1.08, 1.02, 1, 1];
-const TINT = [0.7, 0.55, 0.35, 0.12, 0.03, 0];
+const EV = [-0.95, -0.75, -0.5, -0.15, 0.08, 0.18];
+const SAT = [0.55, 0.6, 0.7, 0.85, 0.84, 0.8];
+const CONTRAST = [1.32, 1.26, 1.16, 1.05, 0.98, 0.94];
+const TINT = [0.62, 0.52, 0.36, 0.14, 0.04, 0];
 
-/* The sunrise, composited over the photographs. The sun begins below the
-   horizon of the first frame as a glow and climbs to a high pale disc by
-   openness; the horizon band and the dawn sky grading fade as it climbs;
-   highlights bloom most at first light. Positions are per photograph
-   (bandEnvironment.ts) and interpolate across the cross-fade. */
-const SUN_RISE = [0, 0.1, 0.3, 0.55, 0.8, 1]; // 0 = at the horizon, 1 = high
-const SUN_C = ["#ff7a3a", "#ff9752", "#ffb066", "#ffcf8f", "#ffe9c4", "#fff6e6"];
-const SUN_A = [0.8, 0.9, 0.95, 0.85, 0.65, 0.5];
-const SUN_R = [40, 38, 34, 30, 27, 25]; // halo radius, vmin
-const GLOW = [0.75, 0.8, 0.65, 0.4, 0.18, 0.06]; // horizon band
-const SKY = [0.85, 0.85, 0.75, 0.55, 0.38, 0.25]; // dawn grading
-const BLOOM = [0.32, 0.38, 0.44, 0.44, 0.4, 0.34]; // highlight bloom
+/* The sunrise, composed over the photographs.
+
+   The sky is painted, not tinted: a zenith, a mid-sky and a horizon colour
+   per moment of the morning, laid into the frame above its horizon, and a
+   darker mirror of it below — the water. The sun sits on that horizon as a
+   small hot core with a wide soft light, and lays a reflection path down
+   the water. The top of the frame is held dark by a canopy vignette, the
+   way foliage frames the towers in the photographs. Everything fades toward
+   an airy, high-key morning by openness. */
+const SUN_RISE = [0, 0.06, 0.22, 0.48, 0.78, 1]; // 0 = on the horizon, 1 = high
+const SUN_C = ["#ffb27a", "#ffbd88", "#ffd0a2", "#ffe3c4", "#fff1de", "#fff8ec"];
+const SUN_A = [0.95, 1, 1, 0.9, 0.72, 0.55];
+const SUN_R = [48, 46, 42, 38, 34, 32]; // wide light, vmin
+const SKY_TOP = ["#0b1734", "#132247", "#2a4074", "#6c8dbb", "#a6c1de", "#c6daee"];
+const SKY_MID = ["#223466", "#374b84", "#6a7ea8", "#a6b6cf", "#d2dce8", "#e3ebf3"];
+const SKY_LOW = ["#ff9a5e", "#ffad70", "#ffc48e", "#ffdcb2", "#f5e5cf", "#efe9dd"];
+const WATER = ["#08101f", "#0f1a34", "#26365a", "#5b7191", "#a5b4c4", "#d4dce3"];
+const SKY = [0.92, 0.88, 0.78, 0.58, 0.42, 0.32];
+const GLOW = [0.85, 0.85, 0.65, 0.38, 0.16, 0.05]; // horizon band and the water path
+const BLOOM = [0.2, 0.24, 0.28, 0.28, 0.24, 0.18];
+const CANOPY = [0.9, 0.85, 0.72, 0.55, 0.4, 0.3]; // the dark framing at the top
 
 /* The clock is the page: it runs from the edge to openness. */
 const CLOCK_START = 5 * 60 + 48;
@@ -201,9 +210,14 @@ export function BandStage({ children, environment }: BandStageProps) {
       root.style.setProperty("--sun-c", rampColor(SUN_C, p));
       root.style.setProperty("--sun-a", rampNumber(SUN_A, p).toFixed(3));
       root.style.setProperty("--sun-r", `${rampNumber(SUN_R, p).toFixed(1)}vmin`);
+      root.style.setProperty("--sky-top", rampColor(SKY_TOP, p));
+      root.style.setProperty("--sky-mid", rampColor(SKY_MID, p));
+      root.style.setProperty("--sky-low", rampColor(SKY_LOW, p));
+      root.style.setProperty("--water", rampColor(WATER, p));
       root.style.setProperty("--glow", rampNumber(GLOW, p).toFixed(3));
       root.style.setProperty("--sky", rampNumber(SKY, p).toFixed(3));
       root.style.setProperty("--bloom", rampNumber(BLOOM, p).toFixed(3));
+      root.style.setProperty("--canopy", rampNumber(CANOPY, p).toFixed(3));
       const ev = rampNumber(EV, p);
       root.style.setProperty("--env-b", Math.pow(2, ev).toFixed(3));
       root.style.setProperty("--env-s", rampNumber(SAT, p).toFixed(3));
@@ -295,15 +309,24 @@ export function BandStage({ children, environment }: BandStageProps) {
             </div>
           ) : null,
         )}
-        <div className={styles.envSky} />
         <div className={styles.envTint} />
+        <div className={styles.envSky} />
         <div className={styles.envGlow} />
+        <div className={styles.envPath} />
         <div className={styles.envSun} />
-        <div className={styles.envVignette} />
+        <div className={styles.envCanopy} />
+        <div className={styles.envPaper} />
         <div className={`${styles.shade} ${styles.shadeNight}`} />
         <div className={`${styles.shade} ${styles.shadeDay}`} />
         <div className={styles.envGrain} />
         <div className={styles.horizonLine} />
+        {/* the instrument measures the artwork: a reticle on the sun, with the place */}
+        <div className={styles.reticle}>
+          <span className={styles.reticleLabel}>
+            <span>{place.lat}</span>
+            <span>{place.lon}</span>
+          </span>
+        </div>
       </div>
 
       {children}

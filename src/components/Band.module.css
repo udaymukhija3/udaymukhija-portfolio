@@ -77,9 +77,14 @@
   --sun-c: #ff7a3a;
   --sun-a: 0.8;
   --sun-r: 40vmin;
-  --glow: 0.75;
-  --sky: 0.85;
-  --bloom: 0.32;
+  --glow: 0.85;
+  --sky: 0.92;
+  --bloom: 0.2;
+  --canopy: 0.9;
+  --sky-top: #0b1734;
+  --sky-mid: #223466;
+  --sky-low: #ff9a5e;
+  --water: #08101f;
 
   --bone: #f0e7d4;
   --sindoor: #e2452c;
@@ -100,10 +105,11 @@
 
 /* ── the fixed composition ──────────────────────────────────── */
 
-/* ── the environment: one photograph per exposure, fixed behind the page ──
-   The photographs carry the light. Each frame cross-fades with its
-   neighbours as the visitor moves between exposures; the treatment follows
-   the page's exposure, so the frame at the edge reads as pre-dawn. */
+/* ── the environment: one photograph per exposure, composed ────────────
+   Each frame is cropped so its horizon meets one line and its subject sits
+   right of the reading column. The sunrise is painted over it in layers,
+   all driven by the page: sky, horizon band, the sun and its path on the
+   water, the dark canopy that frames the top, then paper as the day comes. */
 .env {
   position: fixed;
   inset: 0;
@@ -121,7 +127,7 @@
 .envFrame img {
   object-fit: cover;
   object-position: var(--focus);
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 .envBase,
 .envBloom {
@@ -131,97 +137,16 @@
 .envBase img {
   filter: brightness(var(--env-b)) saturate(var(--env-s)) contrast(var(--env-c));
 }
-/* The photograph softened and screened over itself: light blooms out of
-   the highlights, the way a morning does through haze. */
+/* the frame softened and screened over itself: light blooms out of the highlights */
 .envBloom {
   mix-blend-mode: screen;
   opacity: var(--bloom);
 }
 .envBloom img {
-  filter: blur(22px) brightness(calc(var(--env-b) * 1.15)) saturate(1.2);
+  filter: blur(26px) brightness(calc(var(--env-b) * 1.1)) saturate(1.1);
   transform: scale(1.08);
 }
-/* Dawn grading: a cool zenith over a warm horizon, laid into the mids. */
-.envSky {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    #1a2a5a 0%,
-    #3d4f86 calc(var(--horizon) - 30%),
-    #c98a6a calc(var(--horizon) - 4%),
-    #ffb26b var(--horizon),
-    #7a5a58 calc(var(--horizon) + 12%),
-    #1a2440 100%
-  );
-  mix-blend-mode: soft-light;
-  opacity: var(--sky);
-}
-/* The horizon band: the first warmth, along the line where the sun will be. */
-.envGlow {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent calc(var(--horizon) - 26%),
-    rgba(255, 150, 80, 0.55) calc(var(--horizon) - 2%),
-    rgba(255, 120, 60, 0.35) calc(var(--horizon) + 4%),
-    transparent calc(var(--horizon) + 22%)
-  );
-  mix-blend-mode: screen;
-  opacity: var(--glow);
-}
-/* The sun: a soft core and a wide halo, risen by the page. */
-.envSun {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at var(--sun-x) var(--sun-y),
-    #fff8ea 0,
-    var(--sun-c) calc(var(--sun-r) * 0.09),
-    color-mix(in srgb, var(--sun-c) 55%, transparent) calc(var(--sun-r) * 0.3),
-    color-mix(in srgb, var(--sun-c) 18%, transparent) calc(var(--sun-r) * 0.62),
-    transparent var(--sun-r)
-  );
-  mix-blend-mode: screen;
-  opacity: var(--sun-a);
-}
-.envVignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 80% 70% at 50% 45%, transparent 50%, rgba(4, 11, 26, 0.5) 100%);
-  mix-blend-mode: multiply;
-  opacity: calc(0.9 - var(--day) * 0.55);
-}
-/* Grain: printed, not glowing pixels. */
-.envGrain {
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.8 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  mix-blend-mode: overlay;
-  opacity: 0.16;
-}
-/* The horizon, drawn: a hairline where the sun is measured from. */
-.horizonLine {
-  position: absolute;
-  left: 44%;
-  right: 0;
-  top: var(--horizon);
-  height: 1px;
-  background: linear-gradient(to right, transparent 0%, rgba(255, 236, 210, 0.35) 30%, rgba(255, 236, 210, 0.35) 70%, transparent 100%);
-  opacity: calc(0.8 - var(--day) * 0.5);
-}
-.horizonLine::after {
-  content: "";
-  position: absolute;
-  left: var(--sun-x);
-  top: -0.35rem;
-  width: 1px;
-  height: 0.7rem;
-  background: rgba(255, 236, 210, 0.7);
-}
-/* Before sunrise the world takes the colour of the sky. */
+/* before sunrise the world takes the colour of the sky */
 .envTint {
   position: absolute;
   inset: 0;
@@ -229,8 +154,81 @@
   mix-blend-mode: color;
   opacity: var(--env-tint);
 }
-/* The reading side is shaded so the type always has ground: navy before
-   daybreak, paper after. The two cross-fade on --day. */
+/* the sky, painted above the horizon; its darker mirror below, in the water */
+.envSky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--sky-top) 0%,
+    var(--sky-mid) calc(var(--horizon) * 0.5),
+    var(--sky-low) calc(var(--horizon) - 1%),
+    var(--sky-low) var(--horizon),
+    var(--water) calc(var(--horizon) + 14%),
+    var(--water) 100%
+  );
+  mix-blend-mode: soft-light;
+  opacity: var(--sky);
+}
+/* the horizon band: the first warmth, along the line the sun rises from */
+.envGlow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent calc(var(--horizon) - 22%),
+    rgba(255, 160, 96, 0.62) calc(var(--horizon) - 1%),
+    rgba(255, 130, 70, 0.4) calc(var(--horizon) + 3%),
+    transparent calc(var(--horizon) + 18%)
+  );
+  mix-blend-mode: screen;
+  opacity: var(--glow);
+}
+/* the sun's path on the water, under it */
+.envPath {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 7vmin 34vmin at var(--sun-x) calc(var(--horizon) + 16%),
+    rgba(255, 190, 130, 0.85) 0%,
+    rgba(255, 170, 110, 0.3) 45%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  opacity: var(--glow);
+}
+/* the sun: a small hot core, a tight halo, a wide soft light */
+.envSun {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--sun-x) var(--sun-y), #fffaf0 0, var(--sun-c) 1.6vmin, transparent 3.2vmin),
+    radial-gradient(circle at var(--sun-x) var(--sun-y), color-mix(in srgb, var(--sun-c) 70%, transparent) 0, transparent 12vmin),
+    radial-gradient(circle at var(--sun-x) var(--sun-y), color-mix(in srgb, var(--sun-c) 34%, transparent) 0, color-mix(in srgb, var(--sun-c) 10%, transparent) 55%, transparent var(--sun-r));
+  mix-blend-mode: screen;
+  opacity: var(--sun-a);
+}
+/* the canopy: the top of the frame held dark, as foliage frames the towers */
+.envCanopy {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(5, 12, 28, 0.95) 0%, rgba(5, 12, 28, 0.55) 14%, transparent 34%),
+    radial-gradient(ellipse 60% 55% at 0% 0%, rgba(5, 12, 28, 0.9) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 50% at 100% 0%, rgba(5, 12, 28, 0.75) 0%, transparent 70%),
+    radial-gradient(ellipse 120% 40% at 50% 104%, rgba(5, 12, 28, 0.5) 0%, transparent 70%);
+  mix-blend-mode: multiply;
+  opacity: var(--canopy);
+}
+/* the day: paper lifts the whole frame into a high key */
+.envPaper {
+  position: absolute;
+  inset: 0;
+  background: #f4efe4;
+  mix-blend-mode: screen;
+  opacity: calc(var(--day) * 0.24);
+}
+/* the reading side, shaded so type always has ground: navy, then paper */
 .shade {
   position: absolute;
   inset: 0;
@@ -238,34 +236,86 @@
 .shadeNight {
   opacity: calc(1 - var(--day));
   background:
-    linear-gradient(90deg, rgba(4, 11, 26, 0.86) 0%, rgba(4, 11, 26, 0.58) 34%, rgba(4, 11, 26, 0.12) 62%, rgba(4, 11, 26, 0.04) 100%),
-    linear-gradient(0deg, rgba(4, 11, 26, 0.34) 0%, transparent 40%);
+    linear-gradient(90deg, rgba(4, 11, 26, 0.82) 0%, rgba(4, 11, 26, 0.52) 34%, rgba(4, 11, 26, 0.08) 62%, transparent 100%);
 }
 .shadeDay {
   opacity: var(--day);
   background:
-    linear-gradient(90deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.66) 34%, rgba(247, 241, 228, 0.16) 62%, rgba(247, 241, 228, 0.04) 100%),
-    linear-gradient(0deg, rgba(247, 241, 228, 0.3) 0%, transparent 40%);
+    linear-gradient(90deg, rgba(247, 241, 228, 0.88) 0%, rgba(247, 241, 228, 0.6) 34%, rgba(247, 241, 228, 0.1) 62%, transparent 100%);
 }
-/* An exposure that keeps its copy on the right mirrors the shade. */
 .root[data-shade="right"] .shadeNight {
   background:
-    linear-gradient(270deg, rgba(4, 11, 26, 0.86) 0%, rgba(4, 11, 26, 0.58) 34%, rgba(4, 11, 26, 0.12) 62%, rgba(4, 11, 26, 0.04) 100%),
-    linear-gradient(0deg, rgba(4, 11, 26, 0.34) 0%, transparent 40%);
+    linear-gradient(270deg, rgba(4, 11, 26, 0.82) 0%, rgba(4, 11, 26, 0.52) 34%, rgba(4, 11, 26, 0.08) 62%, transparent 100%);
 }
 .root[data-shade="right"] .shadeDay {
   background:
-    linear-gradient(270deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.66) 34%, rgba(247, 241, 228, 0.16) 62%, rgba(247, 241, 228, 0.04) 100%),
-    linear-gradient(0deg, rgba(247, 241, 228, 0.3) 0%, transparent 40%);
+    linear-gradient(270deg, rgba(247, 241, 228, 0.88) 0%, rgba(247, 241, 228, 0.6) 34%, rgba(247, 241, 228, 0.1) 62%, transparent 100%);
 }
-/* Without photographs the field is the environment, as before. */
-.root:not([data-environment]) .shade,
-.root:not([data-environment]) .envTint,
-.root:not([data-environment]) .envSky,
-.root:not([data-environment]) .envGlow,
-.root:not([data-environment]) .envVignette,
-.root:not([data-environment]) .envBloom,
-.root:not([data-environment]) .horizonLine {
+/* grain: printed, not glowing pixels */
+.envGrain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.8 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  opacity: 0.1;
+}
+/* the horizon, drawn: a hairline the sun is measured from, right of the copy */
+.horizonLine {
+  position: absolute;
+  left: 46%;
+  right: 0;
+  top: var(--horizon);
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, rgba(255, 236, 210, 0.4) 20%, rgba(255, 236, 210, 0.4) 100%);
+  opacity: calc(0.8 - var(--day) * 0.45);
+}
+/* the reticle: the instrument sits on the sun and names the place */
+.reticle {
+  position: absolute;
+  left: var(--sun-x);
+  top: var(--sun-y);
+  width: 7vmin;
+  height: 7vmin;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 240, 220, 0.55);
+  border-radius: 50%;
+  opacity: calc(0.9 - var(--day) * 0.5);
+}
+.reticle::before,
+.reticle::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 240, 220, 0.55);
+}
+.reticle::before {
+  left: 50%;
+  top: -1.6vmin;
+  width: 1px;
+  height: calc(100% + 3.2vmin);
+}
+.reticle::after {
+  top: 50%;
+  left: -1.6vmin;
+  height: 1px;
+  width: calc(100% + 3.2vmin);
+}
+.reticleLabel {
+  position: absolute;
+  right: calc(100% + 2.4vmin);
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 0.15rem;
+  color: rgba(255, 240, 220, 0.8);
+  font-size: var(--t-meta);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+/* without photographs the field is the environment, as before */
+.root:not([data-environment]) .env > :not(.envFrame) {
   display: none;
 }
 
@@ -289,7 +339,7 @@
   font-variant-numeric: tabular-nums;
 }
 .instrumentTop {
-  top: 13rem;
+  top: 17.5rem;
   padding-right: var(--s-3);
   border-right: 1px solid var(--hairline);
 }
@@ -302,12 +352,11 @@
 .ruler {
   position: fixed;
   right: var(--gutter);
-  top: 50%;
+  top: 27rem;
   z-index: 4;
   display: grid;
   gap: var(--s-2);
   justify-items: end;
-  transform: translateY(-50%);
   color: var(--dim);
   font-size: var(--t-meta);
   letter-spacing: 0.12em;
@@ -394,7 +443,7 @@
 
 .measure {
   position: absolute;
-  inset: 0 12rem 0 var(--gutter);
+  inset: 0 13rem 0 var(--gutter);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   align-items: stretch;
@@ -414,6 +463,7 @@
   white-space: nowrap;
 }
 .groundMark b {
+  display: none; /* the clock sits in the instruments on wide screens */
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: #14192e;
@@ -777,8 +827,15 @@
   .ruler,
   .instrumentTop,
   .instrumentBottom,
-  .horizonLine {
+  .horizonLine,
+  .reticle {
     display: none;
+  }
+  .groundMark b {
+    display: inline;
+  }
+  .measure {
+    inset: 0 15rem 0 var(--gutter);
   }
   .wide,
   .split,
