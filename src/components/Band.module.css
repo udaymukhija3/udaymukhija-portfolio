@@ -320,10 +320,10 @@
   display: grid;
   gap: 0.15rem;
   color: rgba(255, 240, 220, 0.75);
-  font-size: var(--t-meta);
-  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
   white-space: nowrap;
-  font-variant-numeric: tabular-nums;
 }
 @keyframes drift {
   from { transform: translate3d(0, 0, 0); }
@@ -369,9 +369,9 @@
   position: absolute;
   display: grid;
   color: var(--dim);
-  font-size: 0.6rem;
-  letter-spacing: 0.14em;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.08em;
   opacity: 0.8;
 }
 .gridColumns {
@@ -406,8 +406,9 @@
   border: 1px solid var(--hairline);
   background: color-mix(in srgb, var(--plate-bg) 72%, transparent);
   color: var(--dim);
-  font-size: 0.66rem;
-  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   pointer-events: none;
   transition: background 500ms ease, color 400ms ease;
@@ -429,7 +430,7 @@
   min-width: 0;
   margin: 0;
   color: var(--cream);
-  font-variant-numeric: tabular-nums;
+  font-weight: 500;
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
@@ -450,7 +451,7 @@
 .meter b {
   position: relative;
   font-weight: 400;
-  font-size: 0.6rem;
+  font-size: var(--t-micro);
   line-height: 1;
   width: 0;
   transform: translateX(-50%);
@@ -519,8 +520,9 @@
   padding-inline-end: var(--s-2);
   min-width: 0;
   color: #57544c;
-  font-size: var(--t-meta);
-  letter-spacing: 0.11em;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
 }
@@ -542,7 +544,6 @@
 }
 .measure b {
   font-weight: 500;
-  font-variant-numeric: tabular-nums;
 }
 .measure span {
   overflow: hidden;
@@ -558,15 +559,15 @@
   align-items: center;
   gap: 0.35em;
   color: #57544c;
-  font-size: var(--t-meta);
-  letter-spacing: 0.14em;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 .groundMark b {
   display: none;
   font-weight: 500;
-  font-variant-numeric: tabular-nums;
   color: #14192e;
 }
 
@@ -595,8 +596,8 @@
 .wide .marginNote { grid-column: 8 / 11; }
 .split .copy { grid-column: 1 / 7; }
 .split .figure { grid-column: 7 / 11; align-self: start; }
-.mediaFirst .copy { grid-column: 7 / 11; grid-row: 1; }
-.mediaFirst .figure { grid-column: 1 / 6; grid-row: 1; align-self: start; }
+.mediaFirst .copy { grid-column: 5 / 11; grid-row: 1; }
+.mediaFirst .figure { grid-column: 1 / 4; grid-row: 1; align-self: start; }
 /* the join path wants the width: it takes the row beneath the copy */
 .exposure:nth-of-type(4) .figure { grid-column: 1 / 11; }
 
@@ -612,24 +613,24 @@
   align-items: baseline;
   gap: var(--s-3);
   margin: 0 0 var(--s-5);
+  font-family: var(--font-mono);
   font-size: var(--t-meta);
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-weight: 400;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--dim);
 }
 .eyebrow b {
   color: var(--ember);
   font-weight: 500;
-  font-variant-numeric: tabular-nums;
 }
 .title {
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 400;
   font-size: var(--t-display);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
+  line-height: 0.94;
+  letter-spacing: -0.012em;
   text-wrap: balance;
 }
 .title em {
@@ -640,17 +641,19 @@
   margin: var(--s-5) 0 0;
   font-size: var(--t-subtitle);
   line-height: 1.45;
+  letter-spacing: -0.005em;
   color: var(--cream);
   opacity: 0.9;
   text-wrap: pretty;
 }
 .proof {
   display: block;
-  max-width: 44ch;
+  max-width: 48ch;
   margin: var(--s-4) 0 0;
+  font-family: var(--font-mono);
   font-size: var(--t-meta);
   line-height: 1.6;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   color: var(--ember);
 }
 .link {
@@ -699,16 +702,17 @@
 }
 .caption {
   margin: var(--s-4) 0 0;
-  font-size: var(--t-meta);
+  font-size: 0.8rem;
   line-height: 1.55;
-  letter-spacing: 0.02em;
   color: var(--dim);
   text-wrap: pretty;
 }
 .caption b {
   margin-right: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ember);
 }
@@ -746,9 +750,9 @@
   position: relative;
   width: 0;
   padding-top: 0.55rem;
-  font-size: var(--t-meta);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.06em;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
   color: var(--dim);
   white-space: nowrap;
 }
@@ -769,8 +773,9 @@
   position: absolute;
   right: 0;
   bottom: 1.1rem;
-  font-size: var(--t-meta);
-  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ember);
 }
@@ -795,9 +800,9 @@
   font-size: var(--t-meta);
 }
 .cell small {
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
 }
 .cell[data-chosen] {
   background: var(--plate-bg);
@@ -823,8 +828,7 @@
   margin: var(--s-4) 0 0;
   padding: 0;
   list-style: none;
-  font-size: var(--t-meta);
-  letter-spacing: 0.04em;
+  font-size: 0.78rem;
   color: var(--dim);
 }
 .stages li {
@@ -834,9 +838,10 @@
 .stages span {
   display: block;
   margin-bottom: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
   color: var(--ember);
-  letter-spacing: 0.12em;
-  font-variant-numeric: tabular-nums;
 }
 
 /* Fig. 04 — the join path */
@@ -857,8 +862,9 @@
 }
 .joinBand {
   fill: var(--dim);
-  font-size: 7.5px;
-  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 .joinSpine {
@@ -890,10 +896,10 @@
   fill: var(--cream);
 }
 .joinIndex {
+  font-family: var(--font-mono);
   font-size: 6.5px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   fill: var(--ember) !important;
-  font-variant-numeric: tabular-nums;
 }
 .joinLabel {
   font-size: 9px;
@@ -907,9 +913,9 @@
   font-size: 10.5px;
 }
 .joinDetail {
-  font-size: 6.5px;
+  font-family: var(--font-mono);
+  font-size: 6.2px;
   fill: var(--dim) !important;
-  letter-spacing: 0.02em;
 }
 .joinGuards line {
   stroke: var(--hairline);
@@ -920,8 +926,8 @@
 }
 .joinGuards text {
   fill: var(--dim);
-  font-size: 7px;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+  font-size: 6.8px;
 }
 .joinGuards [data-on] rect {
   fill: var(--ember);
@@ -981,13 +987,14 @@
 }
 .index a b {
   color: var(--ember);
+  font-family: var(--font-mono);
   font-size: var(--t-meta);
   font-weight: 500;
-  font-variant-numeric: tabular-nums;
 }
 .index a small {
-  font-size: var(--t-meta);
-  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--dim);
 }
@@ -1023,7 +1030,9 @@
   padding-bottom: var(--s-1);
   border-bottom: 1px solid var(--ember);
   color: var(--cream);
-  font-size: var(--t-subtitle);
+  font-family: var(--font-serif);
+  font-size: calc(var(--t-subtitle) * 1.5);
+  line-height: 1.1;
   text-decoration: none;
 }
 .marginNote {
@@ -1034,8 +1043,8 @@
   padding-top: var(--s-6);
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: var(--t-subtitle);
-  line-height: 1.35;
+  font-size: calc(var(--t-subtitle) * 1.45);
+  line-height: 1.2;
   color: var(--dim);
   text-align: right;
 }

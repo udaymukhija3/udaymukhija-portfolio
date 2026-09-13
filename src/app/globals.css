@@ -10,8 +10,9 @@
   --eucalyptus: #7d8c80;
   --sage-wash: #e5e9e4;
   --blue-wash: #e7eaed;
-  --font-sans: "Helvetica Neue", "Neue Haas Grotesk Text Pro", Helvetica, Arial, system-ui, sans-serif;
-  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-sans-face), "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --font-serif: var(--font-serif-face), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-mono-face), ui-monospace, "SF Mono", Menlo, monospace;
   --container: 87rem;
   --gutter: clamp(1.5rem, 5vw, 5.5rem);
   --section-space: clamp(7rem, 12vw, 12rem);

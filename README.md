@@ -34,7 +34,7 @@ git diff --check
 - Next Image for real project captures
 - ESLint with the Next.js Core Web Vitals and TypeScript rules
 
-No component kit, animation package, analytics script, or external font payload is required.
+No component kit, animation package, or analytics script. Type is three self-hosted OFL faces — Instrument Serif, Instrument Sans, DM Mono — latin subsets, about 78 KB together, loaded through `next/font/local` (see `src/fonts/daybreak`).
 
 ## Architecture
 
