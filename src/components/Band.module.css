@@ -70,6 +70,16 @@
   --env-c: 1.18;
   --env-tint: 0.7;
   --day: 0;
+  /* The sunrise composite. */
+  --horizon: 56%;
+  --sun-x: 64%;
+  --sun-y: 63%;
+  --sun-c: #ff7a3a;
+  --sun-a: 0.8;
+  --sun-r: 40vmin;
+  --glow: 0.75;
+  --sky: 0.85;
+  --bloom: 0.32;
 
   --bone: #f0e7d4;
   --sindoor: #e2452c;
@@ -111,8 +121,105 @@
 .envFrame img {
   object-fit: cover;
   object-position: var(--focus);
-  filter: brightness(var(--env-b)) saturate(var(--env-s)) contrast(var(--env-c));
   transform: scale(1.03);
+}
+.envBase,
+.envBloom {
+  position: absolute;
+  inset: 0;
+}
+.envBase img {
+  filter: brightness(var(--env-b)) saturate(var(--env-s)) contrast(var(--env-c));
+}
+/* The photograph softened and screened over itself: light blooms out of
+   the highlights, the way a morning does through haze. */
+.envBloom {
+  mix-blend-mode: screen;
+  opacity: var(--bloom);
+}
+.envBloom img {
+  filter: blur(22px) brightness(calc(var(--env-b) * 1.15)) saturate(1.2);
+  transform: scale(1.08);
+}
+/* Dawn grading: a cool zenith over a warm horizon, laid into the mids. */
+.envSky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #1a2a5a 0%,
+    #3d4f86 calc(var(--horizon) - 30%),
+    #c98a6a calc(var(--horizon) - 4%),
+    #ffb26b var(--horizon),
+    #7a5a58 calc(var(--horizon) + 12%),
+    #1a2440 100%
+  );
+  mix-blend-mode: soft-light;
+  opacity: var(--sky);
+}
+/* The horizon band: the first warmth, along the line where the sun will be. */
+.envGlow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent calc(var(--horizon) - 26%),
+    rgba(255, 150, 80, 0.55) calc(var(--horizon) - 2%),
+    rgba(255, 120, 60, 0.35) calc(var(--horizon) + 4%),
+    transparent calc(var(--horizon) + 22%)
+  );
+  mix-blend-mode: screen;
+  opacity: var(--glow);
+}
+/* The sun: a soft core and a wide halo, risen by the page. */
+.envSun {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--sun-x) var(--sun-y),
+    #fff8ea 0,
+    var(--sun-c) calc(var(--sun-r) * 0.09),
+    color-mix(in srgb, var(--sun-c) 55%, transparent) calc(var(--sun-r) * 0.3),
+    color-mix(in srgb, var(--sun-c) 18%, transparent) calc(var(--sun-r) * 0.62),
+    transparent var(--sun-r)
+  );
+  mix-blend-mode: screen;
+  opacity: var(--sun-a);
+}
+.envVignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 70% at 50% 45%, transparent 50%, rgba(4, 11, 26, 0.5) 100%);
+  mix-blend-mode: multiply;
+  opacity: calc(0.9 - var(--day) * 0.55);
+}
+/* Grain: printed, not glowing pixels. */
+.envGrain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.8 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  opacity: 0.16;
+}
+/* The horizon, drawn: a hairline where the sun is measured from. */
+.horizonLine {
+  position: absolute;
+  left: 44%;
+  right: 0;
+  top: var(--horizon);
+  height: 1px;
+  background: linear-gradient(to right, transparent 0%, rgba(255, 236, 210, 0.35) 30%, rgba(255, 236, 210, 0.35) 70%, transparent 100%);
+  opacity: calc(0.8 - var(--day) * 0.5);
+}
+.horizonLine::after {
+  content: "";
+  position: absolute;
+  left: var(--sun-x);
+  top: -0.35rem;
+  width: 1px;
+  height: 0.7rem;
+  background: rgba(255, 236, 210, 0.7);
 }
 /* Before sunrise the world takes the colour of the sky. */
 .envTint {
@@ -153,7 +260,12 @@
 }
 /* Without photographs the field is the environment, as before. */
 .root:not([data-environment]) .shade,
-.root:not([data-environment]) .envTint {
+.root:not([data-environment]) .envTint,
+.root:not([data-environment]) .envSky,
+.root:not([data-environment]) .envGlow,
+.root:not([data-environment]) .envVignette,
+.root:not([data-environment]) .envBloom,
+.root:not([data-environment]) .horizonLine {
   display: none;
 }
 
@@ -664,7 +776,8 @@
   }
   .ruler,
   .instrumentTop,
-  .instrumentBottom {
+  .instrumentBottom,
+  .horizonLine {
     display: none;
   }
   .wide,

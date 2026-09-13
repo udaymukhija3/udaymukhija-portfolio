@@ -23,6 +23,19 @@ const SAT = [0.6, 0.68, 0.8, 0.92, 1, 1];
 const CONTRAST = [1.18, 1.14, 1.08, 1.02, 1, 1];
 const TINT = [0.7, 0.55, 0.35, 0.12, 0.03, 0];
 
+/* The sunrise, composited over the photographs. The sun begins below the
+   horizon of the first frame as a glow and climbs to a high pale disc by
+   openness; the horizon band and the dawn sky grading fade as it climbs;
+   highlights bloom most at first light. Positions are per photograph
+   (bandEnvironment.ts) and interpolate across the cross-fade. */
+const SUN_RISE = [0, 0.1, 0.3, 0.55, 0.8, 1]; // 0 = at the horizon, 1 = high
+const SUN_C = ["#ff7a3a", "#ff9752", "#ffb066", "#ffcf8f", "#ffe9c4", "#fff6e6"];
+const SUN_A = [0.8, 0.9, 0.95, 0.85, 0.65, 0.5];
+const SUN_R = [40, 38, 34, 30, 27, 25]; // halo radius, vmin
+const GLOW = [0.75, 0.8, 0.65, 0.4, 0.18, 0.06]; // horizon band
+const SKY = [0.85, 0.85, 0.75, 0.55, 0.38, 0.25]; // dawn grading
+const BLOOM = [0.32, 0.38, 0.44, 0.44, 0.4, 0.34]; // highlight bloom
+
 /* The clock is the page: it runs from the edge to openness. */
 const CLOCK_START = 5 * 60 + 48;
 const CLOCK_END = 7 * 60 + 12;
@@ -173,6 +186,24 @@ export function BandStage({ children, environment }: BandStageProps) {
         const i = Number(el.dataset.frame);
         el.style.opacity = clamp(1 - Math.abs(x - i)).toFixed(3);
       });
+      // The sunrise: horizon and sun-x follow the frames on show; the sun's
+      // height is the page's.
+      const lower = Math.min(exposurePhotos.length - 1, Math.floor(x));
+      const upper = Math.min(exposurePhotos.length - 1, lower + 1);
+      const k = x - lower;
+      const skyline = exposurePhotos[lower].horizon + (exposurePhotos[upper].horizon - exposurePhotos[lower].horizon) * k;
+      const sunX = exposurePhotos[lower].sun + (exposurePhotos[upper].sun - exposurePhotos[lower].sun) * k;
+      const rise = rampNumber(SUN_RISE, p);
+      const sunY = skyline + 7 - rise * (skyline - 10);
+      root.style.setProperty("--horizon", `${skyline.toFixed(1)}%`);
+      root.style.setProperty("--sun-x", `${sunX.toFixed(1)}%`);
+      root.style.setProperty("--sun-y", `${sunY.toFixed(1)}%`);
+      root.style.setProperty("--sun-c", rampColor(SUN_C, p));
+      root.style.setProperty("--sun-a", rampNumber(SUN_A, p).toFixed(3));
+      root.style.setProperty("--sun-r", `${rampNumber(SUN_R, p).toFixed(1)}vmin`);
+      root.style.setProperty("--glow", rampNumber(GLOW, p).toFixed(3));
+      root.style.setProperty("--sky", rampNumber(SKY, p).toFixed(3));
+      root.style.setProperty("--bloom", rampNumber(BLOOM, p).toFixed(3));
       const ev = rampNumber(EV, p);
       root.style.setProperty("--env-b", Math.pow(2, ev).toFixed(3));
       root.style.setProperty("--env-s", rampNumber(SAT, p).toFixed(3));
@@ -247,20 +278,32 @@ export function BandStage({ children, environment }: BandStageProps) {
               data-frame={i}
               style={{ ["--focus" as string]: photo.focus, ["--focus-narrow" as string]: photo.focusNarrow }}
             >
-              <Image
-                src={`${environmentDirectory}/${photo.file}`}
-                alt=""
-                fill
-                sizes="100vw"
-                priority={i === 0}
-                quality={80}
-              />
+              <div className={styles.envBase}>
+                <Image
+                  src={`${environmentDirectory}/${photo.file}`}
+                  alt=""
+                  fill
+                  sizes="100vw"
+                  priority={i === 0}
+                  quality={80}
+                />
+              </div>
+              {/* the same frame, softened and screened over itself: highlights bloom */}
+              <div className={styles.envBloom}>
+                <Image src={`${environmentDirectory}/${photo.file}`} alt="" fill sizes="100vw" quality={80} />
+              </div>
             </div>
           ) : null,
         )}
+        <div className={styles.envSky} />
         <div className={styles.envTint} />
+        <div className={styles.envGlow} />
+        <div className={styles.envSun} />
+        <div className={styles.envVignette} />
         <div className={`${styles.shade} ${styles.shadeNight}`} />
         <div className={`${styles.shade} ${styles.shadeDay}`} />
+        <div className={styles.envGrain} />
+        <div className={styles.horizonLine} />
       </div>
 
       {children}

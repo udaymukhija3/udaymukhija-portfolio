@@ -15,6 +15,10 @@ export type ExposurePhoto = {
   /** object-position for wide and for portrait viewports. */
   focus: string;
   focusNarrow: string;
+  /** Where the horizon sits in the frame, as a percentage of the viewport height. */
+  horizon: number;
+  /** Where the sun rises, as a percentage of the viewport width. */
+  sun: number;
 };
 
 export const exposurePhotos: readonly ExposurePhoto[] = [
@@ -24,6 +28,8 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     source: "Portrait · the sunlit lake framed by leaves, a rowboat, the twin-towered block and sun flare top right.",
     focus: "62% 40%",
     focusNarrow: "60% 45%",
+    horizon: 56,
+    sun: 64,
   },
   {
     file: "02-voice.webp",
@@ -31,6 +37,8 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     source: "Portrait · the stream over rocks with the wooden fence.",
     focus: "45% 60%",
     focusNarrow: "45% 62%",
+    horizon: 30,
+    sun: 72,
   },
   {
     file: "03-possibility.webp",
@@ -38,6 +46,8 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     source: "Portrait · the bare-tree early-spring lake with the supertalls and the yellow forsythia.",
     focus: "48% 46%",
     focusNarrow: "50% 50%",
+    horizon: 60,
+    sun: 52,
   },
   {
     file: "04-connection.webp",
@@ -45,6 +55,8 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     source: "Portrait · two rowboats on the Lake under a streaked blue sky.",
     focus: "40% 70%",
     focusNarrow: "36% 72%",
+    horizon: 54,
+    sun: 70,
   },
   {
     file: "05-curiosity.webp",
@@ -52,6 +64,8 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     source: "Landscape · the goose and three turtles on the rock, wide water.",
     focus: "55% 78%",
     focusNarrow: "60% 80%",
+    horizon: 44,
+    sun: 62,
   },
   {
     file: "06-openness.webp",
@@ -59,6 +73,8 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     source: "Portrait · the sunlit lake with the supertalls through spring trees, boats in the distance.",
     focus: "50% 48%",
     focusNarrow: "50% 52%",
+    horizon: 60,
+    sun: 48,
   },
 ];
 
