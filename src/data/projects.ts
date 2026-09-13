@@ -1,5 +1,40 @@
 import type { Project } from "../types";
 
+export type IndexProject = {
+  id: string;
+  index: string;
+  title: string;
+  category: string;
+  year: string;
+  description: string;
+  role: string;
+  href: string;
+  artworkType: "connections" | "grid" | "waveform" | "horizon";
+};
+
+export const indexProjects: IndexProject[] = [
+  {
+    id: "gathr", index: "01", title: "Gathr", category: "Social discovery system",
+    year: "2026", role: "Design & engineering", href: "/projects/gathrly", artworkType: "connections",
+    description: "A small plan. A few new people. A local discovery and planning product that turns shared intent into time together.",
+  },
+  {
+    id: "vibegrid", index: "02", title: "VibeGrid", category: "Daily social ritual",
+    year: "2026", role: "Design & engineering", href: "/projects/vibegrid", artworkType: "grid",
+    description: "Four fragments. One title. A daily creative ritual for private crews, with different interpretations and a shared reveal.",
+  },
+  {
+    id: "murmur", index: "03", title: "Murmur", category: "Private voice product",
+    year: "2026", role: "Design & engineering", href: "/projects/murmur", artworkType: "waveform",
+    description: "A quiet place for familiar voices. Short voice notes and invite-only rooms, made for the people you want to keep close.",
+  },
+  {
+    id: "daybreak", index: "04", title: "Daybreak", category: "Light & interaction study",
+    year: "2026", role: "Design & development", href: "/daybreak", artworkType: "horizon",
+    description: "An exploration of light, time, and digital space. A changing horizon becomes a way to move through a collection of work.",
+  },
+];
+
 export const projects: Project[] = [
   {
     slug: "gathrly",

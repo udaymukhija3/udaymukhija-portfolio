@@ -1,6 +1,6 @@
 # Uday Mukhija Portfolio
 
-The homepage now uses **DAYBREAK**, a six-scene sunrise portfolio. See [DAYBREAK implementation notes](docs/DAYBREAK.md) for its architecture, art direction, static publishing path, and validation limits. The descriptions below also cover the retained editorial pages and earlier workbench implementation.
+The homepage uses **BAND**, six editorial exposures over a continuous sunrise. The optical refresh adds Space Grotesk / IBM Plex Mono typography, a projected light study, spectral accents, and a monochrome comparison. See [Optical editorial notes](docs/OPTICAL_EDITORIAL.md). The earlier [DAYBREAK implementation](docs/DAYBREAK.md) remains available at `/daybreak`.
 
 An editorial design-engineering portfolio for backend-heavy product systems, data engineering, and applied ML work. The interface itself is a working sample: typography-led composition, a responsive selected-work stage, authored SVG, purposeful motion, a route-local Three.js study, and reduced-motion fallbacks.
 
@@ -34,7 +34,7 @@ git diff --check
 - Next Image for real project captures
 - ESLint with the Next.js Core Web Vitals and TypeScript rules
 
-No component kit, animation package, or analytics script. Type is three self-hosted OFL faces — Instrument Serif, Instrument Sans, DM Mono — latin subsets, about 78 KB together, loaded through `next/font/local` (see `src/fonts/daybreak`).
+No component kit, animation package, or analytics script. Space Grotesk and IBM Plex Mono are self-hosted through `next/font/local`, with OFL licenses in `src/fonts/optical`. Instrument Serif remains available for the retained Daybreak treatment.
 
 ## Architecture
 

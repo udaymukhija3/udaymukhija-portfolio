@@ -1,11 +1,11 @@
 /* SYSTEM — every interior route is printed on the homepage's ground.
    Loaded after globals.css. Re-points its tokens, replaces the display tier
-   with the serif voice, and enforces one type scale and one spacing scale. */
+   with the grotesk voice and shares type and spacing tokens. */
 
 :root {
   /* Palette — the day ink set from the homepage. */
-  --stone: #f0e7d4;      /* bone: page ground, the same material as the measure strip */
-  --paper: #f7f1e4;      /* raised bone: cards, plates */
+  --stone: #e9ece0;      /* bone: page ground, the same material as the measure strip */
+  --paper: #f5f5ec;      /* raised bone: cards, plates */
   --ink: #14233f;
   --muted: #33405c;
   --quiet: #33405c;
@@ -13,18 +13,17 @@
   --line-strong: #14233f55;
   --slate: #7a1d0e;      /* eyebrows and small accents: deep vermilion, 4.7:1 on bone */
   --eucalyptus: #e2452c; /* state and markers: sindoor */
-  --sage-wash: #e8dfca;
-  --blue-wash: #c2daec;  /* sky wash */
+  --sage-wash: #d7e5d9;
+  --blue-wash: #cbdde6;  /* sky wash */
   --sindoor: #e2452c;
 
-  /* Type scale — six sizes, site-wide. Nothing else is permitted.
-     Display and title are the serif (Instrument Serif: condensed, so larger
-     than a Georgia setting at the same measure); subtitle and body the sans;
-     meta and micro the mono. */
-  --t-display: clamp(3.2rem, 6.4vw, 7.4rem);
-  --t-title: clamp(2.2rem, 3.8vw, 4rem);
-  --t-subtitle: clamp(1.2rem, 1.5vw, 1.45rem);
-  --t-body: 1.0625rem;
+  /* Interior type scale. Space Grotesk carries the display and reading
+     tiers; IBM Plex Mono carries captions and measures. A compact
+     scale keeps typography subordinate to light and space. */
+  --t-display: clamp(2rem, 3vw, 3rem);
+  --t-title: clamp(1.5rem, 2.2vw, 2rem);
+  --t-subtitle: clamp(1rem, 1.2vw, 1.125rem);
+  --t-body: .9375rem;
   --t-meta: 0.72rem;
   --t-micro: 0.62rem;
 
@@ -38,7 +37,7 @@
   --s-7: 3rem;
   --s-8: 4.5rem;
 
-  --ground-h: max(3.4vh, 1.75rem);
+  --ground-h: max(4.5vh, 2.75rem);
 }
 
 body {
@@ -52,12 +51,12 @@ body {
 .project-intro h1,
 .lab-hero h1,
 .about-page-hero h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--t-display);
-  line-height: 0.96;
-  letter-spacing: -0.015em;
-  max-width: 18ch;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  max-width: 25ch;
   text-wrap: balance;
 }
 
@@ -86,11 +85,11 @@ body {
 .project-portrait-product-title > strong,
 .project-portrait-data > strong,
 .project-portrait-ml-title strong {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--t-title);
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.045em;
 }
 
 .project-detail-card h3,
@@ -101,7 +100,7 @@ body {
 .lab-index a strong,
 .workbench-control-copy strong,
 .technical-proof summary > span:last-child {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: calc(var(--t-subtitle) * 1.2);
   line-height: 1.1;
@@ -110,7 +109,7 @@ body {
 
 .project-portrait-ml-title > span,
 .contact-mark i {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
 }
 
@@ -417,7 +416,7 @@ body:has(.site-ground) .site-footer {
 }
 .about-page-contact h2 {
   max-width: 16ch;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--t-display);
   line-height: 1.02;

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Band } from "../components/Band";
+import { ContextPortfolio } from "../components/context/ContextPortfolio";
 import { StructuredData } from "../components/StructuredData";
 import { educationItems } from "../data/resume";
 import { contactLinks, skills } from "../data/siteContent";
@@ -44,7 +44,7 @@ export default function HomePage() {
   return (
     <>
       <StructuredData data={personJsonLd} />
-      <Band />
+      <ContextPortfolio />
     </>
   );
 }

@@ -9,6 +9,7 @@ export function NavBar() {
   const pathname = usePathname();
   const currentPathname = pathname ?? "";
   const isDaybreak = currentPathname === "/daybreak";
+  const isContext = currentPathname === "/";
   const emailHref = contactLinks.find((link) => link.label === "Email")?.href ?? "mailto:udaymukhija3@gmail.com";
   const navLinkClassName = (isActive: boolean) => (isActive ? "nav-link is-active" : "nav-link");
   const isCaseStudy = currentPathname.startsWith("/projects/");
@@ -17,7 +18,7 @@ export function NavBar() {
   const isAbout = currentPathname === "/about";
 
   useEffect(() => {
-    if (isDaybreak) return;
+    if (isDaybreak || isContext) return;
     let frame = 0;
 
     const writeReadingState = () => {
@@ -47,7 +48,21 @@ export function NavBar() {
       document.documentElement.style.removeProperty("--site-progress");
       document.documentElement.removeAttribute("data-page-scrolled");
     };
-  }, [currentPathname, isDaybreak]);
+  }, [currentPathname, isDaybreak, isContext]);
+
+  if (isContext) return (
+    <header className="context-header">
+      <div className="context-container context-navigation">
+        <Link className="context-wordmark" href="/">Uday Mukhija</Link>
+        <nav aria-label="Primary">
+          <a href="#work">Work</a>
+          <Link href="/about" prefetch={false}>About</Link>
+          <Link href="/notes" prefetch={false}>Notes</Link>
+          <a href={emailHref}>Contact</a>
+        </nav>
+      </div>
+    </header>
+  );
 
   return (
     <header className="site-header" data-daybreak={isDaybreak ? "true" : undefined}>

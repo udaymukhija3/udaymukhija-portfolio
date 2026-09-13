@@ -8,34 +8,37 @@ import { getSiteUrl, siteConfig } from "../lib/site";
 import "./globals.css";
 import "./daybreak-shell.css";
 import "./system.css";
+import "./context-shell.css";
 
 const siteUrl = getSiteUrl();
 
-/* Three faces, self-hosted, latin subsets (≈ 78 KB together), OFL — see
-   src/fonts/daybreak. Serif for display and emphasis, sans for reading,
-   mono for everything measured: labels, numerals, readouts, captions' marks. */
+/* Self-hosted OFL type. The retained Daybreak route keeps its serif;
+   the editorial system uses Space Grotesk and IBM Plex Mono. */
 const serif = localFont({
   src: [
     { path: "../fonts/daybreak/instrument-serif-regular.woff2", weight: "400", style: "normal" },
     { path: "../fonts/daybreak/instrument-serif-italic.woff2", weight: "400", style: "italic" },
   ],
   variable: "--font-serif-face",
+  preload: false,
   display: "swap",
   adjustFontFallback: "Times New Roman",
 });
 const sans = localFont({
-  src: "../fonts/daybreak/instrument-sans-variable.woff2",
-  weight: "400 700",
+  src: [
+    { path: "../fonts/optical/space-grotesk-regular.ttf", weight: "400", style: "normal" },
+    { path: "../fonts/optical/space-grotesk-medium.ttf", weight: "500", style: "normal" },
+  ],
   variable: "--font-sans-face",
+  preload: false,
   display: "swap",
   adjustFontFallback: "Arial",
 });
 const mono = localFont({
-  src: [
-    { path: "../fonts/daybreak/dm-mono-regular.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/daybreak/dm-mono-medium.woff2", weight: "500", style: "normal" },
-  ],
+  src: "../fonts/optical/ibm-plex-mono-regular.ttf",
+  weight: "400",
   variable: "--font-mono-face",
+  preload: false,
   display: "swap",
   adjustFontFallback: false,
 });
