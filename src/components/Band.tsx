@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import Image from "next/image";
 import Link from "next/link";
 import { contactLinks } from "../data/siteContent";
@@ -5,6 +7,7 @@ import { experiments } from "../data/experiments";
 import { projects } from "../data/projects";
 import { BandStage } from "./BandStage";
 import { anchors } from "./bandExposures";
+import { environmentDirectory, exposurePhotos } from "./bandEnvironment";
 import styles from "./Band.module.css";
 
 const wave = [14, 26, 18, 44, 28, 66, 38, 82, 54, 96, 62, 78, 46, 92, 70, 100, 66, 88, 52, 78, 44, 60, 30, 48, 22];
@@ -15,8 +18,14 @@ function Arrow() {
 }
 
 export function Band() {
+  // Which exposure photographs have been placed. Checked at render so a
+  // missing file leaves that exposure on the flat field, never a stand-in.
+  const environment = exposurePhotos.map(photo =>
+    existsSync(join(process.cwd(), "public", environmentDirectory, photo.file)),
+  );
+
   return (
-    <BandStage>
+    <BandStage environment={environment}>
       <section id={anchors[0]} className={`${styles.exposure} ${styles.wide}`} data-exposure="0" aria-labelledby="edge-title">
         <div className={styles.copy}>
           <p className={styles.eyebrow}><b>01</b> Uday Mukhija / Software engineer</p>
@@ -47,7 +56,7 @@ export function Band() {
         </figure>
       </section>
 
-      <section id={anchors[2]} className={`${styles.exposure} ${styles.mediaFirst}`} data-exposure="2" aria-labelledby="possibility-title">
+      <section id={anchors[2]} className={`${styles.exposure} ${styles.mediaFirst}`} data-exposure="2" data-shade="right" aria-labelledby="possibility-title">
         <div className={styles.copy}>
           <p className={styles.eyebrow}><b>03</b> VibeGrid / A daily social ritual</p>
           <h2 className={styles.title} id="possibility-title">Twelve fragments. Pick four.<br />Then <em>vote blind.</em></h2>

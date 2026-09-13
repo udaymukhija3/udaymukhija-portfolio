@@ -1,37 +1,40 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { anchors, exposures } from "./bandExposures";
+import { environmentDirectory, exposurePhotos, place } from "./bandEnvironment";
 import styles from "./Band.module.css";
 
-/* The sky opens: night indigo → dawn violet → clear day blue.
-   The band stays in the vermilion family the whole way — yellow on blue is a
-   flag, and this never goes yellow. Heat is front-loaded, so there is real
-   colour in the first frame instead of three dark screens first. */
+/* The sky opens: night indigo → dawn violet → clear day blue. The field is
+   the ground under the photographs and the colour the shadows take before
+   the light arrives. The horizon stays in the vermilion family throughout. */
 const FIELD = ["#0e1733", "#1b2550", "#2e3566", "#46527f", "#93b0d2", "#c2daec"];
 const BAND = ["#7a3b4a", "#b03a34", "#d2402a", "#e2452c", "#d9401f", "#c8371b"];
-/* The disc does turn yellow as it climbs — that is what the sun does. It stays
-   a circle, so it never becomes a stripe of yellow sitting on a blue field. */
-const SUN = ["#8e3a3e", "#c33b2c", "#e2452c", "#ee5a22", "#f4902a", "#f7c342"];
-/* The band is a horizon line that thickens a little, not a slab: the sky and
-   the sun carry the growth. */
-const HEIGHT = [3, 4, 5, 6, 7, 8];
-/* The sun travels: centre x as a fraction of the viewport width, centre y in
-   vh above the horizon, diameter in vh. It rises, drifts west, and shrinks as
-   it clears the air — cropped by the band until the fifth exposure, free in
-   the sixth. */
-const SUN_X = [0.92, 0.89, 0.85, 0.8, 0.75, 0.7];
-const SUN_Y = [-25, -18, -8, 2, 12, 22];
-const SUN_D = [62, 56, 50, 44, 38, 32];
+/* The horizon is a line, not a slab: the photographs carry the light now. */
+const HEIGHT = [0.28, 0.28, 0.3, 0.3, 0.32, 0.32];
+
+/* How the light treats the photographs across the page: exposure in stops
+   relative to the source, saturation, contrast, and the cool tint that the
+   world carries before sunrise. Front-loaded like the field, so the first
+   frame already has depth rather than three black screens. */
+const EV = [-1.9, -1.4, -0.7, -0.15, 0.15, 0.3];
+const SAT = [0.45, 0.55, 0.7, 0.9, 1, 1];
+const CONTRAST = [1.18, 1.14, 1.08, 1.02, 1, 1];
+const TINT = [0.85, 0.7, 0.45, 0.15, 0.04, 0];
+
+/* The clock is the page: it runs from the edge to openness. */
+const CLOCK_START = 5 * 60 + 48;
+const CLOCK_END = 7 * 60 + 12;
 
 /* Once the sky is brighter than the type, the ink changes in one step rather
-   than interpolating through a low-contrast middle. Flat fields make that free. */
+   than interpolating through a low-contrast middle. */
 const DAYBREAK_AT = 0.62;
 const NIGHT_INK = { ink: "#f4ecda", dim: "#ccd2e2", accent: "#ffc78e", hair: "#ffffff2b", plate: "#0a0f24" };
 const DAY_INK = { ink: "#14233f", dim: "#2b3750", accent: "#7a1d0e", hair: "#14233f30", plate: "#f7f1e4" };
 
 const DRIFT = 36;
-/* Clearance above the band at which a block is fully revealed. */
+/* Clearance above the horizon at which a block is fully revealed. */
 const REVEAL_PX = 36;
 
 const clamp = (n: number, min = 0, max = 1) => Math.min(max, Math.max(min, n));
@@ -53,29 +56,52 @@ function rampNumber(stops: number[], p: number) {
   return stops[i] + (stops[i + 1] - stops[i]) * (x - i);
 }
 
-export function BandStage({ children }: { children: ReactNode }) {
+function clockAt(p: number) {
+  const minutes = Math.round(CLOCK_START + (CLOCK_END - CLOCK_START) * clamp(p));
+  const h = minutes / 60 | 0;
+  const m = minutes % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")} AM`;
+}
+
+function evLabel(ev: number) {
+  return `${ev >= 0 ? "+" : "−"}${Math.abs(ev).toFixed(1)}`;
+}
+
+type BandStageProps = {
+  children: ReactNode;
+  /** Which exposure photographs are present on disk, by exposure index. */
+  environment: readonly boolean[];
+};
+
+export function BandStage({ children, environment }: BandStageProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const groundRef = useRef<HTMLDivElement>(null);
+  const envRef = useRef<HTMLDivElement>(null);
+  const clockRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const evRef = useRef<HTMLSpanElement>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+    const html = document.documentElement;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const sections = Array.from(root.querySelectorAll<HTMLElement>("[data-exposure]"));
+    const frames = envRef.current
+      ? Array.from(envRef.current.querySelectorAll<HTMLElement>("[data-frame]"))
+      : [];
     let frame = 0;
     let index = 0;
     let day: boolean | undefined;
+    let shade = "";
     // Each block (copy, plate, notebook, margin note) reveals on its own once it
-    // has cleared the band. Ends are read from untransformed offsets, relative
+    // has cleared the horizon. Ends are read from untransformed offsets, relative
     // to the positioned section, so the reveal can never feed its own input.
     type Block = { el: HTMLElement; end: number };
     const blocks: Block[][] = sections.map(() => []);
 
     const measure = () => {
       sections.forEach((section, i) => {
-        // An exposure only ever meets the band at its own height, so it
-        // reserves that much rather than the widest band on the page.
         // The gutter must exceed the reveal distance, or the last exposure
         // could never resolve at the bottom of the page.
         section.style.setProperty("--reserve", `calc(${HEIGHT[i]}vh + var(--ground-h) + ${REVEAL_PX + 12}px)`);
@@ -117,9 +143,9 @@ export function BandStage({ children }: { children: ReactNode }) {
       const groundPx = groundRef.current?.getBoundingClientRect().height ?? 0;
       const horizon = view - groundPx - (rampNumber(HEIGHT, eased) / 100) * view;
 
-      // A block resolves only once it has risen clear of the band, so nothing
-      // is ever half-swallowed by the horizon on the way in. Hidden while
-      // inside it; fully shown REVEAL_PX above it.
+      // A block resolves only once it has risen clear of the horizon, so nothing
+      // is ever half-swallowed on the way in. Hidden while inside it; fully
+      // shown REVEAL_PX above it.
       rects.forEach((rect, i) => {
         for (const block of blocks[i]) {
           const local = still ? 1 : clamp((horizon - (rect.top + block.end) - 6) / (REVEAL_PX - 6));
@@ -127,18 +153,46 @@ export function BandStage({ children }: { children: ReactNode }) {
         }
       });
 
-      root.style.setProperty("--field", rampColor(FIELD, p));
+      const field = rampColor(FIELD, p);
+      root.style.setProperty("--field", field);
+      html.style.setProperty("--field", field);
       root.style.setProperty("--band-c", rampColor(BAND, p));
-      root.style.setProperty("--sun-c", rampColor(SUN, p));
       root.style.setProperty("--band-h", `${rampNumber(HEIGHT, eased).toFixed(2)}vh`);
-      root.style.setProperty("--sun-x", `${(rampNumber(SUN_X, eased) * 100).toFixed(2)}vw`);
-      root.style.setProperty("--sun-y", `${rampNumber(SUN_Y, eased).toFixed(2)}vh`);
-      root.style.setProperty("--sun-d", `${rampNumber(SUN_D, eased).toFixed(2)}vh`);
+      root.style.setProperty("--progress", scrolled.toFixed(4));
       // One shared lateral travel: the reading surface slides a little left as
       // the visitor descends, as though it belongs to a much larger surface.
       // Bounded by the viewport, so a phone's narrow gutter is never overrun.
       const drift = Math.min(DRIFT, window.innerWidth * 0.025);
       root.style.setProperty("--drift", still ? "0px" : `${(-drift * eased).toFixed(1)}px`);
+
+      // The environment: the exposure on show is the photograph on show, the
+      // neighbours cross-fade in as the visitor approaches them. The light
+      // treats whichever is visible.
+      const x = still ? index : p * (exposures.length - 1);
+      frames.forEach(el => {
+        const i = Number(el.dataset.frame);
+        el.style.opacity = clamp(1 - Math.abs(x - i)).toFixed(3);
+      });
+      const ev = rampNumber(EV, p);
+      root.style.setProperty("--env-b", Math.pow(2, ev).toFixed(3));
+      root.style.setProperty("--env-s", rampNumber(SAT, p).toFixed(3));
+      root.style.setProperty("--env-c", rampNumber(CONTRAST, p).toFixed(3));
+      root.style.setProperty("--env-tint", rampNumber(TINT, p).toFixed(3));
+      root.style.setProperty("--day", smooth(clamp((p - 0.5) / 0.24)).toFixed(3));
+      // Text sits on whichever side the exposure keeps its copy.
+      const side = sections[index]?.dataset.shade ?? "left";
+      if (side !== shade) {
+        shade = side;
+        root.dataset.shade = side;
+      }
+
+      // The instruments report the page's own state.
+      const clock = clockAt(p);
+      clockRefs.current.forEach(el => { if (el) el.textContent = clock; });
+      if (evRef.current) {
+        evRef.current.textContent = evLabel(ev);
+        evRef.current.style.setProperty("--ev", ((ev + 2) / 4).toFixed(3));
+      }
 
       const isDay = p >= DAYBREAK_AT;
       if (isDay !== day) {
@@ -174,13 +228,62 @@ export function BandStage({ children }: { children: ReactNode }) {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", measure);
       motion.removeEventListener("change", measure);
+      html.style.removeProperty("--field");
     };
   }, []);
 
+  const hasEnvironment = environment.some(Boolean);
+
   return (
-    <div ref={rootRef} className={styles.root} data-band-route>
-      <div className={styles.disc} aria-hidden="true" />
+    <div ref={rootRef} className={styles.root} data-band-route data-environment={hasEnvironment ? "true" : undefined}>
+      {/* The environment: one photograph per exposure, fixed behind the page. */}
+      <div ref={envRef} className={styles.env} aria-hidden="true">
+        {exposurePhotos.map((photo, i) =>
+          environment[i] ? (
+            <div
+              key={photo.file}
+              className={styles.envFrame}
+              data-frame={i}
+              style={{ ["--focus" as string]: photo.focus, ["--focus-narrow" as string]: photo.focusNarrow }}
+            >
+              <Image
+                src={`${environmentDirectory}/${photo.file}`}
+                alt=""
+                fill
+                sizes="100vw"
+                priority={i === 0}
+                quality={80}
+              />
+            </div>
+          ) : null,
+        )}
+        <div className={styles.envTint} />
+        <div className={`${styles.shade} ${styles.shadeNight}`} />
+        <div className={`${styles.shade} ${styles.shadeDay}`} />
+      </div>
+
       {children}
+
+      {/* Instruments: the place, and the page's own exposure and clock. */}
+      <div className={`${styles.instrument} ${styles.instrumentTop}`} aria-hidden="true">
+        <span>{place.city}</span>
+        <span>{place.lat}</span>
+        <span>{place.lon}</span>
+        <span ref={el => { clockRefs.current[0] = el; }}>05:48 AM</span>
+      </div>
+      <div className={styles.ruler} aria-hidden="true">
+        <span className={styles.rulerLabel}>EV</span>
+        <span className={styles.rulerTrack}>
+          {["+2", "+1", "0", "−1", "−2"].map(mark => <b key={mark}>{mark}</b>)}
+          <span ref={evRef} className={styles.rulerMark} style={{ ["--ev" as string]: 0 }}>−1.9</span>
+        </span>
+      </div>
+      <div className={`${styles.instrument} ${styles.instrumentBottom}`} aria-hidden="true">
+        <span>{place.name}</span>
+        <span>{place.city}</span>
+        <span ref={el => { clockRefs.current[1] = el; }}>05:48 AM</span>
+      </div>
+
       <div className={styles.band} aria-hidden="true" />
       <div ref={groundRef} className={styles.ground}>
         <nav className={styles.measure} aria-label="Exposures">
@@ -196,6 +299,7 @@ export function BandStage({ children }: { children: ReactNode }) {
             </a>
           ))}
         </nav>
+        <span className={styles.groundMark} aria-hidden="true">Daybreak · MMXXVI</span>
       </div>
     </div>
   );

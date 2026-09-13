@@ -13,23 +13,37 @@
 :global(body):has([data-band-route]) > :global(.site-footer) {
   display: none;
 }
+:global(html):has([data-band-route]) {
+  --field: #0e1733;
+}
+/* The masthead is ink on air over the environment: the sky continues under
+   it, and content passing beneath dissolves into the field. */
 :global(body):has([data-band-route]) > :global(.site-header) {
-  background: #0b132b;
+  position: fixed;
+  inset: 0 0 auto;
+  background: linear-gradient(to bottom, var(--field) 0%, color-mix(in srgb, var(--field) 72%, transparent) 55%, transparent 100%);
+  padding-bottom: 0.9rem;
   color: #f4ecda;
-  border-color: #ffffff1f;
+  border-color: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  transition: color 400ms ease;
 }
 :global(body):has([data-band-route]) :global(.brand),
 :global(body):has([data-band-route]) :global(.nav-link) {
   color: #f4ecda;
+  transition: color 400ms ease;
 }
 :global(body):has([data-band-route]) :global(.brand small) {
   color: #b3bcd6;
 }
-/* Once the sky is day, the masthead stops being the darkest thing on the page. */
+:global(body):has([data-band-route]) :global(.nav-link.is-active::after),
+:global(body):has([data-band-route]) :global(.nav-link:hover::after) {
+  background: #ffc78e;
+}
+/* Once the sky is day, the masthead takes the day ink. */
 :global(body):has([data-band-route][data-light="day"]) > :global(.site-header) {
-  background: #c2daec;
   color: #14233f;
-  border-color: #14233f30;
 }
 :global(body):has([data-band-route][data-light="day"]) :global(.brand),
 :global(body):has([data-band-route][data-light="day"]) :global(.nav-link) {
@@ -38,17 +52,24 @@
 :global(body):has([data-band-route][data-light="day"]) :global(.brand small) {
   color: #33405c;
 }
+:global(body):has([data-band-route][data-light="day"]) :global(.nav-link.is-active::after),
+:global(body):has([data-band-route][data-light="day"]) :global(.nav-link:hover::after) {
+  background: #e2452c;
+}
 
 .root {
   /* Written every frame by BandStage. */
   --field: #0e1733;
   --band-c: #7a3b4a;
-  --band-h: 3vh;
-  --sun-c: #8e3a3e;
-  --sun-x: 92vw;
-  --sun-y: -25vh;
-  --sun-d: 62vh;
+  --band-h: 0.28vh;
+  --progress: 0;
   --drift: 0px;
+  /* The light's treatment of the photographs. */
+  --env-b: 0.27;
+  --env-s: 0.45;
+  --env-c: 1.18;
+  --env-tint: 0.85;
+  --day: 0;
 
   --bone: #f0e7d4;
   --sindoor: #e2452c;
@@ -69,21 +90,162 @@
 
 /* ── the fixed composition ──────────────────────────────────── */
 
-/* The sun is placed by its centre: x across the viewport, y above the horizon.
-   It rises, drifts west, and shrinks as it clears the air — the moon illusion
-   in reverse. It is never a logo: cropped by the frame edge early, by the band
-   until the fifth exposure, and free only in the last. */
-.disc {
+/* ── the environment: one photograph per exposure, fixed behind the page ──
+   The photographs carry the light. Each frame cross-fades with its
+   neighbours as the visitor moves between exposures; the treatment follows
+   the page's exposure, so the frame at the edge reads as pre-dawn. */
+.env {
   position: fixed;
-  left: calc(var(--sun-x) - var(--sun-d) / 2);
-  top: calc(100svh - var(--ground-h) - var(--band-h) - var(--sun-y) - var(--sun-d) / 2);
-  width: var(--sun-d);
-  height: var(--sun-d);
-  border-radius: 50%;
-  background: var(--sun-c);
-  transform: translateX(calc(var(--drift) * -0.5));
+  inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
+  isolation: isolate;
+}
+.envFrame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+.envFrame img {
+  object-fit: cover;
+  object-position: var(--focus);
+  filter: brightness(var(--env-b)) saturate(var(--env-s)) contrast(var(--env-c));
+  transform: scale(1.03);
+}
+/* Before sunrise the world takes the colour of the sky. */
+.envTint {
+  position: absolute;
+  inset: 0;
+  background: var(--field);
+  mix-blend-mode: color;
+  opacity: var(--env-tint);
+}
+/* The reading side is shaded so the type always has ground: navy before
+   daybreak, paper after. The two cross-fade on --day. */
+.shade {
+  position: absolute;
+  inset: 0;
+}
+.shadeNight {
+  opacity: calc(1 - var(--day));
+  background:
+    linear-gradient(90deg, rgba(4, 11, 26, 0.86) 0%, rgba(4, 11, 26, 0.58) 34%, rgba(4, 11, 26, 0.12) 62%, rgba(4, 11, 26, 0.04) 100%),
+    linear-gradient(0deg, rgba(4, 11, 26, 0.34) 0%, transparent 40%);
+}
+.shadeDay {
+  opacity: var(--day);
+  background:
+    linear-gradient(90deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.66) 34%, rgba(247, 241, 228, 0.16) 62%, rgba(247, 241, 228, 0.04) 100%),
+    linear-gradient(0deg, rgba(247, 241, 228, 0.3) 0%, transparent 40%);
+}
+/* An exposure that keeps its copy on the right mirrors the shade. */
+.root[data-shade="right"] .shadeNight {
+  background:
+    linear-gradient(270deg, rgba(4, 11, 26, 0.86) 0%, rgba(4, 11, 26, 0.58) 34%, rgba(4, 11, 26, 0.12) 62%, rgba(4, 11, 26, 0.04) 100%),
+    linear-gradient(0deg, rgba(4, 11, 26, 0.34) 0%, transparent 40%);
+}
+.root[data-shade="right"] .shadeDay {
+  background:
+    linear-gradient(270deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.66) 34%, rgba(247, 241, 228, 0.16) 62%, rgba(247, 241, 228, 0.04) 100%),
+    linear-gradient(0deg, rgba(247, 241, 228, 0.3) 0%, transparent 40%);
+}
+/* Without photographs the field is the environment, as before. */
+.root:not([data-environment]) .shade,
+.root:not([data-environment]) .envTint {
+  display: none;
+}
+
+/* ── instruments: the place, and the page's own exposure and clock ──── */
+.instrument {
+  position: fixed;
+  right: var(--gutter);
+  z-index: 4;
+  display: grid;
+  gap: 0.2rem;
+  color: var(--dim);
+  font-size: var(--t-meta);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: right;
+  pointer-events: none;
+  transition: color 400ms ease;
+}
+.instrument span:last-child {
+  color: var(--cream);
+  font-variant-numeric: tabular-nums;
+}
+.instrumentTop {
+  top: 13rem;
+  padding-right: var(--s-3);
+  border-right: 1px solid var(--hairline);
+}
+.instrumentBottom {
+  bottom: calc(var(--ground-h) + var(--s-6));
+  padding-right: var(--s-3);
+  border-right: 1px solid var(--hairline);
+}
+/* the exposure scale: where the page's light sits between −2 and +2 stops */
+.ruler {
+  position: fixed;
+  right: var(--gutter);
+  top: 50%;
+  z-index: 4;
+  display: grid;
+  gap: var(--s-2);
+  justify-items: end;
+  transform: translateY(-50%);
+  color: var(--dim);
+  font-size: var(--t-meta);
+  letter-spacing: 0.12em;
+  pointer-events: none;
+}
+.rulerLabel {
+  padding-right: 1.1rem;
+}
+.rulerTrack {
+  position: relative;
+  display: grid;
+  height: 11rem;
+  padding-right: 1.1rem;
+  border-right: 1px solid var(--cream);
+  font-variant-numeric: tabular-nums;
+}
+.rulerTrack b {
+  position: relative;
+  display: block;
+  font-weight: 400;
+  line-height: 1;
+}
+.rulerTrack b::after {
+  content: "";
+  position: absolute;
+  right: -1.1rem;
+  top: 0.35em;
+  width: 0.55rem;
+  height: 1px;
+  background: var(--dim);
+}
+.rulerMark {
+  position: absolute;
+  right: -0.3rem;
+  top: calc((1 - var(--ev)) * 100%);
+  transform: translateY(-50%);
+  padding: 0 0.4rem 0 0.6rem;
+  background: var(--sindoor);
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.rulerMark::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 1.4rem;
+  height: 1px;
+  background: var(--sindoor);
 }
 
 /* The horizon paints above content on purpose: it stays intact even if a
@@ -93,10 +255,18 @@
   left: 0;
   right: 0;
   bottom: var(--ground-h);
-  height: var(--band-h);
+  height: max(2px, var(--band-h));
   background: var(--band-c);
-  z-index: 2;
+  z-index: 3;
   pointer-events: none;
+}
+/* reading progress travels along the horizon */
+.band::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--progress) * 100%);
+  background: #14192e;
 }
 .ground {
   position: fixed;
@@ -112,10 +282,23 @@
 
 .measure {
   position: absolute;
-  inset: 0 var(--gutter);
+  inset: 0 12rem 0 var(--gutter);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   align-items: stretch;
+}
+.groundMark {
+  position: absolute;
+  right: var(--gutter);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  color: #57544c;
+  font-size: var(--t-meta);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 .measure a {
   position: relative;
@@ -160,18 +343,21 @@
 
 .exposure {
   --reserve: 16vh; /* overwritten per exposure by BandStage */
-  --chrome: 4.75rem; /* the sticky header owns the top of the viewport */
+  --chrome: 4.75rem; /* the fixed masthead owns the top of the viewport */
   --local: 1;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   /* A little shorter than the viewport, and content sits at the top, so the
      next exposure has cleared the horizon before this one has left. */
   min-height: calc(92svh - var(--chrome));
   display: grid;
   align-content: start;
   gap: var(--s-7);
-  padding: var(--s-7) var(--gutter) var(--reserve);
+  padding: var(--s-7) calc(var(--gutter) + 9rem) var(--reserve) var(--gutter); /* the right margin is the instrument column */
   scroll-margin-top: var(--chrome);
+}
+.exposure:first-of-type {
+  padding-top: calc(var(--chrome) + var(--s-7));
 }
 
 /* Six exposures, six compositions — not one layout recoloured. */
@@ -449,13 +635,20 @@
 
 @media (min-width: 1700px) {
   .exposure {
-    padding-inline: max(var(--gutter), calc((100vw - 96rem) / 2));
+    padding-inline: max(var(--gutter), calc((100vw - 96rem) / 2)) calc(max(var(--gutter), calc((100vw - 96rem) / 2)) + 9rem);
   }
   .copy {
     max-width: 52rem;
   }
 }
 @media (max-width: 1000px) {
+  .exposure {
+    padding-right: var(--gutter);
+  }
+  .ruler,
+  .instrumentTop {
+    display: none;
+  }
   .wide,
   .split,
   .mediaFirst {
@@ -481,13 +674,19 @@
   .root {
     --gutter: 7%;
   }
-  /* A phone frame has no spare width: the sun stays smaller and further
-     east, so it never rises under full-width copy. */
-  .disc {
-    left: calc(var(--sun-x) + 20vw - var(--sun-d) * 0.35);
-    top: calc(100svh - var(--ground-h) - var(--band-h) - var(--sun-y) * 0.55 - var(--sun-d) * 0.35);
-    width: calc(var(--sun-d) * 0.7);
-    height: calc(var(--sun-d) * 0.7);
+  .envFrame img {
+    object-position: var(--focus-narrow);
+  }
+  .instrumentTop,
+  .ruler,
+  .groundMark {
+    display: none;
+  }
+  .instrumentBottom {
+    bottom: calc(var(--ground-h) + var(--s-4));
+  }
+  .measure {
+    inset: 0 var(--gutter);
   }
   /* A phone reads as a document: exposures size to their content and the
      horizon does the pacing, instead of a screen-height frame per exposure. */
@@ -521,7 +720,9 @@
 @media print {
   .band,
   .ground,
-  .disc {
+  .env,
+  .instrument,
+  .ruler {
     display: none;
   }
   .root {
