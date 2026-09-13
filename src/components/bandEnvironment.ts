@@ -1,11 +1,15 @@
-/* The environment behind the six exposures: one supplied Central Park
-   photograph per exposure, full-bleed, crossfading as the visitor moves from
-   one exposure to the next. The light treats them — dark and cool at the
-   edge, clear and warm by openness — so the same frame reads as pre-dawn
-   at the top of the page and as morning further down.
+/* The environment behind the six exposures, and the viewfinder over it.
 
-   Files are expected under public/images/daybreak/. A missing file simply
-   leaves that exposure on the flat field; nothing stands in for it. */
+   One supplied Central Park photograph per exposure, full-bleed and
+   cross-fading as the visitor moves between exposures. The material is the
+   park's: foliage, water, reflections, stone, glass, distant architecture,
+   density against openness. Outside the focus frame the world is soft and
+   slowly drifting; inside it the frame is sharp, exposed, and captioned as a
+   figure. Each exposure allocates the frame to a different range of cells on
+   the same 12 × 8 grid — asymmetry from one discipline.
+
+   Files are expected under public/images/daybreak/. A missing file leaves
+   that exposure on the flat field; nothing stands in for it. */
 
 export type ExposurePhoto = {
   file: string;
@@ -19,7 +23,14 @@ export type ExposurePhoto = {
   horizon: number;
   /** Where the sun rises, as a percentage of the viewport width. */
   sun: number;
+  /** The focus frame: 1-based inclusive cell range on the 12 × 8 grid. */
+  frame: { c0: number; r0: number; c1: number; r1: number };
+  /** What the frame is a figure of — the caption's subject. */
+  subject: string;
 };
+
+export const GRID_COLUMNS = 12;
+export const GRID_ROWS = 8;
 
 export const exposurePhotos: readonly ExposurePhoto[] = [
   {
@@ -30,6 +41,8 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     focusNarrow: "55% 52%",
     horizon: 58,
     sun: 57,
+    frame: { c0: 6, r0: 1, c1: 12, r1: 6 },
+    subject: "Foliage, water, towers",
   },
   {
     file: "02-voice.webp",
@@ -39,15 +52,19 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     focusNarrow: "50% 50%",
     horizon: 22,
     sun: 52,
+    frame: { c0: 7, r0: 2, c1: 12, r1: 8 },
+    subject: "Water over stone",
   },
   {
     file: "03-possibility.webp",
-    alt: "Bare early-spring trees over the Lake, thin towers standing beyond, forsythia on the far bank.",
-    source: "Portrait · the bare-tree early-spring lake with the supertalls and the yellow forsythia.",
-    focus: "50% 71%",
-    focusNarrow: "50% 60%",
-    horizon: 60,
-    sun: 45,
+    alt: "Still grey water reflects twin-towered apartment blocks and a line of spring trees.",
+    source: "Landscape · the still Lake with the twin towers reflected, overcast, a pink tree on the far bank.",
+    focus: "50% 0%",
+    focusNarrow: "42% 30%",
+    horizon: 53,
+    sun: 40,
+    frame: { c0: 1, r0: 1, c1: 6, r1: 7 },
+    subject: "Reflection",
   },
   {
     file: "04-connection.webp",
@@ -57,24 +74,30 @@ export const exposurePhotos: readonly ExposurePhoto[] = [
     focusNarrow: "45% 58%",
     horizon: 56,
     sun: 62,
+    frame: { c0: 5, r0: 2, c1: 11, r1: 8 },
+    subject: "Two boats, four people",
   },
   {
     file: "05-curiosity.webp",
     alt: "A goose stands at the water's edge on a rock beside three turtles lined up in the sun.",
     source: "Landscape · the goose and three turtles on the rock, wide water.",
-    focus: "50% 0%",
-    focusNarrow: "55% 30%",
-    horizon: 52,
+    focus: "50% 100%",
+    focusNarrow: "55% 60%",
+    horizon: 31,
     sun: 68,
+    frame: { c0: 7, r0: 4, c1: 12, r1: 8 },
+    subject: "Stone, a goose, three turtles",
   },
   {
     file: "06-openness.webp",
-    alt: "The Lake in full sun under a clear blue sky, thin towers rising above the far trees, rowboats in the distance.",
-    source: "Portrait · the sunlit lake with the supertalls through spring trees, boats in the distance.",
-    focus: "50% 75%",
-    focusNarrow: "50% 62%",
-    horizon: 60,
-    sun: 47,
+    alt: "A wide lawn full of people in summer light; a line of trees, and thin towers above them.",
+    source: "Landscape · the crowded meadow under the towers, kite in the air.",
+    focus: "50% 50%",
+    focusNarrow: "60% 50%",
+    horizon: 68,
+    sun: 55,
+    frame: { c0: 4, r0: 1, c1: 12, r1: 7 },
+    subject: "Openness against density",
   },
 ];
 

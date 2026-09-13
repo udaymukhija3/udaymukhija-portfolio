@@ -1,23 +1,26 @@
-/* BAND — a horizon line, a travelling sun, six exposures.
-   Flat fields only: no gradients as atmosphere, no blur, no canvas, no WebGL.
-   Type uses the site's five sizes; spacing uses its eight steps (system.css). */
+/* BAND — six exposures on a focusing screen.
 
+   A 12 × 8 grid is drawn over the viewport and everything is a module on
+   it: the copy in a narrow column, the readout in the last two columns,
+   the focus frame in whichever cells the exposure allocates. Behind it, the
+   environment: one Central Park photograph per exposure, soft and slowly
+   drifting outside the frame, sharp inside it, with the sunrise composed
+   over both. Type uses the site's five sizes; spacing its eight steps. */
+
+:global(html):has([data-band-route]) {
+  --field: #0e1733;
+}
 :global(body):has([data-band-route]) {
   background: #0e1733;
 }
-/* globals.css sets scroll-padding-top on html; it would stack with each
-   exposure's scroll-margin and land measure links inside the band. */
 :global(html):has([data-band-route]) {
   scroll-padding-top: 0;
 }
 :global(body):has([data-band-route]) > :global(.site-footer) {
   display: none;
 }
-:global(html):has([data-band-route]) {
-  --field: #0e1733;
-}
-/* The masthead is ink on air over the environment: the sky continues under
-   it, and content passing beneath dissolves into the field. */
+
+/* ── the masthead: ink on air over the environment ──────────── */
 :global(body):has([data-band-route]) > :global(.site-header) {
   position: fixed;
   inset: 0 0 auto;
@@ -41,7 +44,6 @@
 :global(body):has([data-band-route]) :global(.nav-link:hover::after) {
   background: #ffc78e;
 }
-/* Once the sky is day, the masthead takes the day ink. */
 :global(body):has([data-band-route][data-light="day"]) > :global(.site-header) {
   color: #14233f;
 }
@@ -57,6 +59,7 @@
   background: #e2452c;
 }
 
+/* ── root ───────────────────────────────────────────────────── */
 .root {
   /* Written every frame by BandStage. */
   --field: #0e1733;
@@ -64,27 +67,32 @@
   --band-h: 0.28vh;
   --progress: 0;
   --drift: 0px;
-  /* The light's treatment of the photographs. */
-  --env-b: 0.42;
-  --env-s: 0.6;
-  --env-c: 1.18;
-  --env-tint: 0.7;
+  --env-b: 0.53;
+  --env-s: 0.55;
+  --env-c: 1.3;
+  --env-tint: 0.62;
   --day: 0;
-  /* The sunrise composite. */
-  --horizon: 56%;
-  --sun-x: 64%;
-  --sun-y: 63%;
-  --sun-c: #ff7a3a;
-  --sun-a: 0.8;
-  --sun-r: 40vmin;
-  --glow: 0.85;
-  --sky: 0.92;
-  --bloom: 0.2;
-  --canopy: 0.9;
+  --horizon: 58%;
+  --sun-x: 57%;
+  --sun-y: 65%;
+  --sun-c: #ffb27a;
+  --sun-a: 0.95;
+  --sun-r: 48vmin;
   --sky-top: #0b1734;
   --sky-mid: #223466;
   --sky-low: #ff9a5e;
   --water: #08101f;
+  --glow: 0.85;
+  --sky: 0.92;
+  --bloom: 0.2;
+  --canopy: 0.9;
+  --fx0: 50vw;
+  --fx1: 94vw;
+  --fy0: 6rem;
+  --fy1: 70vh;
+  --pull: 0px;
+  --grid-top: 4.75rem;
+  --grid-bottom: 2rem;
 
   --bone: #f0e7d4;
   --sindoor: #e2452c;
@@ -94,22 +102,22 @@
   --ember: #ffc78e;
   --hairline: #ffffff2b;
   --plate-bg: #0a0f24;
+  --line: rgba(244, 236, 218, 0.16);
 
-  --gutter: 6.25%;
+  --gutter: 6.25vw;
+  --gap: min(1.5rem, 1.67vw);
+  --chrome: 4.75rem;
 
   position: relative;
   background: var(--field);
   color: var(--cream);
   font-family: var(--font-sans);
 }
+.root[data-light="day"] {
+  --line: rgba(20, 35, 63, 0.2);
+}
 
-/* ── the fixed composition ──────────────────────────────────── */
-
-/* ── the environment: one photograph per exposure, composed ────────────
-   Each frame is cropped so its horizon meets one line and its subject sits
-   right of the reading column. The sunrise is painted over it in layers,
-   all driven by the page: sky, horizon band, the sun and its path on the
-   water, the dark canopy that frames the top, then paper as the day comes. */
+/* ══ the environment ═══════════════════════════════════════════ */
 .env {
   position: fixed;
   inset: 0;
@@ -117,6 +125,19 @@
   overflow: hidden;
   pointer-events: none;
   isolation: isolate;
+}
+.envSoft,
+.envSharp {
+  position: absolute;
+  inset: 0;
+}
+/* outside the frame: soft, under-exposed, and drifting very slowly */
+.envSoft {
+  animation: drift 52s ease-in-out infinite alternate;
+}
+/* inside the frame: sharp and correctly exposed; focus pulls as it lands */
+.envSharp {
+  clip-path: inset(var(--fy0) calc(100% - var(--fx1)) calc(100% - var(--fy1)) var(--fx0));
 }
 .envFrame {
   position: absolute;
@@ -127,26 +148,28 @@
 .envFrame img {
   object-fit: cover;
   object-position: var(--focus);
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 .envBase,
 .envBloom {
   position: absolute;
   inset: 0;
 }
-.envBase img {
-  filter: brightness(var(--env-b)) saturate(var(--env-s)) contrast(var(--env-c));
+.envSoft .envBase img {
+  filter: blur(9px) brightness(calc(var(--env-b) * 0.66)) saturate(calc(var(--env-s) * 0.9)) contrast(var(--env-c));
+  transform: scale(1.06);
 }
-/* the frame softened and screened over itself: light blooms out of the highlights */
+.envSharp .envBase img {
+  filter: blur(var(--pull)) brightness(var(--env-b)) saturate(var(--env-s)) contrast(var(--env-c));
+}
 .envBloom {
   mix-blend-mode: screen;
   opacity: var(--bloom);
 }
 .envBloom img {
-  filter: blur(26px) brightness(calc(var(--env-b) * 1.1)) saturate(1.1);
-  transform: scale(1.08);
+  filter: blur(28px) brightness(calc(var(--env-b) * 1.1)) saturate(1.1);
+  transform: scale(1.1);
 }
-/* before sunrise the world takes the colour of the sky */
 .envTint {
   position: absolute;
   inset: 0;
@@ -170,7 +193,6 @@
   mix-blend-mode: soft-light;
   opacity: var(--sky);
 }
-/* the horizon band: the first warmth, along the line the sun rises from */
 .envGlow {
   position: absolute;
   inset: 0;
@@ -184,7 +206,6 @@
   mix-blend-mode: screen;
   opacity: var(--glow);
 }
-/* the sun's path on the water, under it */
 .envPath {
   position: absolute;
   inset: 0;
@@ -197,7 +218,6 @@
   mix-blend-mode: screen;
   opacity: var(--glow);
 }
-/* the sun: a small hot core, a tight halo, a wide soft light */
 .envSun {
   position: absolute;
   inset: 0;
@@ -207,8 +227,8 @@
     radial-gradient(circle at var(--sun-x) var(--sun-y), color-mix(in srgb, var(--sun-c) 34%, transparent) 0, color-mix(in srgb, var(--sun-c) 10%, transparent) 55%, transparent var(--sun-r));
   mix-blend-mode: screen;
   opacity: var(--sun-a);
+  animation: breathe 9s ease-in-out infinite alternate;
 }
-/* the canopy: the top of the frame held dark, as foliage frames the towers */
 .envCanopy {
   position: absolute;
   inset: 0;
@@ -220,7 +240,15 @@
   mix-blend-mode: multiply;
   opacity: var(--canopy);
 }
-/* the day: paper lifts the whole frame into a high key */
+/* haze: air in the frame, breathing very slowly */
+.envHaze {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 58% 56%, rgba(214, 228, 244, 0.5) 0%, transparent 72%);
+  mix-blend-mode: screen;
+  opacity: 0.1;
+  animation: haze 17s ease-in-out infinite alternate;
+}
 .envPaper {
   position: absolute;
   inset: 0;
@@ -228,30 +256,24 @@
   mix-blend-mode: screen;
   opacity: calc(var(--day) * 0.24);
 }
-/* the reading side, shaded so type always has ground: navy, then paper */
 .shade {
   position: absolute;
   inset: 0;
 }
 .shadeNight {
   opacity: calc(1 - var(--day));
-  background:
-    linear-gradient(90deg, rgba(4, 11, 26, 0.82) 0%, rgba(4, 11, 26, 0.52) 34%, rgba(4, 11, 26, 0.08) 62%, transparent 100%);
+  background: linear-gradient(90deg, rgba(4, 11, 26, 0.84) 0%, rgba(4, 11, 26, 0.56) 30%, rgba(4, 11, 26, 0.1) 52%, transparent 100%);
 }
 .shadeDay {
   opacity: var(--day);
-  background:
-    linear-gradient(90deg, rgba(247, 241, 228, 0.88) 0%, rgba(247, 241, 228, 0.6) 34%, rgba(247, 241, 228, 0.1) 62%, transparent 100%);
+  background: linear-gradient(90deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.64) 30%, rgba(247, 241, 228, 0.12) 52%, transparent 100%);
 }
 .root[data-shade="right"] .shadeNight {
-  background:
-    linear-gradient(270deg, rgba(4, 11, 26, 0.82) 0%, rgba(4, 11, 26, 0.52) 34%, rgba(4, 11, 26, 0.08) 62%, transparent 100%);
+  background: linear-gradient(270deg, rgba(4, 11, 26, 0.84) 0%, rgba(4, 11, 26, 0.56) 30%, rgba(4, 11, 26, 0.1) 52%, transparent 100%);
 }
 .root[data-shade="right"] .shadeDay {
-  background:
-    linear-gradient(270deg, rgba(247, 241, 228, 0.88) 0%, rgba(247, 241, 228, 0.6) 34%, rgba(247, 241, 228, 0.1) 62%, transparent 100%);
+  background: linear-gradient(270deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.64) 30%, rgba(247, 241, 228, 0.12) 52%, transparent 100%);
 }
-/* grain: printed, not glowing pixels */
 .envGrain {
   position: absolute;
   inset: 0;
@@ -260,157 +282,183 @@
   mix-blend-mode: overlay;
   opacity: 0.1;
 }
-/* the horizon, drawn: a hairline the sun is measured from, right of the copy */
-.horizonLine {
-  position: absolute;
-  left: 46%;
-  right: 0;
-  top: var(--horizon);
-  height: 1px;
-  background: linear-gradient(to right, transparent 0%, rgba(255, 236, 210, 0.4) 20%, rgba(255, 236, 210, 0.4) 100%);
-  opacity: calc(0.8 - var(--day) * 0.45);
-}
-/* the reticle: the instrument sits on the sun and names the place */
-.reticle {
-  position: absolute;
-  left: var(--sun-x);
-  top: var(--sun-y);
-  width: 7vmin;
-  height: 7vmin;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(255, 240, 220, 0.55);
-  border-radius: 50%;
-  opacity: calc(0.9 - var(--day) * 0.5);
-}
-.reticle::before,
-.reticle::after {
-  content: "";
-  position: absolute;
-  background: rgba(255, 240, 220, 0.55);
-}
-.reticle::before {
-  left: 50%;
-  top: -1.6vmin;
-  width: 1px;
-  height: calc(100% + 3.2vmin);
-}
-.reticle::after {
-  top: 50%;
-  left: -1.6vmin;
-  height: 1px;
-  width: calc(100% + 3.2vmin);
-}
-.reticleLabel {
-  position: absolute;
-  right: calc(100% + 2.4vmin);
-  top: 50%;
-  transform: translateY(-50%);
-  display: grid;
-  gap: 0.15rem;
-  color: rgba(255, 240, 220, 0.8);
-  font-size: var(--t-meta);
-  letter-spacing: 0.12em;
-  white-space: nowrap;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-/* without photographs the field is the environment, as before */
-.root:not([data-environment]) .env > :not(.envFrame) {
+.root:not([data-environment]) .env > :not(.envSoft):not(.envSharp) {
   display: none;
 }
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-10px, 6px, 0) scale(1.015); }
+}
+@keyframes breathe {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.08); }
+}
+@keyframes haze {
+  from { opacity: 0.07; }
+  to { opacity: 0.14; }
+}
 
-/* ── instruments: the place, and the page's own exposure and clock ──── */
-.instrument {
+/* ══ the focusing screen ═══════════════════════════════════════ */
+.screen {
   position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+/* the grid: 12 columns with the reading gap, 8 rows between masthead and rail */
+.gridLines {
+  position: absolute;
+  left: var(--gutter);
   right: var(--gutter);
-  z-index: 4;
+  top: var(--grid-top);
+  bottom: var(--grid-bottom);
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size:
+    calc((100% + var(--gap)) / 12) 100%,
+    100% calc(100% / 8);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.gridColumns,
+.gridRows {
+  position: absolute;
   display: grid;
-  gap: 0.2rem;
+  color: var(--dim);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+.gridColumns {
+  left: var(--gutter);
+  right: var(--gutter);
+  top: calc(var(--grid-top) - 1.05rem);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+}
+.gridColumns span {
+  padding-left: 0.35rem;
+}
+.gridRows {
+  left: calc(var(--gutter) - 1.4rem);
+  top: var(--grid-top);
+  bottom: var(--grid-bottom);
+  grid-template-rows: repeat(8, 1fr);
+}
+.gridRows span {
+  padding-top: 0.3rem;
+}
+/* the focus frame: four corner brackets and the figure caption */
+.frameMarks i {
+  position: absolute;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 0 solid var(--cream);
+  opacity: 0.85;
+}
+.frameMarks i:nth-child(1) { left: var(--fx0); top: var(--fy0); border-width: 1px 0 0 1px; }
+.frameMarks i:nth-child(2) { left: calc(var(--fx1) - 1.4rem); top: var(--fy0); border-width: 1px 1px 0 0; }
+.frameMarks i:nth-child(3) { left: var(--fx0); top: calc(var(--fy1) - 1.4rem); border-width: 0 0 1px 1px; }
+.frameMarks i:nth-child(4) { left: calc(var(--fx1) - 1.4rem); top: calc(var(--fy1) - 1.4rem); border-width: 0 1px 1px 0; }
+.frameCaption {
+  position: absolute;
+  left: var(--fx0);
+  top: var(--cap-y, calc(var(--fy1) + 0.5rem));
+  max-width: calc(var(--fx1) - var(--fx0));
   color: var(--dim);
   font-size: var(--t-meta);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  text-align: right;
-  pointer-events: none;
-  transition: color 400ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.instrument span:last-child {
+
+/* ══ the readout ═══════════════════════════════════════════════ */
+.readout {
+  position: fixed;
+  right: var(--gutter);
+  top: calc(var(--grid-top) + 0.75rem);
+  z-index: 4;
+  width: calc(((100vw - var(--gutter) * 2 - var(--gap) * 11) / 12) * 2 + var(--gap));
+  margin: 0;
+  padding: var(--s-3) var(--s-3) var(--s-2);
+  border: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--plate-bg) 72%, transparent);
+  color: var(--dim);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+  transition: background 500ms ease, color 400ms ease;
+}
+.readout > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding: 0.22rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.readout > div:last-child {
+  border-bottom: 0;
+}
+.readout dt {
+  margin: 0;
+}
+.readout dd {
+  min-width: 0;
+  margin: 0;
   color: var(--cream);
   font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.instrumentTop {
-  top: 17.5rem;
-  padding-right: var(--s-3);
-  border-right: 1px solid var(--hairline);
+.readoutMeter {
+  display: block !important;
+  padding: 0.55rem 0 0.5rem !important;
 }
-.instrumentBottom {
-  bottom: calc(var(--ground-h) + var(--s-6));
-  padding-right: var(--s-3);
-  border-right: 1px solid var(--hairline);
-}
-/* the exposure scale: where the page's light sits between −2 and +2 stops */
-.ruler {
-  position: fixed;
-  right: var(--gutter);
-  top: 27rem;
-  z-index: 4;
-  display: grid;
-  gap: var(--s-2);
-  justify-items: end;
-  color: var(--dim);
-  font-size: var(--t-meta);
-  letter-spacing: 0.12em;
-  pointer-events: none;
-}
-.rulerLabel {
-  padding-right: 1.1rem;
-}
-.rulerTrack {
+.meter {
+  --ev: 0.5;
   position: relative;
-  display: grid;
-  height: 11rem;
-  padding-right: 1.1rem;
-  border-right: 1px solid var(--cream);
-  font-variant-numeric: tabular-nums;
+  display: flex;
+  justify-content: space-between;
+  height: 0.9rem;
+  border-bottom: 1px solid var(--dim);
 }
-.rulerTrack b {
+.meter b {
   position: relative;
-  display: block;
   font-weight: 400;
+  font-size: 0.6rem;
   line-height: 1;
+  width: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
-.rulerTrack b::after {
+.meter b::after {
   content: "";
   position: absolute;
-  right: -1.1rem;
-  top: 0.35em;
-  width: 0.55rem;
-  height: 1px;
+  left: 50%;
+  top: 0.75rem;
+  width: 1px;
+  height: 0.3rem;
   background: var(--dim);
 }
-.rulerMark {
-  position: absolute;
-  right: -0.3rem;
-  top: calc((1 - var(--ev)) * 100%);
-  transform: translateY(-50%);
-  padding: 0 0.4rem 0 0.6rem;
-  background: var(--sindoor);
-  color: #fff;
-  font-weight: 500;
-  line-height: 1.4;
-}
-.rulerMark::before {
+.meter::after {
   content: "";
   position: absolute;
-  right: 100%;
-  top: 50%;
-  width: 1.4rem;
-  height: 1px;
+  left: calc(var(--ev) * 100%);
+  bottom: -0.35rem;
+  width: 2px;
+  height: 0.75rem;
   background: var(--sindoor);
+  transform: translateX(-50%);
 }
 
-/* The horizon paints above content on purpose: it stays intact even if a
-   section runs long, and things below it read as behind the earth. */
+/* ══ the horizon and the rail ══════════════════════════════════ */
 .band {
   position: fixed;
   left: 0;
@@ -421,7 +469,6 @@
   z-index: 3;
   pointer-events: none;
 }
-/* reading progress travels along the horizon */
 .band::after {
   content: "";
   position: absolute;
@@ -438,35 +485,12 @@
   background: var(--bone);
   z-index: 3;
 }
-
-/* ── the measure, printed in the bottom margin ──────────────── */
-
 .measure {
   position: absolute;
   inset: 0 13rem 0 var(--gutter);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   align-items: stretch;
-}
-.groundMark {
-  position: absolute;
-  right: var(--gutter);
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.35em;
-  color: #57544c;
-  font-size: var(--t-meta);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.groundMark b {
-  display: none; /* the clock sits in the instruments on wide screens */
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  color: #14192e;
 }
 .measure a {
   position: relative;
@@ -506,54 +530,62 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.groundMark {
+  position: absolute;
+  right: var(--gutter);
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  color: #57544c;
+  font-size: var(--t-meta);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.groundMark b {
+  display: none;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: #14192e;
+}
 
-/* ── exposures ──────────────────────────────────────────────── */
-
+/* ══ exposures: modules on the grid ════════════════════════════ */
 .exposure {
-  --reserve: 16vh; /* overwritten per exposure by BandStage */
-  --chrome: 4.75rem; /* the fixed masthead owns the top of the viewport */
+  --reserve: 16vh;
   --local: 1;
   position: relative;
   z-index: 2;
-  /* A little shorter than the viewport, and content sits at the top, so the
-     next exposure has cleared the horizon before this one has left. */
   min-height: calc(92svh - var(--chrome));
   display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: var(--s-7);
   align-content: start;
-  gap: var(--s-7);
-  padding: var(--s-7) calc(var(--gutter) + 9rem) var(--reserve) var(--gutter); /* the right margin is the instrument column */
+  padding: var(--s-7) var(--gutter) var(--reserve);
   scroll-margin-top: var(--chrome);
 }
 .exposure:first-of-type {
   padding-top: calc(var(--chrome) + var(--s-7));
 }
 
-/* Six exposures, six compositions — not one layout recoloured. */
-.wide {
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.5fr);
-  align-items: start;
-}
-.wide .copy {
-  max-width: 58rem; /* the opening line gets the full measure */
-}
-.split {
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: start;
-}
-.mediaFirst {
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  align-items: start;
-}
-.mediaFirst .copy {
-  order: 2;
-}
-.mediaFirst .plate {
-  order: 1;
-}
+/* Six exposures, six allocations — not one layout recoloured. */
+.wide .copy { grid-column: 1 / 7; }
+.wide .marginNote { grid-column: 8 / 11; }
+.split .copy { grid-column: 1 / 7; }
+.split .plate { grid-column: 8 / 13; align-self: start; }
+.split .phonePlate { grid-column: 8 / 11; justify-self: center; }
+.split .notebook { grid-column: 8 / 13; }
+.mediaFirst .copy { grid-column: 7 / 11; }
+.mediaFirst .plate { grid-column: 1 / 6; align-self: end; }
 
 .copy {
   min-width: 0;
   max-width: 44rem;
+}
+.wide .copy {
+  max-width: 52rem;
 }
 .eyebrow {
   display: flex;
@@ -584,7 +616,7 @@
   font-style: italic;
 }
 .lede {
-  max-width: 44ch;
+  max-width: 40ch;
   margin: var(--s-5) 0 0;
   font-size: var(--t-subtitle);
   line-height: 1.45;
@@ -601,7 +633,6 @@
   letter-spacing: 0.03em;
   color: var(--ember);
 }
-
 .link {
   display: inline-flex;
   align-items: center;
@@ -627,8 +658,7 @@
   outline-offset: 6px;
 }
 
-/* ── plates: flat, opaque, hard-edged; no floating shadows ──── */
-
+/* ── plates: flat, opaque, hard-edged; laid on the photograph ── */
 .plate {
   min-width: 0;
   margin: 0;
@@ -648,16 +678,13 @@
   text-transform: uppercase;
   color: var(--dim);
 }
-/* The capture is the hero of its exposure: sized from the viewport height. */
 .phonePlate {
-  justify-self: center;
   width: auto;
 }
 .phonePlate img {
   width: auto;
   height: min(52vh, 30rem);
 }
-
 .voice {
   background: var(--bone);
   color: #14192e;
@@ -692,9 +719,12 @@
   letter-spacing: -0.03em;
 }
 
-/* The lab's artifact is the index itself, under a strip of four flat colours. */
+/* The lab's artefact is the index itself, on a translucent plate. */
 .notebook {
   min-width: 0;
+  padding: var(--s-5);
+  border: 1px solid var(--hairline);
+  background: color-mix(in srgb, var(--plate-bg) 80%, transparent);
 }
 .labMark {
   display: grid;
@@ -769,7 +799,7 @@
   justify-self: end;
   max-width: 13rem;
   margin: 0;
-  padding-top: var(--s-8);
+  padding-top: var(--s-6);
   font-family: var(--font-serif);
   font-style: italic;
   font-size: var(--t-subtitle);
@@ -778,9 +808,7 @@
   text-align: right;
 }
 
-/* ── progressive disclosure, driven by each block's own position ──
-   Reversible: scrolling back re-closes it. Not a one-shot trigger. */
-
+/* ── progressive disclosure, driven by each block's own position ── */
 .copy > *,
 .plate,
 .notebook,
@@ -799,37 +827,47 @@
 .notebook { --stagger: 0.12; }
 .marginNote { --stagger: 0.3; }
 
-/* ── responsive ─────────────────────────────────────────────── */
-
-@media (min-width: 1700px) {
+/* ── responsive: recompose ──────────────────────────────────── */
+@media (min-width: 1800px) {
   .exposure {
-    padding-inline: max(var(--gutter), calc((100vw - 96rem) / 2)) calc(max(var(--gutter), calc((100vw - 96rem) / 2)) + 9rem);
-  }
-  .copy {
-    max-width: 52rem;
+    padding-inline: max(var(--gutter), calc((100vw - 104rem) / 2));
   }
 }
 @media (max-width: 1000px) {
-  .exposure {
-    padding-right: var(--gutter);
-  }
-  /* One column: the shade covers the whole reading width, top-weighted. */
-  .shadeNight,
-  .root[data-shade="right"] .shadeNight {
-    background:
-      linear-gradient(180deg, rgba(4, 11, 26, 0.84) 0%, rgba(4, 11, 26, 0.72) 48%, rgba(4, 11, 26, 0.42) 78%, rgba(4, 11, 26, 0.3) 100%);
-  }
-  .shadeDay,
-  .root[data-shade="right"] .shadeDay {
-    background:
-      linear-gradient(180deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.8) 48%, rgba(247, 241, 228, 0.5) 78%, rgba(247, 241, 228, 0.32) 100%);
-  }
-  .ruler,
-  .instrumentTop,
-  .instrumentBottom,
-  .horizonLine,
-  .reticle {
+  .readout,
+  .gridRows {
     display: none;
+  }
+  .gridLines {
+    background-size: calc((100% + var(--gap)) / 12) 100%, 100% 100%;
+  }
+  .wide .copy,
+  .split .copy,
+  .mediaFirst .copy,
+  .split .plate,
+  .split .notebook,
+  .mediaFirst .plate,
+  .wide .marginNote {
+    grid-column: 1 / -1;
+  }
+  .split .phonePlate {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  .mediaFirst .copy {
+    order: 0;
+  }
+  .mediaFirst .plate {
+    order: 1;
+    align-self: start;
+  }
+  .marginNote {
+    justify-self: start;
+    text-align: left;
+    padding-top: 0;
+  }
+  .phonePlate img {
+    height: min(40vh, 22rem);
   }
   .groundMark b {
     display: inline;
@@ -837,25 +875,13 @@
   .measure {
     inset: 0 15rem 0 var(--gutter);
   }
-  .wide,
-  .split,
-  .mediaFirst {
-    grid-template-columns: 1fr;
+  .shadeNight,
+  .root[data-shade="right"] .shadeNight {
+    background: linear-gradient(180deg, rgba(4, 11, 26, 0.84) 0%, rgba(4, 11, 26, 0.72) 40%, rgba(4, 11, 26, 0.3) 62%, rgba(4, 11, 26, 0.16) 100%);
   }
-  .mediaFirst .copy,
-  .mediaFirst .plate {
-    order: 0;
-  }
-  .marginNote {
-    justify-self: start;
-    text-align: left;
-    padding-top: 0;
-  }
-  .phonePlate {
-    justify-self: start;
-  }
-  .phonePlate img {
-    height: min(40vh, 22rem);
+  .shadeDay,
+  .root[data-shade="right"] .shadeDay {
+    background: linear-gradient(180deg, rgba(247, 241, 228, 0.9) 0%, rgba(247, 241, 228, 0.8) 40%, rgba(247, 241, 228, 0.32) 62%, rgba(247, 241, 228, 0.16) 100%);
   }
 }
 @media (max-width: 700px) {
@@ -865,32 +891,33 @@
   .envFrame img {
     object-position: var(--focus-narrow);
   }
-  .instrumentTop,
-  .ruler,
-  .groundMark {
+  .gridColumns,
+  .groundMark,
+  .frameCaption {
     display: none;
   }
-  .instrumentBottom {
-    bottom: calc(var(--ground-h) + var(--s-4));
+  /* a phone's screen is four cells across, and quieter */
+  .gridLines {
+    background-size: calc((100% + var(--gap)) / 4) 100%, 100% 100%;
+    opacity: 0.6;
   }
   .measure {
     inset: 0 var(--gutter);
   }
-  /* A phone reads as a document: exposures size to their content and the
-     horizon does the pacing, instead of a screen-height frame per exposure. */
+  .measure span {
+    display: none;
+  }
   .exposure {
     min-height: 0;
     padding: var(--s-8) var(--gutter) var(--reserve);
-    gap: var(--s-6);
-  }
-  .measure span {
-    display: none;
+    row-gap: var(--s-6);
   }
   .voice {
     padding: var(--s-4);
   }
 }
 
+/* ── still: the morning is a state, not an animation ────────── */
 @media (prefers-reduced-motion: reduce) {
   .copy > *,
   .plate,
@@ -903,14 +930,22 @@
   .index a i {
     transition: none;
   }
+  .envSoft,
+  .envSun,
+  .envHaze {
+    animation: none;
+  }
+  .envSharp .envBase img {
+    filter: brightness(var(--env-b)) saturate(var(--env-s)) contrast(var(--env-c));
+  }
 }
 
 @media print {
   .band,
   .ground,
   .env,
-  .instrument,
-  .ruler {
+  .screen,
+  .readout {
     display: none;
   }
   .root {
