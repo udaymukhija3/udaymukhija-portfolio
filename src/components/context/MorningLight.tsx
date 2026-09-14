@@ -45,11 +45,12 @@ export function MorningLight({ children, className = "", labelId }: { children: 
       strip.style.setProperty("--wake", wake.toFixed(3));
       strip.style.setProperty("--wake-x", `${wakeX.toFixed(1)}px`);
       strip.style.setProperty("--wake-y", `${wakeY.toFixed(1)}px`);
-      const next = Math.round(light * 10);
+      // The slider reports where the light is going, not the frame it is passing through.
+      const shown = hold ?? light, next = Math.round(shown * 10);
       if (next !== step) {
         step = next;
         control.setAttribute("aria-valuenow", String(step * 10));
-        control.setAttribute("aria-valuetext", lightName(light));
+        control.setAttribute("aria-valuetext", lightName(shown));
       }
     };
     const settle = () => {
@@ -90,6 +91,7 @@ export function MorningLight({ children, className = "", labelId }: { children: 
       schedule();
     };
     const grab = (value: number) => {
+      clearTimeout(momentum);
       hold = value; rate = lightRates.held;
       schedule();
     };
