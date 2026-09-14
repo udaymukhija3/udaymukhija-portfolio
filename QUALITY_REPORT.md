@@ -1,6 +1,6 @@
 # Quality report
 
-Last verified: 2026-09-07
+Last verified: 2026-09-14
 
 ## Automated checks
 
@@ -8,8 +8,8 @@ Last verified: 2026-09-07
 | --- | --- | --- |
 | Lint | `npm run lint` | PASS — ESLint completed with zero warnings or errors. |
 | TypeScript | `npm run typecheck` | PASS — strict TypeScript emitted no errors. |
-| Tests | `npm test` | PASS — 7/7 route, content-model, navigation, reduced-motion, lazy-WebGL, and source-integrity tests passed. |
-| Production build | `npm run build` | PASS — Next.js 16.3.4 compiled and generated 25 routes/assets, including all 14 project paths. |
+| Tests | `npm test` | PASS — 29/29 tests passed, including the homepage sunrise curve, scrub mapping, keyboard steps, frame-rate independent easing, and the strip's reduced-motion contract. |
+| Production build | `npm run build` | PASS — Next.js 16.3 compiled with every route prerendered, including all 14 project paths. |
 | Patch hygiene | `git diff --check` | PASS — no whitespace errors. |
 | Production dependency audit | `npm audit --omit=dev --json` | PASS — 0 known vulnerabilities after upgrading Next.js and React. |
 
@@ -42,6 +42,8 @@ The final direction change was then re-inspected in the app browser at its narro
 - CSS reduced-motion rules remove travel, transforms, clipped entrances, and transitions while forcing the SVG into a complete readable state.
 - The Three.js study renders a static surface for reduced motion, caps DPR at 1.5, pauses when offscreen or backgrounded, and disposes geometry, material, renderer, and context on cleanup.
 - Repository tests verify the media query, JavaScript short-circuit, lazy Lab boundary, DPR cap, and GPU cleanup. OS-level reduced-motion emulation was not available in the browser harness, so no runtime emulation result is claimed.
+- The homepage sunrise strip was exercised in the app browser: the opening sunrise reached gold in about eight seconds and flipped the settled state; hovering left, centre, and right read 0, 0.5, and 1; leaving eased back toward gold; arrow keys, Home, and Esc moved and released the light; a click and a programmatic activation replayed the sunrise while a drag did not; synthetic touch events confirmed that a small move is ignored, a sideways drag scrubs, release settles, and a tap replays. The drifting bands changed transform and opacity between samples and paused while the strip was offscreen. The loop is driven by one `requestAnimationFrame` chain that stops when the light is at rest, offscreen, or in a hidden tab; the gold scene and each band are their own composited layers so the blurred base scene is never repainted.
+- Project rows were opened, switched, and closed in the app browser: `::details-content` unfolded and refolded over about 380ms with `content-visibility` flipping only after the fold, the exclusive accordion animated both rows at once, and the plus glyph turned into a minus. Browsers without `::details-content` open instantly as before.
 
 ## Performance review
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LivingHero } from "./LivingHero";
+import { MorningLight } from "./MorningLight";
 import { OceanLight } from "./OceanLight";
 import { indexProjects } from "../../data/projects";
 
@@ -10,10 +10,10 @@ export function QuietPortfolio() {
       <p>I’m a software engineer in India. I build thoughtful products and the systems beneath them.</p>
     </header>
 
-    <LivingHero className="quiet-sunrise" labelId="quiet-light-title" compact>
+    <MorningLight className="quiet-sunrise" labelId="quiet-light-title">
       <h2 id="quiet-light-title" className="quiet-sr-only">A study in morning light</h2>
       <OceanLight />
-    </LivingHero>
+    </MorningLight>
 
     <section id="work" className="quiet-work" aria-labelledby="quiet-work-title">
       <h2 id="quiet-work-title">A few things I’ve made</h2>
