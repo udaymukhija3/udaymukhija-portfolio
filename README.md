@@ -2,6 +2,8 @@
 
 The homepage is a minimal personal portfolio: a short introduction, one animated berry/terracotta sunrise, and a native expandable project list. The previous `/quiet` preview URL redirects to `/`. The earlier [DAYBREAK implementation](docs/DAYBREAK.md) remains available at `/daybreak`.
 
+The homepage uses self-hosted [Source Sans 3](https://github.com/adobe-fonts/source-sans), with its OFL license in `src/fonts/quiet`. The sunrise reflection responds to pointer movement, taps, and keyboard controls (arrow keys, Enter/Space, Escape), and stays static with reduced motion. Its animation loop stops when settled or offscreen.
+
 An editorial design-engineering portfolio for backend-heavy product systems, data engineering, and applied ML work. The interface itself is a working sample: typography-led composition, a responsive selected-work stage, authored SVG, purposeful motion, a route-local Three.js study, and reduced-motion fallbacks.
 
 The site is organized around one engineering thesis: calm interfaces should be supported by explicit state, access, retry, and failure contracts. The homepage leads with three product experiences: Gathr, VibeGrid, and Murmur. The full archive and case studies keep implementation evidence available without making it the first thing a visitor has to parse.

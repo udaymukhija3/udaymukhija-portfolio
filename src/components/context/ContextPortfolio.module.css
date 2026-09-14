@@ -11,12 +11,17 @@
 .warmPhase, .dawnPhase { position: absolute; inset: 0; pointer-events: none; }
 .warmPhase { opacity: var(--warm-light, 0); background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 25%, var(--dawn) 49%, var(--apricot) 66%, var(--terracotta) 83%, var(--rose) 100%); }
 .dawnPhase { opacity: var(--dawn-light, 0); background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 25%, var(--dawn) 49%, #f0d7c7 66%, var(--apricot) 83%, var(--terracotta) 100%); }
-.solarLight { position: absolute; left: 30%; right: -4%; top: 62%; height: 64px; background: radial-gradient(ellipse at center, rgba(246,231,222,.9), rgba(246,231,222,.45) 24%, rgba(235,201,180,.12) 58%, transparent 74%); transform: translate(var(--horizon-x, 0px), var(--horizon-y, 0px)); }
+.solarLight { position: absolute; left: 30%; right: -4%; top: 62%; height: 64px; background: radial-gradient(ellipse at center, rgba(246,231,222,.9), rgba(246,231,222,.45) 24%, rgba(235,201,180,.12) 58%, transparent 74%); transform: translate(calc(var(--horizon-x, 0px) + var(--light-touch-x, 0px)), calc(var(--horizon-y, 0px) + var(--light-touch-y, 0px))); }
 .lightWash { position: absolute; inset: 0; background: radial-gradient(ellipse 35% 23% at 66% 66%, rgba(246,231,222,.96) 0%, rgba(235,201,180,.75) 32%, rgba(217,152,134,.12) 75%, transparent 100%), radial-gradient(ellipse 45% 45% at 5% 80%, rgba(188,122,123,.25), transparent 90%), linear-gradient(176deg, transparent 56%, rgba(143,75,82,.07) 74%, transparent 86%); }
 .lightWash::after { content: ""; position: absolute; inset: 52% -10% -20%; background: radial-gradient(ellipse 11% 72% at 64% 35%, rgba(246,231,222,.63), rgba(235,201,180,.18) 62%, transparent 100%); }
 .water { position: absolute; left: -2%; bottom: -4%; width: 104%; height: 70%; }
-.heroField .water { transform: translate(var(--horizon-x, 0px), var(--horizon-y, 0px)); }
-.heroField .reflections { transform: translateX(var(--reflection-x, 0px)); opacity: var(--reflection-strength, .65); }
+.heroField .water { left: -12%; width: 124%; transform: translate(var(--horizon-x, 0px), var(--horizon-y, 0px)); }
+.heroField .reflections { transform: translate(calc(var(--reflection-x, 0px) + var(--light-touch-x, 0px) * .65), var(--light-touch-y, 0px)); opacity: var(--reflection-strength, .65); }
+.lightControl { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--ink); cursor: default; touch-action: pan-y pinch-zoom; }
+.lightControl[hidden] { display: none; }
+.lightControl:focus-visible { outline: 1px solid var(--ink) !important; outline-offset: -1px !important; }
+.lightHint { position: absolute; left: 12px; bottom: 12px; padding: 4px 8px; background: var(--paper); font-size: 12px; line-height: 1.4; opacity: 0; pointer-events: none; }
+.lightControl:focus-visible .lightHint { opacity: 1; }
 .projectField { background: linear-gradient(175deg, var(--dawn) 0%, var(--apricot) 35%, var(--terracotta) 57%, var(--rose) 78%, var(--berry) 100%); }
 .projectField .lightWash { opacity: .8; }
 .projectField .water { height: 125%; bottom: -18%; }
