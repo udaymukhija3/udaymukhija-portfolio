@@ -65,8 +65,8 @@ test("restored positions and reverse reading are deterministic, with safe invali
 
 test("the homepage uses the lightweight work index; DAYBREAK stays reachable",async()=>{
   const page=await readFile(new URL("../src/app/page.tsx",import.meta.url),"utf8");
-  assert.match(page,/<ContextPortfolio \/>/);
-  const composition=await readFile(new URL("../src/components/context/ContextPortfolio.tsx",import.meta.url),"utf8");
+  assert.match(page,/<QuietPortfolio \/>/);
+  const composition=await readFile(new URL("../src/components/context/QuietPortfolio.tsx",import.meta.url),"utf8");
   const artwork=await readFile(new URL("../src/components/context/SunriseField.tsx",import.meta.url),"utf8");
   const index=await readFile(new URL("../src/components/context/WorkIndex.tsx",import.meta.url),"utf8");
   // Keep the homepage independent of the retained heavy experimental routes.

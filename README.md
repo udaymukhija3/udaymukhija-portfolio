@@ -1,6 +1,6 @@
 # Uday Mukhija Portfolio
 
-The homepage uses **BAND**, six editorial exposures over a continuous sunrise. The optical refresh adds Space Grotesk / IBM Plex Mono typography, a projected light study, spectral accents, and a monochrome comparison. See [Optical editorial notes](docs/OPTICAL_EDITORIAL.md). The earlier [DAYBREAK implementation](docs/DAYBREAK.md) remains available at `/daybreak`.
+The homepage is a minimal personal portfolio: a short introduction, one animated berry/terracotta sunrise, and a native expandable project list. The previous `/quiet` preview URL redirects to `/`. The earlier [DAYBREAK implementation](docs/DAYBREAK.md) remains available at `/daybreak`.
 
 An editorial design-engineering portfolio for backend-heavy product systems, data engineering, and applied ML work. The interface itself is a working sample: typography-led composition, a responsive selected-work stage, authored SVG, purposeful motion, a route-local Three.js study, and reduced-motion fallbacks.
 
@@ -56,7 +56,8 @@ No component kit, animation package, or analytics script. Space Grotesk and IBM 
 
 ## Routes
 
-- `/`: selected work, archive preview, about, and contact
+- `/`: the minimal personal homepage with sunrise and selected work
+- `/quiet`: redirects to `/`
 - `/projects`: filterable project archive
 - `/projects/[slug]`: experience-first case study with technical proof in disclosure
 - `/lab`: original SVG, motion, typography, and Three.js experiments
@@ -71,6 +72,8 @@ Add project entries to `src/data/projects.ts`; the archive, detail route generat
 See `CONTENT_TODO.md` for missing real-world assets and links. `DESIGN_DIRECTION.md` records the visual and interaction rationale; `QUALITY_REPORT.md` records the latest verified checks.
 
 ## Deployment and performance
+
+Production is [udaymukhija-portfolio.vercel.app](https://udaymukhija-portfolio.vercel.app), deployed through the repository's Vercel integration. Changes pushed to `main` deploy automatically. A new route only changes its own URL; the root homepage is controlled by `src/app/page.tsx`.
 
 The application is compatible with standard Next.js hosting: install with `npm ci`, build with `npm run build`, and start with `npm start`. Set `NEXT_PUBLIC_SITE_URL` to the canonical production origin and optionally set `NEXT_PUBLIC_RESUME_URL`.
 
