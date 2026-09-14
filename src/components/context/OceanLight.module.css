@@ -1,23 +1,55 @@
 .strip { position: relative; isolation: isolate; overflow: hidden; }
 .field { position: absolute; inset: 0; background: #fff; pointer-events: none; }
-.silver, .gold { position: absolute; inset: 0; width: 100%; height: 100%; }
-/* The gold scene is a composited layer, so the sunrise and scrub only change one opacity and never repaint the blurred water. */
-.gold { opacity: var(--gold-light, 0); will-change: opacity; }
-.drift { position: absolute; inset: 0; opacity: 0; transition: opacity 2400ms ease; }
-.strip[data-settled=true] .drift { opacity: 1; }
-.band { position: absolute; opacity: var(--band-light); will-change: transform; animation: drift var(--period) ease-in-out infinite alternate, shimmer var(--shimmer) ease-in-out infinite alternate; }
-.strip[data-lit=false] .band { animation-play-state: paused; }
-.bandGold { opacity: var(--gold-light, 0); }
+.scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Each gold layer is its own composited opacity, so the sunrise and the scrub never repaint the blurred water.
+   The sky leads, the sun follows, the water comes last. */
+.goldSky { opacity: var(--gold-sky, 0); will-change: opacity; }
+.goldWater { opacity: var(--gold-water, 0); will-change: opacity; }
+.goldSun { opacity: var(--gold-light, 0); will-change: opacity; }
+/* Dawn haze on the horizon that burns off as the light warms. */
+.haze { position: absolute; left: 0; right: 0; top: 40%; height: 18%; background: linear-gradient(180deg, transparent, rgba(255, 251, 243, .85) 45%, rgba(255, 251, 243, .55) 62%, transparent); opacity: calc(1 - var(--gold-light, 0)); will-change: opacity; }
+.cloud { position: absolute; will-change: transform; animation: cloudDrift 90s ease-in-out infinite alternate; }
+.cloudGold { opacity: var(--gold-cloud, 0); }
+/* The water wakes once the sun is up, from the horizon down, and dissolves into the page along with the scene. */
+.drift { position: absolute; inset: 0; -webkit-mask-image: linear-gradient(#000 74%, transparent); mask-image: linear-gradient(#000 74%, transparent); }
+.bandSlot, .glitterSlot { position: absolute; opacity: 0; transition: opacity 2400ms ease var(--arrive, 0s); }
+.strip[data-settled=true] :is(.bandSlot, .glitterSlot) { opacity: 1; }
+.band { position: absolute; inset: 0; width: 100%; height: 100%; opacity: var(--band-light); will-change: transform; animation: drift var(--period) ease-in-out infinite alternate, swell var(--swell) ease-in-out infinite alternate, shimmer var(--shimmer) ease-in-out infinite alternate; }
+.bandGold { opacity: var(--gold-water, 0); }
+.glitter { position: absolute; inset: 0; width: 100%; height: 100%; will-change: transform; }
+.glitter circle { opacity: .5; animation: twinkle 3s ease-in-out infinite; }
+.strip[data-lit=false] :is(.band, .cloud, .glitter circle) { animation-play-state: paused; }
+/* A glint that trails the pointer across the water. */
+.wake { position: absolute; left: -70px; top: -6px; width: 140px; height: 12px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 250, 220, .9), rgba(255, 228, 160, .45) 45%, transparent); opacity: var(--wake, 0); transform: translate(var(--wake-x, 0px), var(--wake-y, 0px)); will-change: transform, opacity; }
+/* First light: a short bloom on the horizon the moment the sun clears the water. */
+.bloom { position: absolute; left: 63.9%; top: 44%; width: 34%; height: 16%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 250, 203, .95), rgba(255, 211, 108, .5) 45%, transparent); opacity: 0; will-change: opacity; }
+.strip[data-risen=true] .bloom { animation: bloom 1100ms ease-out both; }
+/* Static grain, rasterised once from a small tile, takes the banding out of the wide gradients. */
+.grain { position: absolute; inset: 0; opacity: .06; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E"); -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 76%, transparent); mask-image: linear-gradient(transparent, #000 22%, #000 76%, transparent); }
 @keyframes drift { from { transform: translateX(calc(var(--travel) * -1)); } to { transform: translateX(var(--travel)); } }
+@keyframes swell { from { translate: 0 -1px; } to { translate: 0 1px; } }
 @keyframes shimmer { from { opacity: calc(var(--band-light) * .5); } to { opacity: var(--band-light); } }
-.control { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--ink); cursor: ew-resize; touch-action: pan-y pinch-zoom; }
+@keyframes twinkle { 0%, 100% { opacity: .08; } 50% { opacity: .95; } }
+@keyframes cloudDrift { from { transform: translateX(-10px); } to { transform: translateX(10px); } }
+@keyframes bloom { 0% { opacity: 0; } 35% { opacity: .85; } 100% { opacity: 0; } }
+/* The control is a slider over the whole strip; its rail and labels appear only for keyboard focus. */
+.control { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--ink); cursor: ew-resize; touch-action: pan-y pinch-zoom; }
 .control[hidden] { display: none; }
 .control:focus-visible { outline: 1px solid var(--ink) !important; outline-offset: -1px !important; }
-.hint { position: absolute; left: 12px; bottom: 12px; padding: 4px 8px; background: var(--paper); font-size: 12px; line-height: 1.4; opacity: 0; pointer-events: none; }
-.control:focus-visible .hint { opacity: 1; }
+.hint { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.rail { position: absolute; left: 14px; right: 14px; bottom: 12px; height: 1px; background: rgba(0, 0, 0, .4); opacity: 0; pointer-events: none; }
+.rail::after { content: ""; position: absolute; top: -3px; left: calc(var(--gold-light, 0) * 100%); width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: var(--ink); }
+.rail > span { position: absolute; top: -18px; font-size: 11px; line-height: 1; letter-spacing: .02em; }
+.rail > span:first-child { left: 0; }
+.rail > span:last-child { right: 0; }
+.control:focus-visible .rail { opacity: 1; }
+/* Within a session the morning is remembered: coming back home finds it already here, before any script runs. */
+:global(html[data-morning=settled]) .strip:not([data-settled]) :is(.goldSky, .goldWater, .goldSun, .bandGold, .cloudGold, .bandSlot, .glitterSlot) { opacity: 1; }
+:global(html[data-morning=settled]) .strip:not([data-settled]) .haze { opacity: 0; }
 /* Reduced motion: the morning has already arrived, and nothing on the water moves. */
 @media (prefers-reduced-motion: reduce) {
-  .gold, .bandGold, .drift { opacity: 1; }
-  .drift { transition: none; }
-  .band { animation: none; }
+  .goldSky, .goldWater, .goldSun, .bandGold, .cloudGold, .bandSlot, .glitterSlot { opacity: 1; }
+  .haze, .bloom, .wake { opacity: 0; }
+  .bandSlot, .glitterSlot { transition: none; }
+  .band, .cloud, .glitter circle, .bloom { animation: none; }
 }

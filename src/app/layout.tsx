@@ -81,7 +81,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const linkedInLink = contactLinks.find((link) => link.label === "LinkedIn");
 
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+    // The homepage marks a remembered morning on <html> before hydration; React must not treat that as a mismatch.
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content

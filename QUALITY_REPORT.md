@@ -8,7 +8,7 @@ Last verified: 2026-09-14
 | --- | --- | --- |
 | Lint | `npm run lint` | PASS — ESLint completed with zero warnings or errors. |
 | TypeScript | `npm run typecheck` | PASS — strict TypeScript emitted no errors. |
-| Tests | `npm test` | PASS — 29/29 tests passed, including the homepage sunrise curve, scrub mapping, keyboard steps, frame-rate independent easing, and the strip's reduced-motion contract. |
+| Tests | `npm test` | PASS — 32/32 tests passed, including the homepage sunrise curve, its dawn-ordered layers, slider value names, touch fling, scrub mapping, keyboard steps, frame-rate independent easing, the session-memory contract, and the strip's reduced-motion contract. |
 | Production build | `npm run build` | PASS — Next.js 16.3 compiled with every route prerendered, including all 14 project paths. |
 | Patch hygiene | `git diff --check` | PASS — no whitespace errors. |
 | Production dependency audit | `npm audit --omit=dev --json` | PASS — 0 known vulnerabilities after upgrading Next.js and React. |
@@ -43,6 +43,7 @@ The final direction change was then re-inspected in the app browser at its narro
 - The Three.js study renders a static surface for reduced motion, caps DPR at 1.5, pauses when offscreen or backgrounded, and disposes geometry, material, renderer, and context on cleanup.
 - Repository tests verify the media query, JavaScript short-circuit, lazy Lab boundary, DPR cap, and GPU cleanup. OS-level reduced-motion emulation was not available in the browser harness, so no runtime emulation result is claimed.
 - The homepage sunrise strip was exercised in the app browser: the opening sunrise reached gold in about eight seconds and flipped the settled state; hovering left, centre, and right read 0, 0.5, and 1; leaving eased back toward gold; arrow keys, Home, and Esc moved and released the light; a click and a programmatic activation replayed the sunrise while a drag did not; synthetic touch events confirmed that a small move is ignored, a sideways drag scrubs, release settles, and a tap replays. The drifting bands changed transform and opacity between samples and paused while the strip was offscreen. The loop is driven by one `requestAnimationFrame` chain that stops when the light is at rest, offscreen, or in a hidden tab; the gold scene and each band are their own composited layers so the blurred base scene is never repainted.
+- The second pass on the strip was exercised the same way: a replay showed the four gold layers warming in order (cloud ahead of sky ahead of sun ahead of water) with the horizon bloom firing as the sun crossed the halfway mark; the slider reported 0–100 and “silver dawn / first light / warming / golden”; the focus rail, its labels, and its dot tracked arrow-key steps; a pointer sweep lit the wake at the pointer and it faded at rest; a synthetic touch flick carried the light past the finger before it settled; and a reload within the session painted gold before hydration with no hydration warning.
 - Project rows were opened, switched, and closed in the app browser: `::details-content` unfolded and refolded over about 380ms with `content-visibility` flipping only after the fold, the exclusive accordion animated both rows at once, and the plus glyph turned into a minus. Browsers without `::details-content` open instantly as before.
 
 ## Performance review

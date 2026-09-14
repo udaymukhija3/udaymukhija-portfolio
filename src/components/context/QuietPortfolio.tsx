@@ -2,9 +2,14 @@ import Link from "next/link";
 import { MorningLight } from "./MorningLight";
 import { OceanLight } from "./OceanLight";
 import { indexProjects } from "../../data/projects";
+import { morningKey } from "../../lib/oceanLight";
+
+// Runs while the page is still parsing so a remembered morning paints gold on the first frame, not after hydration.
+const rememberMorning = `try{if(sessionStorage.getItem(${JSON.stringify(morningKey)})==="settled")document.documentElement.dataset.morning="settled"}catch(e){}`;
 
 export function QuietPortfolio() {
   return <div id="quiet-portfolio">
+    <script dangerouslySetInnerHTML={{ __html: rememberMorning }} />
     <header className="quiet-intro">
       <h1>Hi, I’m Uday.</h1>
       <p>I’m a software engineer in India. I build thoughtful products and the systems beneath them.</p>

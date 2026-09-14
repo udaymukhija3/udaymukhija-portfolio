@@ -22,7 +22,7 @@ body:has(#quiet-portfolio) { font-size: 16px; line-height: 1.65; }
 .quiet-header a:hover > [aria-hidden], .quiet-header a:focus-visible > [aria-hidden], #quiet-portfolio a:hover > [aria-hidden], #quiet-portfolio a:focus-visible > [aria-hidden] { transform: translate(2px, -2px); }
 .quiet-intro h1 { font-family: var(--context-font); font-size: 32px; line-height: 1.15; font-weight: 500; letter-spacing: -.04em; }
 .quiet-intro p { margin-top: 16px; max-width: 54ch; color: var(--quiet-body); letter-spacing: -.01em; }
-#quiet-portfolio .quiet-sunrise { margin-top: 24px; height: 184px; }
+#quiet-portfolio .quiet-sunrise { margin-top: 24px; height: 208px; }
 .quiet-work { margin-top: 28px; scroll-margin-top: 32px; }
 .quiet-work h2 { font-size: 14px; font-weight: 500; letter-spacing: -.01em; margin-bottom: 16px; }
 .quiet-projects summary { display: grid; grid-template-columns: var(--quiet-columns); column-gap: var(--quiet-column-gap); align-items: center; min-height: 48px; list-style: none; cursor: pointer; }

@@ -8,7 +8,7 @@ const read = (path) => readFile(new URL(path, root), "utf8");
 const compiled = ts.transpileModule(await read("src/lib/oceanLight.ts"), {
   compilerOptions: { target: ts.ScriptTarget.ES2020, module: ts.ModuleKind.ES2020 },
 }).outputText;
-const { approach, lightRates, scrubAt, scrubKey, sunriseAt, sunriseDuration } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
+const { approach, flingOffset, lightLayers, lightName, lightRates, morningKey, scrubAt, scrubKey, sunriseAt, sunriseDuration } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`);
 
 test("the opening sunrise takes about eight seconds, starts quiet, and settles into gold", () => {
   assert.equal(sunriseDuration, 8000);
@@ -26,6 +26,35 @@ test("the opening sunrise takes about eight seconds, starts quiet, and settles i
     assert.ok(light - previous < .003, "no visible step between frames");
     previous = light;
   }
+});
+
+test("one light value unfolds in dawn order: cloud, then sky, then sun, then water", () => {
+  assert.deepEqual(lightLayers(0), { cloud: 0, sky: 0, sun: 0, water: 0 });
+  assert.deepEqual(lightLayers(1), { cloud: 1, sky: 1, sun: 1, water: 1 });
+  let previous = lightLayers(0);
+  for (let step = 1; step <= 1000; step++) {
+    const layers = lightLayers(step / 1000);
+    assert.ok(layers.cloud >= layers.sky && layers.sky >= layers.sun && layers.sun >= layers.water);
+    for (const key of Object.keys(layers)) assert.ok(layers[key] >= previous[key] && layers[key] <= 1);
+    previous = layers;
+  }
+  const half = lightLayers(.5);
+  assert.ok(half.cloud > .85 && half.sky > .7 && half.water < .35, "at half light the sky is warm while the water is still mostly silver");
+  assert.deepEqual(lightLayers(-1), lightLayers(0));
+  assert.deepEqual(lightLayers(2), lightLayers(1));
+});
+
+test("the slider names the light and a flick carries it a little past the finger", () => {
+  assert.equal(lightName(0), "silver dawn");
+  assert.equal(lightName(.19), "silver dawn");
+  assert.equal(lightName(.2), "first light");
+  assert.equal(lightName(.5), "warming");
+  assert.equal(lightName(.85), "golden");
+  assert.equal(lightName(1), "golden");
+  assert.equal(morningKey, "morning-light");
+  assert.ok(flingOffset(1, 672) > .1 && flingOffset(1, 672) < .2, "a one pixel-per-millisecond flick moves the light by a noticeable but bounded amount");
+  assert.ok(flingOffset(-1, 672) < 0);
+  assert.equal(flingOffset(1, 0), 0);
 });
 
 test("horizontal position scrubs from silver at the left to gold at the right", () => {
@@ -75,11 +104,27 @@ test("reduced motion gets a static, settled scene and never starts the loop", as
   const controller = await read("src/components/context/MorningLight.tsx");
   const page = await read("src/app/quiet/quiet.css");
   const reduced = css.slice(css.indexOf("@media (prefers-reduced-motion: reduce)"));
-  assert.match(reduced, /\.gold[^{]*\{[^}]*opacity: 1/);
-  assert.match(reduced, /\.band \{ animation: none; \}/);
-  assert.match(css, /\.gold \{[^}]*will-change: opacity/);
+  assert.match(reduced, /\.goldSky, \.goldWater, \.goldSun, \.bandGold, \.cloudGold, \.bandSlot, \.glitterSlot \{ opacity: 1; \}/);
+  assert.match(reduced, /\.haze, \.bloom, \.wake \{ opacity: 0; \}/);
+  assert.match(reduced, /\.band, \.cloud, \.glitter circle, \.bloom \{ animation: none; \}/);
+  for (const layer of ["goldSky", "goldWater", "goldSun"]) assert.match(css, new RegExp(`\\.${layer} \\{[^}]*will-change: opacity`));
   assert.match(controller, /const running = \(\) => visible && !document\.hidden && !reduced\.matches;/);
   assert.match(controller, /control\.hidden = reduced\.matches;/);
   assert.match(page, /details::details-content \{[^}]*content-visibility 380ms allow-discrete/);
   assert.match(page, /@media \(prefers-reduced-motion: reduce\)[\s\S]*#quiet-portfolio \*[^}]*transition: none !important/);
+});
+
+test("a remembered morning paints gold before hydration and is only written once settled", async () => {
+  const page = await read("src/components/context/QuietPortfolio.tsx");
+  const layout = await read("src/app/layout.tsx");
+  const css = await read("src/components/context/OceanLight.module.css");
+  const controller = await read("src/components/context/MorningLight.tsx");
+  assert.match(page, /sessionStorage\.getItem\(\$\{JSON\.stringify\(morningKey\)\}\)==="settled"\)document\.documentElement\.dataset\.morning="settled"/);
+  assert.match(page, /<script dangerouslySetInnerHTML=\{\{ __html: rememberMorning \}\} \/>/);
+  assert.match(layout, /<html[^>]*suppressHydrationWarning>/);
+  assert.match(css, /:global\(html\[data-morning=settled\]\) \.strip:not\(\[data-settled\]\) :is\(\.goldSky, \.goldWater, \.goldSun, [^)]*\) \{ opacity: 1; \}/);
+  const settle = controller.slice(controller.indexOf("const settle = () => {"), controller.indexOf("const schedule"));
+  assert.match(settle, /remember\(\);/);
+  assert.match(controller, /sessionStorage\.setItem\(morningKey, "settled"\)/);
+  assert.doesNotMatch(controller.replace(settle, ""), /remember\(\)/, "nothing but settling writes the memory");
 });
