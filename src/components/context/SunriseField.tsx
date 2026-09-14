@@ -13,7 +13,7 @@ export function SunriseField({ id, hero = false, type = "horizon" }: {
   id: string; hero?: boolean; type?: IndexProject["artworkType"];
 }) {
   return <div className={`${styles.field} ${hero ? styles.heroField : styles.projectField}`} data-artwork={type} aria-hidden="true">
-    {hero && <><div className={styles.warmPhase} /><div className={styles.dawnPhase} /><div className={styles.solarLight} /></>}
+    {hero && <><div className={styles.warmPhase} data-light-phase="warm" /><div className={styles.dawnPhase} data-light-phase="dawn" /><div className={styles.solarLight} /></>}
     <div className={styles.lightWash} />
     <svg className={styles.water} viewBox="0 0 1440 360" preserveAspectRatio="none" fill="none">
       <defs>
