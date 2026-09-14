@@ -18,12 +18,13 @@ export function LivingHero({ children, className = "", labelId = "context-title"
     let pointerX = 0, pointerY = 0, targetX = 0, targetY = 0;
     let resetTimer: ReturnType<typeof setTimeout> | undefined;
     let start = 0, distance = 1, visible = true;
-    const properties = ["--warm-light", "--dawn-light", "--horizon-x", "--horizon-y", "--reflection-x", "--reflection-strength", "--light-touch-x", "--light-touch-y"];
+    const properties = ["--warm-light", "--dawn-light", "--gold-light", "--horizon-x", "--horizon-y", "--reflection-x", "--reflection-strength", "--light-touch-x", "--light-touch-y"];
 
     function paint(progress: number) {
       if (!hero) return;
       hero.style.setProperty("--warm-light", String(Math.min(1, progress * 2)));
       hero.style.setProperty("--dawn-light", String(Math.max(0, (progress - .4) / .6)));
+      hero.style.setProperty("--gold-light", String(progress));
       hero.style.setProperty("--horizon-x", `${progress * 24}px`);
       hero.style.setProperty("--horizon-y", `${progress * -48}px`);
       hero.style.setProperty("--reflection-x", `${progress * -32}px`);

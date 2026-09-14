@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LivingHero } from "./LivingHero";
-import { SunriseField } from "./SunriseField";
+import { OceanLight } from "./OceanLight";
 import { indexProjects } from "../../data/projects";
 
 export function QuietPortfolio() {
@@ -12,7 +12,7 @@ export function QuietPortfolio() {
 
     <LivingHero className="quiet-sunrise" labelId="quiet-light-title" compact>
       <h2 id="quiet-light-title" className="quiet-sr-only">A study in morning light</h2>
-      <SunriseField id="quiet-light" hero />
+      <OceanLight />
     </LivingHero>
 
     <section id="work" className="quiet-work" aria-labelledby="quiet-work-title">

@@ -1,8 +1,8 @@
 # Uday Mukhija Portfolio
 
-The homepage is a minimal personal portfolio: a short introduction, one animated berry/terracotta sunrise, and a native expandable project list. The previous `/quiet` preview URL redirects to `/`. The earlier [DAYBREAK implementation](docs/DAYBREAK.md) remains available at `/daybreak`.
+The homepage is a minimal personal portfolio: a short introduction, one animated ocean sunrise that shifts from silver dawn to golden light as you scroll, and a native expandable project list. The previous `/quiet` preview URL redirects to `/`. The earlier [DAYBREAK implementation](docs/DAYBREAK.md) remains available at `/daybreak`.
 
-The homepage uses self-hosted [Source Sans 3](https://github.com/adobe-fonts/source-sans), with its OFL license in `src/fonts/quiet`. The sunrise reflection responds to pointer movement, taps, and keyboard controls (arrow keys, Enter/Space, Escape), and stays static with reduced motion. Its animation loop stops when settled or offscreen.
+The homepage uses a Helvetica Neue / Arial system font stack, pure white paper, and black primary text. The sunrise reflection responds to pointer movement, taps, and keyboard controls (arrow keys, Enter/Space, Escape), and stays static with reduced motion. Its animation loop stops when settled or offscreen.
 
 An editorial design-engineering portfolio for backend-heavy product systems, data engineering, and applied ML work. The interface itself is a working sample: typography-led composition, a responsive selected-work stage, authored SVG, purposeful motion, a route-local Three.js study, and reduced-motion fallbacks.
 

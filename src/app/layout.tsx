@@ -13,16 +13,6 @@ import "./quiet/quiet.css";
 
 const siteUrl = getSiteUrl();
 
-const humanist = localFont({
-  src: "../fonts/quiet/source-sans-3-variable.woff2",
-  weight: "200 900",
-  style: "normal",
-  variable: "--font-humanist-face",
-  preload: false,
-  display: "swap",
-  adjustFontFallback: "Arial",
-});
-
 /* Self-hosted OFL type. The retained Daybreak route keeps its serif;
    the editorial system uses Space Grotesk and IBM Plex Mono. */
 const serif = localFont({
@@ -91,7 +81,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const linkedInLink = contactLinks.find((link) => link.label === "LinkedIn");
 
   return (
-    <html lang="en" className={`${humanist.variable} ${serif.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content

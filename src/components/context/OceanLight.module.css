@@ -1,0 +1,5 @@
+.field { position: absolute; inset: 0; background: #fff; pointer-events: none; }
+.silver, .gold { position: absolute; inset: 0; width: 100%; height: 100%; }
+.gold { opacity: var(--gold-light, 0); }
+.light { transform: translate(calc(var(--light-touch-x, 0px) + var(--horizon-x, 0px)), calc(var(--light-touch-y, 0px) * .35)); }
+.reflection { transform: translate(calc(var(--light-touch-x, 0px) + var(--reflection-x, 0px)), calc(var(--light-touch-y, 0px) * .2)); }
