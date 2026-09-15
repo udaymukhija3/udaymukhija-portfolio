@@ -4,12 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { contactLinks } from "../data/siteContent";
+import { isPanelRoute } from "../lib/panelRoutes";
 
 export function NavBar() {
   const pathname = usePathname();
   const currentPathname = pathname ?? "";
   const isDaybreak = currentPathname === "/daybreak";
-  const isQuiet = currentPathname === "/" || currentPathname === "/quiet";
+  const isPanel = isPanelRoute(currentPathname);
+  // Retained experiments keep their own chrome; every other route wears the homepage's header.
+  const isLegacy = isDaybreak || currentPathname === "/alternate" || currentPathname.startsWith("/lab");
+  const isQuiet = !isPanel && !isLegacy;
+  const isHome = currentPathname === "/" || currentPathname === "/quiet";
   const emailHref = contactLinks.find((link) => link.label === "Email")?.href ?? "mailto:udaymukhija3@gmail.com";
   const navLinkClassName = (isActive: boolean) => (isActive ? "nav-link is-active" : "nav-link");
   const isCaseStudy = currentPathname.startsWith("/projects/");
@@ -18,7 +23,7 @@ export function NavBar() {
   const isAbout = currentPathname === "/about";
 
   useEffect(() => {
-    if (isDaybreak || isQuiet) return;
+    if (isDaybreak || isQuiet || isPanel) return;
     let frame = 0;
 
     const writeReadingState = () => {
@@ -48,15 +53,18 @@ export function NavBar() {
       document.documentElement.style.removeProperty("--site-progress");
       document.documentElement.removeAttribute("data-page-scrolled");
     };
-  }, [currentPathname, isDaybreak, isQuiet]);
+  }, [currentPathname, isDaybreak, isQuiet, isPanel]);
+
+  // The /panel prototype carries its own navigation band.
+  if (isPanel) return null;
 
   if (isQuiet) return (
     <header className="quiet-header">
       <nav aria-label="Primary">
-        <Link href="/" aria-current="page">home</Link>
-        <a href="#work">work</a>
-        <Link href="/notes" prefetch={false}>notes</Link>
-        <Link href="/about" prefetch={false}>about</Link>
+        <Link href="/" aria-current={isHome ? "page" : undefined}>home</Link>
+        {isHome ? <a href="#work">work</a> : <Link href="/projects" prefetch={false} aria-current={isCaseStudy || isArchive ? "page" : undefined}>work</Link>}
+        <Link href="/notes" prefetch={false} aria-current={currentPathname === "/notes" ? "page" : undefined}>notes</Link>
+        <Link href="/about" prefetch={false} aria-current={isAbout || currentPathname === "/experience" || currentPathname === "/resume" ? "page" : undefined}>about</Link>
       </nav>
       <a href={emailHref}>say hello <span aria-hidden="true">↗</span></a>
     </header>

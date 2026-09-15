@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { ProjectCard } from "../../components/ProjectCard";
+import Link from "next/link";
 import { ArchiveFilter } from "../../components/ArchiveFilter";
+import { QuietIntro, QuietPage } from "../../components/quiet/QuietPage";
+import { sentenceCase } from "../../lib/sentenceCase";
 import { projectCategories, projects } from "../../data/projects";
 import type { Project } from "../../types";
 
@@ -59,47 +61,54 @@ export default function ProjectsPage() {
   const visibleProjects = sortProjects(projects);
 
   return (
-    <>
-      <section className="section page-intro">
-        <div className="container page-intro-shell page-intro-narrow">
-          <p className="eyebrow">Work archive</p>
-          <h1>A wider view of the work.</h1>
-          <p>Products, data systems, and machine-learning work. Each case study keeps the deeper technical proof within reach.</p>
+    <QuietPage>
+      <QuietIntro title="Things I’ve made.">
+        <p>Products, data systems, and some machine-learning work. Each one opens into a longer write-up.</p>
+      </QuietIntro>
+
+      <section id="project-archive" className="qp-section" aria-label="Project archive">
+        <div className="qp-filter">
+          <nav aria-label="Project categories">
+            {projectCategories.map((item) => {
+              const href = item.id === "all" ? "/projects" : `/projects?category=${item.id}`;
+              const count = item.id === "all" ? projects.length : projects.filter((project) => project.category === item.id).length;
+
+              return (
+                <a
+                  key={item.id}
+                  className={item.id === "all" ? "is-active" : undefined}
+                  href={href}
+                  data-category-link={item.id}
+                  aria-current={item.id === "all" ? "page" : undefined}
+                >
+                  {item.label.toLowerCase()}
+                  <small>{count}</small>
+                </a>
+              );
+            })}
+          </nav>
+          <p data-filter-count role="status">{visibleProjects.length} projects</p>
         </div>
-      </section>
 
-      <section id="project-archive" className="section section-compact-top section-last">
-        <div className="container">
-          <div className="projects-toolbar">
-            <div className="filter-row" role="navigation" aria-label="Project categories">
-              {projectCategories.map((item) => {
-                const href = item.id === "all" ? "/projects" : `/projects?category=${item.id}`;
-                const className = item.id === "all" ? "filter-chip is-active" : "filter-chip";
-
-                return (
-                  <a
-                    key={item.id}
-                    className={className}
-                    href={href}
-                    data-category-link={item.id}
-                    aria-current={item.id === "all" ? "page" : undefined}
-                  >
-                    {item.label}
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-
-          <p className="archive-result-count" data-filter-count role="status">{visibleProjects.length} projects</p>
-          <div className="project-detail-grid">
-            {visibleProjects.map((project) => (
-              <div key={project.slug} data-project-category={project.category}><ProjectCard project={project} detailed /></div>
-            ))}
-          </div>
+        <div className="quiet-projects">
+          {visibleProjects.map((project) => (
+            <details key={project.slug} name="quiet-project" data-project-category={project.category}>
+              <summary>
+                <span>{project.title}</span>
+                <span className="quiet-category">{sentenceCase(project.label)}</span>
+                <span className="quiet-plus" aria-hidden="true" />
+              </summary>
+              <div className="quiet-detail">
+                <p>{project.summary}</p>
+                <Link href={`/projects/${project.slug}`} prefetch={false}>
+                  View project <span aria-hidden="true">↗</span><span className="quiet-sr-only">: {project.title}</span>
+                </Link>
+              </div>
+            </details>
+          ))}
         </div>
         <ArchiveFilter />
       </section>
-    </>
+    </QuietPage>
   );
 }

@@ -16,7 +16,8 @@ const stops = [
 
 export function SiteMeasure() {
   const pathname = usePathname() ?? "";
-  if (pathname === "/" || pathname === "/daybreak" || pathname === "/alternate" || pathname === "/quiet") return null;
+  // Only the Lab still wears the legacy chrome; every other route has the quiet header and footer.
+  if (!pathname.startsWith("/lab")) return null;
   const current = stops.findIndex(stop => stop.href !== "/" && pathname.startsWith(stop.href));
   return (
     <div className="site-ground">

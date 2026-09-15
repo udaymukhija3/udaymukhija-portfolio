@@ -1,5 +1,5 @@
 /* The homepage has its own quiet ground; existing case studies keep their shell. */
-:root:has(#context-portfolio, #quiet-portfolio) {
+:root:has(#context-portfolio, #quiet-portfolio, #quiet-page) {
   --ink: #111111;
   --charcoal: #2A2A2A;
   --paper: #F7F4EF;
@@ -26,17 +26,17 @@
   --context-gutter: clamp(24px, 4.8vw, 72px);
   scroll-padding-top: 24px;
 }
-body:has(#context-portfolio, #quiet-portfolio) {
+body:has(#context-portfolio, #quiet-portfolio, #quiet-page) {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--context-font);
 }
-body:has(#context-portfolio, #quiet-portfolio) .route-frame { animation: none; }
-body:has(#context-portfolio, #quiet-portfolio) :where(a, button, summary):focus-visible {
+body:has(#context-portfolio, #quiet-portfolio, #quiet-page) .route-frame { animation: none; }
+body:has(#context-portfolio, #quiet-portfolio, #quiet-page) :where(a, button, summary):focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 5px;
 }
-body:has(#context-portfolio, #quiet-portfolio) .skip-link { background: var(--paper); color: var(--ink); }
+body:has(#context-portfolio, #quiet-portfolio, #quiet-page) .skip-link { background: var(--paper); color: var(--ink); }
 .context-container {
   width: 100%;
   max-width: 1600px;

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { SectionHeading } from "../../components/SectionHeading";
+import { QuietIntro, QuietPage, QuietSection } from "../../components/quiet/QuietPage";
+import { indexProjects } from "../../data/projects";
 import { contactLinks, resumeHref } from "../../data/siteContent";
 import {
   educationItems,
@@ -22,178 +23,106 @@ export const metadata: Metadata = {
 export default function ResumePage() {
   const profileLinks = contactLinks.filter((link) => link.label !== "Resume");
   const isResumeExternal = resumeHref.startsWith("http");
+  const categoryFor = (href: string) => indexProjects.find((project) => project.href === href)?.category;
 
   return (
-    <>
-      <section className="section page-intro">
-        <div className="container page-intro-shell">
-          <p className="eyebrow">{resumeSummary.eyebrow}</p>
-          <h1>{resumeSummary.title}</h1>
-          <p>{resumeSummary.intro}</p>
-          <p className="detail-note">{resumeSummary.note}</p>
-          <div className="inline-link-row">
-            <a
-              className="inline-link"
-              href={resumeHref}
-              target={isResumeExternal ? "_blank" : undefined}
-              rel={isResumeExternal ? "noreferrer" : undefined}
-            >
-              Resume document
-            </a>
-            {profileLinks.map((link) => {
-              const isExternal = link.href.startsWith("http");
+    <QuietPage>
+      <QuietIntro title="Resume.">
+        <p>{resumeSummary.title}. {resumeSummary.intro}</p>
+        <p className="qp-meta">{resumeSummary.note}</p>
+        <p className="qp-links">
+          <a
+            href={resumeHref}
+            target={isResumeExternal ? "_blank" : undefined}
+            rel={isResumeExternal ? "noreferrer" : undefined}
+          >
+            Resume document <span aria-hidden="true">↗</span>
+          </a>
+          {profileLinks.map((link) => {
+            const isExternal = link.href.startsWith("http");
 
-              return (
-                <a
-                  key={link.label}
-                  className="inline-link"
-                  href={link.href}
-                  target={isExternal ? "_blank" : undefined}
-                  rel={isExternal ? "noreferrer" : undefined}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-          </div>
-          <div className="resume-scan" aria-hidden="true">
-            <span className="resume-scan-line" />
-            <span className="resume-scan-runner"><i /></span>
-            <span className="resume-scan-stop resume-scan-stop-one"><i /><small>Product</small></span>
-            <span className="resume-scan-stop resume-scan-stop-two"><i /><small>Backend</small></span>
-            <span className="resume-scan-stop resume-scan-stop-three"><i /><small>Data</small></span>
-          </div>
-        </div>
-      </section>
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noreferrer" : undefined}
+              >
+                {link.label} <span aria-hidden="true">↗</span>
+              </a>
+            );
+          })}
+        </p>
+      </QuietIntro>
 
-      <section className="section">
-        <div className="container resume-grid">
-          <section id="experience" className="resume-card">
-            <p className="eyebrow">Experience</p>
-            <h2>Recent work</h2>
-            <div className="resume-stack">
-              {experienceItems.map((item) => (
-                <article key={item.company} className="resume-item">
-                  <div className="resume-item-header">
-                    <div>
-                      <h3>{item.role}</h3>
-                      <p className="resume-company">{item.company}</p>
-                    </div>
-                    <p className="resume-meta">
-                      {item.period}
-                      <span>{item.location}</span>
-                    </p>
-                  </div>
-                  <ul className="resume-list">
-                    {item.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
+      <QuietSection id="experience" title="Experience">
+        {experienceItems.map((item) => (
+          <article key={item.company} className="qp-row" aria-label={`${item.role} at ${item.company}`}>
+            <span>
+              {item.company}
+              <br />
+              {item.period.replace(" - ", "–")}
+              <br />
+              {item.location}
+            </span>
+            <div>
+              <h3>{item.role}</h3>
+              <ul className="qp-list">
+                {item.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
             </div>
-          </section>
+          </article>
+        ))}
+      </QuietSection>
 
-          <section className="resume-card">
-            <p className="eyebrow">Skills</p>
-            <h2>Where I am strongest</h2>
-            <div className="skill-groups">
-              {skillGroups.map((group) => (
-                <article key={group.label} className="skill-group">
-                  <h3>{group.label}</h3>
-                  <p>{group.items.join(", ")}</p>
-                </article>
-              ))}
+      <QuietSection id="skills" title="Skills" note="where I’m strongest">
+        <dl>
+          {skillGroups.map((group) => (
+            <div key={group.label} className="qp-row">
+              <dt>{group.label}</dt>
+              <dd>{group.items.join(", ")}</dd>
             </div>
-          </section>
-        </div>
-      </section>
+          ))}
+        </dl>
+      </QuietSection>
 
-      <section className="section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="Selected projects"
-            title="Projects to start with"
-            note="If you're short on time, these are the product, backend, and data-system projects I'd open first."
-          />
-          <div className="resume-project-grid">
-            {resumeProjects.map((project) => (
-              <article key={project.title} className="resume-card">
-                <h3>
-                  <Link className="project-title-link" href={project.href}>
-                    {project.title}
-                  </Link>
-                </h3>
+      <QuietSection id="start" title="Start with these" note="if you’re short on time">
+        <div className="quiet-projects">
+          {resumeProjects.map((project) => (
+            <details key={project.title} name="resume-project">
+              <summary>
+                <span>{project.title}</span>
+                <span className="quiet-category">{categoryFor(project.href)}</span>
+                <span className="quiet-plus" aria-hidden="true" />
+              </summary>
+              <div className="quiet-detail">
                 <p>{project.summary}</p>
-                <ul className="resume-list">
+                <ul className="qp-list">
                   {project.bullets.map((bullet) => (
                     <li key={bullet}>{bullet}</li>
                   ))}
                 </ul>
-              </article>
-            ))}
-          </div>
+                <Link href={project.href} prefetch={false}>
+                  View project <span aria-hidden="true">↗</span><span className="quiet-sr-only">: {project.title}</span>
+                </Link>
+              </div>
+            </details>
+          ))}
         </div>
-      </section>
+      </QuietSection>
 
-      <section className="section section-last">
-        <div className="container resume-grid">
-          <section className="resume-card">
-            <p className="eyebrow">Education</p>
-            <h2>Background</h2>
-            <div className="resume-stack">
-              {educationItems.map((item) => (
-                <article key={item.school} className="resume-item">
-                  <div className="resume-item-header">
-                    <div>
-                      <h3>{item.school}</h3>
-                      <p className="resume-company">{item.detail}</p>
-                    </div>
-                    <p className="resume-meta">{item.period}</p>
-                  </div>
-                </article>
-              ))}
+      <QuietSection id="education" title="Education">
+        <dl>
+          {educationItems.map((item) => (
+            <div key={item.school} className="qp-row">
+              <dt>{item.period}</dt>
+              <dd>{item.detail}, {item.school}</dd>
             </div>
-          </section>
-
-          <section className="resume-card">
-            <p className="eyebrow">Contact</p>
-            <h2>Quickest way to evaluate fit</h2>
-            <p>
-              If you want the fastest read on my product and backend work, start with these
-              projects, then check GitHub or the resume document for more detail.
-            </p>
-            <div className="inline-link-row">
-              <Link className="inline-link" href="/projects/gathrly">
-                Gathr
-              </Link>
-              <Link className="inline-link" href="/projects/murmur">
-                Murmur
-              </Link>
-              <Link className="inline-link" href="/projects/vibegrid">
-                VibeGrid
-              </Link>
-            </div>
-            <div className="inline-link-row">
-              {profileLinks.map((link) => {
-                const isExternal = link.href.startsWith("http");
-
-                return (
-                  <a
-                    key={link.label}
-                    className="inline-link"
-                    href={link.href}
-                    target={isExternal ? "_blank" : undefined}
-                    rel={isExternal ? "noreferrer" : undefined}
-                  >
-                    {link.label}
-                  </a>
-                );
-              })}
-            </div>
-          </section>
-        </div>
-      </section>
-    </>
+          ))}
+        </dl>
+      </QuietSection>
+    </QuietPage>
   );
 }

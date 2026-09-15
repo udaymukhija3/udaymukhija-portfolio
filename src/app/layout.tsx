@@ -10,6 +10,8 @@ import "./daybreak-shell.css";
 import "./system.css";
 import "./context-shell.css";
 import "./quiet/quiet.css";
+import "./quiet/quiet-pages.css";
+import "./panel.css";
 
 const siteUrl = getSiteUrl();
 

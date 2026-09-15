@@ -1,15 +1,35 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ProjectMedia } from "../../../components/ProjectMedia";
+import { QuietIntro, QuietPage, QuietSection } from "../../../components/quiet/QuietPage";
 import { StructuredData } from "../../../components/StructuredData";
 import { getProjectBySlug, projects } from "../../../data/projects";
+import { sentenceCase } from "../../../lib/sentenceCase";
 import { getSiteUrl, siteConfig } from "../../../lib/site";
+import gathrCapture from "../../../../public/images/projects/gathr-plans.png";
+import vibegridCard from "../../../../public/images/projects/vibegrid-social-card.png";
 
 type ProjectPageProps = {
   params: Promise<{
     slug: string;
   }>;
+};
+
+/* Only real product captures are shown; everything else is told in words. */
+const captures: Record<string, { src: typeof gathrCapture; alt: string; orientation: "portrait" | "landscape"; caption: string }> = {
+  gathrly: {
+    src: gathrCapture,
+    alt: "Gathr Plans screen showing plan follow-up, upcoming plans, and planning tools",
+    orientation: "portrait",
+    caption: "The Plans screen, from the current build.",
+  },
+  vibegrid: {
+    src: vibegridCard,
+    alt: "VibeGrid private crew ritual showing a four-fragment vibe card",
+    orientation: "landscape",
+    caption: "The crew ritual card, from the current build.",
+  },
 };
 
 export async function generateStaticParams() {
@@ -63,13 +83,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     "Read the architecture and edge-case sections.",
     proofPath ? `Follow the documented proof path: ${proofPath}.` : "Use the case-study evidence as the primary proof path.",
   ];
-  const proofFacts = [
-    { label: "Build window", value: project.timeline },
-    { label: "Role", value: getFact("Role") ?? "Software engineering" },
-    { label: "Status", value: project.status },
-    { label: "Scope", value: getFact("Scope") ?? "Self-directed project" },
-    { label: "Proof", value: proofPath ?? "Case study" },
-  ];
+  const timeline = project.timeline.replace("-", "–");
+  const capture = captures[project.slug];
   const currentProjectIndex = projects.findIndex((item) => item.slug === project.slug);
   const previousProject = currentProjectIndex > 0 ? projects[currentProjectIndex - 1] : undefined;
   const nextProject = currentProjectIndex >= 0 && currentProjectIndex < projects.length - 1
@@ -92,176 +107,127 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   };
 
   return (
-    <>
+    <QuietPage>
       <StructuredData data={projectJsonLd} />
 
-      <section className="section project-intro">
-        <div className="container project-intro-copy">
-          <p className="eyebrow">{project.label}</p>
-          <h1>{project.title}</h1>
-          <p className="lead">{project.summary}</p>
-          <div className="project-links">
-            <Link className="project-link project-link-primary" href="/#work">Back to selected work</Link>
-            {project.links.map((link) => (
-              <a key={link.label} className="project-link" href={link.href} target="_blank" rel="noreferrer">
-                {link.label} <span aria-hidden="true">↗</span>
-              </a>
-            ))}
+      <QuietIntro title={project.title}>
+        <p className="qp-meta">{sentenceCase(project.label)} · {timeline} · {project.status}</p>
+        <p>{project.summary}</p>
+        <p className="qp-links">
+          {project.links.map((link) => (
+            <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
+              {link.label} <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+          <Link href="/projects" prefetch={false} data-back>All work <span aria-hidden="true">↗</span></Link>
+        </p>
+      </QuietIntro>
+
+      {capture ? (
+        <figure className="qp-section">
+          <div className={`qp-figure qp-figure-${capture.orientation}`}>
+            <Image src={capture.src} alt={capture.alt} sizes={capture.orientation === "portrait" ? "240px" : "(max-width: 720px) 92vw, 672px"} />
           </div>
-        </div>
-      </section>
+          <figcaption className="qp-caption">{capture.caption}</figcaption>
+        </figure>
+      ) : null}
 
-      <section className="project-case-media-section" aria-label={`${project.title} product visual`}>
-        <div className="container">
-          <ProjectMedia project={project} context="case-study" />
+      <QuietSection id="product" title="What it is">
+        <div className="qp-prose">
+          {(productSection?.paragraphs ?? [project.summary]).map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
-      </section>
+      </QuietSection>
 
-      <section className="section project-narrative-section">
-        <div className="container project-narrative-grid">
-          <header>
-            <p className="eyebrow">Product</p>
-            <h2>What it does and how it feels.</h2>
-          </header>
-          <article className="project-prose">
-            {(productSection?.paragraphs ?? [project.summary]).map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </article>
+      <QuietSection id="loop" title="The loop it has to make believable">
+        <ol>
+          {importantInteractions.map((interaction, index) => (
+            <li key={interaction} className="qp-row">
+              <span>0{index + 1}</span>
+              <p>{interaction}</p>
+            </li>
+          ))}
+        </ol>
+      </QuietSection>
+
+      <QuietSection id="engineering" title="How it’s built">
+        <div className="qp-prose">
+          {(technicalSection?.paragraphs ?? [project.evidenceNote]).map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
-      </section>
+      </QuietSection>
 
-      <section className="section project-interaction-section">
-        <div className="container project-interaction-grid">
-          <header>
-            <p className="eyebrow">Important interaction</p>
-            <h2>The loop the product has to make believable.</h2>
-          </header>
-          <ol className="interaction-list">
-            {importantInteractions.map((interaction, index) => (
-              <li key={interaction}>
-                <span>0{index + 1}</span>
-                <p>{interaction}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="section engineering-section">
-        <div className="container engineering-grid">
-          <article>
-            <p className="eyebrow">Engineering challenge</p>
-            <h2>Keep the product simple while the system handles the difficult behavior.</h2>
-            <div className="project-prose">
-              {(technicalSection?.paragraphs ?? [project.evidenceNote]).map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+      <QuietSection id="architecture" title="Architecture">
+        <dl>
+          {project.system.map((item) => (
+            <div key={item.label} className="qp-row">
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
             </div>
-          </article>
-
-          <aside>
-            <p className="eyebrow">Architecture</p>
-            <dl className="architecture-list">
-              {project.system.map((item) => (
-                <div key={item.label}>
-                  <dt>{item.label}</dt>
-                  <dd>{item.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </aside>
-        </div>
-      </section>
+          ))}
+        </dl>
+      </QuietSection>
 
       {failureCases.length > 0 ? (
-        <section className="section failure-section">
-          <div className="container project-narrative-grid">
-            <header>
-              <p className="eyebrow">Edges and failure</p>
-              <h2>What has to hold up.</h2>
-            </header>
-            <ul className="failure-list">
-              {failureCases.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          </div>
-        </section>
+        <QuietSection id="edges" title="What has to hold up">
+          <ul className="qp-list">
+            {failureCases.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+        </QuietSection>
       ) : null}
 
-      {reflectionSections.length > 0 ? (
-        <section className="section reflection-section">
-          <div className="container reflection-grid">
-            {reflectionSections.map((section) => (
-              <article key={section.title} className="project-reflection">
-                <h2>{section.title}</h2>
-                {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              </article>
-            ))}
+      {reflectionSections.map((section, index) => (
+        <QuietSection key={section.title} id={`reflection-${index + 1}`} title={section.title}>
+          <div className="qp-prose">
+            {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
-        </section>
-      ) : null}
+        </QuietSection>
+      ))}
 
-      <section className="section technical-proof-section">
-        <div className="container">
-          <details className="technical-proof">
+      <QuietSection id="proof" title="Proof">
+        <p className="qp-meta">{project.evidenceNote}</p>
+        <div className="quiet-projects" style={{ marginTop: "8px" }}>
+          <details>
             <summary>
-              <span>
-                <small>Technical proof</small>
-                Repository, verification, stack, and project status
-              </span>
-              <span aria-hidden="true">+</span>
+              <span>Verify</span>
+              <span className="quiet-category">Repository, checks, stack, status</span>
+              <span className="quiet-plus" aria-hidden="true" />
             </summary>
-            <div className="technical-proof-body">
-              <div>
-                <p className="technical-proof-note">{project.evidenceNote}</p>
-                <dl className="proof-facts">
-                  {proofFacts.map((item) => (
-                    <div key={item.label}><dt>{item.label}</dt><dd>{item.value}</dd></div>
-                  ))}
-                </dl>
-              </div>
-              <div>
-                <h3>Fastest verification path</h3>
-                <ol className="reviewer-steps">
-                  {evaluationSteps.map((step) => <li key={step}>{step}</li>)}
-                </ol>
-                <h3>Stack</h3>
-                <p>{project.stack.join(" · ")}</p>
-                {project.metrics.length > 0 ? (
-                  <dl className="metric-list">
-                    {project.metrics.map((metric) => (
-                      <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>
-                    ))}
-                  </dl>
-                ) : null}
-              </div>
+            <div className="quiet-detail">
+              <ol>
+                {evaluationSteps.map((step, index) => (
+                  <li key={step} className="qp-row"><span>0{index + 1}</span><p>{step}</p></li>
+                ))}
+              </ol>
+              <dl>
+                <div className="qp-row"><dt>Role</dt><dd>{getFact("Role") ?? "Software engineering"}</dd></div>
+                <div className="qp-row"><dt>Scope</dt><dd>{getFact("Scope") ?? "Self-directed project"}</dd></div>
+                {proofPath ? <div className="qp-row"><dt>Proof</dt><dd>{proofPath}</dd></div> : null}
+                <div className="qp-row"><dt>Stack</dt><dd>{project.stack.join(", ")}</dd></div>
+                {project.metrics.map((metric) => (
+                  <div key={metric.label} className="qp-row"><dt>{metric.label}</dt><dd>{metric.value}</dd></div>
+                ))}
+              </dl>
             </div>
           </details>
-
-          <nav className="project-next" aria-label="Project navigation">
-            <Link className="project-next-all" href="/projects">
-              <small>Archive</small>
-              <span>All work</span>
-            </Link>
-            <div className="project-next-links">
-              {previousProject ? (
-                <Link className="project-next-link project-next-previous" href={`/projects/${previousProject.slug}`}>
-                  <small>Previous</small>
-                  <span>{previousProject.title}</span>
-                  <i aria-hidden="true">←</i>
-                </Link>
-              ) : null}
-              {nextProject ? (
-                <Link className="project-next-link project-next-forward" href={`/projects/${nextProject.slug}`}>
-                  <small>Next</small>
-                  <span>{nextProject.title}</span>
-                  <i aria-hidden="true">→</i>
-                </Link>
-              ) : null}
-            </div>
-          </nav>
         </div>
-      </section>
-    </>
+      </QuietSection>
+
+      <nav className="qp-nav" aria-label="Project navigation">
+        {previousProject ? (
+          <Link href={`/projects/${previousProject.slug}`} prefetch={false}>
+            <span aria-hidden="true">←</span> {previousProject.title}<span className="quiet-sr-only"> (previous project)</span>
+          </Link>
+        ) : <span />}
+        <Link href="/projects" prefetch={false}>All work <span aria-hidden="true">↗</span></Link>
+        {nextProject ? (
+          <Link href={`/projects/${nextProject.slug}`} prefetch={false}>
+            {nextProject.title}<span className="quiet-sr-only"> (next project)</span> <span aria-hidden="true">→</span>
+          </Link>
+        ) : <span />}
+      </nav>
+    </QuietPage>
   );
 }

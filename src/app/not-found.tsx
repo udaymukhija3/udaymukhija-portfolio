@@ -1,21 +1,16 @@
 import Link from "next/link";
+import { QuietIntro, QuietPage } from "../components/quiet/QuietPage";
 
 export default function NotFound() {
   return (
-    <section className="section page-intro">
-      <div className="container page-intro-shell">
-        <p className="eyebrow">404</p>
-        <h1>Page not found</h1>
-        <p>That page doesn&apos;t exist. The links below cover the rest of the site.</p>
-        <div className="cta-row">
-          <Link className="button button-solid" href="/">
-            Back home
-          </Link>
-          <Link className="button button-ghost" href="/projects">
-            View projects
-          </Link>
-        </div>
-      </div>
-    </section>
+    <QuietPage>
+      <QuietIntro title="That page doesn’t exist.">
+        <p>The links below cover the rest of the site.</p>
+        <p className="qp-links">
+          <Link href="/">Home <span aria-hidden="true">→</span></Link>
+          <Link href="/projects" prefetch={false}>Work <span aria-hidden="true">→</span></Link>
+        </p>
+      </QuietIntro>
+    </QuietPage>
   );
 }

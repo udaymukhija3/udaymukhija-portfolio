@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { QuietIntro, QuietPage, QuietSection } from "../../components/quiet/QuietPage";
 import { workPrinciples } from "../../data/siteContent";
 
 export const metadata: Metadata = {
@@ -7,12 +8,25 @@ export const metadata: Metadata = {
 };
 
 export default function NotesPage() {
-  return <div className="container" style={{ paddingBlock: "96px", maxWidth: "960px" }}>
-    <header className="page-intro"><p className="eyebrow">Notes</p><h1>On making things work.</h1></header>
-    {workPrinciples.map((note, index) => <article key={note.title} style={{ borderTop: "1px solid var(--line)", paddingBlock: "48px" }}>
-      <p className="eyebrow">0{index + 1}</p>
-      <h2 style={{ marginBlock: "16px", fontWeight: 500 }}>{note.title}</h2>
-      <p style={{ maxWidth: "60ch" }}>{note.body}</p>
-    </article>)}
-  </div>;
+  return (
+    <QuietPage>
+      <QuietIntro title="On making things work.">
+        <p>Short notes on building thoughtful products and the systems beneath them.</p>
+      </QuietIntro>
+
+      <QuietSection id="notes" title="Notes">
+        <ol>
+          {workPrinciples.map((note, index) => (
+            <li key={note.title} className="qp-row">
+              <span>0{index + 1}</span>
+              <div>
+                <h3>{note.title}</h3>
+                <p>{note.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </QuietSection>
+    </QuietPage>
+  );
 }

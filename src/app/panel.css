@@ -1,0 +1,300 @@
+/* Homepage panel: one rectangular object divided by 1px rules.
+   The rules are the grid's gaps over a black ground; every region is white. */
+:root:has(#panel) {
+  --paper: #ffffff;
+  --ink: #000000;
+  --grey: #6b6b6b;
+  --grey-on-ink: #9c9c9c;
+  --accent: #c4501a;
+  --panel-inset: 24px;
+  --panel-pad: 24px;
+  --panel-ease: cubic-bezier(0.2, 0, 0, 1);
+}
+body:has(#panel) { background: var(--paper); color: var(--ink); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+body:has(#panel) .route-frame { animation: none; }
+body:has(#panel) > :is(.site-footer, .site-header, .site-ground) { display: none; }
+body:has(#panel) .skip-link { background: var(--ink); color: var(--paper); }
+body:has(#panel) :where(a, button, summary):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+body:has(#panel) ::selection { background: var(--accent); color: var(--paper); }
+
+/* The face variable lives on #panel (next/font applies it there), so the stack is composed here, not on :root. */
+#panel { --panel-font: var(--font-grotesk-face), "Helvetica Neue", Helvetica, Arial, sans-serif; padding: var(--panel-inset); font-family: var(--panel-font); font-size: 14px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+:where(#panel) a { color: inherit; text-decoration: none; }
+:where(#panel) :is(h1, h2, p) { margin: 0; font-weight: inherit; font-size: inherit; }
+
+.panel-object {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 56px minmax(auto, 5fr) minmax(auto, 3fr) 48px;
+  grid-template-areas:
+    "id id id nav nav nav nav nav nav nav nav nav"
+    "id id id g g g g g g g g g"
+    "v v v v v m m m m e e e"
+    "r r r r r r r r r r r r";
+  gap: 1px;
+  min-height: calc(100svh - var(--panel-inset) * 2);
+  border: 1px solid var(--ink);
+  background: var(--ink);
+}
+.panel-object > * { min-width: 0; min-height: 0; background: var(--paper); }
+
+/* Identity spine */
+.panel-identity { grid-area: id; display: flex; flex-direction: column; padding: var(--panel-pad); }
+.panel-name { font-size: clamp(32px, 2.9vw, 52px); line-height: 1.02; font-weight: 500; letter-spacing: -0.025em; }
+.panel-name span { display: block; }
+.panel-role { margin-top: 40px; max-width: 22ch; font-size: 15px; line-height: 1.45; font-weight: 500; letter-spacing: -0.005em; }
+.panel-role span { display: block; font-weight: 400; color: var(--grey); }
+.panel-place { margin-top: auto; font-size: 13px; color: var(--grey); }
+
+/* Navigation band */
+.panel-nav { grid-area: nav; display: flex; align-items: center; gap: 40px; padding-inline: var(--panel-pad); font-size: 14px; }
+.panel-nav a { position: relative; }
+.panel-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; opacity: 0; transition: opacity 150ms var(--panel-ease); }
+.panel-nav a:hover::after, .panel-nav a:focus-visible::after { opacity: 1; }
+
+/* Project cells: the whole region is the link */
+.panel-cell { position: relative; display: grid; grid-template-rows: 1fr auto; padding: var(--panel-pad); overflow: hidden; }
+.panel-cell[data-project="gathr"] { grid-area: g; }
+.panel-cell[data-project="vibegrid"] { grid-area: v; }
+.panel-cell[data-project="murmur"] { grid-area: m; }
+/* The name is first in the DOM so the link reads name, descriptor, description; the description sits above it. */
+.panel-cell-label { display: block; grid-row: 2; align-self: end; }
+.panel-cell-name { font-size: clamp(24px, 2.2vw, 34px); line-height: 1; font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; }
+.panel-cell-descriptor { display: block; margin-top: 10px; font-size: 14px; color: var(--grey); }
+.panel-cell-description { display: block; grid-row: 1; align-self: start; max-width: 34ch; font-size: 15px; line-height: 1.5; opacity: 0; transform: translateY(4px); }
+.panel-cell-capture { opacity: 0; transform: translateY(8px); position: absolute; top: var(--panel-pad); right: var(--panel-pad); bottom: 0; width: clamp(180px, 24%, 300px); overflow: hidden; }
+.panel-cell-capture img { display: block; width: 100%; height: auto; transform: translateY(-5%); }
+
+.panel-void { grid-area: e; }
+
+/* Readout band */
+.panel-readout { grid-area: r; position: relative; display: grid; align-items: center; padding-inline: var(--panel-pad); font-size: 13px; }
+.panel-readout-line { grid-area: 1 / 1; display: flex; justify-content: space-between; gap: 24px; }
+.panel-readout-line > span:last-child { color: var(--grey); white-space: nowrap; }
+.panel-readout-line b { font-weight: 500; }
+.panel-readout-line:not([data-readout="default"]) { opacity: 0; visibility: hidden; }
+.panel-readout-line b { margin-right: 10px; color: var(--accent); }
+
+/* Another state of the same object: the cell inverts, its description arrives in place,
+   and the readout band names what is under the pointer. Nothing moves more than 8px. */
+.panel-cell { transition: background-color 180ms var(--panel-ease), color 180ms var(--panel-ease); }
+.panel-cell-descriptor { transition: color 180ms var(--panel-ease); }
+.panel-cell-description { transition: opacity 220ms var(--panel-ease), transform 220ms var(--panel-ease); }
+.panel-cell-capture { transition: opacity 260ms var(--panel-ease), transform 260ms var(--panel-ease); }
+.panel-readout-line { transition: opacity 180ms var(--panel-ease), visibility 0s 180ms; }
+.panel-cell:focus-visible { outline-offset: -3px; }
+.panel-cell:is(:hover, :focus-visible) { background: var(--ink); color: var(--paper); }
+.panel-cell:is(:hover, :focus-visible) .panel-cell-descriptor { color: var(--accent); }
+.panel-cell:is(:hover, :focus-visible) :is(.panel-cell-description, .panel-cell-capture) { opacity: 1; transform: none; }
+.panel-object:has(.panel-cell:is(:hover, :focus-visible)) .panel-readout-line[data-readout="default"] { opacity: 0; visibility: hidden; transition-delay: 0s, 180ms; }
+.panel-object:has(.panel-cell[data-project="gathr"]:is(:hover, :focus-visible)) .panel-readout-line[data-readout="gathr"],
+.panel-object:has(.panel-cell[data-project="vibegrid"]:is(:hover, :focus-visible)) .panel-readout-line[data-readout="vibegrid"],
+.panel-object:has(.panel-cell[data-project="murmur"]:is(:hover, :focus-visible)) .panel-readout-line[data-readout="murmur"] { opacity: 1; visibility: visible; transition-delay: 0s, 0s; }
+
+/* Without a pointer that hovers, the description is simply part of the cell. */
+@media (hover: none) {
+  .panel-cell-description { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #panel * { transition: none !important; }
+}
+
+/* Large screens: the module grows with the object */
+@media (min-width: 1600px) {
+  :root:has(#panel) { --panel-inset: 32px; --panel-pad: 32px; }
+  .panel-object { grid-template-rows: 64px minmax(auto, 5fr) minmax(auto, 3fr) 56px; }
+  #panel { font-size: 15px; }
+  .panel-role { font-size: 16px; }
+  .panel-nav { font-size: 15px; gap: 48px; }
+  .panel-cell-descriptor { font-size: 15px; }
+  .panel-cell-description { font-size: 16px; }
+  .panel-place, .panel-readout { font-size: 14px; }
+}
+
+/* Tablet: identity widens, the empty region gives way */
+@media (max-width: 1023px) {
+  .panel-object {
+    grid-template-areas:
+      "id id id id nav nav nav nav nav nav nav nav"
+      "id id id id g g g g g g g g"
+      "v v v v v v v m m m m m"
+      "r r r r r r r r r r r r";
+  }
+  .panel-void { display: none; }
+  .panel-role { margin-top: 28px; }
+}
+
+/* Narrow: the same object as a vertical instrument */
+@media (max-width: 719px) {
+  :root:has(#panel) { --panel-inset: 16px; --panel-pad: 16px; }
+  .panel-object {
+    grid-template-rows: 48px auto minmax(auto, 5fr) minmax(auto, 3fr) 40px;
+    grid-template-areas:
+      "n n n n n nav nav nav nav nav nav nav"
+      "ro ro ro ro ro ro ro ro pl pl pl pl"
+      "g g g g g g g g g g g g"
+      "v v v v v v m m m m m m"
+      "r r r r r r r r r r r r";
+  }
+  .panel-identity { display: contents; }
+  .panel-identity > * { background: var(--paper); padding: var(--panel-pad); }
+  .panel-name { grid-area: n; display: flex; align-items: center; padding-block: 0; font-size: 16px; letter-spacing: -0.01em; line-height: 1; white-space: nowrap; }
+  .panel-name span { display: inline; }
+  .panel-name span + span { margin-left: 0.22em; }
+  .panel-role { grid-area: ro; margin: 0; max-width: none; font-size: 14px; }
+  .panel-place { grid-area: pl; margin: 0; font-size: 14px; color: var(--ink); }
+  .panel-nav { justify-content: flex-end; gap: 16px; font-size: 13px; }
+  .panel-cell-name { font-size: 22px; }
+  .panel-cell-descriptor { margin-top: 8px; font-size: 13px; }
+  .panel-cell-description { font-size: 14px; }
+  .panel-cell:not([data-project="gathr"]) .panel-cell-description { display: none; }
+  .panel-cell-capture { display: none; }
+  .panel-readout { font-size: 12px; }
+}
+
+/* ---- Pages: the same object opened vertically ---------------------------
+   Interior pages stack bands. Each band is the 12-module grid; rules are
+   borders here (a band's top edge, a cell's left edge) so the object can be
+   any height and still close with a footer band. A lighter rule structures
+   lists inside a cell so the black rules stay the composition. */
+:root:has(#panel) { --grey-rule: #d6d6d6; }
+.panel-page { display: flex; flex-direction: column; background: var(--paper); }
+.pp-band { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.pp-band:first-child { border-top: 0; }
+.pp-cell { min-width: 0; padding: var(--panel-pad); }
+.pp-cell + .pp-cell { border-left: 1px solid var(--ink); }
+.pp-1 { grid-column: span 1; } .pp-2 { grid-column: span 2; } .pp-3 { grid-column: span 3; } .pp-4 { grid-column: span 4; }
+.pp-5 { grid-column: span 5; } .pp-6 { grid-column: span 6; } .pp-7 { grid-column: span 7; } .pp-8 { grid-column: span 8; }
+.pp-9 { grid-column: span 9; } .pp-12 { grid-column: 1 / -1; }
+.pp-label { grid-column: span 3; }
+.pp-body { grid-column: span 9; }
+
+/* Header and footer bands */
+.pp-head { min-height: 56px; }
+.pp-head .pp-cell { display: flex; align-items: center; padding-block: 0; }
+.pp-wordmark { grid-column: span 3; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; white-space: nowrap; }
+.pp-head .panel-nav { grid-area: auto; grid-column: span 9; }
+.panel-nav a[aria-current="page"]::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 9px; vertical-align: 1px; background: var(--accent); }
+.pp-foot { margin-top: auto; min-height: 48px; font-size: 13px; color: var(--grey); }
+.pp-foot .pp-cell { display: flex; align-items: center; padding-block: 0; }
+.pp-foot p { grid-column: span 3; }
+.pp-foot nav { grid-column: span 9; gap: 24px; }
+.pp-foot a:hover, .pp-foot a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Title band: the page's identity on the left, its lead on the right */
+.pp-title h1 { font-size: clamp(32px, 2.9vw, 52px); line-height: 1.02; font-weight: 500; letter-spacing: -0.025em; overflow-wrap: anywhere; }
+.pp-title .pp-body { display: flex; flex-direction: column; gap: 16px; }
+.pp-title .pp-body > * { margin: 0; }
+.pp-lead { max-width: 46ch; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.35; letter-spacing: -0.01em; }
+.pp-meta { font-size: 14px; color: var(--grey); }
+.pp-meta + .pp-lead { margin-top: -4px; }
+
+/* Section bands: a label column against a body column */
+.pp-label > * { position: sticky; top: var(--panel-pad); font-size: 14px; font-weight: 500; letter-spacing: -0.005em; }
+.pp-label small { display: block; margin-top: 6px; font-size: 13px; font-weight: 400; color: var(--grey); }
+.pp-cell p:not([class]) { max-width: 62ch; font-size: 16px; line-height: 1.55; }
+.pp-cell p + p { margin-top: 1em; }
+.pp-cell h3 { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.pp-cell h3 + p { margin-top: 8px; }
+.pp-cell :is(p, .pp-list, .pp-dl, .pp-steps) + h3 { margin-top: 32px; }
+.pp-num { display: block; margin-bottom: 20px; font-size: 13px; color: var(--grey); }
+.pp-cell > article + article { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--grey-rule); }
+.pp-cell h3 + .pp-meta { margin-top: 6px; }
+.pp-cell :is(p, h3, .pp-meta) + :is(.pp-list, .pp-dl, .pp-steps) { margin-top: 12px; }
+.pp-cell :is(.pp-list, .pp-dl, .pp-steps) + p { margin-top: 24px; }
+.pp-cell h3 a:hover, .pp-cell h3 a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Rows of the same object: index numbers, definition lists, and bullet lists */
+.pp-steps { list-style: none; padding: 0; margin: 0; }
+.pp-steps li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; padding-block: 14px; border-top: 1px solid var(--grey-rule); }
+.pp-steps li:first-child { border-top: 0; padding-top: 0; }
+.pp-steps li > span { font-size: 13px; color: var(--grey); padding-top: 3px; }
+.pp-steps li > p { max-width: 58ch; font-size: 15px; line-height: 1.5; }
+.pp-dl { display: grid; grid-template-columns: minmax(120px, 2fr) 7fr; margin: 0; }
+.pp-dl > div { display: contents; }
+.pp-dl dt, .pp-dl dd { margin: 0; padding-block: 14px; border-top: 1px solid var(--grey-rule); font-size: 15px; line-height: 1.5; }
+.pp-dl dt { padding-right: 16px; color: var(--grey); }
+.pp-dl dd { max-width: 60ch; }
+.pp-dl > div:first-child dt, .pp-dl > div:first-child dd { border-top: 0; padding-top: 0; }
+.pp-list { list-style: none; padding: 0; margin: 0; }
+.pp-list li { max-width: 62ch; padding-block: 12px; border-top: 1px solid var(--grey-rule); font-size: 15px; line-height: 1.5; }
+.pp-list li:first-child { border-top: 0; padding-top: 0; }
+.pp-links { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; }
+.pp-links a:hover, .pp-links a:focus-visible, .pp-cell p a:hover, .pp-cell p a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+.pp-cell p a { text-decoration: underline; text-decoration-color: var(--grey-rule); text-underline-offset: 4px; }
+
+/* Whole-cell links: the same state change as the homepage regions */
+.pp-cell-link { display: flex; flex-direction: column; gap: 10px; transition: background-color 180ms var(--panel-ease), color 180ms var(--panel-ease); }
+.pp-cell-link small { font-size: 13px; color: var(--grey); transition: color 180ms var(--panel-ease); }
+.pp-cell-link span { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.pp-cell-link:is(:hover, :focus-visible) { background: var(--ink); color: var(--paper); outline-offset: -3px; }
+.pp-cell-link:is(:hover, :focus-visible) small { color: var(--accent); }
+.pp-cell-link.pp-end { text-align: right; }
+
+/* Archive rows: each project is one row of cells, and the row is the link */
+.pp-title .pp-body.pp-filter { flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; align-content: flex-end; gap: 12px 24px; }
+.pp-filter nav { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 14px; }
+.pp-filter nav a { white-space: nowrap; }
+.pp-filter nav a::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 9px; vertical-align: 1px; background: var(--accent); opacity: 0; transition: opacity 150ms var(--panel-ease); }
+.pp-filter nav a.is-active::before { opacity: 1; }
+.pp-filter nav a:hover, .pp-filter nav a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+.pp-filter nav small { margin-left: 6px; color: var(--grey); }
+.pp-count { font-size: 13px; color: var(--grey); }
+.pp-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border-top: 1px solid var(--ink); transition: background-color 180ms var(--panel-ease), color 180ms var(--panel-ease); }
+.pp-row .pp-cell { padding-block: 20px; }
+.pp-row-index, .pp-row-label, .pp-row-category, .pp-row-time { font-size: 14px; line-height: 1.45; color: var(--grey); transition: color 180ms var(--panel-ease); }
+.pp-row-title { font-size: 20px; font-weight: 500; line-height: 1.2; letter-spacing: -0.015em; }
+.pp-cell > .pp-row-title + :is(p, .pp-list, .pp-dl) { margin-top: 14px; }
+.pp-row:is(:hover, :focus-visible) { background: var(--ink); color: var(--paper); outline-offset: -3px; }
+.pp-row:is(:hover, :focus-visible) :is(.pp-row-index, .pp-row-category, .pp-row-time) { color: var(--grey-on-ink); }
+.pp-row:is(:hover, :focus-visible) .pp-row-label { color: var(--accent); }
+.pp-row[hidden] { display: none; }
+
+/* Facts band and media band */
+.pp-facts { margin: 0; }
+.pp-facts dt { margin-bottom: 8px; font-size: 13px; color: var(--grey); }
+.pp-facts dd { margin: 0; font-size: 15px; line-height: 1.45; }
+.pp-media { position: relative; overflow: hidden; height: clamp(320px, 38vw, 560px); padding: 0; }
+.pp-media-portrait img { position: absolute; top: var(--panel-pad); left: var(--panel-pad); width: clamp(200px, 26%, 320px); height: auto; }
+.pp-media-landscape img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+
+@media (min-width: 1600px) {
+  .pp-head { min-height: 64px; }
+  .pp-foot { min-height: 56px; font-size: 14px; }
+  .pp-wordmark { font-size: 16px; }
+  .pp-label > * { font-size: 15px; }
+  .pp-cell p:not([class]), .pp-dl dt, .pp-dl dd, .pp-list li, .pp-steps li > p, .pp-facts dd { font-size: 16px; }
+  .pp-row-title { font-size: 22px; }
+}
+
+@media (max-width: 1023px) {
+  .pp-label, .pp-wordmark, .pp-foot p { grid-column: span 4; }
+  .pp-body, .pp-head .panel-nav, .pp-foot nav { grid-column: span 8; }
+}
+
+@media (max-width: 719px) {
+  .pp-wordmark { grid-column: span 5; font-size: 16px; }
+  .pp-head .panel-nav { grid-column: span 7; }
+  .pp-foot p { grid-column: span 5; }
+  .pp-foot nav { grid-column: span 7; justify-content: flex-end; gap: 16px; font-size: 12px; }
+  /* Every other band stacks: the label becomes a slim band above its body. */
+  .pp-band:not(.pp-head, .pp-foot, .pp-facts) > .pp-cell { grid-column: 1 / -1; }
+  .pp-band:not(.pp-head, .pp-foot, .pp-facts) > .pp-cell + .pp-cell { border-left: 0; border-top: 1px solid var(--ink); }
+  .pp-label { padding-block: 12px; }
+  .pp-title .pp-label { padding-block: 20px; }
+  .pp-label > * { position: static; }
+  .pp-title h1 { font-size: 32px; }
+  .pp-lead { font-size: 18px; }
+  .pp-facts .pp-cell { grid-column: span 6; border-left: 0; }
+  .pp-facts .pp-cell:nth-child(even) { border-left: 1px solid var(--ink); }
+  .pp-facts .pp-cell:nth-child(n + 3) { border-top: 1px solid var(--ink); }
+  .pp-row > .pp-cell { padding-block: 16px; }
+  .pp-row-index { grid-column: span 2; }
+  .pp-row-title { grid-column: span 6; font-size: 18px; }
+  .pp-row-label, .pp-row-category { display: none; }
+  .pp-row-time { grid-column: span 4; font-size: 12px; }
+  .pp-row > .pp-cell + .pp-cell { border-left: 1px solid var(--ink); }
+  .pp-dl { grid-template-columns: minmax(96px, 1fr) 2fr; }
+  .pp-media { height: clamp(260px, 80vw, 420px); }
+  .pp-media-portrait img { width: 56%; }
+}
