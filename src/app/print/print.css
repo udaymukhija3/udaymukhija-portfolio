@@ -1,0 +1,241 @@
+/* A Japanese print set on a Swiss grid. The page is the homepage's white and black; every colour and texture lives inside the prints. */
+:root:has(#print) {
+  --print-paper: #FFFFFF;
+  --print-ink: #000000;
+  --print-muted: #505050;
+  --print-rule: rgba(0, 0, 0, .12);
+  --print-rule-strong: #000000;
+  --print-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --print-mono: var(--font-mono-face), "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --print-gutter: 24px;
+  --print-margin: clamp(24px, 3.4vw, 56px);
+  --print-ease: cubic-bezier(.2, 0, 0, 1);
+}
+body:has(#print) { background: var(--print-paper); color: var(--print-ink); font-family: var(--print-font); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+body:has(#print) > :is(.site-footer, .site-header, .site-ground, .quiet-header) { display: none; }
+body:has(#print) .route-frame { animation: none; }
+body:has(#print) .skip-link { background: var(--print-ink); color: var(--print-paper); }
+body:has(#print) :where(a, button, summary):focus-visible { outline: 2px solid var(--print-ink); outline-offset: 5px; }
+#print { min-height: 100svh; }
+#print a { color: inherit; text-decoration: none; }
+:where(#print) :where(h1, h2, h3, p, ol, ul) { margin: 0; font-weight: inherit; font-size: inherit; }
+:where(#print) :where(ol, ul) { padding: 0; list-style: none; }
+
+/* The print itself: a symbol on the page, and windows that look through it. */
+.print-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.print-window { position: relative; overflow: hidden; background: var(--print-paper); contain: paint; }
+.print-crop { display: block; width: 100%; height: 100%; }
+/* Paper weave and pigment grain, rasterised once from small tiles and multiplied over the impression. */
+.print-weave, .print-grain { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; }
+.print-weave { opacity: .3; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='w' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95 .045' numOctaves='1' seed='2' stitchTiles='stitch' result='h'/%3E%3CfeColorMatrix in='h' type='matrix' values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1' result='hg'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.045 .95' numOctaves='1' seed='4' stitchTiles='stitch' result='v'/%3E%3CfeColorMatrix in='v' type='matrix' values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1' result='vg'/%3E%3CfeBlend in='hg' in2='vg' mode='multiply' result='m'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.6' intercept='.25'/%3E%3CfeFuncG type='linear' slope='1.6' intercept='.25'/%3E%3CfeFuncB type='linear' slope='1.6' intercept='.25'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23w)'/%3E%3C/svg%3E"); }
+.print-grain { opacity: .1; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='1.3' intercept='.2'/%3E%3CfeFuncG type='linear' slope='1.3' intercept='.2'/%3E%3CfeFuncB type='linear' slope='1.3' intercept='.2'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E"); }
+/* Pulling the print: each colour lands in order, sky first and the crimson last. */
+.print-block { opacity: 0; animation: print-pull 260ms var(--print-ease) forwards; animation-delay: calc(160ms + var(--block) * 170ms); }
+@keyframes print-pull { from { opacity: 0; } to { opacity: 1; } }
+
+/* The sheet on its own. */
+.print-sheet-page { display: grid; place-items: center; min-height: 100svh; padding: var(--print-margin); }
+.print-sheet { width: min(100%, 1400px); aspect-ratio: 1.6; }
+
+@media (prefers-reduced-motion: reduce) {
+  .print-block { animation: none; opacity: 1; }
+}
+
+/* ---- Shared chrome ---------------------------------------------------------------- */
+/* The homepage's header, as it is: the links, and a way to say hello. */
+.print-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; font-size: 13px; }
+.print-nav { display: flex; gap: 24px; }
+.print-hello { color: var(--print-muted); }
+#print a:hover, #print summary:hover .register-title { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+#print a > span[aria-hidden] { display: inline-block; transition: transform 200ms var(--print-ease); }
+#print a:hover > span[aria-hidden], #print a:focus-visible > span[aria-hidden] { transform: translate(2px, -2px); }
+/* Technical figures: the instrument voice, in mono. */
+.print-figure { font-family: var(--print-mono); font-size: 11px; line-height: 1.5; letter-spacing: .01em; color: var(--print-muted); font-variant-numeric: tabular-nums; }
+/* The twelve columns, drawn as hairlines. */
+.print-grid-lines { position: absolute; inset: var(--print-margin); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--print-gutter); pointer-events: none; }
+.print-grid-lines i { border-inline: 1px solid rgba(0, 0, 0, .07); }
+
+/* What each study is trying, and the way to the others. */
+.print-note { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--print-gutter); row-gap: 24px; padding: 40px var(--print-margin) 56px; border-top: 1px solid var(--print-rule); background: var(--print-paper); }
+.print-note-text { grid-column: 1 / 8; max-width: 66ch; font-size: 15px; line-height: 1.55; }
+.print-note-text b { font-weight: 500; }
+.print-studies { grid-column: 9 / -1; display: flex; flex-wrap: wrap; align-content: start; gap: 6px 20px; font-family: var(--print-mono); font-size: 12px; }
+.print-studies a[aria-current] { text-decoration: underline; text-underline-offset: 5px; }
+.print-studies b { font-weight: 400; color: var(--print-muted); }
+.print-studies a[aria-current] b { color: inherit; }
+.print-studies-sheet { display: flex; flex-wrap: wrap; gap: 6px 20px; width: 100%; padding-top: 10px; margin-top: 4px; border-top: 1px solid var(--print-rule); }
+.studies-sheet + .studies-sheet { margin-top: 32px; }
+.studies-index li { display: grid; row-gap: 8px; align-content: start; }
+.studies-alt { margin-left: 42px; }
+
+/* ---- 01 · Poster ------------------------------------------------------------------ */
+.poster { position: relative; isolation: isolate; min-height: 100svh; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: 64px minmax(0, 1fr) auto; column-gap: var(--print-gutter); padding: var(--print-margin); }
+.poster-print { position: absolute; inset: 0; z-index: -1; }
+.poster-print-tall { display: none; }
+.poster-head { grid-column: 1 / -1; grid-row: 1; align-items: flex-start; }
+.poster-body { grid-column: 1 / 7; grid-row: 2; align-self: start; padding-top: clamp(8px, 3vh, 36px); }
+.poster-body h1 { font-size: clamp(44px, 6.3vw, 94px); line-height: .94; letter-spacing: -.045em; font-weight: 500; }
+.poster-body p { margin-top: clamp(16px, 2.4vh, 28px); max-width: 26ch; font-size: clamp(16px, 1.45vw, 21px); line-height: 1.32; letter-spacing: -.012em; }
+.poster-index { grid-column: 10 / -1; grid-row: 2 / 4; align-self: end; display: grid; row-gap: 4px; color: #fff; }
+.poster-index a { display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 12px; align-items: baseline; padding-block: 3px; }
+.poster-index .print-figure { color: inherit; opacity: .6; }
+.poster-index-title { font-size: 17px; font-weight: 500; letter-spacing: -.025em; }
+.poster-index-category { grid-column: 2; font-size: 13px; opacity: .72; }
+.poster-colophon { grid-column: 1 / 5; grid-row: 3; align-self: end; display: grid; color: var(--print-ink); }
+/* The type lands with the key block, after the water and before the crimson. */
+.poster-head, .poster-body, .poster-index, .poster-colophon { animation: print-pull 320ms var(--print-ease) both; animation-delay: 840ms; }
+@media (max-aspect-ratio: 1 / 1) {
+  .poster-print-wide { display: none; }
+  .poster-print-tall { display: block; }
+  .poster-body { grid-column: 1 / -1; }
+  .poster-body p { max-width: 30ch; }
+  .poster-index { grid-column: 1 / 9; grid-row: 3; color: inherit; }
+  .poster-colophon { display: none; }
+}
+
+/* ---- 02 · Specimen ---------------------------------------------------------------- */
+.specimen { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: 56px minmax(300px, 40svh) minmax(180px, 24svh) auto 44px; gap: 1px; margin: var(--print-margin); border: 1px solid var(--print-rule-strong); background: var(--print-rule-strong); }
+.specimen > * { position: relative; min-width: 0; min-height: 0; background: var(--print-paper); }
+.specimen-head { grid-column: 1 / -1; padding-inline: 20px; }
+.specimen-sun { grid-column: 1 / 5; grid-row: 2; }
+.specimen-body { grid-column: 5 / -1; grid-row: 2; display: flex; flex-direction: column; padding: 24px 24px 22px; }
+.specimen-body h1 { font-size: clamp(44px, 5.8vw, 92px); line-height: .94; letter-spacing: -.045em; font-weight: 500; }
+.specimen-body p { margin-top: auto; padding-top: 32px; max-width: 30ch; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.35; letter-spacing: -.01em; }
+.specimen-figure { margin-top: 18px; }
+.specimen-range { grid-column: 1 / 9; grid-row: 3; }
+.specimen-wake { grid-column: 9 / -1; grid-row: 3; }
+:is(.specimen-sun, .specimen-range, .specimen-wake) > .print-window { position: absolute; inset: 0; }
+.specimen-index { grid-column: 1 / -1; grid-row: 4; display: grid; grid-template-columns: subgrid; gap: 1px; background: var(--print-rule-strong); }
+.specimen-index li { grid-column: span 3; background: var(--print-paper); }
+.specimen-index a { display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 12px; row-gap: 4px; height: 100%; padding: 16px 20px 20px; align-content: start; }
+.specimen-mark { grid-column: 1 / -1; display: block; aspect-ratio: 3 / 1.4; margin-bottom: 12px; }
+.specimen-mark > .print-window { height: 100%; }
+.specimen-title { font-size: 17px; font-weight: 500; letter-spacing: -.025em; }
+.specimen-category { grid-column: 2; font-size: 13px; color: var(--print-muted); }
+.specimen-foot { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding-inline: 20px; }
+/* The whole-sheet cut: the panorama runs across every column, the type and the one red thing share the row beneath. */
+.specimen[data-cut="whole"] { grid-template-rows: 56px minmax(240px, 38svh) minmax(260px, 30svh) auto 44px; }
+.specimen[data-cut="whole"] .specimen-sun { grid-column: 1 / -1; grid-row: 2; }
+.specimen[data-cut="whole"] .specimen-body { grid-column: 1 / 9; grid-row: 3; }
+.specimen[data-cut="whole"] .specimen-range { grid-column: 9 / -1; grid-row: 3; }
+.specimen[data-cut="whole"] .specimen-wake { display: none; }
+@media (max-width: 900px) {
+  .specimen { grid-template-rows: 56px minmax(220px, 34svh) auto minmax(180px, 30svh) minmax(160px, 24svh) auto 44px; }
+  .specimen[data-cut="whole"] { grid-template-rows: 56px minmax(180px, 28svh) auto minmax(200px, 30svh) auto 44px; }
+  .specimen[data-cut="whole"] .specimen-body { grid-column: 1 / -1; grid-row: 3; }
+  .specimen[data-cut="whole"] .specimen-range { grid-column: 1 / -1; grid-row: 4; }
+  .specimen[data-cut="whole"] .specimen-index { grid-row: 5; }
+  .specimen[data-cut="whole"] .specimen-foot { grid-row: 6; }
+  .specimen-sun { grid-column: 1 / -1; grid-row: 2; }
+  .specimen-body { grid-column: 1 / -1; grid-row: 3; }
+  .specimen-range { grid-column: 1 / -1; grid-row: 4; }
+  .specimen-wake { grid-column: 1 / -1; grid-row: 5; }
+  .specimen-index { grid-row: 6; }
+  .specimen-index li { grid-column: span 6; }
+  .specimen-foot { grid-row: 7; }
+}
+
+/* ---- 03 · Register ---------------------------------------------------------------- */
+.register { width: min(100% - 48px, 672px); margin-inline: auto; font-size: 16px; line-height: 1.65; }
+.register-head { padding-top: 56px; margin-bottom: 56px; }
+.register-intro h1 { font-size: 32px; line-height: 1.15; letter-spacing: -.04em; font-weight: 500; }
+.register-intro p { margin-top: 16px; max-width: 54ch; letter-spacing: -.01em; }
+.register-strip { position: relative; margin-top: 24px; height: 208px; }
+.register-strip > .print-window { position: absolute; inset: 0; }
+.register-strip-figure { position: absolute; right: 0; top: calc(100% + 6px); }
+.register-work { margin-top: 48px; scroll-margin-top: 32px; }
+.register-work h2 { font-size: 14px; font-weight: 500; letter-spacing: -.01em; margin-bottom: 16px; }
+.register-row { border-top: 1px solid var(--print-rule); }
+.register-row:last-of-type { border-bottom: 1px solid var(--print-rule); }
+.register-row summary { display: grid; grid-template-columns: 30px minmax(112px, 1fr) minmax(0, 3fr) 12px; column-gap: 20px; align-items: center; min-height: 52px; list-style: none; cursor: pointer; }
+.register-row summary::-webkit-details-marker { display: none; }
+.register-title { font-size: 17px; font-weight: 500; letter-spacing: -.025em; text-underline-offset: 5px; }
+.register-category { color: var(--print-muted); font-size: 13px; line-height: 1.45; }
+/* The plus turns and folds to a minus while the row is open. */
+.register-plus { width: 10px; height: 10px; position: relative; color: var(--print-muted); justify-self: end; transition: transform 360ms var(--print-ease), color 180ms ease; }
+.register-plus::before, .register-plus::after { content: ""; position: absolute; left: 0; top: 4px; width: 10px; height: 1.5px; background: currentColor; transition: transform 360ms var(--print-ease); }
+.register-plus::after { transform: rotate(90deg); }
+.register-row summary:hover .register-plus { color: var(--print-ink); }
+.register-row[open] .register-plus { color: var(--print-ink); transform: rotate(180deg); }
+.register-row[open] .register-plus::after { transform: rotate(0); }
+.register-row::details-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 380ms var(--print-ease), content-visibility 380ms allow-discrete; }
+.register-row[open]::details-content { grid-template-rows: 1fr; }
+.register-detail { display: grid; grid-template-columns: 30px minmax(112px, 1fr) minmax(0, 3fr) 12px; column-gap: 20px; row-gap: 12px; min-height: 0; overflow: hidden; font-size: 14px; line-height: 1.6; }
+.register-detail > * { grid-column: 3; }
+.register-detail > :first-child { margin-top: 2px; }
+.register-detail > :last-child { margin-bottom: 22px; font-size: 13px; }
+.register-archive { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--print-muted); }
+.register-foot { display: flex; justify-content: space-between; margin-top: 40px; padding: 24px 0 56px; border-top: 1px solid var(--print-rule); }
+
+/* ---- 04 · Mirror ------------------------------------------------------------------ */
+.mirror { min-height: 100svh; display: grid; grid-template-rows: 56svh 1px minmax(0, 1fr); }
+.mirror-sky, .mirror-water { position: relative; isolation: isolate; }
+:is(.mirror-sky, .mirror-water) > .print-window { position: absolute; inset: 0; z-index: -1; }
+.mirror-head { position: absolute; inset: var(--print-margin) var(--print-margin) auto; align-items: flex-start; }
+.mirror-body { position: absolute; left: var(--print-margin); right: 50%; top: calc(var(--print-margin) + 88px); }
+.mirror-body h1 { font-size: clamp(44px, 6.2vw, 96px); line-height: .94; letter-spacing: -.045em; font-weight: 500; }
+.mirror-body p { margin-top: 20px; max-width: 28ch; font-size: clamp(16px, 1.35vw, 20px); line-height: 1.34; letter-spacing: -.012em; }
+.mirror-horizon { position: relative; background: var(--print-ink); }
+.mirror-horizon .print-figure { position: absolute; right: var(--print-margin); top: 8px; }
+/* A second indigo over the water, so kinari reads everywhere on it. */
+.mirror-water::after { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(27, 52, 104, .62); mix-blend-mode: multiply; pointer-events: none; }
+.mirror-water { display: flex; flex-direction: column; justify-content: flex-end; padding: 40px var(--print-margin) var(--print-margin); color: #fff; }
+/* The words lie on the water like the mountains do. */
+.mirror-reflection { position: absolute; left: var(--print-margin); top: 10px; font-size: clamp(44px, 6.2vw, 96px); line-height: .94; letter-spacing: -.045em; font-weight: 500; color: #fff; opacity: .14; transform: scaleY(-1); -webkit-mask-image: linear-gradient(transparent 10%, #000 90%); mask-image: linear-gradient(transparent 10%, #000 90%); filter: url(#print-ripple); pointer-events: none; }
+.mirror-index { display: grid; }
+.mirror-index a { display: grid; grid-template-columns: 30px minmax(0, 3fr) minmax(0, 5fr) 48px 20px; column-gap: var(--print-gutter); align-items: baseline; padding: 13px 0; border-top: 1px solid rgba(255, 255, 255, .32); }
+.mirror-index li:last-child a { border-bottom: 1px solid rgba(255, 255, 255, .32); }
+.mirror-index .print-figure { color: inherit; opacity: .6; }
+.mirror-title { font-size: 19px; font-weight: 500; letter-spacing: -.025em; }
+.mirror-category { font-size: 14px; opacity: .78; }
+.mirror-arrow { justify-self: end; }
+/* The fjord splits at the near waterline, so the land takes more of the page and the statement is set a little smaller. */
+.mirror[data-sheet="fjord"] { grid-template-rows: 70svh 1px minmax(auto, 1fr); }
+.mirror[data-sheet="fjord"] .mirror-body { top: calc(var(--print-margin) + 72px); }
+.mirror[data-sheet="fjord"] :is(.mirror-body h1, .mirror-reflection) { font-size: clamp(40px, 5vw, 76px); }
+.mirror[data-sheet="fjord"] .mirror-body p { font-size: clamp(15px, 1.2vw, 18px); }
+.mirror[data-sheet="fjord"] .mirror-water > .print-window { --fjord-bank: 0; }
+.mirror[data-sheet="fjord"] .mirror-water { padding-top: 32px; }
+@media (max-width: 720px) {
+  .mirror { grid-template-rows: 52svh 1px minmax(0, 1fr); }
+  .mirror[data-sheet="fjord"] { grid-template-rows: 58svh 1px minmax(auto, 1fr); }
+  .mirror[data-sheet="fjord"] .mirror-body { top: calc(var(--print-margin) + 96px); }
+  .mirror-body { right: var(--print-margin); }
+  .mirror-index a { grid-template-columns: 30px minmax(0, 1fr) 20px; }
+  .mirror-category, .mirror-year { display: none; }
+}
+
+/* ---- The contact sheet ------------------------------------------------------------ */
+.studies { max-width: 1400px; margin-inline: auto; padding: 0 var(--print-margin) 64px; }
+.studies-head { height: 64px; }
+.studies-title { margin-top: 56px; max-width: 20ch; font-size: clamp(32px, 4.6vw, 68px); line-height: .98; letter-spacing: -.04em; font-weight: 500; }
+.studies-lede { margin-top: 24px; max-width: 64ch; font-size: 17px; line-height: 1.5; letter-spacing: -.01em; }
+.studies-sheet { display: block; margin-top: 48px; }
+.studies-sheet > .print-window { aspect-ratio: 1.6; }
+.studies-sheet > .print-figure { display: block; margin-top: 8px; text-align: right; }
+.studies-index { margin-top: 56px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--print-gutter); }
+.studies-index a { display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 12px; row-gap: 6px; align-content: start; }
+.studies-thumb { grid-column: 1 / -1; display: block; aspect-ratio: 4 / 3; margin-bottom: 8px; }
+.studies-thumb > .print-window { height: 100%; }
+.studies-name { font-size: 17px; font-weight: 500; letter-spacing: -.025em; }
+.studies-line { grid-column: 2; font-size: 13px; color: var(--print-muted); line-height: 1.45; }
+@media (max-width: 800px) {
+  .studies-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .print-note-text, .print-studies { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .poster-head, .poster-body, .poster-index, .poster-colophon { animation: none; }
+  #print * { transition: none !important; }
+}
+/* Narrow screens: the wordmark takes its own line and the links spread beneath it. */
+@media (max-width: 640px) {
+  .print-head { font-size: 12px; }
+  .print-nav { gap: 16px; }
+  .poster { grid-template-rows: auto minmax(0, 1fr) auto; }
+  .poster-body { padding-top: 32px; }
+  .specimen { grid-template-rows: auto minmax(220px, 34svh) auto minmax(180px, 30svh) minmax(160px, 24svh) auto 44px; }
+  .specimen-head { padding-block: 14px; }
+  .register-head { padding-top: 32px; margin-bottom: 40px; }
+  .mirror-body { top: calc(var(--print-margin) + 96px); }
+  .studies-head { height: auto; padding-block: 20px; }
+}

@@ -60,6 +60,10 @@ body:has(#quiet-page) .quiet-header nav a[aria-current="page"] { text-decoration
 .qp-nav span { color: var(--quiet-muted); }
 
 @media (max-width: 600px) {
+  #project-archive .quiet-projects summary { grid-template-columns: minmax(0, 1fr) 12px; row-gap: 3px; padding-block: 12px; }
+  #project-archive .quiet-projects summary > span:first-child { grid-column: 1; }
+  #project-archive .quiet-projects .quiet-category { grid-column: 1; grid-row: 2; }
+  #project-archive .quiet-projects .quiet-plus { grid-column: 2; grid-row: 1 / 3; }
   .qp-intro h1 { font-size: 30px; }
   .qp-section { margin-top: 40px; }
   .qp-figure { height: 240px; }

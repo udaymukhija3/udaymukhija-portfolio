@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { contactLinks } from "../data/siteContent";
 import { isPanelRoute } from "../lib/panelRoutes";
+import { isPrintRoute } from "../lib/printRoutes";
 
 export function NavBar() {
   const pathname = usePathname();
   const currentPathname = pathname ?? "";
   const isDaybreak = currentPathname === "/daybreak";
-  const isPanel = isPanelRoute(currentPathname);
+  const isPanel = isPanelRoute(currentPathname) || isPrintRoute(currentPathname);
   // Retained experiments keep their own chrome; every other route wears the homepage's header.
   const isLegacy = isDaybreak || currentPathname === "/alternate" || currentPathname.startsWith("/lab");
   const isQuiet = !isPanel && !isLegacy;
@@ -55,7 +56,7 @@ export function NavBar() {
     };
   }, [currentPathname, isDaybreak, isQuiet, isPanel]);
 
-  // The /panel prototype carries its own navigation band.
+  // The /panel prototype and the /print study carry their own chrome.
   if (isPanel) return null;
 
   if (isQuiet) return (

@@ -6,6 +6,8 @@ The homepage uses a Helvetica Neue / Arial system font stack, pure white paper, 
 
 Every other page — the Work archive, each case study, About, Experience, Resume, Notes, and the 404 — is set in the homepage's language: the same 672px measure, the same lowercase header and footer, the same type scale and muted grey, hover underlines, faint rules for rows, and the same unfolding `<details>` rows. The shared pieces are [`src/components/quiet/QuietPage.tsx`](src/components/quiet/QuietPage.tsx) and [`src/app/quiet/quiet-pages.css`](src/app/quiet/quiet-pages.css); the archive keeps its small progressive category filter. Only the retained experiments (`/lab`, `/daybreak`, `/alternate`) keep their own chrome.
 
+`/print` is a design study: Japanese prints set on the homepage's white page — black Helvetica, a 12-column grid — in four ways (Poster, Specimen, Register, Mirror). The page chrome is the production homepage's; every colour and texture lives inside the prints. It is noindexed and reachable only by URL. There are two sheets, each drawn in SVG with carved edges, brush-frayed strokes, rippled reflections, and paper weave: a lake at dawn in three inks and a crimson ([`src/components/print/scene.ts`](src/components/print/scene.ts)) and a Norwegian fjord in spring with a red boathouse as the one warm mark ([`src/components/print/fjordScene.ts`](src/components/print/fjordScene.ts), [`Fjord.tsx`](src/components/print/Fjord.tsx)). [`src/components/print/Print.tsx`](src/components/print/Print.tsx) registers both as symbols once per page and crops them into windows (`<Print sheet="fjord" viewBox="…" />`); the studies live in [`src/app/print`](src/app/print) with [`src/app/print/print.css`](src/app/print/print.css). Every study takes `?sheet=fjord`; the Specimen also takes `&cut=whole` to run the panorama across all twelve columns instead of cutting it into modules.
+
 `/panel` is a shelved design prototype: a grid-led, Dieter Rams–influenced homepage where one panel of 1px rules holds the identity, navigation, three project regions, and a readout band, with a matching Work archive, case study, and About underneath it. It is noindexed and reachable only by URL, kept for when there is more work to show at that density. Its code lives in [`src/components/panel`](src/components/panel), [`src/data/panel.ts`](src/data/panel.ts), [`src/app/panel.css`](src/app/panel.css), and [`src/app/panel`](src/app/panel).
 
 An editorial design-engineering portfolio for backend-heavy product systems, data engineering, and applied ML work. The interface itself is a working sample: typography-led composition, a responsive selected-work stage, authored SVG, purposeful motion, a route-local Three.js study, and reduced-motion fallbacks.
@@ -71,6 +73,7 @@ No component kit, animation package, or analytics script. Space Grotesk and IBM 
 - `/experience`: work history
 - `/resume`: resume page and external document link
 - `/panel`: shelved grid-led homepage prototype (noindexed), with `/panel/work`, `/panel/work/[slug]`, and `/panel/about`
+- `/print`: the print studies (noindexed) — `/print/poster`, `/print/specimen`, `/print/register`, `/print/mirror`; `/print/sheet` and `/print/fjord` show the two drawings alone
 
 ## Editing content
 

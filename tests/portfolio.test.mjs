@@ -24,7 +24,7 @@ test("project slugs are unique and every project has a generated detail route", 
   const source = await read("src/data/projects.ts");
   const slugs = [...source.matchAll(/^\s{4}slug: "([^"]+)",$/gm)].map((match) => match[1]);
 
-  assert.equal(slugs.length, 14);
+  assert.equal(slugs.length, 23);
   assert.equal(new Set(slugs).size, slugs.length);
 
   const routeSource = await read("src/app/projects/[slug]/page.tsx");
