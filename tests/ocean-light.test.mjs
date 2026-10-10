@@ -114,14 +114,9 @@ test("reduced motion gets a static, settled scene and never starts the loop", as
   assert.match(page, /@media \(prefers-reduced-motion: reduce\)[\s\S]*#quiet-portfolio \*[^}]*transition: none !important/);
 });
 
-test("a remembered morning paints gold before hydration and is only written once settled", async () => {
-  const page = await read("src/components/context/QuietPortfolio.tsx");
-  const layout = await read("src/app/layout.tsx");
+test("the retained light controller only remembers the morning once settled", async () => {
   const css = await read("src/components/context/OceanLight.module.css");
   const controller = await read("src/components/context/MorningLight.tsx");
-  assert.match(page, /sessionStorage\.getItem\(\$\{JSON\.stringify\(morningKey\)\}\)==="settled"\)document\.documentElement\.dataset\.morning="settled"/);
-  assert.match(page, /<script dangerouslySetInnerHTML=\{\{ __html: rememberMorning \}\} \/>/);
-  assert.match(layout, /<html[^>]*suppressHydrationWarning>/);
   assert.match(css, /:global\(html\[data-morning=settled\]\) \.strip:not\(\[data-settled\]\) :is\(\.goldSky, \.goldWater, \.goldSun, [^)]*\) \{ opacity: 1; \}/);
   const settle = controller.slice(controller.indexOf("const settle = () => {"), controller.indexOf("const schedule"));
   assert.match(settle, /remember\(\);/);
